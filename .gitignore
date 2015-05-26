@@ -10,4 +10,7 @@ bower_components
 .Trashes
 Thumbs.db
 
+*.css
+*.js
+
 push.sh
