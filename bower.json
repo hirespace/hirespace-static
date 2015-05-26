@@ -1,0 +1,24 @@
+{
+  "name": "hirespace-static",
+  "version": "0.0.0",
+  "homepage": "https://github.com/hirespace/hirespace-static",
+  "authors": [
+    "Slavomir Vojacek <slavomirvojacek@gmail.com>"
+  ],
+  "description": "Hire Space static assets",
+  "keywords": [
+    "hirespace"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.9.3",
+    "rxjs": "~2.5.2"
+  }
+}

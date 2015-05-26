@@ -1,0 +1,22 @@
+{
+  "name": "hirespace-static",
+  "version": "0.0.0",
+  "description": "Hire Space static assets",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hirespace/hirespace-static.git"
+  },
+  "keywords": [
+    "hirespace"
+  ],
+  "author": "Slavomir Vojacek <slavomirvojacek@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hirespace/hirespace-static/issues"
+  },
+  "homepage": "https://github.com/hirespace/hirespace-static"
+}
