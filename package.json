@@ -28,6 +28,11 @@
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.0.1"
+    "gulp-sass": "^2.0.1",
+    "gulp-tsc": "^0.9.5",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.12.32",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.1.4"
   }
 }

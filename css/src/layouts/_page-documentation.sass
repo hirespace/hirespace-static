@@ -1,0 +1,198 @@
+.container-narrow.documentation
+  header
+    padding: ($quadruple-unit-layout * 2) 0
+
+    .logo
+      @extend .block-center
+
+      width: $quadruple-unit-layout * 5
+      height: $quadruple-unit-layout * 1.5
+      background: url("#{$image-base}/logo/logo-primary.svg") no-repeat center center
+      background-size: contain
+      display: block
+
+  section
+    padding: 0 0 $double-unit-layout
+
+    .section-headline
+      font-size: rem(30px)
+      border-bottom: 1px solid $color-grey-50
+      color: $color-grey-700
+
+    &#flex-layouts
+      ul
+        li
+          height: $triple-unit-layout
+          background: $color-grey-50
+          font:
+            size: rem(12px)
+
+          &:nth-of-type(even)
+            background: $color-grey-100
+
+      .box-positioning
+        > div
+          +border-radius(3px)
+
+          padding: $base-unit-layout
+          background: $color-grey-50
+          min-height: $triple-unit-layout * 2
+
+          .box
+            +border-radius(100%)
+
+            width: $double-unit-layout
+            height: $double-unit-layout
+            background: $color-grey-200
+
+  article
+    +clearfix
+
+    position: relative
+    margin: $triple-unit-layout 0
+
+    aside
+      //+clearfix
+
+      float: left
+      width: 70%
+
+      &:first-of-type
+        width: 30%
+        min-height: $base-unit-layout
+
+        p
+          +ellipsis(26%)
+
+          margin: 0
+          color: $color-grey-300
+          font-size: rem(14px)
+          display: block
+          position: absolute
+          left: 0
+          top: 50%
+          height: $base-unit-layout
+          line-height: $base-unit-layout
+          margin-top: -($base-unit-layout / 2)
+
+      .color
+        width: 100%
+        height: $triple-unit-layout
+        line-height: $triple-unit-layout
+        margin: 0 0 $base-unit-layout
+        position: relative
+        text-indent: $base-unit-layout
+        color: white
+        font-size: rem(12px)
+        font-weight: 400
+
+        &.red
+          background: $color-label-numeric
+        &.blue
+          background: $color-blue
+        &.alert-warning
+          background: $color-alert-warning
+        &.alert-info
+          background: $color-alert-info
+        &.alert-success
+          background: $color-alert-success
+        &.alert-error
+          background: $color-alert-error
+
+        &.grey
+          width: 50%
+          float: left
+
+        &.grey-50
+          background: $color-grey-50
+          color: $color-grey-500
+        &.grey-100
+          background: $color-grey-100
+          color: $color-grey-500
+        &.grey-200
+          background: $color-grey-200
+        &.grey-300
+          background: $color-grey-300
+        &.grey-400
+          background: $color-grey-400
+        &.grey-500
+          background: $color-grey-500
+        &.grey-600
+          background: $color-grey-600
+        &.grey-700
+          background: $color-grey-700
+        &.grey-800
+          background: $color-grey-800
+        &.grey-900
+          background: $color-grey-900
+
+        .light, .lighter, .dark, .darker
+          position: absolute
+          width: 25%
+          height: $triple-unit-layout
+          line-height: $triple-unit-layout + rem(1px)
+          bottom: 0
+          left: 25%
+          font-weight: 400
+          font-size: rem(10px)
+
+          &.lighter
+            left: 0%
+
+          &.dark
+            left: 50%
+
+          &.darker
+            left: 75%
+
+        &.color-blue
+          background: $color-blue
+          height: $double-unit-layout * 4
+
+          .lighter
+            background: $color-blue-300
+          .light
+            background: $color-blue-400
+          .dark
+            background: $color-blue-600
+          .darker
+            background: $color-blue-700
+
+        &.color-green
+          background: $color-green
+          height: $double-unit-layout * 4
+
+          .lighter
+            background: $color-green-300
+          .light
+            background: $color-green-400
+          .dark
+            background: $color-green-600
+          .darker
+            background: $color-green-700
+
+        &.color-red
+          background: $color-red
+          height: $double-unit-layout * 4
+
+          .lighter
+            background: $color-red-300
+          .light
+            background: $color-red-400
+          .dark
+            background: $color-red-600
+          .darker
+            background: $color-red-700
+
+        &.color-yellow
+          background: $color-yellow
+          height: $double-unit-layout * 4
+
+          .lighter
+            background: $color-yellow-300
+          .light
+            background: $color-yellow-400
+          .dark
+            background: $color-yellow-600
+          .darker
+            background: $color-yellow-700

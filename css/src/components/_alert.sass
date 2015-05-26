@@ -1,0 +1,38 @@
+.alert
+  +border-radius(3px)
+
+  background: $color-yellow
+  border: 1px solid $color-yellow-700
+
+  color: rgba(0, 0, 0, .4)
+  padding: $base-unit-layout
+  margin: 0 0 $base-unit-layout
+  line-height: 1.5
+  position: relative
+  font:
+    family: $font-family-primary
+    size: $base-unit-font-size
+
+  .close
+    +transition(color .25s)
+
+    color: inherit
+    top: $base-unit-layout
+    right: $base-unit-layout
+    text-decoration: none
+    float: right
+
+    +hover
+      color: rgba(0, 0, 0, .6)
+
+  &.info
+    background: $color-blue
+    border: 1px solid $color-blue-700
+
+  &.success
+    background: $color-green
+    border: 1px solid $color-green-700
+
+  &.error
+    background: $color-red
+    border: 1px solid $color-red-700

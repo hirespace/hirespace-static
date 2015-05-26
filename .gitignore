@@ -1,4 +1,4 @@
-*-cache
+.*-cache
 
 node_modules
 bower_components
@@ -11,6 +11,6 @@ bower_components
 Thumbs.db
 
 *.css
-*.js
+!*.conf.js
 
 push.sh

@@ -1,0 +1,46 @@
+p, h1, h2, h3, h4, h5, h6
+  line-height: $base-unit-line-height
+
+p
+  margin: $base-unit-layout 0
+
+  &:last-child
+    margin-bottom: 0
+
+  &:first-child
+    margin-top: 0
+
+h1, h2, h3
+  margin: $double-unit-layout 0 $base-unit-layout
+  font-weight: 500
+
+h4, h5, h6
+  margin: $base-unit-layout 0 $half-unit-layout
+  font-weight: 500
+
+h1
+  font-size: rem(38px)
+
+h2
+  font-size: rem(34px)
+
+h3
+  font-size: rem(30px)
+
+h4
+  font-size: rem(26px)
+
+h5
+  font-size: rem(22px)
+
+h6
+  font-size: rem(20px)
+
+h1, h2, h3, h4, h5, h6
+  font-family: $font-family-secondary
+
+  &:first-of-type
+    margin-top: 0
+
+  &:last-child
+    margin-bottom: 0

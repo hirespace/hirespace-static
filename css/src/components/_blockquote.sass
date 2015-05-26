@@ -1,0 +1,25 @@
+blockquote
+  border-left: 4px solid $color-grey-100
+  padding-left: $double-half-unit-layout
+  margin: $base-unit-layout 0
+
+  p
+    margin-top: 0
+    font-size: rem(18px)
+
+    &:before, &:after
+      //font-size: rem(26px)
+      font-weight: 700
+      color: $color-grey-300
+
+    &:before
+      content: "\201C"
+      margin-right: $half-unit-layout / 2
+
+    &:after
+      content: "\201D"
+      margin-left: $half-unit-layout / 2
+
+  small
+    font-weight: 700
+    font-size: $base-unit-font-size
