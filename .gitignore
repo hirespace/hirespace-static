@@ -1,0 +1,13 @@
+*-cache
+
+node_modules
+bower_components
+
+.idea
+
+.DS_Store
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+push.sh
