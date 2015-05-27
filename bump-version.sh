@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-printf "\n\n\nDo you wish to bump current version to ${1}?\n\nThe version bump message is: ${2}\n\n"
+printf "\n\n\nDo you wish to bump current version to ${1}?\n\n"
 
 select yn in "Yes" "No"; do
 	case $yn in
