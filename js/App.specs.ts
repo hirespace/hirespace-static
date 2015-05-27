@@ -7,6 +7,10 @@ module hirespace.specs {
             hirespace.App.knockout = {};
         });
 
+        it('should have routes Object', () => {
+            expect(typeof hirespace.App.routes).toEqual('object');
+        });
+
         it('should have subscriptions Object, where services / controllers will get registered', () => {
             expect(typeof hirespace.App.subscriptions).toEqual('object');
         });

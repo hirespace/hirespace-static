@@ -3,7 +3,15 @@
 module hirespace {
     'use strict';
 
+    export interface IRoutes {
+        home: string
+    }
+
     export class App {
+        static routes: IRoutes = {
+            home: 'HomeController'
+        };
+
         static subscriptions: {
             [name: string]: any
         } = {};
@@ -21,20 +29,21 @@ module hirespace {
         }
 
         static register() {
-            _.forEach(hirespace.App.subscriptions, (subscription: any, name: string) => {
-                hirespace.Logger.debug(name + ' successfully registered');
+            let controllerIdentifier = hirespace.Debug.getControllerIdentifier(),
+                controller = hirespace.App.routes[controllerIdentifier];
 
-                if (hirespace.App.knockout[name]) {
-                    ko.applyBindings(subscription);
+            if (controller) {
+                new hirespace.App.subscriptions[controller];
+
+                if(hirespace.App.knockout[controller]) {
+                    ko.applyBindings(new hirespace.App.subscriptions[controller]);
                 }
-
-                return subscription;
-            });
+            }
         }
     }
 
     $(window).load(() => {
-        hirespace.Logger.debug(new Date() + ' || hirespace website now running');
+        hirespace.Logger.debug(new Date() + ' || Hire Space app now running');
 
         hirespace.App.register();
     });
