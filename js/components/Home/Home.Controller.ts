@@ -6,8 +6,6 @@ module hirespace {
 
         constructor() {
             this.name = 'Hello World';
-
-            hirespace.Logger.debug(this.name);
         }
     }
 
