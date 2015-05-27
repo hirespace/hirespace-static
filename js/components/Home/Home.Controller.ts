@@ -6,8 +6,10 @@ module hirespace {
 
         constructor() {
             this.name = 'Hello World';
+
+            hirespace.Logger.debug(this.name);
         }
     }
 
-    hirespace.App.subscribe('HomeController', new HomeController, true);
+    hirespace.App.subscribe('HomeController', HomeController, true);
 }
