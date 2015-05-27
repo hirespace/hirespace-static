@@ -7,7 +7,7 @@ select yn in "Yes" "No"; do
 			bower version $1
                 	npm version $1
 
-                	printf "\n\n\nVersion has been bumped to {$1}\n\n"
+                	printf "\n\n\nVersion has been bumped to ${1}\n\n"
 
 			break;;
 		No )
