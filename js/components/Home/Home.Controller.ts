@@ -8,4 +8,6 @@ module hirespace {
             this.name = 'Hello World';
         }
     }
+
+    hirespace.App.subscribe('HomeController', new HomeController, true);
 }
