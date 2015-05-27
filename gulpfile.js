@@ -26,6 +26,7 @@ gulp.task('staticServer', function () {
 gulp.task('concatVendor', function () {
     gulp.src([
         'bower_components/jquery/dist/jquery.min.js',
+        'bower_components/knockout/dist/knockout.js',
         'bower_components/lodash/lodash.min.js',
         'bower_components/rxjs/dist/rx.all.min.js'
     ])

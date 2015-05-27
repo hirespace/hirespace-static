@@ -9,5 +9,5 @@ module hirespace {
         }
     }
 
-    hirespace.App.subscribe('HomeController', new HomeController);
+    hirespace.App.subscribe('HomeController', new HomeController, true);
 }
