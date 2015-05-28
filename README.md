@@ -1,5 +1,3 @@
-# hirespace-static
-
 ## Setup
 
         # Install node, if you don't have it already
@@ -8,7 +6,8 @@
         # Clone repo
         git clone https://github.com/hirespace/hirespace-static.git
         
-        # Run install script (will prompt for password)
+        # cd in and run install script (will prompt for password)
+        cd hirespace-static
         ./install.sh
 
 ## To run
@@ -27,7 +26,7 @@ before you contribute in form of a pull request.
 
 ### Using git
 
-We use git-flow, and so it would be good to try and stick to the conventions. Please use the default branch prefixes.
+We use git-flow, and so it would be good to try and stick to the convention. Please use the default branch prefixes.
 
                 # Install git-flow
                 brew install git-flow
@@ -41,7 +40,7 @@ To finish a feature, run
 
                 git flow feature finish HS-...
 
-And then create a pull request (**develop** branch).
+and then create a pull request (**develop** branch).
 
 ## Other
 
