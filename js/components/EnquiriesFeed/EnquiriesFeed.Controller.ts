@@ -2,29 +2,29 @@ module hirespace {
     'use strict';
 
     export interface IEnquiriesFeedData {
-        enquiry: {
-            id: string;
-            status: string;
-            budget: number;
-            date: {
-                startDate: string;
-                endDate?: string;
-                flexible: boolean;
-            };
-            time: {
-                startTime: string;
-                endTime?: string;
-                flexible: boolean;
-            }
-            numberOfPeople: number;
-            message: string;
-        }
+        _id: string;
+        budget: number;
         customer: {
-            name: string;
-            email: string;
-            tel: string;
             company: string;
+            email: string;
+            mobile: string;
+            name: string;
+            phone: string;
+        };
+        date: {
+            finishdate?: string;
+            flexible: boolean;
+            startdate: string;
+        };
+        message: string;
+        people: number;
+        status: string;
+        time: {
+            finishtime?: string;
+            flexible: boolean;
+            starttime: string;
         }
+        word: string;
     }
 
     export class EnquiriesFeedController {
@@ -42,7 +42,7 @@ module hirespace {
 
             this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
                 this.enquiriesFeedData.push(response);
-                console.log(response);
+                hirespace.Logger.info(response);
             });
         }
     }

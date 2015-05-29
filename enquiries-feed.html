@@ -23,10 +23,9 @@
     <div class="progress-bar">
         <div class="bar blue" style="width: 25%"></div>
     </div>
-    <span data-bind="text: enquiriesFeedData"></span>
 
     <header>
-        <h1><strong>Conference</strong> at <span>The Barbican</span></h1>
+        <h1><strong data-bind="text: enquiriesFeedData()[0].word">Conference</strong> at <span>The Barbican</span></h1>
         <small class="label blue">New</small>
     </header>
 </div>

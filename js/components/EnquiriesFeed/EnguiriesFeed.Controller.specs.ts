@@ -1,31 +1,7 @@
 module hirespace.specs {
     'use strict';
 
-    let testData = {
-        enquiry: {
-            id: '',
-            status: '',
-            budget: '',
-            date: {
-                startDate: '',
-                endDate: '',
-                flexible: true,
-            },
-            time: {
-                startTime: '',
-                endTime: '',
-                flexible: true
-            },
-            numberOfPeople: '',
-            message: ''
-        },
-        customer: {
-            name: '',
-            email: '',
-            tel: '',
-            company: ''
-        }
-    };
+    let testData = {};
 
     describe('EnquiriesFeed Controller', () => {
         let controller: hirespace.EnquiriesFeedController;
