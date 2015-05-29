@@ -209,10 +209,17 @@ textarea:invalid
   cursor: pointer
   border-color: $color-grey-300
   color: $color-grey-300
+  font:
+    family: $font-family-secondary !important
 
   +hover
     border-color: $color-grey-300
     color: $color-grey-300
+
+  &.large
+    padding: ($base-unit-layout + $quarter-unit-layout) $triple-unit-layout
+    font:
+      size: rem(18px)
 
   &:disabled
     background: $color-grey-50
