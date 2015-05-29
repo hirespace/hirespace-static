@@ -37,8 +37,7 @@ module hirespace {
             this.enquiriesFeedData = ko.observableArray();
 
             this.enquiriesFeedDataPromise = () => {
-                //return $.get('https://hirespacesprintvenues.azurewebsites.net/Enquiries/Enquiry/lolz');
-                return $.get('https://api.github.com/orgs/litchi-io/repos');
+                return $.get('https://hirespacesprintvenues.azurewebsites.net/Enquiries/Enquiry/lolz');
             };
 
             this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
