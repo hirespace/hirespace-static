@@ -1,7 +1,7 @@
 module hirespace {
     'use strict';
 
-    export interface EnquiriesFeedData {
+    export interface IEnquiriesFeedData {
         enquiry: {
             id: string;
             status: string;
@@ -28,6 +28,25 @@ module hirespace {
     }
 
     export class EnquiriesFeedController {
+        // @TODO
+        // why does IEnquiriesFeedData not work?
+        enquiriesFeedData: KnockoutObservableArray<{}>;
+        enquiriesFeedDataPromise: () => JQueryPromise<any>;
 
+        constructor() {
+            this.enquiriesFeedData = ko.observableArray();
+
+            this.enquiriesFeedDataPromise = () => {
+                //return $.get('https://hirespacesprintvenues.azurewebsites.net/Enquiries/Enquiry/lolz');
+                return $.get('https://api.github.com/orgs/litchi-io/repos');
+            };
+
+            this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
+                this.enquiriesFeedData.push(response);
+                console.log(response);
+            });
+        }
     }
+
+    hirespace.App.subscribe('EnquiriesFeedController', EnquiriesFeedController, true);
 }

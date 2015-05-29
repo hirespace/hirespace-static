@@ -9,7 +9,8 @@ module hirespace {
 
     export class App {
         static routes: IRoutes = {
-            home: 'HomeController'
+            home: 'HomeController',
+            'enquiries-feed.html': 'EnquiriesFeedController'
         };
 
         static subscriptions: {
@@ -33,10 +34,10 @@ module hirespace {
                 controller = hirespace.App.routes[controllerIdentifier];
 
             if (controller) {
-                new hirespace.App.subscriptions[controller];
-
-                if(hirespace.App.knockout[controller]) {
+                if (hirespace.App.knockout[controller]) {
                     ko.applyBindings(new hirespace.App.subscriptions[controller]);
+                } else {
+                    new hirespace.App.subscriptions[controller];
                 }
             }
         }
