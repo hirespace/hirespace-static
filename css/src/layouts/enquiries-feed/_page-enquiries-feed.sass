@@ -1,1 +1,38 @@
 .page-enquiries-feed
+  header
+    margin: $double-unit-layout 0
+    position: relative
+
+    h1
+      margin: 0
+      font:
+        size: rem(28px)
+
+    .label
+      position: absolute
+      right: 0
+      top: 50%
+      margin-top: -(rem(12px))
+
+  .details-bar
+    $details-bar-height: $quadruple-unit-layout + $half-unit-layout
+
+    height: $details-bar-height
+    background: $color-grey-50
+    border-top: 1px solid $color-grey-100
+    border-bottom: 1px solid $color-grey-100
+
+    ul
+      +clearfix
+
+      width: 100%
+      padding: 0
+      list-style: none
+      display: table
+      height: $details-bar-height
+
+      li
+        display: table-cell
+        padding-left: 50px
+        height: $details-bar-height
+        line-height: $details-bar-height

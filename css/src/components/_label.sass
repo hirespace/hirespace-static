@@ -1,28 +1,24 @@
 .label
   +border-radius(3px)
 
-  color: $color-grey-300
-  border: 1px solid $color-grey-300
+  color: white
+  background: 1px solid $color-grey-300
   padding: $quarter-unit-layout $half-unit-layout
   font:
     family: $font-family-primary
     size: rem(13px)
 
   &.blue
-    color: $color-blue
-    border-color: $color-blue
+    background: $color-blue
 
   &.yellow
-    color: $color-yellow
-    border-color: $color-yellow
+    background: $color-yellow
 
   &.green
-    color: $color-green
-    border-color: $color-green
+    background: $color-green
 
   &.red
-    color: $color-red
-    border-color: $color-red
+    background: $color-red
 
   &.numeric
     $min-size: $base-unit-layout + $quarter-unit-layout
@@ -37,5 +33,4 @@
     height: $min-size
     line-height: $min-size
     border: 0
-    color: white
     background: $color-label-numeric
