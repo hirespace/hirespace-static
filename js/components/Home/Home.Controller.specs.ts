@@ -12,10 +12,11 @@ module hirespace.specs {
             expect(controller).toBeDefined();
         });
 
-        it('should contain name model with default value "Hello World" in its scope', () => {
+
+        it('should contain name model with default value "Hello, World!" in its scope', () => {
             let name = controller.name;
 
-            expect(name).toEqual('Hello World');
+            expect(name).toEqual('Hello, World!');
         });
     });
 }

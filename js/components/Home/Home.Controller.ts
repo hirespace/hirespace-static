@@ -5,7 +5,7 @@ module hirespace {
         name: string;
 
         constructor() {
-            this.name = 'Hello World';
+            this.name = 'Hello, World!';
         }
     }
 

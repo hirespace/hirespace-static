@@ -47,7 +47,7 @@ gulp.task('concatVendor', function () {
 });
 
 gulp.task('typescript', function () {
-    compileTsc('js');
+    compileTsc('js', false);
 });
 
 gulp.task('test', function (done) {
@@ -85,12 +85,16 @@ function compileTsc(path, isServer) {
             removeComments: true
         }));
 
-    if (!isServer) {
-        src
+    var dest;
+
+    if (isServer == false) {
+        dest = src
             .pipe(concat('app.js'));
+    } else {
+        dest = src;
     }
 
-    src
+    dest
         .pipe(isServer ? gulp.dest(path) : gulp.dest(path + '/dist'))
         .pipe(notify('Typescript compiled'));
 
@@ -113,12 +117,16 @@ function compileTscTests(path, isServer) {
             removeComments: true
         }));
 
-    if (!isServer) {
-        src
+    var dest;
+
+    if (isServer == false) {
+        dest = src
             .pipe(concat('all.js'));
+    } else {
+        dest = src;
     }
 
-    src
+    dest
         .pipe(isServer ? gulp.dest(path) : gulp.dest(path + '/test'))
         .pipe(notify('Tests compiled'))
 }
