@@ -8,3 +8,12 @@ export function index(req:express.Request, res:express.Response) {
 
     return res.render('home/layout');
 }
+
+export function enquiriesFeed(req:express.Request, res:express.Response) {
+    res.locals = {
+        pageTitle: 'Enquiries Feed',
+        bodyClass: 'page-enquiries-feed'
+    };
+
+    return res.render('enquiries-feed/layout');
+}
