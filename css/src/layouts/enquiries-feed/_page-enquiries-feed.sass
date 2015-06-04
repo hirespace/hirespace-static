@@ -20,7 +20,7 @@
   .details-bar
     $details-bar-height: $quadruple-unit-layout + $half-unit-layout
 
-    height: $details-bar-height
+    height: $details-bar-height + rem(2px)
     background: $color-grey-50
     border-top: 1px solid $color-grey-100
     border-bottom: 1px solid $color-grey-100
@@ -35,10 +35,32 @@
       height: $details-bar-height
 
       li
+        @extend .text-right
+
+        padding-left: $double-unit-layout
         display: table-cell
-        padding-left: 50px
         height: $details-bar-height
         line-height: $details-bar-height
+        background:
+          color: transparent
+          position: left center
+          repeat: no-repeat
+          size: 25px
+          image: url("#{$image-base}/icon-set/icon_pin.svg")
+
+        &.separator
+          background: transparent
+          padding: 0 $base-unit-layout
+          position: relative
+
+          span
+            position: absolute
+            display: block
+            left: 50%
+            top: 0
+            height: $details-bar-height
+            width: 1px
+            background: $color-grey-100
 
   main
 
