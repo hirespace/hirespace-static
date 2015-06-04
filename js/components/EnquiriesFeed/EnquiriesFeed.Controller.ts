@@ -28,22 +28,35 @@ module hirespace {
     }
 
     export class EnquiriesFeedController {
-        // @TODO
-        // why does IEnquiriesFeedData not work?
-        enquiriesFeedData: KnockoutObservableArray<{}>;
+        private pollingFrequency: number = hirespace.Debug.getEnvironment() == 'development' ? 36000 * 60 : 36000;
+
+        enquiriesFeedData: KnockoutMapping;
         enquiriesFeedDataPromise: () => JQueryPromise<any>;
 
         constructor() {
-            this.enquiriesFeedData = ko.observableArray();
+            let cacheLastRes: IEnquiriesFeedData;
+
+            // Initial Data to be referenced by a global variable
+            this.enquiriesFeedData = ko.mapping.fromJS({word: 'Word'});
 
             this.enquiriesFeedDataPromise = () => {
                 return $.get('https://hirespacesprintvenues.azurewebsites.net/Enquiries/Enquiry/lolz');
             };
 
-            this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
-                this.enquiriesFeedData.push(response);
-                hirespace.Logger.info(response);
-            });
+            setInterval(() => {
+                this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
+                    if (_.isEqual(response, cacheLastRes)) {
+                        console.debug('View update skipped');
+
+                        return false;
+                    }
+
+                    ko.mapping.fromJS(response, this.enquiriesFeedData);
+                    cacheLastRes = response;
+
+                    hirespace.Logger.info(response);
+                });
+            }, this.pollingFrequency);
         }
     }
 
