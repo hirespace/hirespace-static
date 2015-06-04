@@ -7,10 +7,6 @@ module hirespace.specs {
             hirespace.App.knockout = {};
         });
 
-        it('should have routes Object', () => {
-            expect(typeof hirespace.App.routes).toEqual('object');
-        });
-
         it('should have subscriptions Object, where services / controllers will get registered', () => {
             expect(typeof hirespace.App.subscriptions).toEqual('object');
         });
@@ -39,10 +35,6 @@ module hirespace.specs {
             hirespace.App.subscribe('foobar', () => {}, true);
 
             expect(_.keys(hirespace.App.knockout).length).toEqual(originalKnockoutLength + 1);
-        });
-
-        it('should have register method which runs all the subscriptions', () => {
-            expect(hirespace.App.register).toBeDefined();
         });
     });
 }
