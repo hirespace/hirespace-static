@@ -4,23 +4,33 @@ var autoprefixer = require('gulp-autoprefixer'),
     gulp = require('gulp'),
     karma = require('karma'),
     minifycss = require('gulp-minify-css'),
+    mocha = require('gulp-mocha'),
+    nodemon = require('gulp-nodemon'),
     notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass'),
     typescript = require('gulp-tsc');
 
-gulp.task('staticServer', function () {
-    var server = express(),
-        port = 6065;
-
-    server.use(express.static('./'));
-    server.all('/*', function (req, res) {
-        res.sendFile('index.html', {root: './'});
+gulp.task('server', function () {
+    nodemon({
+        script: 'app/Boot.js',
+        ext: 'ts html',
+        ignore: ['js/**/*', 'README'],
+        env: {NODE_ENV: 'development'},
+        tasks: ['typescript-server', 'test-server']
+    }).on('restart', function () {
+        console.log('Server restarted!');
     });
+});
 
-    server.listen(port);
-    console.log('Express static server running for hirespace-static on port ' + port);
+gulp.task('typescript-server', function () {
+    compileTsc('app', true);
+});
+
+gulp.task('test-server', function () {
+    return gulp.src('app/**/*.spec.js', {read: false})
+        .pipe(mocha({reporter: 'list'}));
 });
 
 gulp.task('concatVendor', function () {
@@ -55,11 +65,11 @@ gulp.task('default', function () {
     gulp.watch('js/**/*.ts', ['typescript']);
     gulp.watch('js/test/*.js', ['test']);
 
-    gulp.start('staticServer');
+    gulp.start('server');
 });
 
-function compileTsc(path) {
-    gulp.src([
+function compileTsc(path, isServer) {
+    var src = gulp.src([
         path + '/**/*.ts',
 
         // Ignore specs, dist, and typings
@@ -73,16 +83,22 @@ function compileTsc(path) {
             sortOutput: true,
             sourceMap: false,
             removeComments: true
-        }))
-        .pipe(concat('app.js'))
-        .pipe(gulp.dest(path + '/dist'))
+        }));
+
+    if (!isServer) {
+        src
+            .pipe(concat('app.js'));
+    }
+
+    src
+        .pipe(isServer ? gulp.dest(path) : gulp.dest(path + '/dist'))
         .pipe(notify('Typescript compiled'));
 
-    compileTscTests(path);
+    compileTscTests(path, isServer);
 }
 
-function compileTscTests(path) {
-    gulp.src([
+function compileTscTests(path, isServer) {
+    var src = gulp.src([
         path + '/**/*.ts',
 
         // Ignore dist and typings
@@ -95,9 +111,15 @@ function compileTscTests(path) {
             sortOutput: true,
             sourceMap: false,
             removeComments: true
-        }))
-        .pipe(concat('all.js'))
-        .pipe(gulp.dest(path + '/test'))
+        }));
+
+    if (!isServer) {
+        src
+            .pipe(concat('all.js'));
+    }
+
+    src
+        .pipe(isServer ? gulp.dest(path) : gulp.dest(path + '/test'))
         .pipe(notify('Tests compiled'))
 }
 
