@@ -2,12 +2,6 @@ module hirespace {
     'use strict';
 
     export class Debug {
-        static getControllerIdentifier(): string {
-            let pathname = window.location.pathname;
-
-            return pathname.split('/')[1];
-        }
-
         static getHost(): string {
             return window.location.host;
         }
