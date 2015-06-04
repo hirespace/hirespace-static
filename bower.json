@@ -22,6 +22,6 @@
     "rxjs": "~2.5.2",
     "jquery": "~2.1.4",
     "knockout": "~3.3.0",
-    "hogan": "~3.0.2"
+    "knockout-mapping": "~2.4.1"
   }
 }
