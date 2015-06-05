@@ -61,8 +61,6 @@
             width: 1px
             background: $color-grey-100
 
-  main
-
   section
     margin: $double-unit-layout 0
     padding: $double-unit-layout 0
@@ -79,3 +77,40 @@
 
         .icon
           top: $base-unit-layout - $quarter-unit-layout
+
+  .modal
+    padding: $double-unit-layout
+
+    header, main, footer
+      padding: 0
+
+    header
+      position: relative
+
+      .close,
+      .undo
+        right: 0
+        top: 0
+        position: absolute
+
+      .heading
+        font:
+          size: rem(24px)
+
+    main
+      +border-radius(3px)
+
+      color: $color-grey-700
+      margin: $base-unit-layout 0
+      background: $color-grey-50
+      border: 0
+      padding: $base-unit-layout
+
+      .contact-info
+        @extend .text-center
+
+        padding: $base-unit-layout
+        margin: 0
+        font:
+          weight: 700
+          size: rem(28px)

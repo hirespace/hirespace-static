@@ -211,13 +211,18 @@ textarea:invalid
   color: $color-grey-300
   font:
     family: $font-family-secondary !important
+    weight: 700
 
   +hover
     border-color: $color-grey-300
     color: $color-grey-300
 
+  &.block
+    width: 100%
+    display: block
+
   &.large
-    padding: ($base-unit-layout + $quarter-unit-layout) $triple-unit-layout
+    padding: $base-unit-layout $triple-unit-layout
     font:
       size: rem(18px)
 

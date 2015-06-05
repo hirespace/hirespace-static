@@ -18,6 +18,9 @@ export function enquiriesFeed(req:express.Request, res:express.Response) {
     };
 
     return res.render('enquiries-feed/layout', {
-        partials: {progressBar: 'enquiries-feed/partials/progress-bar'}
+        partials: {
+            progressBar: 'enquiries-feed/partials/progress-bar',
+            modalCallCustomer: 'enquiries-feed/partials/modal-call-customer'
+        }
     });
 }

@@ -18,6 +18,10 @@
 
     <body class="pre-load en {{ bodyClass }}" data-ctr="{{ controller }}">
 
+        <div class="modal-backdrop">
+            {{> modalCallCustomer }}
+        </div>
+
         {{{ yield }}}
 
         <script src="/assets/js/dist/vendor.js" type="text/javascript"></script>

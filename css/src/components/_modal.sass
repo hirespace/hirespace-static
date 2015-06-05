@@ -1,0 +1,27 @@
+.modal-backdrop
+  +z-index(modal-backdrop)
+
+  top: 0
+  left: 0
+  position: fixed
+  width: 100%
+  height: 100%
+  background: rgba(0,0,0,.8)
+
+  .modal
+    +border-radius(3px)
+
+    margin: ($quadruple-unit-layout * 2) auto
+    width: 100%
+    max-width: rem(600px)
+    background: white
+
+    header,
+    main,
+    footer
+      margin: 0
+      padding: $base-unit-layout
+
+    main
+      border-top: 1px solid $color-grey-50
+      border-bottom: 1px solid $color-grey-50
