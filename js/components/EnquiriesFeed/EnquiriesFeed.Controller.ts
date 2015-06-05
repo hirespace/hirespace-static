@@ -37,7 +37,16 @@ module hirespace {
             let cacheLastRes: IEnquiriesFeedData;
 
             // Initial Data to be referenced by a global variable
-            this.enquiriesFeedData = ko.mapping.fromJS({word: 'Word'});
+            this.enquiriesFeedData = ko.mapping.fromJS({
+                customer: {
+                    company: 'Company Ltd.',
+                    email: 'jamessmith@company.co.uk',
+                    mobile: '+44 (0) 7894 846483',
+                    name: 'James Smith',
+                    phone: ''
+                },
+                word: 'Word'
+            });
 
             this.enquiriesFeedDataPromise = () => {
                 return $.get('https://hirespacesprintvenues.azurewebsites.net/Enquiries/Enquiry/lolz');

@@ -44,6 +44,8 @@ and then create a pull request (**develop** branch).
 
 ## Other
 
+Bootstrap grid system docs [here](http://getbootstrap.com/css/#grid).
+
 Proxy setup:
 
         # Given Pow is installed
