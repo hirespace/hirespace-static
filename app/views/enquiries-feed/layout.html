@@ -2,8 +2,8 @@
     {{> progressBar }}
 
     <header>
-        <h1><strong data-bind="text: enquiriesFeedData.word">Conference</strong> at <span>The Barbican</span></h1>
-        <small class="label blue">New</small>
+        <h1><strong data-bind="text: enquiriesFeedData.word">Word</strong> at <span data-bind="text: enquiriesFeedData.venue">Venue</span></h1>
+        <small class="label blue" data-bind="text: enquiriesFeedData.status">Status</small>
     </header>
 </div>
 
@@ -11,33 +11,37 @@
     <ul class="container-narrow">
         <li class="location">
             <i class="icon pin" size="36"></i>
-            The Barbican
+            <strong data-bind="text: enquiriesFeedData.venue">Venue</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="budget">
             <i class="icon budget" size="36"></i>
-            3,000
+            <strong data-bind="text: enquiriesFeedData.budget">Budget</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="people">
             <i class="icon user" size="36"></i>
-            20 people
+            <strong data-bind="text: enquiriesFeedData.people">Number of People</strong> people
         </li>
         <li class="separator"><span></span></li>
         <li class="date">
             <i class="icon calendar" size="36"></i>
-            20 May 2015
+            <strong data-bind="text: enquiriesFeedData.date.startdate">Start Date</strong>
+            -
+            <strong data-bind="text: enquiriesFeedData.date.finishdate">Finish Date</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="time">
             <i class="icon clock" size="36"></i>
-            10:00 am - 8:00 pm
+            <strong data-bind="text: enquiriesFeedData.time.starttime">Start Time</strong>
+            -
+            <strong data-bind="text: enquiriesFeedData.time.finishtime">Finish Time</strong>
         </li>
     </ul>
 </div>
 
 <main class="container-narrow padding-top-double">
-    <p>Lorem ipsum dolor sit amet..</p>
+    <p data-bind="text: enquiriesFeedData.message">Message</p>
 </main>
 
 <section>
@@ -66,5 +70,5 @@
 </section>
 
 <div class="container-narrow">
-{{> progressBar }}
-    </div>
+    {{> progressBar }}
+</div>

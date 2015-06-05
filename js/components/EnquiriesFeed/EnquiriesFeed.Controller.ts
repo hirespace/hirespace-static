@@ -24,6 +24,7 @@ module hirespace {
             flexible: boolean;
             starttime: string;
         }
+        venue: string;
         word: string;
     }
 
@@ -40,6 +41,8 @@ module hirespace {
 
             // Initial Data to be referenced by a global variable
             this.enquiriesFeedData = ko.mapping.fromJS({
+                _id: '1a',
+                budget: '3,000',
                 customer: {
                     company: 'Company Ltd.',
                     email: 'jamessmith@company.co.uk',
@@ -47,7 +50,21 @@ module hirespace {
                     name: 'James Smith',
                     phone: ''
                 },
-                word: 'Word'
+                date: {
+                    finishdate: '20 August 2015',
+                    flexible: false,
+                    startdate: '18 August 2015',
+                },
+                message: 'Lorem Ipsum',
+                people: 20,
+                status: 'New',
+                time: {
+                    finishtime: '11:00 pm',
+                    flexible: false,
+                    starttime: '10:00 am',
+                },
+                venue: 'The Barbican',
+                word: 'Conference'
             });
 
             this.enquiriesFeedDataPromise = () => {
