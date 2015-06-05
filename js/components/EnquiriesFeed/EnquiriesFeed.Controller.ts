@@ -34,6 +34,8 @@ module hirespace {
         enquiriesFeedDataPromise: () => JQueryPromise<any>;
 
         constructor() {
+            hirespace.Modal.listen();
+
             let cacheLastRes: IEnquiriesFeedData;
 
             // Initial Data to be referenced by a global variable

@@ -1,12 +1,12 @@
-<div class="modal" id="modalCallCustomer">
+<div class="modal is-hidden" id="modalCallCustomer">
     <header>
         <strong class="heading">Thanks for calling <span data-bind="text: enquiriesFeedData.customer.name">Customer Name</span>!</strong>
         <small class="link undo">Undo</small>
     </header>
     <main>
-        <p class="contact-info">+44 (0) 7894 846483</p>
+        <p class="contact-info" data-bind="text: enquiriesFeedData.customer.mobile">Telephone Number</p>
     </main>
     <footer>
-        <button class="block green large">OK</button>
+        <button class="block green large close">OK</button>
     </footer>
 </div>
