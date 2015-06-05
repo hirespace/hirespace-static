@@ -1,7 +1,5 @@
 <div class="container-narrow margin-top-double">
-    <div class="progress-bar">
-        <div class="bar blue" style="width: 25%"></div>
-    </div>
+    {{> progressBar }}
 
     <header>
         <h1><strong data-bind="text: enquiriesFeedData.word">Conference</strong> at <span>The Barbican</span></h1>
@@ -46,14 +44,27 @@
     <nav class="controls container-narrow">
         <div class="row">
             <div class="col-md-4">
-                <button class="green large">Call James</button>
+                <button class="green large">
+                    <i class="icon white telephone" size="36"></i>
+                    Call James
+                </button>
             </div>
             <div class="col-md-4">
-                <button class="green large">Email James</button>
+                <button class="green large">
+                    <i class="icon white envelope" size="36"></i>
+                    Email James
+                </button>
             </div>
             <div class="col-md-4">
-                <button class="green large">Quick Reply</button>
+                <button class="green large">
+                    <i class="icon white comment" size="36"></i>
+                    Quick Reply
+                </button>
             </div>
         </div>
     </nav>
 </section>
+
+<div class="container-narrow">
+{{> progressBar }}
+    </div>

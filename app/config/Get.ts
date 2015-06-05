@@ -17,5 +17,7 @@ export function enquiriesFeed(req:express.Request, res:express.Response) {
         bodyClass: 'page-enquiries-feed'
     };
 
-    return res.render('enquiries-feed/layout');
+    return res.render('enquiries-feed/layout', {
+        partials: {progressBar: 'enquiries-feed/partials/progress-bar'}
+    });
 }
