@@ -1,0 +1,28 @@
+$colors: false
+$icons: budget, calendar, clock, pin, user
+$sizes: 16, 24, 32, 36, 48
+
+.icon
+  position: relative
+  top: 1px
+  line-height: 1
+  display: inline-block
+  background:
+    color: transparent
+    repeat: no-repeat
+    position: center center
+    size: cover
+
+  @each $size in $sizes
+    &[size='#{$size}']
+      width: #{$size}px
+      height: #{$size}px
+
+  @each $icon in $icons
+    @each $color in $colors
+      &.#{$icon}
+        @if $color != false
+          &.#{$color}
+            background-image: url('../images/icon-set/icon_#{$icon}-#{$color}.svg')
+        @else
+          background-image: url('../images/icon-set/icon_#{$icon}.svg')
