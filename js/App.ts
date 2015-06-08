@@ -22,6 +22,8 @@ module hirespace {
     }
 
     $(document).ready(() => {
+        $('body').removeClass('pre-load');
+
         hirespace.Logger.debug('Hire Space app now running');
 
         let controller = $('body').attr('data-ctr');

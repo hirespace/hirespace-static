@@ -96,6 +96,17 @@
         width: 100%
         margin: 0
         padding: 0
+        position: relative
+
+        .toggle-modal
+          +z-index(toggle-modal)
+
+          cursor: pointer
+          position: absolute
+          left: 0
+          top: 0
+          width: 100%
+          height: 100%
 
         .icon
           top: $base-unit-layout - $quarter-unit-layout
