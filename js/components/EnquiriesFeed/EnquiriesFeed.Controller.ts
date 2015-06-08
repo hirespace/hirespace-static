@@ -3,6 +3,9 @@ module hirespace {
 
     declare var initEnquiriesFeedData: IEnquiriesFeedData;
 
+    enum Stage {'New' = 1, 'In Progress', 'Needs Archiving', 'Archived'}
+    enum Status {'Confirmed' = 1, 'Closed'}
+
     export interface IEnquiriesFeedData {
         _id: string;
         budget: number;
@@ -70,6 +73,12 @@ module hirespace {
                     cacheLastRes = response;
                 });
             }, this.pollingFrequency);
+        }
+
+        currentStage() {
+            let stage: Stage = Stage['New'];
+
+            return stage;
         }
     }
 
