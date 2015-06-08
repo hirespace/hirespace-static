@@ -42,24 +42,12 @@ module hirespace {
         private pollingFrequency: number = 60000;
 
         enquiriesFeedData: IEnquiriesFeedData;
-        enquiriesFeedDataPromise: () => JQueryPromise<any>;
         cacheLastRes: IEnquiriesFeedData;
 
         constructor() {
             hirespace.Modal.listen();
 
-            // Referenced by a global variable
-            this.enquiriesFeedData = ko.mapping.fromJS(initEnquiriesFeedData);
-
-            this.enquiriesFeedDataPromise = () => {
-                //return $.get('https://hirespacesprintvenues.azurewebsites.net/Enquiries/Enquiry/lolz');
-                return $.get('/assets/data/enquiriesFeedData.json');
-            };
-
-            this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
-                this.enquiriesFeedData = ko.mapping.fromJS(response, this.enquiriesFeedData);
-                this.cacheLastRes = response;
-            });
+            this.initEnquiriesFeedData();
 
             setInterval(() => {
                 this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
@@ -75,10 +63,47 @@ module hirespace {
             }, this.pollingFrequency);
         }
 
+        enquiriesFeedDataPromise(): JQueryPromise<any> {
+            return $.ajax('/enquiriesFeed/getData', {type: 'get'});
+        }
+
+        initEnquiriesFeedData() {
+            // Referenced by a global variable
+            this.enquiriesFeedData = ko.mapping.fromJS(initEnquiriesFeedData);
+            this.cacheLastRes = initEnquiriesFeedData;
+
+            //this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
+            //    console.log('success:');
+            //    console.log(response);
+            //    ko.mapping.fromJS(response, this.enquiriesFeedData);
+            //    this.cacheLastRes = response;
+            //}, (fail) => {
+            //    console.log('fail:');
+            //    console.log(fail);
+            //
+            //});
+        }
+
+        updateStagePromise(): JQueryPromise<any> {
+            return $.ajax('/enquiriesFeed/updateStage', {type: 'put', data: 'next'});
+        }
+
         currentStage(): string {
             let stageId = this.enquiriesFeedData.stage();
 
             return Stage[stageId];
+        }
+
+        toStage(operator: string | number) {
+            switch (operator) {
+                case 'next':
+                    this.updateStagePromise().then((response: number) => {
+                        this.enquiriesFeedData.stage = () => response;
+                        this.cacheLastRes.stage = () => response;
+                    }, (fail) => {
+                        console.log(fail);
+                    });
+            }
         }
     }
 
