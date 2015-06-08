@@ -22,7 +22,7 @@ module hirespace {
     }
 
     $(document).ready(() => {
-        hirespace.Logger.debug(new Date() + ' || Hire Space app now running');
+        hirespace.Logger.debug('Hire Space app now running');
 
         let controller = $('body').attr('data-ctr');
 

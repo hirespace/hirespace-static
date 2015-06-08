@@ -31,7 +31,7 @@ module hirespace {
                 return false;
             }
 
-            console.debug(message);
+            console.debug(new Date() + ' ' + message);
         }
     }
 }
