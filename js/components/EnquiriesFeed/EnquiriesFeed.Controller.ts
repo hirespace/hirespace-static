@@ -1,12 +1,13 @@
 module hirespace {
     'use strict';
 
-    declare var initEnquiriesFeedData: IEnquiriesFeedData;
+    declare
+    var initEnquiriesFeedData: IEnquiriesFeedData;
 
     enum Stage {'New' = 1, 'In Progress', 'Needs Archiving', 'Archived'}
     enum Status {'Confirmed' = 1, 'Closed'}
 
-    export interface IEnquiriesFeedData {
+    export interface IEnquiriesFeedData extends KnockoutMapping {
         _id: string;
         budget: number;
         customer: {
@@ -23,7 +24,7 @@ module hirespace {
         };
         message: string;
         people: number;
-        status: string;
+        stage: () => number;
         time: {
             finishtime?: string;
             flexible: boolean;
@@ -40,13 +41,12 @@ module hirespace {
     export class EnquiriesFeedController {
         private pollingFrequency: number = 60000;
 
-        enquiriesFeedData: KnockoutMapping;
+        enquiriesFeedData: IEnquiriesFeedData;
         enquiriesFeedDataPromise: () => JQueryPromise<any>;
+        cacheLastRes: IEnquiriesFeedData;
 
         constructor() {
             hirespace.Modal.listen();
-
-            let cacheLastRes: IEnquiriesFeedData;
 
             // Referenced by a global variable
             this.enquiriesFeedData = ko.mapping.fromJS(initEnquiriesFeedData);
@@ -58,27 +58,27 @@ module hirespace {
 
             this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
                 this.enquiriesFeedData = ko.mapping.fromJS(response, this.enquiriesFeedData);
-                cacheLastRes = response;
+                this.cacheLastRes = response;
             });
 
             setInterval(() => {
                 this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
-                    if (_.isEqual(response, cacheLastRes)) {
+                    if (_.isEqual(response, this.cacheLastRes)) {
                         hirespace.Logger.debug('View update skipped');
 
                         return false;
                     }
 
                     ko.mapping.fromJS(response, this.enquiriesFeedData);
-                    cacheLastRes = response;
+                    this.cacheLastRes = response;
                 });
             }, this.pollingFrequency);
         }
 
-        currentStage() {
-            let stage: Stage = Stage['New'];
+        currentStage(): string {
+            let stageId = this.enquiriesFeedData.stage();
 
-            return stage;
+            return Stage[stageId];
         }
     }
 
