@@ -1,6 +1,8 @@
 module hirespace {
     'use strict';
 
+    declare var initEnquiriesFeedData: IEnquiriesFeedData;
+
     export interface IEnquiriesFeedData {
         _id: string;
         budget: number;
@@ -29,7 +31,7 @@ module hirespace {
     }
 
     export class EnquiriesFeedController {
-        private pollingFrequency: number = hirespace.Debug.getEnvironment() == 'development' ? 36000 * 60 : 36000;
+        private pollingFrequency: number = 60000;
 
         enquiriesFeedData: KnockoutMapping;
         enquiriesFeedDataPromise: () => JQueryPromise<any>;
@@ -39,50 +41,29 @@ module hirespace {
 
             let cacheLastRes: IEnquiriesFeedData;
 
-            // Initial Data to be referenced by a global variable
-            this.enquiriesFeedData = ko.mapping.fromJS({
-                _id: '1a',
-                budget: '3,000',
-                customer: {
-                    company: 'Company Ltd.',
-                    email: 'jamessmith@company.co.uk',
-                    mobile: '+44 (0) 7894 846483',
-                    name: 'James Smith',
-                    phone: ''
-                },
-                date: {
-                    finishdate: '20 August 2015',
-                    flexible: false,
-                    startdate: '18 August 2015',
-                },
-                message: 'We also require overnight bedrooms, breakout rooms and WIFI. We need a registration area too including staffing, badges etc.',
-                people: 20,
-                status: 'New',
-                time: {
-                    finishtime: '11:00 pm',
-                    flexible: false,
-                    starttime: '10:00 am',
-                },
-                venue: 'The Barbican',
-                word: 'Conference'
-            });
+            // Referenced by a global variable
+            this.enquiriesFeedData = ko.mapping.fromJS(initEnquiriesFeedData);
 
             this.enquiriesFeedDataPromise = () => {
-                return $.get('https://hirespacesprintvenues.azurewebsites.net/Enquiries/Enquiry/lolz');
+                //return $.get('https://hirespacesprintvenues.azurewebsites.net/Enquiries/Enquiry/lolz');
+                return $.get('/assets/data/enquiriesFeedData.json');
             };
+
+            this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
+                this.enquiriesFeedData = ko.mapping.fromJS(response, this.enquiriesFeedData);
+                cacheLastRes = response;
+            });
 
             setInterval(() => {
                 this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
                     if (_.isEqual(response, cacheLastRes)) {
-                        console.debug('View update skipped');
+                        hirespace.Logger.debug('View update skipped');
 
                         return false;
                     }
 
                     ko.mapping.fromJS(response, this.enquiriesFeedData);
                     cacheLastRes = response;
-
-                    hirespace.Logger.info(response);
                 });
             }, this.pollingFrequency);
         }
