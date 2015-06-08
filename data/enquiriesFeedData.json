@@ -21,6 +21,10 @@
     "flexible": false,
     "starttime": "10:00 am"
   },
-  "venue": "The Barbican",
+  "venue": {
+    "manager": "Paul Frank",
+    "name": "The Barbican",
+    "team": "The Barbican Team"
+  },
   "word": "Conference"
 }

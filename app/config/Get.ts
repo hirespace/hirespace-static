@@ -21,7 +21,8 @@ export function enquiriesFeed(req:express.Request, res:express.Response) {
         partials: {
             progressBar: 'enquiries-feed/partials/progress-bar',
             modalCallCustomer: 'enquiries-feed/partials/modal-call-customer',
-            modalEmailCustomer: 'enquiries-feed/partials/modal-email-customer'
+            modalEmailCustomer: 'enquiries-feed/partials/modal-email-customer',
+            modalQuickReply: 'enquiries-feed/partials/modal-quick-reply'
         }
     });
 }

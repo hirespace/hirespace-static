@@ -26,7 +26,11 @@ module hirespace {
             flexible: boolean;
             starttime: string;
         }
-        venue: string;
+        venue: {
+            manager: string;
+            name: string;
+            team: string;
+        };
         word: string;
     }
 

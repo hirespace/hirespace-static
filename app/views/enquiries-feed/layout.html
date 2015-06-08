@@ -3,7 +3,7 @@
 
     <header>
         <h1><strong data-bind="text: enquiriesFeedData.word">Word</strong> at <span
-                data-bind="text: enquiriesFeedData.venue">Venue</span></h1>
+                data-bind="text: enquiriesFeedData.venue.name">Venue</span></h1>
         <small class="label blue" data-bind="text: enquiriesFeedData.status">Status</small>
     </header>
 </div>
@@ -12,7 +12,7 @@
     <ul class="container-narrow">
         <li class="location">
             <i class="icon pin" size="36"></i>
-            <strong data-bind="text: enquiriesFeedData.venue">Venue</strong>
+            <strong data-bind="text: enquiriesFeedData.venue.name">Venue</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="budget">
@@ -72,7 +72,7 @@
                 </button>
             </div>
             <div class="col-md-4">
-                <button class="green large toggle-modal">
+                <button class="green large toggle-modal" data-toggle-modal="modalQuickReply">
                     <i class="icon white comment" size="36"></i>
                     Quick Reply
                 </button>
@@ -92,7 +92,7 @@
 </section>
 
 <script>
-    // Initial Data - referenced by a global variable
+    // Initial Data
     var initEnquiriesFeedData = {
         _id: '',
         budget: '',
@@ -116,7 +116,11 @@
             flexible: '',
             starttime: ''
         },
-        venue: '',
+        venue: {
+            manager: '',
+            name: '',
+            team: ''
+        },
         word: ''
     };
 </script>

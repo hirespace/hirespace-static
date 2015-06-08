@@ -31,8 +31,8 @@ button,
 
     border-color: $color-grey-200
 
-    &:focus
-      border-color: $color-grey-300
+  &:focus
+    border-color: $color-grey-300
 
 select
   -webkit-appearance: none
@@ -222,7 +222,7 @@ textarea:invalid
     display: block
 
   &.large
-    padding: $base-unit-layout $triple-unit-layout
+    padding: $base-unit-layout $double-unit-layout
     font:
       size: rem(18px)
 
@@ -257,3 +257,16 @@ textarea:invalid
     border-color: $color-yellow-600
     background: $color-yellow
     color: white
+
+  &.add-attachment
+    border-color: $color-grey-100
+    color: $color-grey-700
+    padding-left: $triple-unit-layout
+    font:
+      weight: 500
+    background:
+      color: $color-grey-50
+      image: url('../images/icon-set/icon_attachment.svg')
+      position: $base-unit-layout center
+      repeat: no-repeat
+      size: 30px
