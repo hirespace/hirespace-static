@@ -61,6 +61,28 @@
             width: 1px
             background: $color-grey-100
 
+  .customer-details
+    .customer
+      +clearfix
+
+      img
+        float: left
+        display: block
+        max-width: $triple-unit-layout
+        max-height: $triple-unit-layout
+
+      .details
+        float: left
+        padding: rem(7px) 0 0 $base-unit-layout
+
+        strong, small
+          +ellipsis
+
+          display: block
+
+        strong
+          padding-bottom: $quarter-unit-layout
+
   section
     margin: $double-unit-layout 0
     padding: $double-unit-layout 0
@@ -77,6 +99,18 @@
 
         .icon
           top: $base-unit-layout - $quarter-unit-layout
+
+  button.view-more
+    +box-shadow(none)
+    @extend .text-center
+
+    width: 100%
+    border: 0
+    padding: $double-half-unit-layout $base-unit-layout
+    background: $color-grey-50
+    font:
+      size: rem(20px)
+      weight: 500
 
   .modal
     padding: $double-unit-layout
@@ -103,15 +137,3 @@
         font:
           weight: 700
           size: rem(28px)
-
-  button.view-more
-    +box-shadow(none)
-    @extend .text-center
-
-    width: 100%
-    border: 0
-    padding: $double-half-unit-layout $base-unit-layout
-    background: $color-grey-50
-    font:
-      size: rem(20px)
-      weight: 500

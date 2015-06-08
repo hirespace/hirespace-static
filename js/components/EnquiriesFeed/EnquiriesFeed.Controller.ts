@@ -55,7 +55,7 @@ module hirespace {
                     flexible: false,
                     startdate: '18 August 2015',
                 },
-                message: 'Lorem Ipsum',
+                message: 'We also require overnight bedrooms, breakout rooms and WIFI. We need a registration area too including staffing, badges etc.',
                 people: 20,
                 status: 'New',
                 time: {

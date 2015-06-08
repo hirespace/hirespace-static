@@ -41,8 +41,19 @@
     </ul>
 </div>
 
-<main class="container-narrow padding-top-double">
-    <p data-bind="text: enquiriesFeedData.message">Message</p>
+<main class="customer-details container-narrow padding-top-double">
+    <aside class="customer col-md-4">
+        <img src="/assets/images/avatar/anonymous.png" alt="Anonymous Avatar"/>
+
+        <div class="details">
+            <strong data-bind="text: enquiriesFeedData.customer.name">Customer Name</strong>
+            <small data-bind="text: enquiriesFeedData.customer.company">Customer Company</small>
+        </div>
+    </aside>
+
+    <aside class="message col-md-8">
+        <p data-bind="text: enquiriesFeedData.message">Message</p>
+    </aside>
 </main>
 
 <section>
