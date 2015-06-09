@@ -74,6 +74,15 @@ module hirespace.specs {
             expect(controller.bookingDataObservable).toBeDefined();
         });
 
+        it('should populate the uiConfig Object containing settings for the status bar, sections, etc', () => {
+            controller.initUiConfig();
+
+            let uiConfig = controller.uiConfig;
+
+            expect(uiConfig['New'].progressBar).toEqual('new');
+            expect(uiConfig['New'].view).toEqual('new');
+        });
+
         it('should return bookingDataPromise', () => {
             let bookingDataPromise = controller.bookingDataPromise();
 
@@ -88,6 +97,12 @@ module hirespace.specs {
             updateBookingDataPromise.then((data) => {
                 expect(data).toEqual({});
             });
+        });
+
+        it('it should have a method updating the progressBar UI', () => {
+            let updateProgressBar = controller.updateProgressBar('New');
+
+            expect(updateProgressBar).toEqual('new');
         });
     });
 }

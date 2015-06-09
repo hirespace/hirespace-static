@@ -1,12 +1,13 @@
 .progress-bar
-  +border-radius(6px)
+  +border-radius(8px)
 
   background: $color-grey-50
   width: 100%
   height: $quarter-unit-layout
 
   .bar
-    +border-radius(6px)
+    +border-radius(8px)
+    +transition(width .25s)
 
     min-width: $quarter-unit-layout
     background: $color-black
@@ -23,3 +24,13 @@
 
     &.red
       background: $color-red
+
+  &.new
+    .bar
+      width: 25%
+      background: $color-blue
+
+  &.in-progress
+    .bar
+      width: 50%
+      background: $color-green
