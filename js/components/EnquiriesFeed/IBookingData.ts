@@ -41,7 +41,7 @@ module hirespace {
 
     export interface IBookingData {
         _id: string;
-        budget: number;
+        budget: string;
         customer: ICustomer;
         date: IDate;
         message: string;
@@ -49,7 +49,8 @@ module hirespace {
         stage: string;
         status: string;
         suggestedCriteria: ISuggestedCriteria;
-        time: ITime
+        time: ITime;
+        timeToFollowUp: Date;
         venue: IVenue;
         word: string;
         internalNote: string;

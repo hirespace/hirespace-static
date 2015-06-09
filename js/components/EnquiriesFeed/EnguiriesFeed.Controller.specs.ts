@@ -25,6 +25,8 @@ let initBookingData = {
         "flexible": false,
         "starttime": "10:00 am"
     },
+    // This changes on Update Later & ...
+    "timeToFollowUp": new Date(),
     "venue": {
         "manager": "Paul Frank",
         "name": "The Barbican",
@@ -104,5 +106,18 @@ module hirespace.specs {
 
             expect(updateProgressBar).toEqual('new');
         });
+
+        it('should update the bookingData when update has been triggered', () => {
+            let newBookingData: IBookingData = initBookingData;
+            newBookingData.stage = 'In Progress';
+
+            controller.updateBookingData(newBookingData);
+
+            expect(controller.bookingData.stage).toEqual('In Progress');
+        });
+
+        //it('should get the default stage = New', () => {
+            //let defaultStage = controller.uiConfig.stage;
+        //});
     });
 }
