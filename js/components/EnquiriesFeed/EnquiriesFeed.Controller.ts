@@ -2,108 +2,47 @@ module hirespace {
     'use strict';
 
     declare
-    var initEnquiriesFeedData: IEnquiriesFeedData;
-
-    enum Stage {'New' = 1, 'In Progress', 'Needs Archiving', 'Archived'}
-    enum Status {'Confirmed' = 1, 'Closed'}
-
-    export interface IEnquiriesFeedData extends KnockoutMapping {
-        _id: string;
-        budget: number;
-        customer: {
-            company: string;
-            email: string;
-            mobile: string;
-            name: string;
-            phone: string;
-        };
-        date: {
-            finishdate?: string;
-            flexible: boolean;
-            startdate: string;
-        };
-        message: string;
-        people: number;
-        stage: () => number;
-        time: {
-            finishtime?: string;
-            flexible: boolean;
-            starttime: string;
-        }
-        venue: {
-            manager: string;
-            name: string;
-            team: string;
-        };
-        word: string;
-    }
+    var initBookingData: IBookingData;
 
     export class EnquiriesFeedController {
-        private pollingFrequency: number = 60000;
+        private pollingFrequency: number = 5000;
 
-        enquiriesFeedData: IEnquiriesFeedData;
-        cacheLastRes: IEnquiriesFeedData;
+        bookingData: IBookingData;
+        bookingDataObservable: KnockoutMapping;
 
         constructor() {
             hirespace.Modal.listen();
 
-            this.initEnquiriesFeedData();
+            this.initBookingData();
 
             setInterval(() => {
-                this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
-                    if (_.isEqual(response, this.cacheLastRes)) {
+                this.bookingDataPromise().then((response: IBookingData) => {
+                    if (_.isEqual(response, this.bookingData)) {
                         hirespace.Logger.debug('View update skipped');
 
                         return false;
                     }
 
-                    ko.mapping.fromJS(response, this.enquiriesFeedData);
-                    this.cacheLastRes = response;
+                    hirespace.Logger.debug('New Booking Data loaded');
+
+                    ko.mapping.fromJS(response, this.bookingDataObservable);
+                    this.bookingData = response;
                 });
             }, this.pollingFrequency);
         }
 
-        enquiriesFeedDataPromise(): JQueryPromise<any> {
-            return $.ajax('/enquiriesFeed/getData', {type: 'get'});
+        initBookingData() {
+            this.bookingData = initBookingData;
+            this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
+            hirespace.Logger.debug('Booking Data initialised from a local source');
         }
 
-        initEnquiriesFeedData() {
-            // Referenced by a global variable
-            this.enquiriesFeedData = ko.mapping.fromJS(initEnquiriesFeedData);
-            this.cacheLastRes = initEnquiriesFeedData;
-
-            //this.enquiriesFeedDataPromise().then((response: IEnquiriesFeedData) => {
-            //    console.log('success:');
-            //    console.log(response);
-            //    ko.mapping.fromJS(response, this.enquiriesFeedData);
-            //    this.cacheLastRes = response;
-            //}, (fail) => {
-            //    console.log('fail:');
-            //    console.log(fail);
-            //
-            //});
+        bookingDataPromise(): JQueryPromise<any> {
+            return $.ajax(hirespace.Config.getApiRoutes().bookings.getData, {type: 'get'});
         }
 
-        updateStagePromise(): JQueryPromise<any> {
-            return $.ajax('/enquiriesFeed/updateStage', {type: 'put', data: 'next'});
-        }
-
-        currentStage(): string {
-            let stageId = this.enquiriesFeedData.stage();
-
-            return Stage[stageId];
-        }
-
-        toStage(operator: string | number) {
-            switch (operator) {
-                case 'next':
-                    this.updateStagePromise().then((response: number) => {
-                        this.enquiriesFeedData.stage = () => response;
-                        this.cacheLastRes.stage = () => response;
-                    }, (fail) => {
-                        console.log(fail);
-                    });
-            }
+        updateBookingDataPromise(): JQueryPromise<any> {
+            return $.ajax(hirespace.Config.getApiRoutes().bookings.updateData, {type: 'get'});
         }
     }
 

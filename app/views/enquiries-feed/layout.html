@@ -2,9 +2,9 @@
     {{> progressBar }}
 
     <header>
-        <h1><strong data-bind="text: enquiriesFeedData.word">Word</strong> at <span
-                data-bind="text: enquiriesFeedData.venue.name">Venue</span></h1>
-        <small class="label blue" data-bind="text: enquiriesFeedData.stage">Stage</small>
+        <h1><strong data-bind="text: bookingDataObservable.word">Word</strong> at <span
+                data-bind="text: bookingDataObservable.venue.name">Venue</span></h1>
+        <small class="label blue" data-bind="text: bookingDataObservable.stage">Stage</small>
     </header>
 </div>
 
@@ -12,31 +12,31 @@
     <ul class="container-narrow">
         <li class="location">
             <i class="icon pin" size="36"></i>
-            <strong data-bind="text: enquiriesFeedData.venue.name">Venue</strong>
+            <strong data-bind="text: bookingDataObservable.venue.name">Venue</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="budget">
             <i class="icon budget" size="36"></i>
-            <strong data-bind="text: enquiriesFeedData.budget">Budget</strong>
+            <strong data-bind="text: bookingDataObservable.budget">Budget</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="people">
             <i class="icon user" size="36"></i>
-            <strong data-bind="text: enquiriesFeedData.people">Number of People</strong> people
+            <strong data-bind="text: bookingDataObservable.people">Number of People</strong> people
         </li>
         <li class="separator"><span></span></li>
         <li class="date">
             <i class="icon calendar" size="36"></i>
-            <strong data-bind="text: enquiriesFeedData.date.startdate">Start Date</strong>
+            <strong data-bind="text: bookingDataObservable.date.startdate">Start Date</strong>
             -
-            <strong data-bind="text: enquiriesFeedData.date.finishdate">Finish Date</strong>
+            <strong data-bind="text: bookingDataObservable.date.finishdate">Finish Date</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="time">
             <i class="icon clock" size="36"></i>
-            <strong data-bind="text: enquiriesFeedData.time.starttime">Start Time</strong>
+            <strong data-bind="text: bookingDataObservable.time.starttime">Start Time</strong>
             -
-            <strong data-bind="text: enquiriesFeedData.time.finishtime">Finish Time</strong>
+            <strong data-bind="text: bookingDataObservable.time.finishtime">Finish Time</strong>
         </li>
     </ul>
 </div>
@@ -46,13 +46,13 @@
         <img src="/assets/images/avatar/anonymous.png" alt="Anonymous Avatar"/>
 
         <div class="details">
-            <strong data-bind="text: enquiriesFeedData.customer.name">Customer Name</strong>
-            <small data-bind="text: enquiriesFeedData.customer.company">Customer Company</small>
+            <strong data-bind="text: bookingDataObservable.customer.name">Customer Name</strong>
+            <small data-bind="text: bookingDataObservable.customer.company">Customer Company</small>
         </div>
     </aside>
 
     <aside class="message col-md-8">
-        <p data-bind="text: enquiriesFeedData.message">Message</p>
+        <p data-bind="text: bookingDataObservable.message">Message</p>
     </aside>
 </main>
 
@@ -96,7 +96,7 @@
 
 <script>
     // Initial Data
-    var initEnquiriesFeedData = {
+    var initBookingData = {
         "_id": "1a",
         "budget": "3,000",
         "customer": {
@@ -104,7 +104,7 @@
             "email": "jamessmith@company.co.uk",
             "mobile": "+44 (0) 7894 846483",
             "name": "James Smith",
-            "phone": ""
+            "phone": false
         },
         "date": {
             "finishdate": "20 August 2015",
@@ -113,7 +113,9 @@
         },
         "message": "We also require overnight bedrooms, breakout rooms and WIFI. We need a registration area too including staffing, badges etc.",
         "people": 20,
-        "stage": 1,
+        "stage": "New",
+        "status": "",
+        "suggestedCriteria": {},
         "time": {
             "finishtime": "11:00 pm",
             "flexible": false,
@@ -124,6 +126,7 @@
             "name": "The Barbican",
             "team": "The Barbican Team"
         },
-        "word": "Conference"
+        "word": "Conference",
+        "internalNote": "Josh copied the details into our internal spreadsheet"
     };
 </script>

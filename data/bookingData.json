@@ -6,7 +6,7 @@
     "email": "jamessmith@company.co.uk",
     "mobile": "+44 (0) 7894 846483",
     "name": "James Smith",
-    "phone": ""
+    "phone": false
   },
   "date": {
     "finishdate": "20 August 2015",
@@ -15,7 +15,9 @@
   },
   "message": "We also require overnight bedrooms, breakout rooms and WIFI. We need a registration area too including staffing, badges etc.",
   "people": 20,
-  "stage": 1,
+  "stage": "In Progress",
+  "status": "",
+  "suggestedCriteria": {},
   "time": {
     "finishtime": "11:00 pm",
     "flexible": false,
@@ -26,5 +28,6 @@
     "name": "The Barbican",
     "team": "The Barbican Team"
   },
-  "word": "Conference"
+  "word": "Conference",
+  "internalNote": "Josh copied the details into our internal spreadsheet"
 }

@@ -8,7 +8,10 @@ module hirespace {
     }
 
     export interface IApiRoutes {
-        search: string;
+        bookings: {
+            getData: string;
+            updateData: string;
+        };
     }
 
     let apiUrls: IApiUrls = {
@@ -18,7 +21,10 @@ module hirespace {
     };
 
     let apiRoutes: IApiRoutes = {
-        search: 'search/'
+        bookings: {
+            getData: '/assets/data/bookingData.json',
+            updateData: '/assets/data/updateBookingData.json'
+        }
     };
 
     let productionHost: string = 'hirespace.com';
