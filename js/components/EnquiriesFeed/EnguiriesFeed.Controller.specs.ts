@@ -81,8 +81,7 @@ module hirespace.specs {
 
             let uiConfig = controller.uiConfig;
 
-            expect(uiConfig['New'].progressBar).toEqual('new');
-            expect(uiConfig['New'].view).toEqual('new');
+            expect(uiConfig.defaultStage).toEqual('New');
         });
 
         it('should return bookingDataPromise', () => {

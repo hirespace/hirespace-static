@@ -1,10 +1,26 @@
 module hirespace {
     'use strict';
 
-    // @TODO
-    // think about implementing the correct stage and status schemas
-    enum Stage {'New' = 1, 'In Progress', 'Needs Archiving', 'Archived'}
-    enum Status {'Won' = 1, 'Lost', 'Voided'}
+    export var enquiriesFeedStages: IStageStatus = {
+        'New': 'new',
+        'In Progress': 'in-progress',
+        'Needs Archiving': 'needs-archiving',
+        'Archived': 'archived'
+    };
+
+    export var enquiriesFeedStatuses: IStageStatus = {
+        'Confirmed': 'confirmed',
+        'Closed': 'closed',
+        'Voided': 'voided'
+    };
+
+    interface IStageStatus {
+        [key: string]: string;
+    }
+
+    interface IStage {
+        [key: string]: string;
+    }
 
     interface ICustomer {
         company: string;

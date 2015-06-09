@@ -4,16 +4,12 @@ module hirespace {
     declare
     var initBookingData: IBookingData;
 
-    interface IUiConfigSection {
-        progressBar: string;
-        view: string;
-    }
+    //interface IUiConfigSection {
+    //    view: string;
+    //}
 
     interface IUiConfig {
-        'New': IUiConfigSection;
-        'In Progress': IUiConfigSection;
-        'Needs Archiving': IUiConfigSection;
-        'Archived': IUiConfigSection;
+        defaultStage: string;
     }
 
     export class EnquiriesFeedController {
@@ -51,25 +47,10 @@ module hirespace {
 
         initUiConfig() {
             this.uiConfig = {
-                'New': {
-                    progressBar: 'new',
-                    view: 'new'
-                },
-                'In Progress': {
-                    progressBar: 'in-progress',
-                    view: 'in-progress'
-                },
-                'Needs Archiving': {
-                    progressBar: 'needs-archiving',
-                    view: 'needs-archiving'
-                },
-                'Archived': {
-                    progressBar: 'archived',
-                    view: 'archived'
-                }
+                defaultStage: _.first(_.keys(enquiriesFeedStages))
             };
 
-            this.updateProgressBar('New');
+            this.updateProgressBar(this.uiConfig.defaultStage);
         }
 
         bookingDataPromise(): JQueryPromise<any> {
@@ -81,7 +62,7 @@ module hirespace {
         }
 
         updateProgressBar(toStage: string) {
-            let uiClass = this.uiConfig[toStage].progressBar;
+            let uiClass = enquiriesFeedStages[toStage];
 
             $('.page-enquiries-feed .progress-bar').addClass(uiClass);
 
