@@ -1,6 +1,18 @@
 module hirespace.specs {
     'use strict';
 
+    let fakeObject = {
+        bookingData: {
+            _id: '',
+            budget: '3000',
+            stage: 'In Progress',
+            status: 'Closed',
+            venue: {
+                name: 'Barbican'
+            }
+        }
+    };
+
     let fakeMetaData = {
         valid: [
             {
@@ -14,21 +26,21 @@ module hirespace.specs {
                 }
             },
             {
-                testSentence: "show: bookingData.status=='Closed'",
+                testSentence: "show: bookingData.status==Closed",
                 action: 'show',
                 assertion: {
                     object: 'bookingData.status',
-                    sentence: "bookingData.status=='Closed'",
+                    sentence: "bookingData.status==Closed",
                     type: 'equality',
                     value: 'Closed'
                 }
             },
             {
-                testSentence: "hide:bookingData.budget =='3000'",
+                testSentence: "hide:bookingData.budget ==3000",
                 action: 'hide',
                 assertion: {
                     object: 'bookingData.budget',
-                    sentence: "bookingData.budget =='3000'",
+                    sentence: "bookingData.budget ==3000",
                     type: 'equality',
                     value: '3000'
                 }
@@ -54,7 +66,10 @@ module hirespace.specs {
                 }
             }
         ],
-        invalid: []
+        //invalid: [
+        //    "show: bookingData.stage = 'In Progress'",
+        //    "show: bookingData.status==Closed"
+        //]
     };
 
     describe('View module', () => {
@@ -76,6 +91,13 @@ module hirespace.specs {
                     expect(_.isEqual(assertionData.assertion, data.assertion)).toBe(true);
                 });
             });
+        });
+
+        fit('should get the value of an existing object key', () => {
+            let object = 'bookingData.stage';
+
+            let value = hirespace.View.getValue(object, fakeObject);
+            console.log(value);
         });
     });
 }
