@@ -36,6 +36,16 @@ module hirespace {
                     this.updateBookingData(response);
                 });
             }, this.pollingFrequency);
+
+            $('.next-step').click((e) => {
+                let toStep = $(e.target).attr('data-step');
+                this.updateBookingDataPromise().then(() => {
+                    this.bookingData.stage = toStep;
+
+                    this.updateBookingData(this.bookingData);
+                    this.updateProgressBar(toStep);
+                });
+            });
         }
 
         initBookingData() {
@@ -64,7 +74,7 @@ module hirespace {
         updateProgressBar(toStage: string) {
             let uiClass = enquiriesFeedStages[toStage];
 
-            $('.page-enquiries-feed .progress-bar').addClass(uiClass);
+            $('.page-enquiries-feed .progress-bar, .page-enquiries-feed .label.stage').addClass(uiClass);
 
             return uiClass;
         }

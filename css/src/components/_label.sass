@@ -1,24 +1,28 @@
 .label
   +border-radius(3px)
+  +transition(background .25s)
 
   color: white
-  background: 1px solid $color-grey-300
+  background: $color-black
   padding: $quarter-unit-layout $half-unit-layout
   font:
     family: $font-family-primary
     size: rem(13px)
 
-  &.blue
+  &.blue, &.stage.new
     background: $color-blue
 
-  &.yellow
+  &.yellow, &.stage.needs-archiving
     background: $color-yellow
 
-  &.green
+  &.green, &.stage.in-progress
     background: $color-green
 
   &.red
     background: $color-red
+
+  &.stage.archived
+    background: $color-black
 
   &.numeric
     $min-size: $base-unit-layout + $quarter-unit-layout
