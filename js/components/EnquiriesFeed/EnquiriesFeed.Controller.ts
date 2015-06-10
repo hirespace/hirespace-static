@@ -4,16 +4,12 @@ module hirespace {
     declare
     var initBookingData: IBookingData;
 
-    //interface IUiConfigSection {
-    //    view: string;
-    //}
-
     interface IUiConfig {
         defaultStage: string;
     }
 
     export class EnquiriesFeedController {
-        private pollingFrequency: number = 60000;
+        private pollingFrequency: number = 30000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -43,7 +39,6 @@ module hirespace {
                     this.bookingData.stage = toStep;
 
                     this.updateBookingData(this.bookingData);
-                    this.updateProgressBar(toStep);
                 });
             });
         }
@@ -52,15 +47,17 @@ module hirespace {
             this.bookingData = initBookingData;
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
+            this.updateProgressBar();
+
             hirespace.Logger.debug('Booking Data initialised from a local source');
         }
 
+        // @TODO
+        // investigate if this mehtod is actually needed
         initUiConfig() {
             this.uiConfig = {
                 defaultStage: _.first(_.keys(enquiriesFeedStages))
             };
-
-            this.updateProgressBar(this.uiConfig.defaultStage);
         }
 
         bookingDataPromise(): JQueryPromise<any> {
@@ -71,11 +68,16 @@ module hirespace {
             return $.ajax(hirespace.Config.getApiRoutes().bookings.updateData, {type: 'get'});
         }
 
-        updateProgressBar(toStage: string) {
+        updateProgressBar(toStage?: string) {
+            if (!toStage) {
+                toStage = this.bookingData.stage;
+            }
+
             let uiClass = enquiriesFeedStages[toStage];
 
             $('.page-enquiries-feed .progress-bar, .page-enquiries-feed .label.stage').addClass(uiClass);
 
+            // Due to testing
             return uiClass;
         }
 
@@ -84,6 +86,8 @@ module hirespace {
 
             ko.mapping.fromJS(newData, this.bookingDataObservable);
             this.bookingData = newData;
+
+            this.updateProgressBar();
         }
     }
 

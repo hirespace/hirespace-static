@@ -101,9 +101,15 @@ module hirespace.specs {
         });
 
         it('it should have a method updating the progressBar UI', () => {
-            let updateProgressBar = controller.updateProgressBar('New');
+            let updateProgressBarDefault = controller.updateProgressBar();
+            let updateProgressBar = controller.updateProgressBar('In Progress');
 
-            expect(updateProgressBar).toEqual('new');
+            controller.bookingData.stage = 'Needs Archiving';
+            let updateProgressBarOutside = controller.updateProgressBar();
+
+            expect(updateProgressBarDefault).toEqual('new');
+            expect(updateProgressBar).toEqual('in-progress');
+            expect(updateProgressBarOutside).toEqual('needs-archiving');
         });
 
         it('should update the bookingData when update has been triggered', () => {
@@ -114,9 +120,5 @@ module hirespace.specs {
 
             expect(controller.bookingData.stage).toEqual('In Progress');
         });
-
-        //it('should get the default stage = New', () => {
-            //let defaultStage = controller.uiConfig.stage;
-        //});
     });
 }
