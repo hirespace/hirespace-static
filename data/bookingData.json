@@ -25,9 +25,8 @@
   },
   "timeToFollowUp": "Tue Jun 09 2015 15:18:01 GMT+0100 (BST)",
   "venue": {
-    "manager": "Paul Frank",
-    "name": "The Barbican",
-    "team": "The Barbican Team"
+    "manager": "The Barbican Team",
+    "name": "The Barbican"
   },
   "word": "Conference",
   "internalNote": "Josh copied the details into our internal spreadsheet"

@@ -91,13 +91,13 @@ module hirespace.specs {
                     expect(_.isEqual(assertionData.assertion, data.assertion)).toBe(true);
                 });
             });
-        });
 
-        fit('should get the value of an existing object key', () => {
-            let object = 'bookingData.stage';
+            it('should get the value of an existing object key extracted from a sentence', () => {
+                let value = hirespace.View.resolveObject(data.assertion.object, fakeObject),
+                    values = _.flatten(_.map(_.values(fakeObject.bookingData), (x) => _.isObject(x) ? _.values(x) : x));
 
-            let value = hirespace.View.getValue(object, fakeObject);
-            console.log(value);
+                expect(_.contains(values, value)).toBe(true);
+            });
         });
     });
 }

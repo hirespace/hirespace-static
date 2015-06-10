@@ -28,9 +28,8 @@ let initBookingData = {
     // This changes on Update Later & ...
     "timeToFollowUp": new Date(),
     "venue": {
-        "manager": "Paul Frank",
-        "name": "The Barbican",
-        "team": "The Barbican Team"
+        "manager": "The Barbican Team",
+        "name": "The Barbican"
     },
     "word": "Conference",
     "internalNote": "Josh copied the details into our internal spreadsheet"

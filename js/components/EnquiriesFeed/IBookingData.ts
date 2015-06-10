@@ -45,7 +45,6 @@ module hirespace {
     interface IVenue {
         manager: string;
         name: string;
-        team: string;
     }
 
     interface ISuggestedCriteria {

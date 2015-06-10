@@ -36,19 +36,11 @@ module hirespace {
             }
         }
 
-        static getValue(target: string, source: Object) {
-            let split = target.split('.');
-            let val = {};
-            _.reduce(split, (finalObject, nextValue) => {
-                if (source[finalObject][nextValue]) {
-                    console.log('valid value found');
-                    val = source[finalObject][nextValue];
-                }
+        static resolveObject(path: string, target: Object, safe?: boolean) {
+            let keys = path.split('.');
 
-                return finalObject + nextValue;
-            });
-
-            return val;
+            return _.reduce(keys, (previous, current) => !safe ? previous[current] : (previous ? previous[current] : undefined),
+                target || self);
         }
     }
 }
