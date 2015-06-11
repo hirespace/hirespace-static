@@ -8,6 +8,15 @@
     </header>
 </div>
 
+<section class="customer-contact-details" data-toggle-view="hide: bookingData.stage == 'New'">
+    <div class="container-narrow">
+        <i class="icon telephone" size="36"></i>
+        <strong data-bind="text: bookingDataObservable.customer.mobile">Telephone Number</strong>
+        <i class="icon envelope" size="36"></i>
+        <strong data-bind="text: bookingDataObservable.customer.email">Email Address</strong>
+    </div>
+</section>
+
 <div class="details-bar">
     <ul class="container-narrow">
         <li class="location">

@@ -71,7 +71,9 @@ module hirespace {
         }
 
         bookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiRoutes().bookings.getData, {type: 'get'});
+            return $.ajax(hirespace.Config.getApiRoutes().bookings.getData, {type: 'get', headers: {
+                Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
+            }});
         }
 
         updateBookingDataPromise(): JQueryPromise<any> {
