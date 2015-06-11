@@ -47,7 +47,10 @@ module hirespace {
             this.bookingData = initBookingData;
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
+            // @TODO
+            // this should be under one updateView method
             this.updateProgressBar();
+            hirespace.View.updateView(this);
 
             hirespace.Logger.debug('Booking Data initialised from a local source');
         }
@@ -87,7 +90,10 @@ module hirespace {
             ko.mapping.fromJS(newData, this.bookingDataObservable);
             this.bookingData = newData;
 
+            // @TODO
+            // this should be under one updateView method
             this.updateProgressBar();
+            hirespace.View.updateView(this);
         }
     }
 

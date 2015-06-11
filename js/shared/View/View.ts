@@ -42,5 +42,37 @@ module hirespace {
             return _.reduce(keys, (previous, current) => !safe ? previous[current] : (previous ? previous[current] : undefined),
                 target || self);
         }
+
+        static updateView(target) {
+            let assertions = $('[data-toggle-view]');
+
+            _.forEach(assertions, (elem) => {
+                let assertion = $(elem).attr('data-toggle-view'),
+                    assertionMetaData = hirespace.View.parseAssertionMetaData(assertion);
+
+                let leftSide = hirespace.View.resolveObject(assertionMetaData.assertion.object, target);
+                let rightSide = assertionMetaData.assertion.value;
+
+                if (leftSide == rightSide) {
+                    switch (assertionMetaData.action) {
+                        case 'show':
+                            $(elem).removeClass('is-hidden').addClass('show');
+                            break;
+                        default:
+                            $(elem).removeClass('show').addClass('is-hidden');
+                            break;
+                    }
+                } else {
+                    switch (assertionMetaData.action) {
+                        case 'show':
+                            $(elem).removeClass('show').addClass('is-hidden');
+                            break;
+                        default:
+                            $(elem).removeClass('is-hidden').addClass('show');
+                            break;
+                    }
+                }
+            });
+        }
     }
 }
