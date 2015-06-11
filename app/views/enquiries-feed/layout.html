@@ -92,11 +92,13 @@
             +1 more
         </button>
 
-        <button data-toggle-view="show: bookingData.stage == 'In Progress'" class="large grey">
+        <button data-toggle-view="show: bookingData.stage == 'In Progress'"
+                data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                class="large grey" id="showUpdateHireSpaceButtons">
             Show Update Hire Space buttons
         </button>
 
-        <div class="row">
+        <div class="row is-hidden" id="updateHireSpaceButtons">
             <div class="col-md-4">
                 <button class="large green block">Confirm</button>
             </div>

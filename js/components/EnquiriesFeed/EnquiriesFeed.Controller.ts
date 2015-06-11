@@ -41,6 +41,12 @@ module hirespace {
                     this.updateBookingData(this.bookingData);
                 });
             });
+
+            $('[data-toggle]').click((e) => {
+                let toggleAttrs = $(e.target).attr('data-toggle');
+
+                hirespace.View.toggleAttrs(toggleAttrs);
+            });
         }
 
         initBookingData() {

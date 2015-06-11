@@ -76,5 +76,11 @@ module hirespace {
 
             $(elem).addClass(addClass).removeClass(removeClass);
         }
+
+        static toggleAttrs(attr: string) {
+            let attrs = JSON.parse(attr);
+
+            _.forEach(attrs, (id) => $('#' + id).toggleClass('is-hidden'));
+        }
     }
 }

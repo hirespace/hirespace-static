@@ -97,7 +97,7 @@ module hirespace.specs {
         ]
     };
 
-    describe('View module', () => {
+    describe('View => data-toggle-view', () => {
         _.forEach(fakeMetaData.valid, (data) => {
             let sentence: string = data.assertion.sentence;
             let assertion: IAssertionSentence = hirespace.View.parseAssertionSentence(sentence);
@@ -177,6 +177,48 @@ module hirespace.specs {
                 let newClass: string = $(fakeElem).attr('class');
 
                 expect(newClass).toEqual(data.toClass);
+            });
+        });
+    });
+
+    let fakeToggleAttrs = [
+        {
+            attr: '["testId"]',
+            expected: {
+                testId: {originalClass: '', expectedClass: 'is-hidden'}
+            }
+        },
+        {
+            attr: '["testId1","testId2"]',
+            expected: {
+                testId1: {originalClass: 'is-hidden', expectedClass: ''},
+                testId2: {originalClass: '', expectedClass: 'is-hidden'}
+            }
+        }
+    ];
+
+    describe('View => data-toggle', () => {
+        _.forEach(fakeToggleAttrs, (data) => {
+            let fakeElem: Element;
+
+            beforeEach(() => {
+                fakeElem = document.createElement('div');
+                fakeElem.setAttribute('data-toggle', data.attr);
+
+                // @TODO
+                // resolve any hack
+                _.forEach(data.expected, (classes: any, k) => {
+                    let elem: Element = document.createElement('div');
+                    elem.setAttribute('id', k);
+                    elem.setAttribute('class', classes.originalClass);
+                });
+
+                //console.log(document.getElementById('testId'));
+            });
+
+            it('should toggle elements\' visibility correctly', () => {
+                hirespace.View.toggleAttrs(data.attr);
+                //console.log(document.getElementById('testId1'));
             });
         });
     });
