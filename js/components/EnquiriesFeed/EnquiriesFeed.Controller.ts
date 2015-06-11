@@ -18,6 +18,7 @@ module hirespace {
 
         constructor() {
             hirespace.Modal.listen();
+            hirespace.Tabs.listen();
 
             this.initUiConfig();
             this.initBookingData();
@@ -30,6 +31,7 @@ module hirespace {
                         return false;
                     }
 
+                    this.uiConfig.prevStage = this.bookingData.stage;
                     this.updateBookingData(response);
                 });
             }, this.pollingFrequency);
