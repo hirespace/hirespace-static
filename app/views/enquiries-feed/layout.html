@@ -92,21 +92,22 @@
             +1 more
         </button>
 
-        <button data-toggle-view="show: bookingData.stage == 'In Progress'"
-                data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
-                class="large grey" id="showUpdateHireSpaceButtons">
-            Show Update Hire Space buttons
-        </button>
+        <div data-toggle-view="show: bookingData.stage == 'In Progress'">
+            <button data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                    class="large grey" id="showUpdateHireSpaceButtons">
+                Show Update Hire Space buttons
+            </button>
 
-        <div class="row is-hidden" id="updateHireSpaceButtons">
-            <div class="col-md-4">
-                <button class="large green block">Confirm</button>
-            </div>
-            <div class="col-md-4">
-                <button class="large black block">Close</button>
-            </div>
-            <div class="col-md-4">
-                <button class="large grey block">Update Later</button>
+            <div class="row is-hidden" id="updateHireSpaceButtons">
+                <div class="col-md-4">
+                    <button class="large green block next-step" data-step="Needs Archiving">Confirm</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="large black block next-step" data-step="Needs Archiving">Close</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="large grey block">Update Later</button>
+                </div>
             </div>
         </div>
     </div>

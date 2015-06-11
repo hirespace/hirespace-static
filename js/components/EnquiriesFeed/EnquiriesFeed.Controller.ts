@@ -6,6 +6,7 @@ module hirespace {
 
     interface IUiConfig {
         defaultStage: string;
+        prevStage: string;
     }
 
     export class EnquiriesFeedController {
@@ -18,8 +19,8 @@ module hirespace {
         constructor() {
             hirespace.Modal.listen();
 
-            this.initBookingData();
             this.initUiConfig();
+            this.initBookingData();
 
             setInterval(() => {
                 this.bookingDataPromise().then((response: IBookingData) => {
@@ -35,7 +36,9 @@ module hirespace {
 
             $('.next-step').click((e) => {
                 let toStep = $(e.target).attr('data-step');
+
                 this.updateBookingDataPromise().then(() => {
+                    this.uiConfig.prevStage = this.bookingData.stage;
                     this.bookingData.stage = toStep;
 
                     this.updateBookingData(this.bookingData);
@@ -62,7 +65,8 @@ module hirespace {
         // investigate if this mehtod is actually needed
         initUiConfig() {
             this.uiConfig = {
-                defaultStage: _.first(_.keys(enquiriesFeedStages))
+                defaultStage: _.first(_.keys(enquiriesFeedStages)),
+                prevStage: _.first(_.keys(enquiriesFeedStages))
             };
         }
 
@@ -79,9 +83,12 @@ module hirespace {
                 toStage = this.bookingData.stage;
             }
 
-            let uiClass = enquiriesFeedStages[toStage];
+            let redundantUiClass = enquiriesFeedStages[this.uiConfig.prevStage],
+                uiClass = enquiriesFeedStages[toStage];
 
-            $('.page-enquiries-feed .progress-bar, .page-enquiries-feed .label.stage').addClass(uiClass);
+            $('.page-enquiries-feed .progress-bar, .page-enquiries-feed .label.stage')
+                .removeClass(redundantUiClass)
+                .addClass(uiClass);
 
             // Due to testing
             return uiClass;
