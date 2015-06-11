@@ -74,7 +74,7 @@ module hirespace {
                     break;
             }
 
-            $(elem).addClass(addClass).removeClass(removeClass);
+            $(elem).removeClass(removeClass).addClass(addClass);
         }
 
         static toggleAttrs(attr: string) {

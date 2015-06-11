@@ -61,6 +61,25 @@
             width: 1px
             background: $color-grey-100
 
+    .thank-you-message
+      @extend .text-center
+
+      height: $quadruple-unit-layout + $half-unit-layout
+      line-height: $quadruple-unit-layout + $half-unit-layout
+
+      img, strong
+        display: inline-block
+        vertical-align: middle
+
+      img
+        margin-right: $half-unit-layout
+        max-width: $double-unit-layout + $half-unit-layout
+        max-height: $double-unit-layout + $half-unit-layout
+
+      strong
+        font:
+          size: rem(15px)
+
   .customer-details
     .customer
       +clearfix

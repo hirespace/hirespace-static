@@ -82,7 +82,9 @@ module hirespace {
 
         updateBookingDataPromise(): JQueryPromise<any> {
             return $.ajax(hirespace.Config.getApiRoutes().bookings.updateData, {
-                type: 'put', headers: {
+                // @TODO
+                // resolve after we have a functioning API
+                type: 'get', headers: {
                     Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
                 }
             });

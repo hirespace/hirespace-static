@@ -18,7 +18,12 @@
 </section>
 
 <div class="details-bar">
-    <ul class="container-narrow">
+    <div class="thank-you-message container-narrow" data-toggle-view="show: bookingData.stage == 'Needs Archiving'">
+        <img src="/assets/images/avatar/anonymous.png" alt="Anonymous Avatar"/>
+        <strong>Wohoo! Thanks for letting us know that James Smith’s enquiry has been confirmed.</strong>
+    </div>
+
+    <ul class="container-narrow" data-toggle-view="hide: bookingData.stage == 'Needs Archiving'">
         <li class="location">
             <i class="icon pin" size="36"></i>
             <strong data-bind="text: bookingDataObservable.venue.name">Venue</strong>
