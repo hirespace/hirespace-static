@@ -84,13 +84,29 @@
     </nav>
 </section>
 
-<div class="container-narrow">
-    {{> progressBar }}
-</div>
-
-<section>
+<section class="venue-manager-actions">
     <div class="container-narrow">
-        <button class="view-more">+1 more</button>
+        {{> progressBar }}
+
+        <button data-toggle-view="show: bookingData.stage == 'New'" class="large grey">
+            +1 more
+        </button>
+
+        <button data-toggle-view="show: bookingData.stage == 'In Progress'" class="large grey">
+            Show Update Hire Space buttons
+        </button>
+
+        <div class="row">
+            <div class="col-md-4">
+                <button class="large green block">Confirm</button>
+            </div>
+            <div class="col-md-4">
+                <button class="large black block">Close</button>
+            </div>
+            <div class="col-md-4">
+                <button class="large grey block">Update Later</button>
+            </div>
+        </div>
     </div>
 </section>
 

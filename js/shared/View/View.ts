@@ -61,14 +61,7 @@ module hirespace {
                 addClass: string,
                 removeClass: string;
 
-            switch (assertionMetaData.assertion.type) {
-                case 'equality':
-                    isValid = value == expectedValue;
-                    break;
-                default:
-                    isValid = !_.isUndefined(value);
-                    break;
-            }
+            isValid = assertionMetaData.assertion.type == 'equality' ? (value == expectedValue) : (!_.isUndefined(value));
 
             switch (assertionMetaData.action) {
                 case 'show':

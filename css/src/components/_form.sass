@@ -211,7 +211,7 @@ textarea:invalid
   color: $color-grey-300
   font:
     family: $font-family-secondary !important
-    weight: 700
+    //weight: 700
 
   +hover
     border-color: $color-grey-300
@@ -222,7 +222,7 @@ textarea:invalid
     display: block
 
   &.large
-    padding: $base-unit-layout $double-unit-layout
+    padding: rem(20px) $base-unit-layout
     font:
       size: rem(18px)
 
@@ -257,6 +257,19 @@ textarea:invalid
     border-color: $color-yellow-600
     background: $color-yellow
     color: white
+
+  &.black
+    border-color: $color-black
+    background: $color-grey-800
+    color: white
+
+  &.grey
+    +box-shadow(none)
+    @extend .text-center
+
+    width: 100%
+    border: 0
+    background: $color-grey-50
 
   &.add-attachment
     border-color: $color-grey-100

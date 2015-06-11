@@ -119,5 +119,9 @@ module hirespace.specs {
 
             expect(controller.bookingData.stage).toEqual('In Progress');
         });
+
+        it('should have updateUi method attached to its scope', () => {
+            expect(controller.updateUi).toBeDefined();
+        });
     });
 }

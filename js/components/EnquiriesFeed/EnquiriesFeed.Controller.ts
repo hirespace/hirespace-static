@@ -9,7 +9,7 @@ module hirespace {
     }
 
     export class EnquiriesFeedController {
-        private pollingFrequency: number = 10000;
+        private pollingFrequency: number = 60000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -44,15 +44,12 @@ module hirespace {
         }
 
         initBookingData() {
+            hirespace.Logger.debug('Booking Data initialised from a local source');
+
             this.bookingData = initBookingData;
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
-            // @TODO
-            // this should be under one updateView method
-            this.updateProgressBar();
-            hirespace.View.updateView(this);
-
-            hirespace.Logger.debug('Booking Data initialised from a local source');
+            this.updateUi();
         }
 
         // @TODO
@@ -90,8 +87,10 @@ module hirespace {
             ko.mapping.fromJS(newData, this.bookingDataObservable);
             this.bookingData = newData;
 
-            // @TODO
-            // this should be under one updateView method
+            this.updateUi();
+        }
+
+        updateUi() {
             this.updateProgressBar();
             hirespace.View.updateView(this);
         }
