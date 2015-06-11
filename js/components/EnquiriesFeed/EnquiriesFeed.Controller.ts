@@ -73,13 +73,19 @@ module hirespace {
         }
 
         bookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiRoutes().bookings.getData, {type: 'get', headers: {
-                Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
-            }});
+            return $.ajax(hirespace.Config.getApiRoutes().bookings.getData, {
+                type: 'get', headers: {
+                    Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
+                }
+            });
         }
 
         updateBookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiRoutes().bookings.updateData, {type: 'get'});
+            return $.ajax(hirespace.Config.getApiRoutes().bookings.updateData, {
+                type: 'put', headers: {
+                    Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
+                }
+            });
         }
 
         updateProgressBar(toStage?: string) {
