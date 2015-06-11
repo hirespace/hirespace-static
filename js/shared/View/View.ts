@@ -47,32 +47,41 @@ module hirespace {
             let assertions = $('[data-toggle-view]');
 
             _.forEach(assertions, (elem) => {
-                let assertion = $(elem).attr('data-toggle-view'),
-                    assertionMetaData = hirespace.View.parseAssertionMetaData(assertion);
-
-                let leftSide = hirespace.View.resolveObject(assertionMetaData.assertion.object, target);
-                let rightSide = assertionMetaData.assertion.value;
-
-                if (leftSide == rightSide) {
-                    switch (assertionMetaData.action) {
-                        case 'show':
-                            $(elem).removeClass('is-hidden').addClass('show');
-                            break;
-                        default:
-                            $(elem).removeClass('show').addClass('is-hidden');
-                            break;
-                    }
-                } else {
-                    switch (assertionMetaData.action) {
-                        case 'show':
-                            $(elem).removeClass('show').addClass('is-hidden');
-                            break;
-                        default:
-                            $(elem).removeClass('is-hidden').addClass('show');
-                            break;
-                    }
-                }
+                hirespace.View.updateElement(elem, target);
             });
+        }
+
+        static updateElement(elem: Element, target: any) {
+            let sentence: string = $(elem).attr('data-toggle-view'),
+                assertionMetaData: IAssertionMetaData = hirespace.View.parseAssertionMetaData(sentence),
+                value = hirespace.View.resolveObject(assertionMetaData.assertion.object, target),
+                expectedValue = assertionMetaData.assertion.value;
+
+            let isValid: boolean,
+                addClass: string,
+                removeClass: string;
+
+            switch (assertionMetaData.assertion.type) {
+                case 'equality':
+                    isValid = value == expectedValue;
+                    break;
+                default:
+                    isValid = !_.isUndefined(value);
+                    break;
+            }
+
+            switch (assertionMetaData.action) {
+                case 'show':
+                    addClass = isValid ? 'is-visible' : 'is-hidden';
+                    removeClass = isValid ? 'is-hidden' : 'is-visible';
+                    break;
+                default:
+                    addClass = isValid ? 'is-hidden' : 'is-visible';
+                    removeClass = isValid ? 'is-visible' : 'is-hidden';
+                    break;
+            }
+
+            $(elem).addClass(addClass).removeClass(removeClass);
         }
     }
 }
