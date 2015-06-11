@@ -65,6 +65,26 @@
     </aside>
 </main>
 
+<section data-toggle-view="show: bookingData.status == 'Confirmed'">
+    <div class="container-narrow">
+        <h5 class="text-center margin-bottom-double">Please confirm your spend</h5>
+
+        <div class="row confirm-spend">
+            <div class="col-md-4">
+                <input type="text" placeholder="Confirm spend ex. VAT"/>
+            </div>
+
+            <div class="col-md-8">
+                <ul class="tabs">
+                    <li><span>Minimum spend</span></li>
+                    <li><span>Rough total</span></li>
+                    <li><span>Final spend</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section data-toggle-view="show: bookingData.status == 'Closed'">
     <div class="container-narrow">
         <h5 class="text-center margin-bottom-double">Tell Hire Space why this enquiry has been closed</h5>
@@ -76,24 +96,6 @@
             <li><span>Unsuitable enquiry</span></li>
             <li><span>Other</span></li>
         </ul>
-    </div>
-</section>
-
-<section data-toggle-view="show: bookingData.status == 'Confirmed'">
-    <div class="container-narrow">
-        <h5 class="text-center margin-bottom-double">Please confirm your spend</h5>
-
-        <div class="row confirm-spend">
-            <input class="col-md-4" type="text" placeholder="Confirm spend ex. VAT"/>
-
-            <div class="col-md-8">
-                <ul class="tabs">
-                    <li><span>Minimum spend</span></li>
-                    <li><span>Rough total</span></li>
-                    <li><span>Final spend</span></li>
-                </ul>
-            </div>
-        </div>
     </div>
 </section>
 
