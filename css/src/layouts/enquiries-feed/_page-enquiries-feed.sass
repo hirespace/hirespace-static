@@ -1,4 +1,28 @@
 .page-enquiries-feed
+  .enquiries
+    $left-nav-width: rem(250px)
+
+    +clearfix
+
+    nav.enquiries-feed
+      width: $left-nav-width
+      background: $color-grey-25
+      position: fixed
+      height: 100%
+      border-right: 1px solid $color-grey-75
+
+      ul
+        @extend .unstyled
+
+        > li
+          display: block
+          height: $triple-unit-layout
+          line-height: $triple-unit-layout
+          border-bottom: 1px solid $color-grey-75
+
+    .enquiry-actions
+      padding-left: $left-nav-width
+
   header
     margin: $double-unit-layout 0
     position: relative
@@ -21,9 +45,9 @@
     $details-bar-height: $quadruple-unit-layout + $half-unit-layout
 
     height: $details-bar-height + rem(2px)
-    background: $color-grey-50
-    border-top: 1px solid $color-grey-100
-    border-bottom: 1px solid $color-grey-100
+    background: $color-grey-25
+    border-top: 1px solid $color-grey-75
+    border-bottom: 1px solid $color-grey-75
 
     ul
       +clearfix
@@ -59,7 +83,7 @@
             top: 0
             height: $details-bar-height
             width: 1px
-            background: $color-grey-100
+            background: $color-grey-75
 
     .thank-you-message
       @extend .text-center
@@ -113,7 +137,7 @@
   section
     margin: $double-unit-layout 0 0
     padding: $double-unit-layout 0 0
-    border-top: 1px solid $color-grey-50
+    border-top: 1px solid $color-grey-75
 
     &.customer-contact-details
       margin: 0

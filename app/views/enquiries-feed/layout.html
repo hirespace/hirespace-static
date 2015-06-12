@@ -6,174 +6,204 @@
     <div class="logged-user">
         <div class="info">
             <strong>Name</strong>
-            <a href="#"><small>Not you?</small></a>
+            <a href="#">
+                <small>Not you?</small>
+            </a>
         </div>
         <div class="avatar" style="background-image: url('/assets/images/dummy/avatar.jpg')"></div>
     </div>
 </nav>
 
-<div class="container-narrow margin-top-double">
-    {{> progressBar }}
+<div class="enquiries">
 
-    <header>
-        <h1><strong data-bind="text: bookingDataObservable.word">Word</strong> at <span
-                data-bind="text: bookingDataObservable.venue.name">Venue</span></h1>
-        <small class="label stage" data-bind="text: bookingDataObservable.stage">Stage</small>
-    </header>
-</div>
+    <nav class="enquiries-feed">
+        <ul>
+            <li>
+                <span class="label numeric">1</span>
+                New Enquiries
+            </li>
+            <li>
+                <span class="label numeric">1</span>
+                In Progress Enquiries
+            </li>
+            <li>
+                <span class="label numeric">1</span>
+                Needs Archiving Enquiries
+            </li>
+            <li>
+                <span class="label numeric">1</span>
+                Archived
+            </li>
+        </ul>
+    </nav>
 
-<section class="customer-contact-details" data-toggle-view="hide: bookingData.stage == 'New'">
-    <div class="container-narrow">
-        <i class="icon telephone" size="36"></i>
-        <strong data-bind="text: bookingDataObservable.customer.mobile">Telephone Number</strong>
-        <i class="icon envelope" size="36"></i>
-        <strong data-bind="text: bookingDataObservable.customer.email">Email Address</strong>
-    </div>
-</section>
+    <div class="enquiry-actions">
+        <div class="container-narrow margin-top-double">
+            {{> progressBar }}
 
-<div class="details-bar">
-    <div class="thank-you-message container-narrow" data-toggle-view="show: bookingData.stage == 'Needs Archiving'">
-        <img src="/assets/images/avatar/anonymous.png" alt="Anonymous Avatar"/>
-        <strong>Wohoo! Thanks for letting us know that James Smith’s enquiry has been confirmed.</strong>
-    </div>
-
-    <ul class="container-narrow" data-toggle-view="hide: bookingData.stage == 'Needs Archiving'">
-        <li class="location">
-            <i class="icon pin" size="36"></i>
-            <strong data-bind="text: bookingDataObservable.venue.name">Venue</strong>
-        </li>
-        <li class="separator"><span></span></li>
-        <li class="budget">
-            <i class="icon budget" size="36"></i>
-            <strong data-bind="text: bookingDataObservable.budget">Budget</strong>
-        </li>
-        <li class="separator"><span></span></li>
-        <li class="people">
-            <i class="icon user" size="36"></i>
-            <strong data-bind="text: bookingDataObservable.people">Number of People</strong> people
-        </li>
-        <li class="separator"><span></span></li>
-        <li class="date">
-            <i class="icon calendar" size="36"></i>
-            <strong data-bind="text: bookingDataObservable.date.startdate">Start Date</strong>
-            -
-            <strong data-bind="text: bookingDataObservable.date.finishdate">Finish Date</strong>
-        </li>
-        <li class="separator"><span></span></li>
-        <li class="time">
-            <i class="icon clock" size="36"></i>
-            <strong data-bind="text: bookingDataObservable.time.starttime">Start Time</strong>
-            -
-            <strong data-bind="text: bookingDataObservable.time.finishtime">Finish Time</strong>
-        </li>
-    </ul>
-</div>
-
-<main class="customer-details container-narrow padding-top-double">
-    <aside class="customer col-md-4">
-        <img src="/assets/images/avatar/anonymous.png" alt="Anonymous Avatar"/>
-
-        <div class="details">
-            <strong data-bind="text: bookingDataObservable.customer.name">Customer Name</strong>
-            <small data-bind="text: bookingDataObservable.customer.company">Customer Company</small>
+            <header>
+                <h1><strong data-bind="text: bookingDataObservable.word">Word</strong> at <span
+                        data-bind="text: bookingDataObservable.venue.name">Venue</span></h1>
+                <small class="label stage" data-bind="text: bookingDataObservable.stage">Stage</small>
+            </header>
         </div>
-    </aside>
 
-    <aside class="message col-md-8">
-        <p data-bind="text: bookingDataObservable.message">Message</p>
-    </aside>
-</main>
+        <section class="customer-contact-details" data-toggle-view="hide: bookingData.stage == 'New'">
+            <div class="container-narrow">
+                <i class="icon telephone" size="36"></i>
+                <strong data-bind="text: bookingDataObservable.customer.mobile">Telephone Number</strong>
+                <i class="icon envelope" size="36"></i>
+                <strong data-bind="text: bookingDataObservable.customer.email">Email Address</strong>
+            </div>
+        </section>
 
-<section data-toggle-view="show: bookingData.status == 'Confirmed'">
-    <div class="container-narrow">
-        <h5 class="text-center margin-bottom-double">Please confirm your spend</h5>
-
-        <div class="row confirm-spend">
-            <div class="col-md-4">
-                <input type="text" placeholder="Confirm spend ex. VAT"/>
+        <div class="details-bar">
+            <div class="thank-you-message container-narrow"
+                 data-toggle-view="show: bookingData.stage == 'Needs Archiving'">
+                <img src="/assets/images/avatar/anonymous.png" alt="Anonymous Avatar"/>
+                <strong>Wohoo! Thanks for letting us know that James Smith’s enquiry has been confirmed.</strong>
             </div>
 
-            <div class="col-md-8">
+            <ul class="container-narrow" data-toggle-view="hide: bookingData.stage == 'Needs Archiving'">
+                <li class="location">
+                    <i class="icon pin" size="36"></i>
+                    <strong data-bind="text: bookingDataObservable.venue.name">Venue</strong>
+                </li>
+                <li class="separator"><span></span></li>
+                <li class="budget">
+                    <i class="icon budget" size="36"></i>
+                    <strong data-bind="text: bookingDataObservable.budget">Budget</strong>
+                </li>
+                <li class="separator"><span></span></li>
+                <li class="people">
+                    <i class="icon user" size="36"></i>
+                    <strong data-bind="text: bookingDataObservable.people">Number of People</strong> people
+                </li>
+                <li class="separator"><span></span></li>
+                <li class="date">
+                    <i class="icon calendar" size="36"></i>
+                    <strong data-bind="text: bookingDataObservable.date.startdate">Start Date</strong>
+                    -
+                    <strong data-bind="text: bookingDataObservable.date.finishdate">Finish Date</strong>
+                </li>
+                <li class="separator"><span></span></li>
+                <li class="time">
+                    <i class="icon clock" size="36"></i>
+                    <strong data-bind="text: bookingDataObservable.time.starttime">Start Time</strong>
+                    -
+                    <strong data-bind="text: bookingDataObservable.time.finishtime">Finish Time</strong>
+                </li>
+            </ul>
+        </div>
+
+        <main class="customer-details container-narrow padding-top-double">
+            <aside class="customer col-md-4">
+                <img src="/assets/images/avatar/anonymous.png" alt="Anonymous Avatar"/>
+
+                <div class="details">
+                    <strong data-bind="text: bookingDataObservable.customer.name">Customer Name</strong>
+                    <small data-bind="text: bookingDataObservable.customer.company">Customer Company</small>
+                </div>
+            </aside>
+
+            <aside class="message col-md-8">
+                <p data-bind="text: bookingDataObservable.message">Message</p>
+            </aside>
+        </main>
+
+        <section data-toggle-view="show: bookingData.status == 'Confirmed'">
+            <div class="container-narrow">
+                <h5 class="text-center margin-bottom-double">Please confirm your spend</h5>
+
+                <div class="row confirm-spend">
+                    <div class="col-md-4">
+                        <input type="text" placeholder="Confirm spend ex. VAT"/>
+                    </div>
+
+                    <div class="col-md-8">
+                        <ul class="tabs">
+                            <li><span>Minimum spend</span></li>
+                            <li><span>Rough total</span></li>
+                            <li><span>Final spend</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-toggle-view="show: bookingData.status == 'Closed'">
+            <div class="container-narrow">
+                <h5 class="text-center margin-bottom-double">Tell Hire Space why this enquiry has been closed</h5>
+
                 <ul class="tabs">
-                    <li><span>Minimum spend</span></li>
-                    <li><span>Rough total</span></li>
-                    <li><span>Final spend</span></li>
+                    <li><span>No availability</span></li>
+                    <li class="active"><span>Customer went elsewhere</span></li>
+                    <li><span>Never heard back</span></li>
+                    <li><span>Unsuitable enquiry</span></li>
+                    <li><span>Other</span></li>
                 </ul>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
-<section data-toggle-view="show: bookingData.status == 'Closed'">
-    <div class="container-narrow">
-        <h5 class="text-center margin-bottom-double">Tell Hire Space why this enquiry has been closed</h5>
-
-        <ul class="tabs">
-            <li><span>No availability</span></li>
-            <li class="active"><span>Customer went elsewhere</span></li>
-            <li><span>Never heard back</span></li>
-            <li><span>Unsuitable enquiry</span></li>
-            <li><span>Other</span></li>
-        </ul>
-    </div>
-</section>
-
-<section data-toggle-view="show: bookingData.stage == 'New'">
-    <nav class="controls container-narrow">
-        <div class="row">
-            <div class="col-md-4">
-                <button class="green large">
-                    <span class="toggle-modal" data-toggle-modal="modalCallCustomer"></span>
-                    <i class="icon white telephone" size="36"></i>
-                    Call James
-                </button>
-            </div>
-            <div class="col-md-4">
-                <button class="green large">
-                    <span class="toggle-modal" data-toggle-modal="modalEmailCustomer"></span>
-                    <i class="icon white envelope" size="36"></i>
-                    Email James
-                </button>
-            </div>
-            <div class="col-md-4">
-                <button class="green large">
-                    <span class="toggle-modal" data-toggle-modal="modalQuickReply"></span>
-                    <i class="icon white comment" size="36"></i>
-                    Quick Reply
-                </button>
-            </div>
-        </div>
-    </nav>
-</section>
-
-<section class="venue-manager-actions">
-    <div class="container-narrow">
-        {{> progressBar }}
-
-        <button data-toggle-view="show: bookingData.stage == 'New'" class="large grey">
-            +1 more
-        </button>
-
-        <div data-toggle-view="show: bookingData.stage == 'In Progress'">
-            <button data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
-                    class="large grey" id="showUpdateHireSpaceButtons">
-                Show Update Hire Space buttons
-            </button>
-
-            <div class="row is-hidden" id="updateHireSpaceButtons">
-                <div class="col-md-4">
-                    <button class="large green block next-step" data-step="Needs Archiving">Confirm</button>
+        <section data-toggle-view="show: bookingData.stage == 'New'">
+            <nav class="controls container-narrow">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button class="green large">
+                            <span class="toggle-modal" data-toggle-modal="modalCallCustomer"></span>
+                            <i class="icon white telephone" size="36"></i>
+                            Call James
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="green large">
+                            <span class="toggle-modal" data-toggle-modal="modalEmailCustomer"></span>
+                            <i class="icon white envelope" size="36"></i>
+                            Email James
+                        </button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="green large">
+                            <span class="toggle-modal" data-toggle-modal="modalQuickReply"></span>
+                            <i class="icon white comment" size="36"></i>
+                            Quick Reply
+                        </button>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <button class="large black block next-step" data-step="Needs Archiving">Close</button>
-                </div>
-                <div class="col-md-4">
-                    <button class="large grey block">Update Later</button>
+            </nav>
+        </section>
+
+        <section class="venue-manager-actions">
+            <div class="container-narrow">
+                {{> progressBar }}
+
+                <button data-toggle-view="show: bookingData.stage == 'New'" class="large grey">
+                    +1 more
+                </button>
+
+                <div data-toggle-view="show: bookingData.stage == 'In Progress'">
+                    <button data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                            class="large grey" id="showUpdateHireSpaceButtons">
+                        Show Update Hire Space buttons
+                    </button>
+
+                    <div class="row is-hidden" id="updateHireSpaceButtons">
+                        <div class="col-md-4">
+                            <button class="large green block next-step" data-step="Needs Archiving">Confirm</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="large black block next-step" data-step="Needs Archiving">Close</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="large grey block">Update Later</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-</section>
+
+</div>
 
 <script>
     // Initial Data
