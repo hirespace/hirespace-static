@@ -27,6 +27,17 @@ module hirespace.specs {
                 }
             },
             {
+                testSentence: "in-progress: bookingData.stage == 'In Progress'",
+                toClass: 'in-progress',
+                action: 'in-progress',
+                assertion: {
+                    object: 'bookingData.stage',
+                    sentence: "bookingData.stage == 'In Progress'",
+                    type: 'equality',
+                    value: 'In Progress'
+                }
+            },
+            {
                 testSentence: "show: bookingData.status==Closed",
                 toClass: 'is-visible',
                 action: 'show',
@@ -87,6 +98,17 @@ module hirespace.specs {
                 testSentence: "hide:bookingData.venue.name='non-existent'",
                 toClass: 'is-visible',
                 action: 'hide',
+                assertion: {
+                    object: "bookingData.venue.name='non-existent'",
+                    sentence: "bookingData.venue.name='non-existent'",
+                    type: 'boolean',
+                    value: true
+                }
+            },
+            {
+                testSentence: "new:bookingData.venue.name='non-existent'",
+                toClass: undefined,
+                action: 'new',
                 assertion: {
                     object: "bookingData.venue.name='non-existent'",
                     sentence: "bookingData.venue.name='non-existent'",

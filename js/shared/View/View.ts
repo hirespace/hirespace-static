@@ -68,9 +68,13 @@ module hirespace {
                     addClass = isValid ? 'is-visible' : 'is-hidden';
                     removeClass = isValid ? 'is-hidden' : 'is-visible';
                     break;
-                default:
+                case 'hide':
                     addClass = isValid ? 'is-hidden' : 'is-visible';
                     removeClass = isValid ? 'is-visible' : 'is-hidden';
+                    break;
+                default:
+                    addClass = isValid ? assertionMetaData.action : '';
+                    removeClass = isValid ? '' : assertionMetaData.action;
                     break;
             }
 
