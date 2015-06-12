@@ -1,6 +1,6 @@
 .page-enquiries-feed
   .enquiries
-    $left-nav-width: rem(250px)
+    $left-nav-width: rem(270px)
 
     +clearfix
 
@@ -11,14 +11,72 @@
       height: 100%
       border-right: 1px solid $color-grey-75
 
-      ul
+      > ul
         @extend .unstyled
 
         > li
+          +transition(background .25s)
+
+          padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout
           display: block
-          height: $triple-unit-layout
-          line-height: $triple-unit-layout
           border-bottom: 1px solid $color-grey-75
+          cursor: pointer
+
+          +hover
+            background: white
+
+          &.active
+            background: white
+
+            strong
+              font:
+                weight: 700
+
+          .label, strong
+            display: inline-block
+            vertical-align: middle
+
+          strong
+            @extend .text-uppercase
+
+            letter-spacing: 0
+            font:
+              size: rem(12px)
+              weight: 500
+
+          &.sub
+            padding: 0
+
+            ul
+              @extend .unstyled
+
+              > li
+                padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout
+                border-bottom: 1px solid $color-grey-75
+
+                strong, small
+                  +ellipsis
+
+                strong
+                  text-transform: none
+                  display: block
+                  font:
+                    size: rem(14px)
+
+                small
+                  color: $color-grey-500
+                  font:
+                    size: rem(12px)
+
+                &:last-of-type
+                  border: 0
+
+                &.active
+                  background: white
+
+                  strong
+                    font:
+                      weight: 700
 
     .enquiry-actions
       padding-left: $left-nav-width

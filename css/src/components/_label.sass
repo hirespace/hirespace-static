@@ -10,19 +10,19 @@
     size: rem(13px)
 
   &.blue, &.stage.new
-    background: $color-blue
+    background: $color-blue !important
 
   &.yellow, &.stage.needs-archiving
-    background: $color-yellow
+    background: $color-yellow !important
 
   &.green, &.stage.in-progress
-    background: $color-green
+    background: $color-green !important
 
   &.red
-    background: $color-red
+    background: $color-red !important
 
-  &.stage.archived
-    background: $color-black
+  &.black, &.stage.archived
+    background: $color-black !important
 
   &.numeric
     $min-size: $base-unit-layout + $quarter-unit-layout
