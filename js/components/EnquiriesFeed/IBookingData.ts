@@ -8,7 +8,7 @@ module hirespace {
         'Archived': 'archived'
     };
 
-    export var enquiriesFeedStatuses: IStageStatus = {
+    export var enquiriesFeedStatuses: IStage = {
         'Confirmed': 'confirmed',
         'Closed': 'closed',
         'Voided': 'voided'
@@ -20,6 +20,12 @@ module hirespace {
 
     interface IStage {
         [key: string]: string;
+    }
+
+    interface IArchived {
+        price: number;
+        priceType: string;
+        reasonLost: string;
     }
 
     interface ICustomer {
@@ -56,6 +62,7 @@ module hirespace {
 
     export interface IBookingData {
         _id: string;
+        archived?: IArchived;
         budget: string;
         customer: ICustomer;
         date: IDate;
