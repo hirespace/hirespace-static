@@ -32,12 +32,9 @@ module hirespace.specs {
                 model = new hirespace.ToggleClass(scenario.attr);
             });
 
-
             it('should determine the correct number of rules', () => {
-                console.log(model.rules);
                 expect(model.rules.length).toEqual(scenario.numberOfRules);
-            })
-
+            });
         });
     });
 }
