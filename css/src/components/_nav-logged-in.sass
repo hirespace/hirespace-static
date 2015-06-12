@@ -1,0 +1,70 @@
+$nav-height: $quadruple-unit-layout
+
+nav.logged-in
+  +clearfix
+
+  height: $nav-height
+  border-bottom: 1px solid $color-grey-50
+  padding: 0 $base-unit-layout
+
+  .logo
+    $logo-width: $quadruple-unit-layout * 2.5
+
+    float: left
+    display: block
+    width: $logo-width
+    height: $nav-height
+    background:
+      color: transparent
+      image: url('#{$image-base}/logo/logo-primary.svg')
+      position: left center
+      repeat: no-repeat
+      size: $logo-width
+
+    strong
+      @extend .text-center
+
+      opacity: 0
+      display: block
+      height: $nav-height
+      line-height: $nav-height
+
+  .logged-user
+    $avatar-size: $triple-unit-layout - $half-unit-layout
+
+    +clearfix
+
+    padding: (($nav-height - $avatar-size) / 2) 0 0
+    float: right
+
+    .info
+      @extend .text-right
+
+      float: left
+      padding-top: rem(2px)
+
+      strong
+        display: block
+        font:
+          size: rem(15px)
+
+      a
+        text-decoration: none
+        color: $color-grey-500
+
+        small
+          font:
+            size: rem(12px)
+
+    .avatar
+      +border-radius(100%)
+
+      margin-left: $half-unit-layout
+      float: right
+      width: $avatar-size
+      height: $avatar-size
+      background:
+        color: $color-grey-100
+        position: center center
+        repeat: no-repeat
+        size: cover
