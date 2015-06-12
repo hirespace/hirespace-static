@@ -28,6 +28,11 @@ module hirespace {
         reasonLost: string;
     }
 
+    interface IBookingStage {
+        name: string; // New / In Progress / Needs Archiving / Archived
+        options?: string | IArchived; // Confirmed / Closed / Pending | IArchived
+    }
+
     interface ICustomer {
         company: string;
         email: string;
@@ -62,14 +67,12 @@ module hirespace {
 
     export interface IBookingData {
         _id: string;
-        archived?: IArchived;
         budget: string;
         customer: ICustomer;
         date: IDate;
         message: string;
         people: number;
-        stage: string;
-        status: string;
+        stage: IBookingStage;
         suggestedCriteria: ISuggestedCriteria;
         time: ITime;
         timeToFollowUp: Date;

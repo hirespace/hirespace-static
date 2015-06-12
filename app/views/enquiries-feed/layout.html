@@ -159,7 +159,7 @@
             </aside>
         </main>
 
-        <section data-toggle-view="show: bookingData.status == 'Confirmed'">
+        <section data-toggle-view="show: bookingData.stage == 'Needs Archiving'">
             <div class="container-narrow">
                 <h5 class="text-center margin-bottom-double">Please confirm your spend</h5>
 
@@ -179,7 +179,7 @@
             </div>
         </section>
 
-        <section data-toggle-view="show: bookingData.status == 'Closed'">
+        <section data-toggle-view="show: bookingData.stage == 'Needs Archiving'">
             <div class="container-narrow">
                 <h5 class="text-center margin-bottom-double">Tell Hire Space why this enquiry has been closed</h5>
 
@@ -272,7 +272,7 @@
         },
         "message": "We also require overnight bedrooms, breakout rooms and WIFI. We need a registration area too including staffing, badges etc.",
         "people": 20,
-        "stage": "New",
+        "stage": {"name": "New"},
         "status": "",
         "suggestedCriteria": {},
         "time": {

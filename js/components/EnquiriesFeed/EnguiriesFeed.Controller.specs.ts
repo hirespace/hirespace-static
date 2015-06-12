@@ -17,7 +17,8 @@ let initBookingData = {
     },
     "message": "We also require overnight bedrooms, breakout rooms and WIFI. We need a registration area too including staffing, badges etc.",
     "people": 20,
-    "stage": "New",
+    "stage": {"name": "New"},
+
     "status": "",
     "suggestedCriteria": {},
     "time": {
@@ -104,7 +105,7 @@ module hirespace.specs {
             let updateProgressBarDefault = controller.updateProgressBar();
             let updateProgressBar = controller.updateProgressBar('In Progress');
 
-            controller.bookingData.stage = 'Needs Archiving';
+            controller.bookingData.stage.name = 'Needs Archiving';
             let updateProgressBarOutside = controller.updateProgressBar();
 
             expect(updateProgressBarDefault).toEqual('new');
@@ -114,11 +115,11 @@ module hirespace.specs {
 
         it('should update the bookingData when update has been triggered', () => {
             let newBookingData: IBookingData = initBookingData;
-            newBookingData.stage = 'In Progress';
+            newBookingData.stage.name = 'In Progress';
 
             controller.updateBookingData(newBookingData);
 
-            expect(controller.bookingData.stage).toEqual('In Progress');
+            expect(controller.bookingData.stage.name).toEqual('In Progress');
         });
 
         it('should have updateUi method attached to its scope', () => {

@@ -31,7 +31,7 @@ module hirespace {
                         return false;
                     }
 
-                    this.uiConfig.prevStage = this.bookingData.stage;
+                    this.uiConfig.prevStage = this.bookingData.stage.name;
                     this.updateBookingData(response);
                 });
             }, this.pollingFrequency);
@@ -40,8 +40,8 @@ module hirespace {
                 let toStep = $(e.target).attr('data-step');
 
                 this.updateBookingDataPromise().then(() => {
-                    this.uiConfig.prevStage = this.bookingData.stage;
-                    this.bookingData.stage = toStep;
+                    this.uiConfig.prevStage = this.bookingData.stage.name;
+                    this.bookingData.stage.name = toStep;
 
                     this.updateBookingData(this.bookingData);
                 });
@@ -92,7 +92,7 @@ module hirespace {
 
         updateProgressBar(toStage?: string) {
             if (!toStage) {
-                toStage = this.bookingData.stage;
+                toStage = this.bookingData.stage.name;
             }
 
             let redundantUiClass = enquiriesFeedStages[this.uiConfig.prevStage],

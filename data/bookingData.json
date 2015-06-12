@@ -15,7 +15,7 @@
   },
   "message": "We also require overnight bedrooms, breakout rooms and WIFI. We need a registration area too including staffing, badges etc.",
   "people": 20,
-  "stage": "Archived",
+  "stage": {"name": "Archived"},
   "status": "",
   "suggestedCriteria": {},
   "time": {
