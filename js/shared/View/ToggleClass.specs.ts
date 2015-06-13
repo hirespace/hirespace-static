@@ -3,25 +3,88 @@ module hirespace.specs {
 
     describe('Toggle Class', () => {
         let scenarios = [
-            {attr: "is-hidden : bookingData.stage == 'In Progress'", numberOfRules: 1},
-            {attr: "is-visible : bookingData.stage == 'New'", numberOfRules: 1},
-            {attr: "active : bookingData._id", numberOfRules: 1},
-            {attr: "is-visible : bookingData.stage == 'New', active : bookingData._id", numberOfRules: 2},
-            {attr: "active + shake : bookingData._id", numberOfRules: 1},
-            {attr: "shake : bookingData._id || bookingData.stage == 'In Progress'", numberOfRules: 1},
+            {
+                attr: "is-hidden : bookingData.stage == 'In Progress'",
+                rules: [{
+                    classes: ['is-hidden'],
+                    assertions: "bookingData.stage == 'In Progress'"
+                }]
+            },
+            {
+                attr: "is-visible : bookingData.stage == 'New'",
+                rules: [{
+                    classes: ['is-visible'],
+                    assertions: "bookingData.stage == 'New'"
+                }]
+            },
+            {
+                attr: "active : bookingData._id",
+                rules: [{
+                    classes: ['active'],
+                    assertions: "bookingData._id"
+                }]
+            },
+            {
+                attr: "is-visible : bookingData.stage == 'New', active : bookingData._id",
+                rules: [{
+                    classes: ['is-visible'],
+                    assertions: "bookingData.stage == 'New'"
+                }, {
+                    classes: ['active'],
+                    assertions: "bookingData._id"
+                }]
+            },
+            {
+                attr: "active + shake : bookingData._id",
+                rules: [{
+                    classes: ['active', 'shake'],
+                    assertions: "bookingData._id"
+                }]
+            },
+            {
+                attr: "shake : bookingData._id || bookingData.stage == 'In Progress'",
+                rules: [{
+                    classes: ['shake'],
+                    assertions: "bookingData._id || bookingData.stage == 'In Progress'"
+                }]
+            },
             {
                 attr: "active : bookingData._id || bookingData.stage == 'In Progress' || bookingData.venue",
-                numberOfRules: 1
+                rules: [{
+                    classes: ['active'],
+                    assertions: "bookingData._id || bookingData.stage == 'In Progress' || bookingData.venue"
+                }]
             },
             {
                 attr: "active : bookingData._id || bookingData.stage == 'In Progress' && bookingData.venue",
-                numberOfRules: 1
+                rules: [{
+                    classes: ['active'],
+                    assertions: "bookingData._id || bookingData.stage == 'In Progress' && bookingData.venue"
+                }]
             },
-            {attr: "active : bookingData._id && bookingData.stage == 'Archived'", numberOfRules: 1},
-            {attr: "shake : bookingData._id && bookingData.stage == 'Archived' && bookingData.venue", numberOfRules: 1},
             {
-                attr: "active : bookingData._id || bookingData.stage == 'In Progress' , shake: bookingData.venue",
-                numberOfRules: 2
+                attr: "active : bookingData._id && bookingData.stage == 'Archived'",
+                rules: [{
+                    classes: ['active'],
+                    assertions: "bookingData._id && bookingData.stage == 'Archived'"
+                }]
+            },
+            {
+                attr: "shake : bookingData._id && bookingData.stage == 'Archived' && bookingData.venue",
+                rules: [{
+                    classes: ['shake'],
+                    assertions: "bookingData._id && bookingData.stage == 'Archived' && bookingData.venue"
+                }]
+            },
+            {
+                attr: "active : bookingData._id || bookingData.stage == 'In Progress' , shake + active: bookingData.venue",
+                rules: [{
+                    classes: ['active'],
+                    assertions: "bookingData._id || bookingData.stage == 'In Progress'"
+                }, {
+                    classes: ['shake', 'active'],
+                    assertions: "bookingData.venue"
+                }]
             },
         ];
 
@@ -32,9 +95,15 @@ module hirespace.specs {
                 model = new hirespace.ToggleClass(scenario.attr);
             });
 
-            it('should determine the correct number of rules', () => {
-                expect(model.rules.length).toEqual(scenario.numberOfRules);
+            it('should determine the correct number of rules in ' + scenario.attr, () => {
+                expect(model.rules.length).toEqual(scenario.rules.length);
             });
+
+            //it('should determine the correct number of classes per rule in ' + scenario.attr, () => {
+            //    expect(model.rules).toEqual(scenario.rules);
+            //});
+
+
         });
     });
 }
