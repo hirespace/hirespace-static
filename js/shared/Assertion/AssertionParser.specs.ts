@@ -48,7 +48,6 @@ module hirespace.specs {
                 expected: [false, true, true, true],
                 overall: false
             }
-
         ];
 
         _.forEach(scenarios, (scenario) => {
@@ -57,11 +56,87 @@ module hirespace.specs {
             });
 
             it('should correctly evaluate the overall assertion group in ' + JSON.stringify(scenario.original), () => {
-                // should check the whole rule -> so overall true only if [AndGroup1 === true AND AndGroup2 === true], etc.
-
                 expect(hirespace.AssertionParser.parse(scenario.expected)).toEqual(scenario.overall);
             });
         });
 
+        let sentenceScenariosResolveObject = {
+            bookingData: {
+                _id: 'a1',
+                budget: '3,000',
+                stage: 'New',
+                venue: {
+                    name: 'The Barbican'
+                }
+            }
+        };
+
+        let sentenceScenarios = [
+            {
+                sentence: " bookingData.stage == 'In Progress' ",
+                parsed: {
+                    path: 'bookingData.stage',
+                    type: 'equality',
+                    value: 'In Progress'
+                },
+                evaluation: false
+            },
+            {
+                sentence: "bookingData.venue.name=='The Barbican'",
+                parsed: {
+                    path: 'bookingData.venue.name',
+                    type: 'equality',
+                    value: 'The Barbican'
+                },
+                evaluation: true
+            },
+            {
+                sentence: "bookingData._id",
+                parsed: {
+                    path: 'bookingData._id',
+                    type: 'boolean',
+                    value: true
+                },
+                evaluation: true
+            },
+            {
+                sentence: "bookingData._id=='a1'",
+                parsed: {
+                    path: 'bookingData._id',
+                    type: 'equality',
+                    value: 'a1'
+                },
+                evaluation: true
+            },
+            {
+                sentence: "bookingData.budget ==  '3,000'  ",
+                parsed: {
+                    path: 'bookingData.budget',
+                    type: 'equality',
+                    value: '3,000'
+                },
+                evaluation: true
+            },
+            {
+                sentence: "bookingData.venue.fakeKey",
+                parsed: {
+                    path: 'bookingData.venue.fakeKey',
+                    type: 'boolean',
+                    value: true
+                },
+                evaluation: false
+            }
+        ];
+
+        _.forEach(sentenceScenarios, (scenario) => {
+            it('should parse ' + scenario.sentence + ' correctly', () => {
+                expect(hirespace.AssertionParser.parseSentence(scenario.sentence)).toEqual(scenario.parsed);
+            });
+
+            it('should correctly evaluate the truth-ness of ' + scenario.sentence, () => {
+                expect(hirespace.AssertionParser.evaluateSentence(scenario.parsed, sentenceScenariosResolveObject))
+                    .toEqual(scenario.evaluation);
+            });
+        });
     });
 }

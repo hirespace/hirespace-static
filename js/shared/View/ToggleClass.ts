@@ -9,8 +9,7 @@ module hirespace {
 
     interface ISplitRule {
         classes: Array<string>;
-        assertions: string;
-        //assertionGroups: Array<Array>;
+        assertions: Array<Array<string>>;
     }
 
     export class ToggleClass {
@@ -29,14 +28,11 @@ module hirespace {
 
             return {
                 classes: _.map(_.first(sides).split('+'), (cls) => _.trim(cls)),
-                assertions: _.last(sides),
-                //assertionGroups: this.parseAndAssertions(_.last(sides))
+                assertions: this.parseAndAssertions(_.last(sides))
             };
         }
 
-        // @TODO
-        // possibly private in future
-        parseAndAssertions(assertions: string) {
+        private parseAndAssertions(assertions: string) {
             // @TODO
             // abstract double amp symbol to config
             return _.map(assertions.split('&&'), (assertionGroup) => this.parseOrAssertions(assertionGroup));
@@ -76,7 +72,6 @@ module hirespace {
             });
             return andGroup.length;
         }
-
 
 
         static parseAssertion(assertionString: string): IAssertionSentenceN {
