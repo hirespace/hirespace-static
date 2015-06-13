@@ -14,6 +14,11 @@ module hirespace.specs {
                 overall: false
             },
             {
+                original: [[false, true]],
+                expected: [true],
+                overall: true
+            },
+            {
                 original: [[true], [false]],
                 expected: [true, false],
                 overall: false

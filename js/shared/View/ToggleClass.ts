@@ -45,9 +45,13 @@ module hirespace {
             return _.map(assertionGroup.split('||'), (assertion) => _.trim(assertion));
         }
 
-        evaluate(assertionGroups) {
+        evaluateAll(assertionGroups): Array<Array<boolean>> {
             return _.map(assertionGroups, (group: Array<string>) =>
                 _.map(group, (assertion) => hirespace.AssertionParser.evaluateAssertion(assertion, this.target)));
         }
+
+        //static evaluate(evaluations: Array<Array<boolean>>) {
+        //    return hirespace.AssertionParser.parse(hirespace.AssertionParser.parseAll(evaluations));
+        //}
     }
 }

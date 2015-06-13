@@ -16,7 +16,8 @@ module hirespace.specs {
                 rules: [{
                     classes: ['is-hidden'],
                     assertions: [["bookingData.stage == 'In Progress'"]],
-                    evaluations: [[true]]
+                    evaluations: [[true]],
+                    evaluation: true
                 }]
             },
             {
@@ -24,7 +25,8 @@ module hirespace.specs {
                 rules: [{
                     classes: ['is-visible'],
                     assertions: [["bookingData.stage == 'New'"]],
-                    evaluations: [[false]]
+                    evaluations: [[false]],
+                    evaluation: false
                 }]
             },
             {
@@ -32,7 +34,8 @@ module hirespace.specs {
                 rules: [{
                     classes: ['active'],
                     assertions: [["bookingData._id"]],
-                    evaluations: [[false]]
+                    evaluations: [[false]],
+                    evaluation: false
                 }]
             },
             {
@@ -40,11 +43,13 @@ module hirespace.specs {
                 rules: [{
                     classes: ['is-visible'],
                     assertions: [["bookingData.stage == 'New'"]],
-                    evaluations: [[false]]
+                    evaluations: [[false]],
+                    evaluation: false
                 }, {
                     classes: ['active'],
                     assertions: [["bookingData._id"]],
-                    evaluations: [[false]]
+                    evaluations: [[false]],
+                    evaluation: false
                 }]
             },
             {
@@ -52,7 +57,8 @@ module hirespace.specs {
                 rules: [{
                     classes: ['active', 'shake'],
                     assertions: [["bookingData._id"]],
-                    evaluations: [[false]]
+                    evaluations: [[false]],
+                    evaluation: false
                 }]
             },
             {
@@ -60,7 +66,8 @@ module hirespace.specs {
                 rules: [{
                     classes: ['shake'],
                     assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"]],
-                    evaluations: [[false, true]]
+                    evaluations: [[false, true]],
+                    evaluation: true
                 }]
             },
             {
@@ -68,7 +75,8 @@ module hirespace.specs {
                 rules: [{
                     classes: ['active'],
                     assertions: [["bookingData._id", "bookingData.stage == 'In Progress'", "bookingData.venue"]],
-                    evaluations: [[false, true, true]]
+                    evaluations: [[false, true, true]],
+                    evaluation: true
                 }]
             },
             {
@@ -76,7 +84,8 @@ module hirespace.specs {
                 rules: [{
                     classes: ['active'],
                     assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"], ["bookingData.venue"]],
-                    evaluations: [[false, true], [true]]
+                    evaluations: [[false, true], [true]],
+                    evaluation: true
                 }]
             },
             {
@@ -84,7 +93,8 @@ module hirespace.specs {
                 rules: [{
                     classes: ['active'],
                     assertions: [["bookingData._id"], ["bookingData.stage == 'Archived'"]],
-                    evaluations: [[false], [false]]
+                    evaluations: [[false], [false]],
+                    evaluation: false
                 }]
             },
             {
@@ -92,7 +102,8 @@ module hirespace.specs {
                 rules: [{
                     classes: ['shake'],
                     assertions: [["bookingData._id"], ["bookingData.stage == 'Archived'"], ["bookingData.venue"]],
-                    evaluations: [[false], [false], [true]]
+                    evaluations: [[false], [false], [true]],
+                    evaluation: false
                 }]
             },
             {
@@ -100,11 +111,13 @@ module hirespace.specs {
                 rules: [{
                     classes: ['active'],
                     assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"]],
-                    evaluations: [[false, true]]
+                    evaluations: [[false, true]],
+                    evaluation: true
                 }, {
                     classes: ['shake', 'active'],
                     assertions: [["bookingData.venue"]],
-                    evaluations: [[true]]
+                    evaluations: [[true]],
+                    evaluation: true
                 }]
             },
             {
@@ -112,7 +125,8 @@ module hirespace.specs {
                 rules: [{
                     classes: ['active'],
                     assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"], ["bookingData.venue", "bookingData.status"]],
-                    evaluations: [[false, true], [true, true]]
+                    evaluations: [[false, true], [true, true]],
+                    evaluation: true
                 }]
             }
         ];
@@ -143,9 +157,17 @@ module hirespace.specs {
 
             it('should correctly evaluate all assertions in ' + scenario.attr, () => {
                 _.forEach(model.rules, (rule, key) => {
-                    expect(model.evaluate(rule.assertions)).toEqual(scenario.rules[key].evaluations);
+                    expect(model.evaluateAll(rule.assertions)).toEqual(scenario.rules[key].evaluations);
                 });
-            })
+            });
+
+            it('should correctly evaluate the final assertion for each rule in ' + scenario.attr, () => {
+                _.forEach(model.rules, (rule, key) => {
+                    let evaluations = hirespace.AssertionParser.parseAll(scenario.rules[key].evaluations);
+
+                    expect(hirespace.AssertionParser.parse(evaluations)).toEqual(scenario.rules[key].evaluation);
+                });
+            });
         });
     });
 }
