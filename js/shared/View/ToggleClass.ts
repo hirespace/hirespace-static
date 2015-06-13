@@ -14,6 +14,7 @@ module hirespace {
 
     export class ToggleClass {
         rules: Array<ISplitRule>;
+        target: any;
 
         constructor(private attr: string) {
             this.rules = _.map(attr.split(','), (rule) => this.splitRule(rule));
@@ -44,53 +45,9 @@ module hirespace {
             return _.map(assertionGroup.split('||'), (assertion) => _.trim(assertion));
         }
 
-        isMultiple(assertionGroups) {
-            //assertionGroups.length == 1 ? {and: assertionGroups} : NOAND;
-            //return assertionGroups.length !== 1;
-            return _.map(assertionGroups, (andGroup) => this.evaluate(andGroup));
-        }
-
-        evaluate(andGroup) {
-            console.log(andGroup);
-            let evaluated = _.map(andGroup, (assertion: string) => {
-                //console.log(assertion);
-                let assertionData = hirespace.ToggleClass.parseAssertion(assertion);
-                //hirespace.ToggleClass.resolveObject()
-                //return true;
-                console.log(assertionData);
-                let resolved = hirespace.ToggleClass.resolveObject(assertionData.object, {
-                    bookingData: {
-                        _id: 'id',
-                        stage: 'In Progress'
-                    }
-                }, true);
-                console.log(resolved);
-                let isValid: boolean;
-                isValid = assertionData.type == 'equality' ? (resolved == assertionData.value) : (!_.isUndefined(resolved));
-                console.log(isValid);
-                return assertionData;
-            });
-            return andGroup.length;
-        }
-
-
-        static parseAssertion(assertionString: string): IAssertionSentenceN {
-            let assertion = _.trim(assertionString),
-                splitAssertion = assertion.split('=='),
-                type: string = splitAssertion.length == 2 ? 'equality' : 'boolean';
-
-            return {
-                object: _.trim(_.first(splitAssertion)),
-                type: type,
-                value: type == 'equality' ? _.trim(_.last(splitAssertion), ' \' ') : true
-            }
-        }
-
-        static resolveObject(path: string, target: Object, safe?: boolean) {
-            let keys = path.split('.');
-
-            return _.reduce(keys, (previous, current) => !safe ? previous[current] : (previous ? previous[current] : undefined),
-                target || self);
+        evaluate(assertionGroups) {
+            return _.map(assertionGroups, (group: Array<string>) =>
+                _.map(group, (assertion) => hirespace.AssertionParser.evaluateAssertion(assertion, this.target)));
         }
     }
 }

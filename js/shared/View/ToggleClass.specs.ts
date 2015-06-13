@@ -2,95 +2,117 @@ module hirespace.specs {
     'use strict';
 
     describe('Toggle Class', () => {
+        let scenariosResolveObject = {
+            bookingData: {
+                stage: 'In Progress',
+                status: 'Won',
+                venue: 'The Barbican'
+            }
+        };
+
         let scenarios = [
             {
                 attr: "is-hidden : bookingData.stage == 'In Progress'",
                 rules: [{
                     classes: ['is-hidden'],
-                    assertions: [["bookingData.stage == 'In Progress'"]]
+                    assertions: [["bookingData.stage == 'In Progress'"]],
+                    evaluations: [[true]]
                 }]
             },
             {
                 attr: "is-visible : bookingData.stage == 'New'",
                 rules: [{
                     classes: ['is-visible'],
-                    assertions: [["bookingData.stage == 'New'"]]
+                    assertions: [["bookingData.stage == 'New'"]],
+                    evaluations: [[false]]
                 }]
             },
             {
                 attr: "active : bookingData._id",
                 rules: [{
                     classes: ['active'],
-                    assertions: [["bookingData._id"]]
+                    assertions: [["bookingData._id"]],
+                    evaluations: [[false]]
                 }]
             },
             {
                 attr: "is-visible : bookingData.stage == 'New', active : bookingData._id",
                 rules: [{
                     classes: ['is-visible'],
-                    assertions: [["bookingData.stage == 'New'"]]
+                    assertions: [["bookingData.stage == 'New'"]],
+                    evaluations: [[false]]
                 }, {
                     classes: ['active'],
-                    assertions: [["bookingData._id"]]
+                    assertions: [["bookingData._id"]],
+                    evaluations: [[false]]
                 }]
             },
             {
                 attr: "active + shake : bookingData._id",
                 rules: [{
                     classes: ['active', 'shake'],
-                    assertions: [["bookingData._id"]]
+                    assertions: [["bookingData._id"]],
+                    evaluations: [[false]]
                 }]
             },
             {
                 attr: "shake : bookingData._id || bookingData.stage == 'In Progress'",
                 rules: [{
                     classes: ['shake'],
-                    assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"]]
+                    assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"]],
+                    evaluations: [[false, true]]
                 }]
             },
             {
                 attr: "active : bookingData._id || bookingData.stage == 'In Progress' || bookingData.venue",
                 rules: [{
                     classes: ['active'],
-                    assertions: [["bookingData._id", "bookingData.stage == 'In Progress'", "bookingData.venue"]]
+                    assertions: [["bookingData._id", "bookingData.stage == 'In Progress'", "bookingData.venue"]],
+                    evaluations: [[false, true, true]]
                 }]
             },
             {
                 attr: "active : bookingData._id || bookingData.stage == 'In Progress' && bookingData.venue",
                 rules: [{
                     classes: ['active'],
-                    assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"], ["bookingData.venue"]]
+                    assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"], ["bookingData.venue"]],
+                    evaluations: [[false, true], [true]]
                 }]
             },
             {
                 attr: "active : bookingData._id && bookingData.stage == 'Archived'",
                 rules: [{
                     classes: ['active'],
-                    assertions: [["bookingData._id"], ["bookingData.stage == 'Archived'"]]
+                    assertions: [["bookingData._id"], ["bookingData.stage == 'Archived'"]],
+                    evaluations: [[false], [false]]
                 }]
             },
             {
                 attr: "shake : bookingData._id && bookingData.stage == 'Archived' && bookingData.venue",
                 rules: [{
                     classes: ['shake'],
-                    assertions: [["bookingData._id"], ["bookingData.stage == 'Archived'"], ["bookingData.venue"]]
+                    assertions: [["bookingData._id"], ["bookingData.stage == 'Archived'"], ["bookingData.venue"]],
+                    evaluations: [[false], [false], [true]]
                 }]
             },
             {
                 attr: "active : bookingData._id || bookingData.stage == 'In Progress' , shake + active: bookingData.venue",
                 rules: [{
                     classes: ['active'],
-                    assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"]]
+                    assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"]],
+                    evaluations: [[false, true]]
                 }, {
                     classes: ['shake', 'active'],
-                    assertions: [["bookingData.venue"]]
+                    assertions: [["bookingData.venue"]],
+                    evaluations: [[true]]
                 }]
             },
             {
                 attr: "active : bookingData._id || bookingData.stage == 'In Progress' && bookingData.venue || bookingData.status",
                 rules: [{
                     classes: ['active'],
-                    assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"], ["bookingData.venue", "bookingData.status"]]
+                    assertions: [["bookingData._id", "bookingData.stage == 'In Progress'"], ["bookingData.venue", "bookingData.status"]],
+                    evaluations: [[false, true], [true, true]]
                 }]
             }
         ];
@@ -100,6 +122,7 @@ module hirespace.specs {
 
             beforeEach(() => {
                 model = new hirespace.ToggleClass(scenario.attr);
+                model.target = scenariosResolveObject;
             });
 
             it('should determine the correct number of rules in ' + scenario.attr, () => {
@@ -118,14 +141,9 @@ module hirespace.specs {
                 });
             });
 
-            it('should correctly evaluate whether AND or OR group is present in ' + scenario.attr, () => {
+            it('should correctly evaluate all assertions in ' + scenario.attr, () => {
                 _.forEach(model.rules, (rule, key) => {
-                    console.log(rule.assertions);
-                    console.log(' => ');
-
-                    let isMultiple = model.isMultiple(rule.assertions);
-                    console.log(isMultiple);
-                    //expect(model.parseAndAssertions(rule.assertions)).toEqual(scenario.rules[key].assertionGroups);
+                    expect(model.evaluate(rule.assertions)).toEqual(scenario.rules[key].evaluations);
                 });
             })
         });

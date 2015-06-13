@@ -63,6 +63,7 @@ module hirespace.specs {
         let sentenceScenariosResolveObject = {
             bookingData: {
                 _id: 'a1',
+                //boolean: false,
                 budget: '3,000',
                 stage: 'New',
                 venue: {
@@ -125,7 +126,16 @@ module hirespace.specs {
                     value: true
                 },
                 evaluation: false
-            }
+            },
+            //{
+            //    sentence: "  bookingData.boolean == false  ",
+            //    parsed: {
+            //        path: 'bookingData.boolean',
+            //        type: 'equality',
+            //        value: false
+            //    },
+            //    evaluation: true
+            //}
         ];
 
         _.forEach(sentenceScenarios, (scenario) => {
@@ -134,7 +144,7 @@ module hirespace.specs {
             });
 
             it('should correctly evaluate the truth-ness of ' + scenario.sentence, () => {
-                expect(hirespace.AssertionParser.evaluateSentence(scenario.parsed, sentenceScenariosResolveObject))
+                expect(hirespace.AssertionParser.evaluateAssertion(scenario.sentence, sentenceScenariosResolveObject))
                     .toEqual(scenario.evaluation);
             });
         });

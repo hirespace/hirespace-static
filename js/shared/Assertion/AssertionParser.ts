@@ -1,7 +1,7 @@
 module hirespace {
     'use strict';
 
-    export interface IAssertionSentenceM {
+    export interface IAssertionSentenceData {
         path: string;
         type: string;
         value: string | boolean;
@@ -16,7 +16,7 @@ module hirespace {
             return _.indexOf(assertions, false) == -1;
         }
 
-        static parseSentence(assertionSentence: string): IAssertionSentenceM {
+        static parseSentence(assertionSentence: string): IAssertionSentenceData {
             let assertionParts = _.map(assertionSentence.split('=='), (part) => _.trim(part));
 
             return {
@@ -26,19 +26,18 @@ module hirespace {
             }
         }
 
+        static evaluateAssertion(assertionSentence: string, target: any): boolean {
+            let assertionData = hirespace.AssertionParser.parseSentence(assertionSentence),
+                resolved = hirespace.AssertionParser.resolveObject(assertionData.path, target, true);
 
-        // TEST
-        static resolveObject(path: string, target: Object, safe?: boolean) {
+            return assertionData.type == 'equality' ? (resolved == assertionData.value) : (!_.isUndefined(resolved));
+        }
+
+        private static resolveObject(path: string, target: Object, safe?: boolean): string {
             let keys = path.split('.');
 
             return _.reduce(keys, (previous, current) => !safe ? previous[current] : (previous ? previous[current] : undefined),
                 target || self);
-        }
-
-        static evaluateSentence(assertionData: IAssertionSentenceM, target: any): boolean {
-            let resolved = hirespace.AssertionParser.resolveObject(assertionData.path, target, true);
-
-            return assertionData.type == 'equality' ? (resolved == assertionData.value) : (!_.isUndefined(resolved));
         }
     }
 }
