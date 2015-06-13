@@ -41,6 +41,7 @@ declare module _ {
 		(value: number): LoDashWrapper<number>;
 		(value: string): LoDashWrapper<string>;
 		(value: boolean): LoDashWrapper<boolean>;
+		(value: Array<number>): LoDashNumberArrayWrapper;
 		<T>(value: Array<T>): LoDashArrayWrapper<T>;
 		<T extends {}>(value: T): LoDashObjectWrapper<T>;
 		(value: any): LoDashWrapper<any>;
@@ -98,7 +99,7 @@ declare module _ {
 	 **/
 	interface Support {
 		/**
-		 * Detect if an arguments object’s [[Class]] is resolvable (all but Firefox < 4, IE < 9).
+		 * Detect if an arguments object's [[Class]] is resolvable (all but Firefox < 4, IE < 9).
 		 **/
 		argsClass: boolean;
 
@@ -205,6 +206,8 @@ declare module _ {
 		unshift(...items: any[]): LoDashWrapper<number>;
 	}
 
+	interface LoDashNumberArrayWrapper extends LoDashArrayWrapper<number> { }
+
 	//_.chain
 	interface LoDashStatic {
 		/**
@@ -258,7 +261,7 @@ declare module _ {
 		//_.chunk
 	interface LoDashStatic {
 		/**
-		 * Creates an array of elements split into groups the length of size. If collection can’t be
+		 * Creates an array of elements split into groups the length of size. If collection can't be
 		 * split evenly, the final chunk will be the remaining elements.
 		 * @param array The array to process.
 		 * @param size The length of each chunk.
@@ -287,12 +290,12 @@ declare module _ {
 		 * @param array Array to compact.
 		 * @return (Array) Returns a new array of filtered values.
 		 **/
-		compact<T>(array: Array<T>): T[];
+		compact<T>(array?: Array<T>): T[];
 
 		/**
 		 * @see _.compact
 		 **/
-		compact<T>(array: List<T>): T[];
+		compact<T>(array?: List<T>): T[];
 	}
 
 	interface LoDashArrayWrapper<T> {
@@ -312,13 +315,13 @@ declare module _ {
 		 * @return Returns a new array of filtered values.
 		 **/
 		difference<T>(
-			array: Array<T>,
+			array?: Array<T>,
 			...others: Array<T>[]): T[];
 		/**
 		 * @see _.difference
 		 **/
 		difference<T>(
-			array: List<T>,
+			array?: List<T>,
 			...others: List<T>[]): T[];
 	}
 
@@ -456,12 +459,12 @@ declare module _ {
 		 * @param array Retrieves the first element of this array.
 		 * @return Returns the first element of `array`.
 		 **/
-		first<T>(array: Array<T>): T;
+		first<T>(array?: Array<T>): T;
 
 		/**
 		 * @see _.first
 		 **/
-		first<T>(array: List<T>): T;
+		first<T>(array?: List<T>): T;
 
 		/**
 		 * @see _.first
@@ -1320,6 +1323,14 @@ declare module _ {
 		remove(
 			array: List<any>,
 			wherealue?: Dictionary<any>): any[];
+
+		/**
+		 * @see _.remove
+		 * @param item The item to remove
+		 **/
+		remove<T>(
+			array:Array<T>,
+			item:T): T[];
 	}
 
 	//_.rest
@@ -2066,23 +2077,45 @@ declare module _ {
 	//_.zipObject
 	interface LoDashStatic {
 		/**
-		 * Creates an object composed from arrays of keys and values. Provide either a single
-		 * two dimensional array, i.e. [[key1, value1], [key2, value2]] or two arrays, one of
-		 * keys and one of corresponding values.
-		 * @param keys The array of keys.
-		 * @param values The array of values.
-		 * @return An object composed of the given keys and corresponding values.
+		 * The inverse of _.pairs; this method returns an object composed from arrays of property
+		 * names and values. Provide either a single two dimensional array, e.g. [[key1, value1],
+		 * [key2, value2]] or two arrays, one of property names and one of corresponding values.
+		 * @param props The property names.
+		 * @param values The property values.
+		 * @return Returns the new object.
 		 **/
 		zipObject<TResult extends {}>(
-			keys: List<string>,
-			values: List<any>): TResult;
+			props: List<string>,
+			values?: List<any>): TResult;
 
 		/**
-		 * @see _.object
+		 * @see _.zipObject
+		 **/
+		zipObject<TResult extends {}>(props: List<List<any>>): Dictionary<any>;
+
+		/**
+		 * @see _.zipObject
 		 **/
 		object<TResult extends {}>(
-			keys: List<string>,
-			values: List<any>): TResult;
+			props: List<string>,
+			values?: List<any>): TResult;
+
+		/**
+		 * @see _.zipObject
+		 **/
+		object<TResult extends {}>(props: List<List<any>>): Dictionary<any>;
+	}
+
+	interface LoDashArrayWrapper<T> {
+		/**
+		 * @see _.zipObject
+		 **/
+		zipObject(values?: List<any>): _.LoDashObjectWrapper<Dictionary<any>>;
+
+		/**
+		 * @see _.zipObject
+		 **/
+		object(values?: List<any>): _.LoDashObjectWrapper<Dictionary<any>>;
 	}
 
 	/* *************
@@ -2253,7 +2286,7 @@ declare module _ {
 		 **/
 		countBy<T>(
 			collection: Dictionary<T>,
-			callback?: ListIterator<T, any>,
+			callback?: DictionaryIterator<T, any>,
 			thisArg?: any): Dictionary<number>;
 
 		/**
@@ -2338,7 +2371,7 @@ declare module _ {
 		 **/
 		every<T>(
 			collection: Dictionary<T>,
-			callback?: ListIterator<T, boolean>,
+			callback?: DictionaryIterator<T, boolean>,
 			thisArg?: any): boolean;
 
 		/**
@@ -2410,7 +2443,7 @@ declare module _ {
 		 **/
 		all<T>(
 			collection: Dictionary<T>,
-			callback?: ListIterator<T, boolean>,
+			callback?: DictionaryIterator<T, boolean>,
 			thisArg?: any): boolean;
 
 		/**
@@ -2497,7 +2530,7 @@ declare module _ {
 		 **/
 		filter<T>(
 			collection: Dictionary<T>,
-			callback: ListIterator<T, boolean>,
+			callback: DictionaryIterator<T, boolean>,
 			thisArg?: any): T[];
 
 		/**
@@ -2569,7 +2602,7 @@ declare module _ {
 		 **/
 		select<T>(
 			collection: Dictionary<T>,
-			callback: ListIterator<T, boolean>,
+			callback: DictionaryIterator<T, boolean>,
 			thisArg?: any): T[];
 
 		/**
@@ -2709,7 +2742,7 @@ declare module _ {
 		 **/
 		find<T>(
 			collection: Dictionary<T>,
-			callback: ListIterator<T, boolean>,
+			callback: DictionaryIterator<T, boolean>,
 			thisArg?: any): T;
 
 		/**
@@ -2781,7 +2814,7 @@ declare module _ {
 		 **/
 		detect<T>(
 			collection: Dictionary<T>,
-			callback: ListIterator<T, boolean>,
+			callback: DictionaryIterator<T, boolean>,
 			thisArg?: any): T;
 
 		/**
@@ -2853,7 +2886,7 @@ declare module _ {
 		 **/
 		findWhere<T>(
 			collection: Dictionary<T>,
-			callback: ListIterator<T, boolean>,
+			callback: DictionaryIterator<T, boolean>,
 			thisArg?: any): T;
 
 		/**
@@ -2955,7 +2988,7 @@ declare module _ {
 		 **/
 		findLast<T>(
 			collection: Dictionary<T>,
-			callback: ListIterator<T, boolean>,
+			callback: DictionaryIterator<T, boolean>,
 			thisArg?: any): T;
 
 		/**
@@ -3057,7 +3090,7 @@ declare module _ {
 		 **/
 		forEach<T extends {}>(
 			object: Dictionary<T>,
-			callback: ObjectIterator<T, void>,
+			callback: DictionaryIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
 
 		/**
@@ -3092,7 +3125,7 @@ declare module _ {
 		 **/
 		each<T extends {}>(
 			object: Dictionary<T>,
-			callback: ObjectIterator<T, void>,
+			callback: DictionaryIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
 
 		/**
@@ -3163,7 +3196,7 @@ declare module _ {
 		 **/
 		forEachRight<T extends {}>(
 			object: Dictionary<T>,
-			callback: ObjectIterator<T, void>,
+			callback: DictionaryIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
 
 		/**
@@ -3190,7 +3223,7 @@ declare module _ {
 		 **/
 		eachRight<T extends {}>(
 			object: Dictionary<T>,
-			callback: ObjectIterator<T, void>,
+			callback: DictionaryIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
 	}
 
@@ -3296,7 +3329,7 @@ declare module _ {
 		 **/
 		groupBy<T>(
 			collection: Dictionary<T>,
-			callback?: ListIterator<T, any>,
+			callback?: DictionaryIterator<T, any>,
 			thisArg?: any): Dictionary<T[]>;
 
 		/**
@@ -3518,7 +3551,7 @@ declare module _ {
 		 **/
 		map<T extends {}, TResult>(
 			object: Dictionary<T>,
-			callback: ObjectIterator<T, TResult>,
+			callback: DictionaryIterator<T, TResult>,
 			thisArg?: any): TResult[];
 
 		/**
@@ -3558,7 +3591,7 @@ declare module _ {
 		 **/
 		collect<T extends {}, TResult>(
 			object: Dictionary<T>,
-			callback: ObjectIterator<T, TResult>,
+			callback: DictionaryIterator<T, TResult>,
 			thisArg?: any): TResult[];
 
 		/**
@@ -3657,7 +3690,7 @@ declare module _ {
 		 **/
 		max<T>(
 			collection: Dictionary<T>,
-			callback?: ListIterator<T, any>,
+			callback?: DictionaryIterator<T, any>,
 			thisArg?: any): T;
 
 		/**
@@ -3841,6 +3874,131 @@ declare module _ {
 		 **/
 		min<W>(
 			whereValue: W): LoDashWrapper<T>;
+	}
+
+	//_.sum
+	interface LoDashStatic {
+		/**
+		 * Gets the sum of the values in collection.
+		 *
+		 * @param collection The collection to iterate over.
+		 * @param iteratee The function invoked per iteration.
+		 * @param thisArg The this binding of iteratee.
+		 * @return Returns the sum.
+		 **/
+		sum(
+			collection: Array<number>): number;
+
+		/**
+		 * @see _.sum
+		 **/
+		sum(
+			collection: List<number>): number;
+
+		/**
+		 * @see _.sum
+		 **/
+		sum(
+			collection: Dictionary<number>): number;
+
+		/**
+		 * @see _.sum
+		 **/
+		sum<T>(
+			collection: Array<T>,
+			iteratee: ListIterator<T, number>,
+			thisArg?: any): number;
+
+		/**
+		 * @see _.sum
+		 **/
+		sum<T>(
+			collection: List<T>,
+			iteratee: ListIterator<T, number>,
+			thisArg?: any): number;
+
+		/**
+		 * @see _.sum
+		 **/
+		sum<T>(
+			collection: Dictionary<T>,
+			iteratee: ObjectIterator<T, number>,
+			thisArg?: any): number;
+
+		/**
+		 * @see _.sum
+		 * @param property _.property callback shorthand.
+		 **/
+		sum<T>(
+			collection: Array<T>,
+			property: string): number;
+
+		/**
+		 * @see _.sum
+		 * @param property _.property callback shorthand.
+		 **/
+		sum<T>(
+			collection: List<T>,
+			property: string): number;
+
+		/**
+		 * @see _.sum
+		 * @param property _.property callback shorthand.
+		 **/
+		sum<T>(
+			collection: Dictionary<T>,
+			property: string): number;
+	}
+
+	interface LoDashNumberArrayWrapper {
+		/**
+		 * @see _.sum
+		 **/
+		sum(): number
+
+		/**
+		 * @see _.sum
+		 **/
+		sum(
+			iteratee: ListIterator<number, number>,
+			thisArg?: any): number;
+	}
+
+	interface LoDashArrayWrapper<T> {
+		/**
+		 * @see _.sum
+		 **/
+		sum(
+			iteratee: ListIterator<T, number>,
+			thisArg?: any): number;
+
+		/**
+		 * @see _.sum
+		 * @param property _.property callback shorthand.
+		 **/
+		sum(
+			property: string): number;
+	}
+
+	interface LoDashObjectWrapper<T> {
+		/**
+		 * @see _.sum
+		 **/
+		sum(): number
+
+		/**
+		 * @see _.sum
+		 **/
+		sum(
+			iteratee: ObjectIterator<any, number>,
+			thisArg?: any): number;
+
+		/**
+		 * @see _.sum
+		 * @param property _.property callback shorthand.
+		 **/
+		sum(
+			property: string): number;
 	}
 
 	//_.pluck
@@ -4290,7 +4448,7 @@ declare module _ {
 		 **/
 		reject<T>(
 			collection: Dictionary<T>,
-			callback: ListIterator<T, boolean>,
+			callback: DictionaryIterator<T, boolean>,
 			thisArg?: any): T[];
 
 		/**
@@ -4501,7 +4659,7 @@ declare module _ {
 		 **/
 		some<T>(
 			collection: Dictionary<T>,
-			callback?: ListIterator<T, boolean>,
+			callback?: DictionaryIterator<T, boolean>,
 			thisArg?: any): boolean;
 
 		/**
@@ -4581,7 +4739,7 @@ declare module _ {
 		 **/
 		any<T>(
 			collection: Dictionary<T>,
-			callback?: ListIterator<T, boolean>,
+			callback?: DictionaryIterator<T, boolean>,
 			thisArg?: any): boolean;
 
 		/**
@@ -4795,6 +4953,20 @@ declare module _ {
 		where<T, U extends {}>(properties: U): LoDashArrayWrapper<T>;
 	}
 
+	/********
+	 * Date *
+	 ********/
+
+		//_.now
+	interface LoDashStatic {
+		/**
+		 * Gets the number of milliseconds that have elapsed since the Unix epoch
+		 * (1 January 1970 00:00:00 UTC).
+		 * @return The number of milliseconds.
+		 **/
+		now(): number;
+	}
+
 	/*************
 	 * Functions *
 	 *************/
@@ -4833,7 +5005,7 @@ declare module _ {
 		bind(
 			func: Function,
 			thisArg: any,
-			...args: any[]): () => any;
+			...args: any[]): (...args: any[]) => any;
 	}
 
 	interface LoDashObjectWrapper<T> {
@@ -4842,7 +5014,7 @@ declare module _ {
 		 **/
 		bind(
 			thisArg: any,
-			...args: any[]): LoDashObjectWrapper<() => any>;
+			...args: any[]): LoDashObjectWrapper<(...args: any[]) => any>;
 	}
 
 	//_.bindAll
@@ -4997,7 +5169,7 @@ declare module _ {
 		 * @param wait The number of milliseconds to delay.
 		 * @param options The options object.
 		 * @param options.leading Specify execution on the leading edge of the timeout.
-		 * @param options.maxWait The maximum time func is allowed to be delayed before it’s called.
+		 * @param options.maxWait The maximum time func is allowed to be delayed before it's called.
 		 * @param options.trailing Specify execution on the trailing edge of the timeout.
 		 * @return The new debounced function.
 		 **/
@@ -5023,7 +5195,7 @@ declare module _ {
 		leading?: boolean;
 
 		/**
-		 * The maximum time func is allowed to be delayed before it’s called.
+		 * The maximum time func is allowed to be delayed before it's called.
 		 **/
 		maxWait?: number;
 
@@ -5524,7 +5696,7 @@ declare module _ {
 		 **/
 		forIn<T>(
 			object: Dictionary<T>,
-			callback?: ObjectIterator<T, void>,
+			callback?: DictionaryIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
 
 		/**
@@ -5557,7 +5729,7 @@ declare module _ {
 		 **/
 		forInRight<T extends {}>(
 			object: Dictionary<T>,
-			callback?: ObjectIterator<T, void>,
+			callback?: DictionaryIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
 
 		/**
@@ -5591,7 +5763,7 @@ declare module _ {
 		 **/
 		forOwn<T extends {}>(
 			object: Dictionary<T>,
-			callback?: ObjectIterator<T, void>,
+			callback?: DictionaryIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
 
 		/**
@@ -5624,7 +5796,7 @@ declare module _ {
 		 **/
 		forOwnRight<T extends {}>(
 			object: Dictionary<T>,
-			callback?: ObjectIterator<T, void>,
+			callback?: DictionaryIterator<T, void>,
 			thisArg?: any): Dictionary<T>;
 		/**
 		 * @see _.forOwnRight
@@ -5672,6 +5844,22 @@ declare module _ {
 		methods(): _.LoDashArrayWrapper<string>;
 	}
 
+	//_.get
+	interface LoDashStatic {
+		/**
+		 * Gets the property value at path of object. If the resolved
+		 * value is undefined the defaultValue is used in its place.
+		 * @param object The object to query.
+		 * @param path The path of the property to get.
+		 * @param defaultValue The value returned if the resolved value is undefined.
+		 * @return Returns the resolved value.
+		 **/
+		get<T>(object : Object,
+			   path:string|string[],
+			   defaultValue?:T
+		): T;
+	}
+
 	//_.has
 	interface LoDashStatic {
 		/**
@@ -5701,7 +5889,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is an arguments object, else false.
 		 **/
-		isArguments(value: any): boolean;
+		isArguments(value?: any): boolean;
 	}
 
 	//_.isArray
@@ -5711,7 +5899,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is an array, else false.
 		 **/
-		isArray(value: any): boolean;
+		isArray(value?: any): boolean;
 	}
 
 	//_.isBoolean
@@ -5721,7 +5909,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is a boolean value, else false.
 		 **/
-		isBoolean(value: any): boolean;
+		isBoolean(value?: any): boolean;
 	}
 
 	//_.isDate
@@ -5731,7 +5919,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is a date, else false.
 		 **/
-		isDate(value: any): boolean;
+		isDate(value?: any): boolean;
 	}
 
 	//_.isElement
@@ -5741,7 +5929,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is a DOM element, else false.
 		 **/
-		isElement(value: any): boolean;
+		isElement(value?: any): boolean;
 	}
 
 	//_.isEmpty
@@ -5752,22 +5940,7 @@ declare module _ {
 		 * @param value The value to inspect.
 		 * @return True if the value is empty, else false.
 		 **/
-		isEmpty(value: any[]): boolean;
-
-		/**
-		 * @see _.isEmpty
-		 **/
-		isEmpty(value: Dictionary<any>): boolean;
-
-		/**
-		 * @see _.isEmpty
-		 **/
-		isEmpty(value: string): boolean;
-
-		/**
-		 * @see _.isEmpty
-		 **/
-		isEmpty(value: any): boolean;
+		isEmpty(value?: any[]|Dictionary<any>|string|any): boolean;
 	}
 
 	//_.isError
@@ -5796,8 +5969,8 @@ declare module _ {
 		 * @return True if the values are equivalent, else false.
 		 **/
 		isEqual(
-			a: any,
-			b: any,
+			a?: any,
+			b?: any,
 			callback?: (a: any, b: any) => boolean,
 			thisArg?: any): boolean;
 	}
@@ -5812,7 +5985,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is finite, else false.
 		 **/
-		isFinite(value: any): boolean;
+		isFinite(value?: any): boolean;
 	}
 
 	//_.isFunction
@@ -5822,7 +5995,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is a function, else false.
 		 **/
-		isFunction(value: any): boolean;
+		isFunction(value?: any): boolean;
 	}
 
 	//_.isNaN
@@ -5835,7 +6008,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is NaN, else false.
 		 **/
-		isNaN(value: any): boolean;
+		isNaN(value?: any): boolean;
 	}
 
 	//_.isNull
@@ -5845,7 +6018,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is null, else false.
 		 **/
-		isNull(value: any): boolean;
+		isNull(value?: any): boolean;
 	}
 
 	//_.isNumber
@@ -5857,7 +6030,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is a number, else false.
 		 **/
-		isNumber(value: any): boolean;
+		isNumber(value?: any): boolean;
 	}
 
 	//_.isObject
@@ -5868,7 +6041,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is an object, else false.
 		 **/
-		isObject(value: any): boolean;
+		isObject(value?: any): boolean;
 	}
 
 	//_.isPlainObject
@@ -5878,7 +6051,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if value is a plain object, else false.
 		 **/
-		isPlainObject(value: any): boolean;
+		isPlainObject(value?: any): boolean;
 	}
 
 	//_.isRegExp
@@ -5888,7 +6061,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is a regular expression, else false.
 		 **/
-		isRegExp(value: any): boolean;
+		isRegExp(value?: any): boolean;
 	}
 
 	//_.isString
@@ -5898,7 +6071,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is a string, else false.
 		 **/
-		isString(value: any): boolean;
+		isString(value?: any): boolean;
 	}
 
 	//_.isUndefined
@@ -5908,7 +6081,7 @@ declare module _ {
 		 * @param value The value to check.
 		 * @return True if the value is undefined, else false.
 		 **/
-		isUndefined(value: any): boolean;
+		isUndefined(value?: any): boolean;
 	}
 
 	//_.keys
@@ -5918,7 +6091,7 @@ declare module _ {
 		 * @param object The object to inspect.
 		 * @return An array of property names.
 		 **/
-		keys(object: any): string[];
+		keys(object?: any): string[];
 	}
 
 	interface LoDashObjectWrapper<T> {
@@ -5932,24 +6105,57 @@ declare module _ {
 	interface LoDashStatic {
 		/**
 		 * Creates an object with the same keys as object and values generated by running each own
-		 * enumerable property of object through the callback. The callback is bound to thisArg and
-		 * invoked with three arguments; (value, key, object).
+		 * enumerable property of object through iteratee. The iteratee function is bound to thisArg
+		 * and invoked with three arguments: (value, key, object).
 		 *
-		 * If a property name is provided for callback the created "_.pluck" style callback will return
+		 * If a property name is provided iteratee the created "_.property" style callback returns
 		 * the property value of the given element.
 		 *
-		 * If an object is provided for callback the created "_.where" style callback will return true
+		 * If a value is also provided for thisArg the creted "_.matchesProperty" style callback returns
+		 * true for elements that have a matching property value, else false;.
+		 *
+		 * If an object is provided for iteratee the created "_.matches" style callback returns true
 		 * for elements that have the properties of the given object, else false.
 		 *
-		 * @param object The object to iterate over.
-		 * @param callback The function called per iteration.
-		 * @param thisArg `this` object in `iterator`, optional.
-		 * @return Returns a new object with values of the results of each callback execution.
+		 * @param {Object} object The object to iterate over.
+		 * @param {Function|Object|string} [iteratee=_.identity]  The function invoked per iteration.
+		 * @param {Object} [thisArg] The `this` binding of `iteratee`.
+		 * @return {Object} Returns the new mapped object.
 		 */
 		mapValues<T, TResult>(obj: Dictionary<T>, callback: ObjectIterator<T, TResult>, thisArg?: any): Dictionary<TResult>;
 		mapValues<T>(obj: Dictionary<T>, where: Dictionary<T>): Dictionary<boolean>;
 		mapValues<T, TMapped>(obj: T, pluck: string): TMapped;
 		mapValues<T>(obj: T, callback: ObjectIterator<any, any>, thisArg?: any): T;
+	}
+
+	interface LoDashObjectWrapper<T> {
+		/**
+		 * @see _.mapValues
+		 * TValue is the type of the property values of T.
+		 * TResult is the type output by the ObjectIterator function
+		 */
+		mapValues<TValue, TResult>(callback: ObjectIterator<TValue, TResult>, thisArg?: any): LoDashObjectWrapper<Dictionary<TResult>>;
+
+		/**
+		 * @see _.mapValues
+		 * TResult is the type of the property specified by pluck.
+		 * T should be a Dictionary<Dictionary<TResult>>
+		 */
+		mapValues<TResult>(pluck: string): LoDashObjectWrapper<Dictionary<TResult>>;
+
+		/**
+		 * @see _.mapValues
+		 * TResult is the type of the properties on the object specified by pluck.
+		 * T should be a Dictionary<Dictionary<Dictionary<TResult>>>
+		 */
+		mapValues<TResult>(pluck: string, where: Dictionary<TResult>): LoDashArrayWrapper<Dictionary<boolean>>;
+
+		/**
+		 * @see _.mapValues
+		 * TResult is the type of the properties of each object in the values of T
+		 * T should be a Dictionary<Dictionary<TResult>>
+		 */
+		mapValues<TResult>(where: Dictionary<TResult>): LoDashArrayWrapper<boolean>;
 	}
 
 	//_.merge
@@ -6063,12 +6269,12 @@ declare module _ {
 	//_.pairs
 	interface LoDashStatic {
 		/**
-		 * Creates a two dimensional array of an object’s key-value pairs,
+		 * Creates a two dimensional array of an object's key-value pairs,
 		 * i.e. [[key1, value1], [key2, value2]].
 		 * @param object The object to inspect.
 		 * @return Aew array of key-value pairs.
 		 **/
-		pairs(object: any): any[][];
+		pairs(object?: any): any[][];
 	}
 
 	interface LoDashObjectWrapper<T> {
@@ -6180,7 +6386,7 @@ declare module _ {
 		 * @param object The object to inspect.
 		 * @return Returns an array of property values.
 		 **/
-		values(object: any): any[];
+		values(object?: any): any[];
 	}
 
 	/**********
@@ -6206,10 +6412,8 @@ declare module _ {
 		trimLeft(str?: string, chars?: string): string;
 		trimRight(str?: string, chars?: string): string;
 		trunc(str?: string, len?: number): string;
-		trunc(str?: string, options?: { length?: number; omission?: string; separator?: string }): string;
-		trunc(str?: string, options?: { length?: number; omission?: string; separator?: RegExp }): string;
-		words(str?: string, pattern?: string): string[];
-		words(str?: string, pattern?: RegExp): string[];
+		trunc(str?: string, options?: { length?: number; omission?: string; separator?: string|RegExp }): string;
+		words(str?: string, pattern?: string|RegExp): string[];
 	}
 
 	//_.parseInt
@@ -6224,7 +6428,7 @@ declare module _ {
 		 * @param radix The radix used to interpret the value to parse.
 		 * @return The new integer value.
 		 **/
-		parseInt(value: string, radix?: number): number;
+		parseInt(value?: string, radix?: number): number;
 	}
 
 	/*************
@@ -6237,7 +6441,7 @@ declare module _ {
 		 * @param string The string to escape.
 		 * @return The escaped string.
 		 **/
-		escape(str: string): string;
+		escape(str?: string): string;
 	}
 
 	//_.identity
@@ -6247,7 +6451,7 @@ declare module _ {
 		 * @param value Any value.
 		 * @return value.
 		 **/
-		identity<T>(value: T): T;
+		identity<T>(value?: T): T;
 	}
 
 	//_.mixin
@@ -6256,7 +6460,7 @@ declare module _ {
 		 * Adds function properties of a source object to the lodash function and chainable wrapper.
 		 * @param object The object of function properties to add to lodash.
 		 **/
-		mixin(object: Dictionary<(value: any) => any>): void;
+		mixin(object?: Dictionary<(value: any) => any>): void;
 	}
 
 	//_.noConflict
@@ -6271,7 +6475,7 @@ declare module _ {
 	//_.property
 	interface LoDashStatic {
 		/**
-		 * # Ⓢ
+		 * # S
 		 * Creates a "_.pluck" style function, which returns the key value of a given object.
 		 * @param key (string)
 		 * @return the value of that key on the object
@@ -6343,7 +6547,7 @@ declare module _ {
 		 * @param options.evaluate The "evaluate" delimiter.
 		 * @param options.import An object to import into the template as local variables.
 		 * @param options.interpolate The "interpolate" delimiter.
-		 * @param sourceURL The sourceURL of the template’s compiled source.
+		 * @param sourceURL The sourceURL of the template's compiled source.
 		 * @param variable The data object variable name.
 		 * @return Returns the compiled Lo-Dash HTML template or a TemplateExecutor if no data is passed.
 		 **/
@@ -6430,11 +6634,15 @@ declare module _ {
 	}
 
 	interface ListIterator<T, TResult> {
-		(value: T, index: number, list: T[]): TResult;
+		(value: T, index: number, collection: T[]): TResult;
+	}
+
+	interface DictionaryIterator<T, TResult> {
+		(value: T, key: string, collection: Dictionary<T>): TResult;
 	}
 
 	interface ObjectIterator<T, TResult> {
-		(element: T, key: string, list: any): TResult;
+		(element: T, key: string, collection: any): TResult;
 	}
 
 	interface MemoVoidIterator<T, TResult> {
