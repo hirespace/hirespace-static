@@ -135,8 +135,7 @@ module hirespace.specs {
             let model: hirespace.ToggleClass;
 
             beforeEach(() => {
-                model = new hirespace.ToggleClass(scenario.attr);
-                model.target = scenariosResolveObject;
+                model = new hirespace.ToggleClass(scenario.attr, scenariosResolveObject);
             });
 
             it('should determine the correct number of rules in ' + scenario.attr, () => {

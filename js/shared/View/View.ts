@@ -14,6 +14,8 @@ module hirespace {
     }
 
     export class View {
+        target: any;
+
         static parseAssertionMetaData(assertion: string): IAssertionMetaData {
             let assertionSplit = assertion.split(':');
 
@@ -85,6 +87,25 @@ module hirespace {
             let attrs = JSON.parse(attr);
 
             _.forEach(attrs, (id) => $('#' + id).toggleClass('is-hidden'));
+        }
+
+        updateElem(elem: Element) {
+            let attr = $(elem).attr('toggle-class'),
+                rules = new hirespace.ToggleClass(attr, this.target);
+
+            _.forEach(rules.rules, (rule: ISplitRule) => {
+                let evaluations = rules.evaluateAll(rule.assertions),
+                    isValid = hirespace.AssertionParser.parse(hirespace.AssertionParser.parseAll(evaluations));
+
+                switch (isValid) {
+                    case true:
+                        $(elem).addClass(rule.classes.join(' '));
+                        break;
+                    default:
+                        $(elem).removeClass(rule.classes.join(' '));
+                        break;
+                }
+            });
         }
     }
 }

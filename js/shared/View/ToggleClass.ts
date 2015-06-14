@@ -7,16 +7,15 @@ module hirespace {
         value: string | boolean;
     }
 
-    interface ISplitRule {
+    export interface ISplitRule {
         classes: Array<string>;
         assertions: Array<Array<string>>;
     }
 
     export class ToggleClass {
         rules: Array<ISplitRule>;
-        target: any;
 
-        constructor(private attr: string) {
+        constructor(private attr: string, public target: any) {
             this.rules = _.map(attr.split(','), (rule) => this.splitRule(rule));
         }
 
@@ -24,7 +23,7 @@ module hirespace {
             let sides = _.map(rule.split(':'), (side) => _.trim(side));
 
             if (sides.length !== 2) {
-                throw 'invalid input';
+                throw 'Invalid input';
             }
 
             return {
@@ -49,9 +48,5 @@ module hirespace {
             return _.map(assertionGroups, (group: Array<string>) =>
                 _.map(group, (assertion) => hirespace.AssertionParser.evaluateAssertion(assertion, this.target)));
         }
-
-        //static evaluate(evaluations: Array<Array<boolean>>) {
-        //    return hirespace.AssertionParser.parse(hirespace.AssertionParser.parseAll(evaluations));
-        //}
     }
 }
