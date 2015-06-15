@@ -40,10 +40,10 @@ module hirespace.specs {
     'use strict';
 
     describe('EnquiriesFeed Controller', () => {
-        let controller: hirespace.EnquiriesFeedController;
+        let controller: hirespace.EnquiriesController;
 
         beforeEach(() => {
-            controller = new hirespace.EnquiriesFeedController();
+            controller = new hirespace.EnquiriesController();
 
             spyOn($, 'ajax').and.callFake((url): any => {
                 let d = $.Deferred();

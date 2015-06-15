@@ -1,0 +1,39 @@
+<div class="details-bar">
+    <div class="thank-you-message container-narrow"
+         toggle-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+        <img src="/assets/images/avatar/anonymous.png" alt="Anonymous Avatar"/>
+        <strong>Wohoo! Thanks for letting us know that James Smith’s enquiry has been confirmed.</strong>
+    </div>
+
+    <ul class="container-narrow"
+        toggle-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+        <li class="location">
+            <i class="icon pin" size="36"></i>
+            <strong data-bind="text: bookingDataObservable.venue.name">Venue</strong>
+        </li>
+        <li class="separator"><span></span></li>
+        <li class="budget">
+            <i class="icon budget" size="36"></i>
+            <strong data-bind="text: bookingDataObservable.budget">Budget</strong>
+        </li>
+        <li class="separator"><span></span></li>
+        <li class="people">
+            <i class="icon user" size="36"></i>
+            <strong data-bind="text: bookingDataObservable.people">Number of People</strong> people
+        </li>
+        <li class="separator"><span></span></li>
+        <li class="date">
+            <i class="icon calendar" size="36"></i>
+            <strong data-bind="text: bookingDataObservable.date.startdate">Start Date</strong>
+            -
+            <strong data-bind="text: bookingDataObservable.date.finishdate">Finish Date</strong>
+        </li>
+        <li class="separator"><span></span></li>
+        <li class="time">
+            <i class="icon clock" size="36"></i>
+            <strong data-bind="text: bookingDataObservable.time.starttime">Start Time</strong>
+            -
+            <strong data-bind="text: bookingDataObservable.time.finishtime">Finish Time</strong>
+        </li>
+    </ul>
+</div>

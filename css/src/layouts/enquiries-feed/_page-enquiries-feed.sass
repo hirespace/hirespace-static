@@ -1,4 +1,4 @@
-.page-enquiries-feed
+.page-enquiries
   .enquiries
     $left-nav-width: rem(270px)
 
@@ -46,6 +46,7 @@
 
           &.sub
             padding: 0
+            display: none
 
             ul
               @extend .unstyled
@@ -146,6 +147,7 @@
     .thank-you-message
       @extend .text-center
 
+      display: none
       height: $quadruple-unit-layout + $half-unit-layout
       line-height: $quadruple-unit-layout + $half-unit-layout
 
@@ -196,6 +198,10 @@
     margin: $double-unit-layout 0 0
     padding: $double-unit-layout 0 0
     border-top: 1px solid $color-grey-75
+
+    &.confirm-status
+      margin: 0
+      border: 0
 
     &.customer-contact-details
       margin: 0

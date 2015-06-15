@@ -3,6 +3,8 @@ module hirespace {
 
     export class View {
         static updateView(target) {
+            // @TODO
+            // abstract toggle-class into a config var
             let elems = $('[toggle-class]');
 
             _.forEach(elems, (elem) => {

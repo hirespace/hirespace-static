@@ -9,8 +9,8 @@ module hirespace {
         prevStage: string;
     }
 
-    export class EnquiriesFeedController {
-        private pollingFrequency: number = 60000;
+    export class EnquiriesController {
+        private pollingFrequency: number = 30000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -98,7 +98,7 @@ module hirespace {
             let redundantUiClass = enquiriesFeedStages[this.uiConfig.prevStage],
                 uiClass = enquiriesFeedStages[toStage];
 
-            $('.page-enquiries-feed .progress-bar, .page-enquiries-feed .label.stage')
+            $('.page-enquiries .progress-bar, .page-enquiries .label.stage')
                 .removeClass(redundantUiClass)
                 .addClass(uiClass);
 
@@ -121,5 +121,5 @@ module hirespace {
         }
     }
 
-    hirespace.App.subscribe('EnquiriesFeedController', EnquiriesFeedController, true);
+    hirespace.App.subscribe('EnquiriesController', EnquiriesController, true);
 }
