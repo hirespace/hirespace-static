@@ -2,7 +2,13 @@ $nav-height: $quadruple-unit-layout
 
 nav.logged-in
   +clearfix
-
+  +z-index(nav-logged-in)
+  
+  background: rgba(255,255,255,.95)
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
   height: $nav-height
   border-bottom: 1px solid $color-grey-75
   padding: 0 $base-unit-layout
