@@ -1,21 +1,15 @@
 This application consists of 3 main parts:
  
-**Node.js backend server - a light-weight playground for creating rich prototypes**
-
-Language: TypeScript
-
+**Node.js backend server - a light-weight playground for creating rich prototypes**<br>
+Language: TypeScript<br>
 Dependencies: express, expect.js, mocha, node.js
 
-**Custom Sass framework + image assets**
-
-Language: Sass
-
+**Custom Sass framework + image assets**<br>
+Language: Sass<br>
 Dependencies: image assets in /images
 
-**Tailored Front-End framework**
-
-Language: TypeScript
-
+**Tailored Front-End framework**<br>
+Language: TypeScript<br>
 Dependencies: Jasmine, jQuery, knockout, lodash, rxjs
 
 Should you consider editing, or contributing to this project, please read the [To Contribute](#contributing) section
