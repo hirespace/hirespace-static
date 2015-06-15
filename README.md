@@ -1,3 +1,25 @@
+This application consists of 3 main parts:
+ 
+**Node.js backend server - a light-weight playground for creating rich prototypes**
+
+Language: TypeScript
+
+Dependencies: express, expect.js, mocha, node.js
+
+**Custom Sass framework + image assets**
+
+Language: Sass
+
+Dependencies: image assets in /images
+
+**Tailored Front-End framework**
+
+Language: TypeScript
+
+Dependencies: Jasmine, jQuery, knockout, lodash, rxjs
+
+Should you consider editing, or contributing to this project, please read the [To Contribute](#contributing) section
+
 ## Setup
 
         # Install node, if you don't have it already
@@ -18,11 +40,11 @@
 The server runs on port **6065**, the tests run on port **6066**.
 You can change these settings in ```gulpfile.js``` and ```js/test/karma.conf.js```.
 
-## To contribute
+## <a name="contributing"></a>To contribute
 
 I recommend using the WebStorm IDE. Please make sure you have
 [the correct code style settings](https://github.com/slavomirvojacek/useful/tree/master/JetBrains)
-before you contribute in form of a pull request.
+before you contribute in form of a pull request. JSHint will be introduced overtime.
 
 ### Using git
 
@@ -41,6 +63,10 @@ To finish a feature, run
                 git flow feature finish HS-...
 
 and then create a pull request (**develop** branch).
+
+### Using the framework
+
+...
 
 ## Other
 
