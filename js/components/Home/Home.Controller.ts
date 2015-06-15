@@ -6,6 +6,14 @@ module hirespace {
 
         constructor() {
             hirespace.Tabs.listen();
+
+            $.ajax('http://stagingmongoapi.hirespace.com/bookings/QJ8tFLRfe5Khgvurt', {
+                    type: 'get',
+                    headers: {
+                        'Authorization': 'Basic cUFES1lybW03SnA4WlhSWlQ='
+                    }
+                }
+            );
         }
     }
 
