@@ -12,7 +12,7 @@ Dependencies: image assets in /images
 Language: TypeScript<br>
 Dependencies: Jasmine, jQuery, knockout, lodash, rxjs
 
-Should you consider editing, or contributing to this project, please read the [To Contribute](#contributing) section
+**Should you consider editing, or contributing to this project, please read the [To Contribute](#contributing) section**
 
 ## Setup
 
@@ -56,11 +56,21 @@ To finish a feature, run
 
                 git flow feature finish HS-...
 
-and then create a pull request (**develop** branch).
+and then create a pull request (from your **develop** branch).
 
-### Using the framework
+### Using the Front-End application
 
-...
+The most powerful part of the application is the ```ToggleClass``` model. It enables you to toggle classes on any HTML
+element based on rules (or their combinations), the number of which is unlimited.
+
+For example, to toggle class active only when there is an object called ```bookingData``` attached to the current
+controller, do:
+
+        <elem toggle-class="active: bookingData"></elem>
+        
+Should you wish to add an assertion, for example ```customerData.type == 'admin'```, you can do:
+
+        <elem toggle-class="active: bookingData || customerData.role == 'admin'"></elem>
 
 ## Other
 
