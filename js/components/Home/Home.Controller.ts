@@ -13,7 +13,7 @@ module hirespace {
                         'Authorization': 'Basic cUFES1lybW03SnA4WlhSWlQ='
                     }
                 }
-            );
+            ).then(d => console.log(d));
         }
     }
 

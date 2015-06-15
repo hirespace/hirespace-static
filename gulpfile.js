@@ -33,6 +33,17 @@ gulp.task('test-server', function () {
         .pipe(mocha({reporter: 'list'}));
 });
 
+gulp.task('concatDistJS', function () {
+    gulp.src([
+        'js/dist/vendor.js',
+        'js/dist/app.js'
+    ])
+        .pipe(plumber({errorHandler: onError}))
+        .pipe(concat('hirespace.js'))
+        .pipe(gulp.dest('js/dist'))
+        .pipe(notify('hirespace.js compiled'));
+});
+
 gulp.task('concatVendor', function () {
     gulp.src([
         'bower_components/jquery/dist/jquery.min.js',
