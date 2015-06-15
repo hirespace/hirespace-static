@@ -1,4 +1,6 @@
 module hirespace {
+    'use strict';
+
     export class Modal {
         static listen() {
             $('.modal .undo, .modal .close').click(() => {

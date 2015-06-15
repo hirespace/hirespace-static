@@ -36,8 +36,12 @@ button,
 
 select
   -webkit-appearance: none
-  background: url("#{$image-base}/icons/grey/arrow-bottom.svg") no-repeat right $base-unit-layout top 50%
-  background-size: $half-unit-layout
+  background:
+    color: transparent
+    image: url("#{$image-base}/ui-icons/select-arrow.svg")
+    position: right $base-unit-layout top 50%
+    repeat: no-repeat
+    size: $half-unit-layout
 
 textarea
   min-height: $quadruple-unit-layout
@@ -211,7 +215,7 @@ textarea:invalid
   color: $color-grey-300
   font:
     family: $font-family-secondary !important
-    //weight: 700
+  //weight: 700
 
   +hover
     border-color: $color-grey-300
