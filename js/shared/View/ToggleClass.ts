@@ -1,25 +1,19 @@
 module hirespace {
     'use strict';
 
-    export interface IAssertionSentenceN {
-        object: string;
-        type: string;
-        value: string | boolean;
-    }
-
-    export interface ISplitRule {
+    export interface IRule {
         classes: Array<string>;
         assertions: Array<Array<string>>;
     }
 
     export class ToggleClass {
-        rules: Array<ISplitRule>;
+        rules: Array<IRule>;
 
         constructor(private attr: string, public target: any) {
             this.rules = _.map(attr.split(','), (rule) => this.splitRule(rule));
         }
 
-        splitRule(rule: string): ISplitRule {
+        splitRule(rule: string): IRule {
             let sides = _.map(rule.split(':'), (side) => _.trim(side));
 
             if (sides.length !== 2) {
