@@ -7,7 +7,7 @@ export function index(req: express.Request, res: express.Response) {
         bodyClass: 'page-documentation'
     };
 
-    return res.render('home/layout');
+    return res.render('page-home/layout');
 }
 
 export function enquiries(req: express.Request, res: express.Response) {
@@ -17,14 +17,14 @@ export function enquiries(req: express.Request, res: express.Response) {
         bodyClass: 'page-enquiries'
     };
 
-    return res.render('enquiries/layout', {
+    return res.render('page-enquiries/layout', {
         partials: {
-            detailsBar: 'enquiries/partials/details-bar',
-            enquiriesFeed: 'enquiries/partials/enquiries-feed',
-            modalCallCustomer: 'enquiries/partials/modal-call-customer',
-            modalEmailCustomer: 'enquiries/partials/modal-email-customer',
-            modalQuickReply: 'enquiries/partials/modal-quick-reply',
-            progressBar: 'enquiries/partials/progress-bar',
+            detailsBar: 'page-enquiries/partials/details-bar',
+            enquiriesFeed: 'page-enquiries/partials/enquiries-feed',
+            modalCallCustomer: 'page-enquiries/partials/modal-call-customer',
+            modalEmailCustomer: 'page-enquiries/partials/modal-email-customer',
+            modalQuickReply: 'page-enquiries/partials/modal-quick-reply',
+            progressBar: 'page-enquiries/partials/progress-bar',
             navLoggedIn: 'partials/nav-logged-in'
         }
     });
