@@ -247,6 +247,34 @@
         .icon
           top: $base-unit-layout - $quarter-unit-layout
 
+  .internal-note
+    +clearfix
+
+    .pull-right
+      +clearfix
+
+      label, input, button
+        float: left
+        display: block
+
+      label
+        padding: $base-unit-layout
+        font:
+          size: rem(14px)
+          weight: 700
+
+      input
+        +border-radius(4px 0 0 4px)
+
+        min-width: rem(300px)
+        border-right: 0
+        padding-top: $base-unit-layout
+        padding-bottom: $base-unit-layout
+        margin: 0
+
+      button
+        +border-radius(0 4px 4px 0)
+
   .modal
     padding: $double-unit-layout
 

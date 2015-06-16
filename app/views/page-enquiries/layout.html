@@ -108,13 +108,13 @@
             <div class="container-narrow">
                 {{> progressBar }}
 
-                <!--<button data-toggle-view="show: bookingData.stage == 'New'" class="large grey">-->
+                <!--<button data-toggle-view="show: bookingData.stage == 'New'" class="large flat-grey block">-->
                 <!--+1 more-->
                 <!--</button>-->
 
                 <div class="hide" toggle-class="is-visible: bookingData.stage.name == 'In Progress'">
                     <button data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
-                            class="large grey" id="showUpdateHireSpaceButtons">
+                            class="large flat-grey block" id="showUpdateHireSpaceButtons">
                         Show Update Hire Space buttons
                     </button>
 
@@ -128,6 +128,26 @@
                         <div class="col-md-4">
                             <button class="large grey block">Update Later</button>
                         </div>
+                    </div>
+                </div>
+
+                <div class="internal-note" toggle-class="is-hidden: bookingData.stage.name == 'New'">
+                    <div class="pull-left">
+                        <button class="black"
+                                toggle-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+                            Suggest edits
+                        </button>
+                        <button class="flat-grey hide"
+                                toggle-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+                            Re-open
+                        </button>
+                    </div>
+
+                    <div class="pull-right">
+                        <label for="internal-note">Leave an internal note</label>
+                        <input id="internal-note" type="text" placeholder="Text here..."/>
+
+                        <button class="black">Save</button>
                     </div>
                 </div>
             </div>
