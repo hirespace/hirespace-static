@@ -68,9 +68,13 @@ controller, do:
 
         <elem toggle-class="active: bookingData"></elem>
         
-Should you wish to add an assertion, for example ```customerData.type == 'admin'```, you can do:
+Should you wish to add an *OR assertion*, for example ```customerData.type == 'admin'```, you can do:
 
         <elem toggle-class="active: bookingData || customerData.role == 'admin'"></elem>
+        
+To add a *AND assertion*, you might do:
+
+        <elem toggle-class="active: bookingData.venue.manager && bookingData.venue.name"></elem>
 
 **More features to be documented overtime.**
 
