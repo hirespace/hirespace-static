@@ -72,6 +72,25 @@ Should you wish to add an assertion, for example ```customerData.type == 'admin'
 
         <elem toggle-class="active: bookingData || customerData.role == 'admin'"></elem>
 
+## To deploy
+
+There are a couple of things you need to do before you can perform a release. First off, please take a few moments to
+familiarise yourself with [Divshot](http://docs.divshot.com/guides/getting-started). Secondly, make sure you've got
+Divshot's CLI installed:
+
+        npm install -g divshot-cli
+        
+Prior to making a release, make sure your develop branch is up to date and then checkout a new release branch. I have
+set up both **bump-version.sh** and **release.sh** scripts so these should be executed while on the (release) branch.
+Bump-version.sh merely bumps the version number in bower.json and package.json and release.sh does the following:
+
+1. Runs gulp commands which deploy production-ready assets and runs all tests to ensure nothing has broken
+2. Prompts ```divshot login```
+3. (Re)creates the **/dist** folder
+4. Copies all dependencies over to **/dist** folder
+5. Pushes to **staging**
+6. Asks whether you want to **promote staging to production**
+
 ## Other
 
 Bootstrap grid system docs [here](http://getbootstrap.com/css/#grid).

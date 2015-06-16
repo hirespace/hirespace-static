@@ -15,7 +15,5 @@ Thumbs.db
 *.css
 !*.conf.js
 
-index.html
-
 push.sh
 commit.sh
