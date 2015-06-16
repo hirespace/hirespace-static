@@ -45,14 +45,14 @@ module hirespace.specs {
         beforeEach(() => {
             controller = new hirespace.EnquiriesController();
 
-            spyOn($, 'ajax').and.callFake((url): any => {
+            spyOn($, 'ajax').and.callFake((url, options): any => {
                 let d = $.Deferred();
 
-                switch (url) {
-                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getBookings + 'QJ8tFLRfe5Khgvurt':
+                switch (options.type) {
+                    case 'get':
                         d.resolve(initBookingData);
                         break;
-                    case hirespace.Config.getApiRoutes().bookings.updateData:
+                    case 'put':
                         d.resolve({});
                         break;
                     default:

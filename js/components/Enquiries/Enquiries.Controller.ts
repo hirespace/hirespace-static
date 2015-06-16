@@ -78,7 +78,7 @@ module hirespace {
         }
 
         bookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getBookings + 'QJ8tFLRfe5Khgvurt', {
+            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + 'QJ8tFLRfe5Khgvurt', {
                 type: 'get', headers: {
                     Authorization: 'Basic cUFES1lybW03SnA4WlhSWlQ='
                     //Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
@@ -87,11 +87,12 @@ module hirespace {
         }
 
         updateBookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiRoutes().bookings.updateData, {
+            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + 'QJ8tFLRfe5Khgvurt', {
                 // @TODO
                 // resolve after we have a functioning API
-                type: 'get', headers: {
-                    Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
+                type: 'put', headers: {
+                    Authorization: 'Basic cUFES1lybW03SnA4WlhSWlQ='
+                    //Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
                 }
             });
         }
