@@ -42,9 +42,10 @@ module hirespace {
             }, this.pollingFrequency);
 
             $('.next-step').click((e) => {
-                let toStep = $(e.target).attr('data-step');
+                let toStep = $(e.target).attr('to-step');
+                let updateData = hirespace.UpdateParser.getObject($(e.target).attr('update'));
 
-                this.updateBookingDataPromise().then(() => {
+                this.updateBookingDataPromise(updateData).then(() => {
                     this.uiConfig.prevStage = this.bookingData.stage.name;
                     this.bookingData.stage.name = toStep;
 
@@ -86,11 +87,11 @@ module hirespace {
             });
         }
 
-        updateBookingDataPromise(): JQueryPromise<any> {
+        updateBookingDataPromise(updateData: any): JQueryPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + 'QJ8tFLRfe5Khgvurt', {
                 // @TODO
                 // resolve after we have a functioning API
-                type: 'put', headers: {
+                data: updateData, type: 'put', headers: {
                     Authorization: 'Basic cUFES1lybW03SnA4WlhSWlQ='
                     //Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
                 }

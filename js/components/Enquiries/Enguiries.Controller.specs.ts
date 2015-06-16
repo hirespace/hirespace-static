@@ -94,7 +94,7 @@ module hirespace.specs {
         });
 
         it('should return updateBookingDataPromise', () => {
-            let updateBookingDataPromise = controller.updateBookingDataPromise();
+            let updateBookingDataPromise = controller.updateBookingDataPromise({});
 
             updateBookingDataPromise.then((data) => {
                 expect(data).toEqual({});

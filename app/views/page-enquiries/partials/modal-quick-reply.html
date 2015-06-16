@@ -7,7 +7,8 @@
         <form>
             <label><strong>To:</strong> <span
                     data-bind="text: bookingDataObservable.customer.name">Customer Name</span></label>
-            <label><strong>From:</strong> <span data-bind="text: bookingDataObservable.venue.team">Venue Team</span></label>
+            <label><strong>From:</strong> <span
+                    data-bind="text: bookingDataObservable.venue.manager">Venue Team</span></label>
             <label><strong>Subject:</strong> <span>RE:
                 <span data-bind="text: bookingDataObservable.word">Word</span> at
                 <span data-bind="text: bookingDataObservable.venue.name">Venue</span>
@@ -17,7 +18,9 @@
         </form>
     </main>
     <footer>
-        <button class="green pull-left close next-step" data-step="In Progress">Send</button>
+        <button class="green pull-left close next-step" to-step="In Progress" update="customerContactedHow: 'quick'">
+            Send
+        </button>
         <button class="pull-right add-attachment">Add Attachment</button>
     </footer>
 </div>

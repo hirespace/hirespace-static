@@ -2,7 +2,11 @@
     <div class="thank-you-message container-narrow"
          toggle-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
         <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
-        <strong>Wohoo! Thanks for letting us know that James Smith’s enquiry has been confirmed.</strong>
+        <strong toggle-class="is-hidden: bookingData.status == 'lost'">Wohoo! Thanks for letting us know that <span
+                data-bind="text: bookingDataObservable.customer.name">Customer Name</span>'s
+            enquiry has been confirmed.</strong>
+        <strong toggle-class="is-hidden: bookingData.status == 'won'"><span data-bind="text: bookingDataObservable.customer.name">Customer Name</span>'s enquiry has been
+            closed.</strong>
     </div>
 
     <ul class="container-narrow"

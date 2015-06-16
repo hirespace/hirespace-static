@@ -7,6 +7,8 @@
         <p class="contact-info" data-bind="text: bookingDataObservable.customer.email">Email Address</p>
     </main>
     <footer>
-        <button class="block green large close next-step" data-step="In Progress">OK</button>
+        <button class="block green large close next-step" to-step="In Progress" update="customerContactedHow: 'email'">
+            OK
+        </button>
     </footer>
 </div>
