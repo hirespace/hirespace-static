@@ -60,6 +60,8 @@ and then create a pull request (from your **develop** branch).
 
 ### Using the Front-End application
 
+#### toggle-class
+
 The most powerful part of the application is the ```ToggleClass``` model. It enables you to toggle classes on any HTML
 element based on rules (or their combinations), the number of which is unlimited.
 
