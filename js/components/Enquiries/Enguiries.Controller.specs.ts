@@ -49,7 +49,7 @@ module hirespace.specs {
                 let d = $.Deferred();
 
                 switch (url) {
-                    case hirespace.Config.getApiRoutes().bookings.getData:
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getBookings + 'QJ8tFLRfe5Khgvurt':
                         d.resolve(initBookingData);
                         break;
                     case hirespace.Config.getApiRoutes().bookings.updateData:

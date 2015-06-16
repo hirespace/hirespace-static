@@ -24,15 +24,20 @@ module hirespace {
             this.initBookingData();
 
             setInterval(() => {
-                this.bookingDataPromise().then((response: IBookingData) => {
-                    if (_.isEqual(response, this.bookingData)) {
+                this.bookingDataPromise().then((response: string) => {
+                    // @TODO
+                    // all API methods should have a common class intermediary taking care of sending the same sort of
+                    // config and parsing responses into an object with shared Interface
+                    let hsResponse: IBookingData = JSON.parse(response);
+
+                    if (_.isEqual(hsResponse, this.bookingData)) {
                         hirespace.Logger.debug('View update skipped');
 
                         return false;
                     }
 
                     this.uiConfig.prevStage = this.bookingData.stage.name;
-                    this.updateBookingData(response);
+                    this.updateBookingData(hsResponse);
                 });
             }, this.pollingFrequency);
 
@@ -73,9 +78,10 @@ module hirespace {
         }
 
         bookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiRoutes().bookings.getData, {
+            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getBookings + 'QJ8tFLRfe5Khgvurt', {
                 type: 'get', headers: {
-                    Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
+                    Authorization: 'Basic cUFES1lybW03SnA4WlhSWlQ='
+                    //Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
                 }
             });
         }

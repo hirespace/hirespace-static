@@ -8,6 +8,7 @@ module hirespace {
     }
 
     export interface IApiRoutes {
+        getBookings: string;
         bookings: {
             getData: string;
             updateData: string;
@@ -16,11 +17,12 @@ module hirespace {
 
     let apiUrls: IApiUrls = {
         production: 'https://api.hirespace.com/',
-        development: 'http://api.hirespace.dev/',
+        development: 'http://stagingmongoapi.hirespace.com/',
         test: 'http://api.hirespace.dev/'
     };
 
     let apiRoutes: IApiRoutes = {
+        getBookings: 'bookings/',
         bookings: {
             getData: '/assets/data/bookingData.json',
             updateData: '/assets/data/updateBookingData.json'

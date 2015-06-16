@@ -18,7 +18,7 @@
         <section class="customer-contact-details" toggle-class="is-hidden: bookingData.stage.name == 'New'">
             <div class="container-narrow">
                 <i class="icon telephone" size="36"></i>
-                <strong data-bind="text: bookingDataObservable.customer.mobile">Telephone Number</strong>
+                <strong data-bind="text: bookingDataObservable.customer.phone">Telephone Number</strong>
                 <i class="icon envelope" size="36"></i>
                 <strong data-bind="text: bookingDataObservable.customer.email">Email Address</strong>
             </div>
@@ -27,7 +27,7 @@
         {{> detailsBar }}
 
         <main class="customer-details container-narrow padding-top-double"
-              toggle-class="is-hidden: bookingData.status == 'Won' || bookingData.status == 'Lost'">
+              toggle-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost'">
             <aside class="customer col-md-4">
                 <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
 
@@ -42,7 +42,7 @@
             </aside>
         </main>
 
-        <section class="hide confirm-status" toggle-class="is-visible: bookingData.status == 'Won'">
+        <section class="hide confirm-status" toggle-class="is-visible: bookingData.status == 'won'">
             <div class="container-narrow">
                 <h5 class="text-center margin-bottom-double">Please confirm your spend</h5>
 
@@ -139,36 +139,41 @@
 <script>
     // Initial Data
     var initBookingData = {
-        "_id": "1a",
-        "budget": "3,000",
+        "_id": "QJ8tFLRfe5Khgvurt",
+        "budget": 22000,
         "customer": {
-            "company": "Company Ltd.",
-            "email": "jamessmith@company.co.uk",
-            "mobile": "+44 (0) 7894 846483",
-            "name": "James Smith",
-            "phone": false
+            "_id": "HxkGvowNbDHYdHGtE",
+            "email": "Octavia.long@analogfolk.com",
+            "phone": "07964998244",
+            "name": "Octavia Long"
         },
         "date": {
-            "finishdate": "20 August 2015",
+            "finishdate": "2015-07-10T00:00:00.000Z",
             "flexible": false,
-            "startdate": "18 August 2015"
+            "startdate": "2015-07-10T00:00:00.000Z"
         },
-        "message": "We also require overnight bedrooms, breakout rooms and WIFI. We need a registration area too including staffing, badges etc.",
-        "people": 20,
-        "stage": {"name": "New"},
+        "message": "summer party country house outside team building\nduring the day and then party in the evening and will probably need a few\nhotel rooms. date not fixed.",
+        "people": 160,
+        "stage": {
+            "name": "New",
+            "option": {
+                "price": 121.11,
+                "reasonLost": "Declined by customer"
+            }
+        },
         "status": "",
-        "suggestedCriteria": {},
+        "suggestedCriteria": {"date": {"flexible": false}},
         "time": {
-            "finishtime": "11:00 pm",
-            "flexible": false,
-            "starttime": "10:00 am"
+            "finishtime": null,
+            "flexible": null,
+            "starttime": "09:30"
         },
-        "timeToFollowUp": "Tue Jun 09 2015 15:18:01 GMT+0100 (BST)",
+        "timeToFollowUp": "2015-07-10T00:00:00.000Z",
         "venue": {
-            "manager": "The Barbican Team",
-            "name": "The Barbican"
+            "manager": "events ",
+            "name": "Kensington Palace"
         },
-        "word": "Conference",
-        "internalNote": "Josh copied the details into our internal spreadsheet"
+        "word": "Summer Party",
+        "internalNote": "test Note"
     };
 </script>

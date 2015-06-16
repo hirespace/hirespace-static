@@ -1,33 +1,38 @@
 {
-  "_id": "1a",
-  "budget": "3,000",
+  "_id": "QJ8tFLRfe5Khgvurt",
+  "budget": 22000,
   "customer": {
-    "company": "Company Ltd.",
-    "email": "jamessmith@company.co.uk",
-    "mobile": "+44 (0) 7894 846483",
-    "name": "James Smith",
-    "phone": false
+    "_id": "HxkGvowNbDHYdHGtE",
+    "email": "Octavia.long@analogfolk.com",
+    "phone": "07964998244",
+    "name": "Octavia Long"
   },
   "date": {
-    "finishdate": "20 August 2015",
+    "finishdate": "2015-07-10T00:00:00.000Z",
     "flexible": false,
-    "startdate": "18 August 2015"
+    "startdate": "2015-07-10T00:00:00.000Z"
   },
-  "message": "We also require overnight bedrooms, breakout rooms and WIFI. We need a registration area too including staffing, badges etc.",
-  "people": 20,
-  "stage": {"name": "Archived"},
-  "status": "Won",
-  "suggestedCriteria": {},
+  "message": "summer party country house outside team building\nduring the day and then party in the evening and will probably need a few\nhotel rooms. date not fixed.",
+  "people": 160,
+  "stage": {
+    "name": "Archived",
+    "option": {
+      "price": 121.11,
+      "reasonLost": "Declined by customer"
+    }
+  },
+  "status": "won",
+  "suggestedCriteria": {"date": {"flexible": false}},
   "time": {
-    "finishtime": "11:00 pm",
-    "flexible": false,
-    "starttime": "10:00 am"
+    "finishtime": null,
+    "flexible": null,
+    "starttime": "09:30"
   },
-  "timeToFollowUp": "Tue Jun 09 2015 15:18:01 GMT+0100 (BST)",
+  "timeToFollowUp": "2015-07-10T00:00:00.000Z",
   "venue": {
-    "manager": "The Barbican Team",
-    "name": "The Barbican"
+    "manager": "events ",
+    "name": "Kensington Palace"
   },
-  "word": "Conference",
-  "internalNote": "Josh copied the details into our internal spreadsheet"
+  "word": "Summer Party",
+  "internalNote": "test Note"
 }
