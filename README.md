@@ -75,14 +75,17 @@ Should you wish to add an assertion, for example ```customerData.type == 'admin'
 ## To deploy
 
 There are a couple of things you need to do before you can perform a release. First off, please take a few moments to
-familiarise yourself with [Divshot](http://docs.divshot.com/guides/getting-started). Secondly, make sure you've got
-Divshot's CLI installed:
+familiarise yourself with [Divshot](http://docs.divshot.com/guides/getting-started). Secondly, make sure you have the
+correct admin rights (can be obtained from slavomir@hirespace.com or will@hirespace.com) and that you have Divshot's
+CLI installed:
 
         npm install -g divshot-cli
         
-Prior to making a release, make sure your develop branch is up to date and then checkout a new release branch. I have
-set up both **bump-version.sh** and **release.sh** scripts so these should be executed while on the (release) branch.
-Bump-version.sh merely bumps the version number in bower.json and package.json and release.sh does the following:
+Prior to making a release, **ensure your develop branch is up to date** and then **checkout a new release branch using
+git-flow**. I have set up both **bump-version.sh** and **release.sh** scripts so these should be executed while on the
+(release) branch.
+
+bump-version.sh merely bumps the version number in bower.json and package.json and release.sh does the following:
 
 1. Runs gulp commands which deploy production-ready assets and runs all tests to ensure nothing has broken
 2. Prompts ```divshot login```
