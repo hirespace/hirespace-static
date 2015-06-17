@@ -41,7 +41,7 @@ module hirespace {
                 });
             }, this.pollingFrequency);
 
-            $('.next-step').click((e) => {
+            $('.next-step').click(e => {
                 let toStep = $(e.target).attr('to-step');
                 let updateData = hirespace.UpdateParser.getObject($(e.target).attr('update'));
 
@@ -53,7 +53,7 @@ module hirespace {
                 });
             });
 
-            $('[data-toggle]').click((e) => {
+            $('[data-toggle]').click(e => {
                 let toggleAttrs = $(e.target).attr('data-toggle');
 
                 hirespace.View.toggleAttrs(toggleAttrs);

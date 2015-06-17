@@ -29,13 +29,13 @@ module hirespace {
         private parseAndAssertions(assertions: string) {
             // @TODO
             // abstract double amp symbol to config
-            return _.map(assertions.split('&&'), (assertionGroup) => this.parseOrAssertions(assertionGroup));
+            return _.map(assertions.split('&&'), assertionGroup => this.parseOrAssertions(assertionGroup));
         }
 
         private parseOrAssertions(assertionGroup: string) {
             // @TODO
             // abstract double pipe symbol to config
-            return _.map(assertionGroup.split('||'), (assertion) => _.trim(assertion));
+            return _.map(assertionGroup.split('||'), assertion => _.trim(assertion));
         }
 
         evaluateAll(assertionGroups): Array<Array<boolean>> {

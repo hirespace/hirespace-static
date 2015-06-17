@@ -7,9 +7,7 @@ module hirespace {
             // abstract toggle-class into a config var
             let elems = $('[toggle-class]');
 
-            _.forEach(elems, (elem) => {
-                hirespace.View.updateElem(elem, target);
-            });
+            _.forEach(elems, elem => hirespace.View.updateElem(elem, target));
         }
 
         static updateElem(elem: Element, target: any) {
@@ -34,7 +32,7 @@ module hirespace {
         static toggleAttrs(attr: string) {
             let attrs = JSON.parse(attr);
 
-            _.forEach(attrs, (id) => $('#' + id).toggleClass('is-hidden'));
+            _.forEach(attrs, id => $('#' + id).toggleClass('is-hidden'));
         }
     }
 }
