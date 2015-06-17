@@ -10,18 +10,18 @@ module hirespace {
         rules: Array<IRule>;
 
         constructor(private attr: string, public target: any) {
-            this.rules = _.map(attr.split(','), (rule) => this.splitRule(rule));
+            this.rules = _.map(attr.split(','), rule => this.splitRule(rule));
         }
 
         splitRule(rule: string): IRule {
-            let sides = _.map(rule.split(':'), (side) => _.trim(side));
+            let sides = _.map(rule.split(':'), side => _.trim(side));
 
             if (sides.length !== 2) {
                 throw 'Invalid input';
             }
 
             return {
-                classes: _.map(_.first(sides).split('+'), (cls) => _.trim(cls)),
+                classes: _.map(_.first(sides).split('+'), cls => _.trim(cls)),
                 assertions: this.parseAndAssertions(_.last(sides))
             };
         }
@@ -40,7 +40,7 @@ module hirespace {
 
         evaluateAll(assertionGroups): Array<Array<boolean>> {
             return _.map(assertionGroups, (group: Array<string>) =>
-                _.map(group, (assertion) => hirespace.AssertionParser.evaluateAssertion(assertion, this.target)));
+                _.map(group, assertion => hirespace.AssertionParser.evaluateAssertion(assertion, this.target)));
         }
     }
 }

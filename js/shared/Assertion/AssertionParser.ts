@@ -17,7 +17,7 @@ module hirespace {
         }
 
         static parseSentence(assertionSentence: string): IAssertionSentenceData {
-            let assertionParts = _.map(assertionSentence.split('=='), (part) => _.trim(part));
+            let assertionParts = _.map(assertionSentence.split('=='), part => _.trim(part));
 
             return {
                 path: _.trim(_.first(assertionParts)),
