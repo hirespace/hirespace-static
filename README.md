@@ -80,10 +80,14 @@ To add a *AND assertion*, you might do:
 
 #### toggle-elem
 
-The ```ToggleElem``` model enables nimble control over toggling elements' visibility. The attribute is an array of id's
+The ```ToggleElem``` model enables nimble control over toggling elements' visibility. The attribute is a list of id's
 to toggle on click on ```<elem>```:
 
         <elem toggle-elem='["elem-id-1"]'></elem>
+        
+This will toggle ```.is-hidden``` class on #elem-id-1. To toggle more elements, simply add them to the list:
+
+        <elem toggle-elem='["elem-id-1", "elem-id-2"]'></elem>
 
 **More features to be documented overtime.**
 
@@ -102,11 +106,11 @@ git-flow**. I have set up both **bump-version.sh** and **release.sh** scripts so
 
 bump-version.sh merely bumps the version number in bower.json and package.json and release.sh does following:
 
-1. Runs gulp commands which deploy production-ready assets and runs all tests to ensure nothing has broken
+1. Runs gulp commands which deploy production-ready assets and runs all tests
 2. Prompts ```divshot login```
-3. (Re)creates the **/dist** folder
+3. (Re)creates **/dist** folder
 4. Copies all dependencies over to **/dist** folder
-5. Pushes to **staging**
+5. Pushes the (/dist) folder to **staging**
 6. Asks whether you want to **promote staging to production**
 
 ## Other
