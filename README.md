@@ -78,6 +78,13 @@ To add a *AND assertion*, you might do:
 
         <elem toggle-class="active: bookingData.venue.manager && bookingData.venue.name"></elem>
 
+#### toggle-elem
+
+The ```ToggleElem``` model enables nimble control over toggling elements' visibility. The attribute is an array of id's
+to toggle on click on ```<elem>```:
+
+        <elem toggle-elem='["elem-id-1"]'></elem>
+
 **More features to be documented overtime.**
 
 ## To deploy
