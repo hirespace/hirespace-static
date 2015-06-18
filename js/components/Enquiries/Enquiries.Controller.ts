@@ -10,7 +10,7 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 600000;
+        private pollingFrequency: number = 6000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -28,14 +28,7 @@ module hirespace {
                     // @TODO
                     // all API methods should have a common class intermediary taking care of sending the same sort of
                     // config and parsing responses into an object with shared Interface
-                    let hsResponse: IBookingData = JSON.parse(response);
-
-                    hsResponse.date.startdate = moment(hsResponse.date.startdate).format('MMM Do YY');
-                    hsResponse.date.finishdate = moment(hsResponse.date.finishdate).format('MMM Do YY');
-
-                    hsResponse.time.starttime = moment(hsResponse.time.starttime).format('h:mm');
-                    hsResponse.time.finishtime = moment(hsResponse.time.finishtime).format('h:mm');
-
+                    let hsResponse: IBookingData = this.parseBookingData(JSON.parse(response));
 
                     if (_.isEqual(hsResponse, this.bookingData)) {
                         hirespace.Logger.debug('View update skipped');
@@ -70,14 +63,7 @@ module hirespace {
         initBookingData() {
             hirespace.Logger.debug('Booking Data initialised from a local source');
 
-            this.bookingData = initBookingData;
-
-            this.bookingData.date.startdate = moment(this.bookingData.date.startdate).format('MMM Do YY');
-            this.bookingData.date.finishdate = moment(this.bookingData.date.finishdate).format('MMM Do YY');
-
-            this.bookingData.time.starttime = moment(this.bookingData.time.starttime).format('h:mm');
-            this.bookingData.time.finishtime = moment(this.bookingData.time.finishtime).format('h:mm');
-
+            this.bookingData = this.parseBookingData(initBookingData);
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
             this.updateUi();
@@ -140,6 +126,18 @@ module hirespace {
         updateUi() {
             this.updateProgressBar();
             hirespace.View.updateView(this);
+        }
+
+        // @TODO
+        // refactor cruft and write unit tests
+        parseBookingData(bookingData: IBookingData): IBookingData {
+            bookingData.date.startdate = moment(bookingData.date.startdate).format('MMM Do YY');
+            bookingData.date.finishdate = moment(bookingData.date.finishdate).format('MMM Do YY');
+            bookingData.time.starttime = moment(bookingData.time.starttime).format('h:mm');
+            bookingData.time.finishtime = moment(bookingData.time.finishtime).format('h:mm');
+            bookingData.customer.company = bookingData.customer.company ? bookingData.customer.company : 'No Company';
+
+            return bookingData;
         }
     }
 

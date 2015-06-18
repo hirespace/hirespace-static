@@ -10,7 +10,7 @@ Dependencies: image assets in /images
 
 **Tailored Front-End framework**<br>
 Language: TypeScript<br>
-Dependencies: Jasmine, jQuery, knockout, lodash, rxjs
+Dependencies: Jasmine, jQuery, knockout, lodash, moment, rxjs
 
 **Should you consider editing, or contributing to this project, please read the [To Contribute](#contributing) section**
 
