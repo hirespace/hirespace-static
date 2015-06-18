@@ -34,7 +34,8 @@ module hirespace {
     }
 
     interface ICustomer {
-        company: string;
+        _id: string;
+        company?: string;
         email: string;
         mobile?: string | boolean;
         name: string;
@@ -67,17 +68,19 @@ module hirespace {
 
     export interface IBookingData {
         _id: string;
-        budget: string;
+        budget: number;
         customer: ICustomer;
         date: IDate;
         message: string;
         people: number;
         stage: IBookingStage;
-        suggestedCriteria: ISuggestedCriteria;
+        suggestedCriteria?: ISuggestedCriteria;
         time: ITime;
-        timeToFollowUp: Date;
+        // @TODO
+        // resolve this to Date only?
+        timeToFollowUp: string | Date;
         venue: IVenue;
         word: string;
-        internalNote: string;
+        internalNote?: string;
     }
 }

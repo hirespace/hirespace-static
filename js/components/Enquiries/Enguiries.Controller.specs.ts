@@ -1,39 +1,37 @@
 // Making initEnquiriesFeedData global.
 // Temp hack to suppress an error thrown by not having this variable nowhere in the sourcecode.
 let initBookingData = {
-    "_id": "1a",
-    "budget": "3,000",
+    "_id": "56M4S8tNrujZCsvkY",
+    "budget": 15000,
     "customer": {
-        "company": "Company Ltd.",
-        "email": "jamessmith@company.co.uk",
-        "mobile": "+44 (0) 7894 846483",
-        "name": "James Smith",
-        "phone": false
+        "_id": "PQAfLzSLrxW8CApGF",
+        "name": "Louis Lundy",
+        "mobile": "447540226270",
+        "email": "llundy@adjuvo.com",
+        "phone": "02070709000"
     },
     "date": {
-        "finishdate": "20 August 2015",
-        "flexible": false,
-        "startdate": "18 August 2015"
+        "finishdate": "1970-01-01T00:00:00.000Z",
+        "flexible": null,
+        "startdate": "1970-01-01T00:00:00.000Z"
     },
-    "message": "We also require overnight bedrooms, breakout rooms and WIFI. We need a registration area too including staffing, badges etc.",
-    "people": 20,
-    "stage": {"name": "New"},
-
-    "status": "",
-    "suggestedCriteria": {},
+    "message": "private investor events. multiple events\nlate may early June \nunique \nhead of industry\ncentral, west end\nwine celler \n",
+    "people": 70,
+    "stage": {
+        "name": "New"
+    },
+    "status": "pending",
     "time": {
-        "finishtime": "11:00 pm",
-        "flexible": false,
-        "starttime": "10:00 am"
+        "finishtime": null,
+        "flexible": null,
+        "starttime": null
     },
-    // This changes on Update Later & ...
-    "timeToFollowUp": new Date(),
+    "timeToFollowUp": "2015-05-23T14:31:20.000Z",
     "venue": {
-        "manager": "The Barbican Team",
-        "name": "The Barbican"
+        "manager": "Jess ",
+        "name": "Royal Over-Seas League - ROSL"
     },
-    "word": "Conference",
-    "internalNote": "Josh copied the details into our internal spreadsheet"
+    "word": "Networking event"
 };
 
 module hirespace.specs {

@@ -10,7 +10,7 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 30000;
+        private pollingFrequency: number = 60000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -79,20 +79,20 @@ module hirespace {
         }
 
         bookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + 'QJ8tFLRfe5Khgvurt', {
+            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '56M4S8tNrujZCsvkY', {
                 type: 'get', headers: {
-                    Authorization: 'Basic cUFES1lybW03SnA4WlhSWlQ='
+                    Authorization: 'Basic cFltU1B3c3VMOE40NnlqaWs='
                     //Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
                 }
             });
         }
 
         updateBookingDataPromise(updateData: any): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + 'QJ8tFLRfe5Khgvurt', {
+            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '56M4S8tNrujZCsvkY', {
                 // @TODO
                 // resolve after we have a functioning API
                 data: updateData, type: 'put', headers: {
-                    Authorization: 'Basic cUFES1lybW03SnA4WlhSWlQ='
+                    Authorization: 'Basic cFltU1B3c3VMOE40NnlqaWs='
                     //Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
                 }
             });
