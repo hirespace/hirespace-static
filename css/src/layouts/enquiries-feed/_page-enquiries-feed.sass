@@ -112,13 +112,13 @@
       +clearfix
 
       width: 100%
-      padding: 0
       list-style: none
       display: table
       height: $details-bar-height
 
       li
-        +ellipsis(160px)
+        +ellipsis(rem(240px))
+        @extend .text-center
 
         display: table-cell
         height: $details-bar-height
@@ -127,10 +127,20 @@
           weight: 500
           size: rem(14px)
 
-        .icon
-          top: $half-unit-layout + $quarter-unit-layout
+        strong, .fa
+          vertical-align: middle
+          font:
+            weight: 500
+
+        .fa
+          margin-right: $half-unit-layout
+          //color: $color-hirespace
+          top: -1px
+          font:
+            size: rem(18px)
 
         &.separator
+          min-width: inherit
           background: transparent
           padding: 0 $base-unit-layout
           position: relative
@@ -165,6 +175,10 @@
           size: rem(15px)
 
   .customer-details
+    .message
+      p:first-letter
+        text-transform: capitalize
+
     .customer
       +clearfix
 
@@ -173,10 +187,6 @@
         display: block
         max-width: $triple-unit-layout
         max-height: $triple-unit-layout
-
-      .message
-        p:first-letter
-          text-transform: capitalize
 
       .details
         float: left
@@ -211,19 +221,28 @@
       margin: 0
       padding: $double-half-unit-layout 0
 
-      i, strong
+      .fa, strong
         vertical-align: middle
+        font:
+          size: rem(18px)
+
+      .fa
+        color: $color-hirespace
+        margin-right: $half-unit-layout
 
       strong
         text-transform: lowercase
         margin-right: $base-unit-layout
         font:
-          size: rem(18px)
+          size: rem(20px)
           weight: 500
 
     &.venue-manager-actions
-      .progress-bar
-        margin-bottom: $double-unit-layout
+      .update-hirespace
+        margin: $double-unit-layout 0 0
+
+        button
+          margin: 0
 
     nav.controls
       button
@@ -244,8 +263,9 @@
           width: 100%
           height: 100%
 
-        .icon
-          top: $base-unit-layout - $quarter-unit-layout
+        .fa
+          margin-right: $half-unit-layout
+          top: -1px
 
   .internal-note
     +clearfix

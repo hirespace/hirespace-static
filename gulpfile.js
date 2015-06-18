@@ -50,6 +50,7 @@ gulp.task('concatVendor', function () {
         'bower_components/knockout/dist/knockout.js',
         'bower_components/knockout-mapping/build/output/knockout.mapping-latest.js',
         'bower_components/lodash/lodash.min.js',
+        'bower_components/moment/min/moment.min.js',
         'bower_components/rxjs/dist/rx.all.min.js'
     ])
         .pipe(plumber({errorHandler: onError}))

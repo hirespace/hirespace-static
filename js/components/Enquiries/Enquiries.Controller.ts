@@ -10,7 +10,7 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 60000;
+        private pollingFrequency: number = 600000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -29,6 +29,13 @@ module hirespace {
                     // all API methods should have a common class intermediary taking care of sending the same sort of
                     // config and parsing responses into an object with shared Interface
                     let hsResponse: IBookingData = JSON.parse(response);
+
+                    hsResponse.date.startdate = moment(hsResponse.date.startdate).format('MMM Do YY');
+                    hsResponse.date.finishdate = moment(hsResponse.date.finishdate).format('MMM Do YY');
+
+                    hsResponse.time.starttime = moment(hsResponse.time.starttime).format('h:mm');
+                    hsResponse.time.finishtime = moment(hsResponse.time.finishtime).format('h:mm');
+
 
                     if (_.isEqual(hsResponse, this.bookingData)) {
                         hirespace.Logger.debug('View update skipped');
@@ -64,6 +71,13 @@ module hirespace {
             hirespace.Logger.debug('Booking Data initialised from a local source');
 
             this.bookingData = initBookingData;
+
+            this.bookingData.date.startdate = moment(this.bookingData.date.startdate).format('MMM Do YY');
+            this.bookingData.date.finishdate = moment(this.bookingData.date.finishdate).format('MMM Do YY');
+
+            this.bookingData.time.starttime = moment(this.bookingData.time.starttime).format('h:mm');
+            this.bookingData.time.finishtime = moment(this.bookingData.time.finishtime).format('h:mm');
+
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
             this.updateUi();

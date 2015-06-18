@@ -17,9 +17,9 @@
 
         <section class="customer-contact-details" toggle-class="is-hidden: bookingData.stage.name == 'New'">
             <div class="container-narrow">
-                <i class="icon telephone" size="36"></i>
+                <i class="fa fa-phone"></i>
                 <strong data-bind="text: bookingDataObservable.customer.phone">Telephone Number</strong>
-                <i class="icon envelope" size="36"></i>
+                <i class="fa fa-envelope-o"></i>
                 <strong data-bind="text: bookingDataObservable.customer.email">Email Address</strong>
             </div>
         </section>
@@ -82,21 +82,21 @@
                     <div class="col-md-4">
                         <button class="green large">
                             <span class="toggle-modal" data-toggle-modal="modalCallCustomer"></span>
-                            <i class="icon white telephone" size="36"></i>
+                            <i class="white fa fa-phone"></i>
                             Call James
                         </button>
                     </div>
                     <div class="col-md-4">
                         <button class="green large">
                             <span class="toggle-modal" data-toggle-modal="modalEmailCustomer"></span>
-                            <i class="icon white envelope" size="36"></i>
+                            <i class="white fa fa-envelope-o"></i>
                             Email James
                         </button>
                     </div>
                     <div class="col-md-4">
                         <button class="green large">
                             <span class="toggle-modal" data-toggle-modal="modalQuickReply"></span>
-                            <i class="icon white comment" size="36"></i>
+                            <i class="white fa fa-reply"></i>
                             Quick Reply
                         </button>
                     </div>
@@ -112,7 +112,7 @@
                 <!--+1 more-->
                 <!--</button>-->
 
-                <div class="hide" toggle-class="is-visible: bookingData.stage.name == 'In Progress'">
+                <div class="update-hirespace hide" toggle-class="is-visible: bookingData.stage.name == 'In Progress'">
                     <button data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
                             class="large flat-grey block" id="showUpdateHireSpaceButtons">
                         Show Update Hire Space buttons
@@ -126,29 +126,31 @@
                             <button class="large black block next-step" data-step="Needs Archiving">Close</button>
                         </div>
                         <div class="col-md-4">
-                            <button class="large grey block">Update Later</button>
+                            <button class="large flat-grey block">Update Later</button>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="internal-note" toggle-class="is-hidden: bookingData.stage.name == 'New'">
-                    <div class="pull-left">
-                        <button class="black"
-                                toggle-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
-                            Suggest edits
-                        </button>
-                        <button class="flat-grey hide"
-                                toggle-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
-                            Re-open
-                        </button>
-                    </div>
+        <section toggle-class="is-hidden: bookingData.stage.name == 'New'">
+            <div class="internal-note container-narrow">
+                <div class="pull-left">
+                    <button class="black"
+                            toggle-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+                        Suggest edits
+                    </button>
+                    <button class="flat-grey hide"
+                            toggle-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+                        Re-open
+                    </button>
+                </div>
 
-                    <div class="pull-right">
-                        <label for="internal-note">Leave an internal note</label>
-                        <input id="internal-note" type="text" placeholder="Text here..."/>
+                <div class="pull-right">
+                    <label for="internal-note">Leave an internal note</label>
+                    <input id="internal-note" type="text" placeholder="Text here..."/>
 
-                        <button class="black">Save</button>
-                    </div>
+                    <button class="black">Save</button>
                 </div>
             </div>
         </section>
@@ -174,15 +176,15 @@
             "startdate": "1970-01-01T00:00:00.000Z"
         },
         "message": "private investor events. multiple events\nlate may early June \nunique \nhead of industry\ncentral, west end\nwine celler \n",
-        "people": 70,
+        "people": 700,
         "stage": {
             "name": "New"
         },
         "status": "pending",
         "time": {
-            "finishtime": null,
+            "finishtime": "2015-05-23T14:31:20.000Z",
             "flexible": null,
-            "starttime": null
+            "starttime": "2015-05-23T14:31:20.000Z"
         },
         "timeToFollowUp": "2015-05-23T14:31:20.000Z",
         "venue": {

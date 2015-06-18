@@ -3,4 +3,5 @@
 /// <reference path="typings/knockout/knockout.d.ts" />
 /// <reference path="typings/knockout/knockout.mapping.d.ts" />
 /// <reference path="typings/lodash/lodash.d.ts" />
+/// <reference path="typings/moment/moment.d.ts" />
 /// <reference path="typings/rx/rx.all.d.ts" />

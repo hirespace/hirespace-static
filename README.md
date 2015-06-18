@@ -115,7 +115,8 @@ bump-version.sh merely bumps the version number in bower.json and package.json a
 
 ## Other
 
-Bootstrap grid system docs [here](http://getbootstrap.com/css/#grid).
+- Bootstrap grid system docs [here](http://getbootstrap.com/css/#grid)
+- FA icons docs [here](http://fortawesome.github.io/Font-Awesome/icons/)
 
 Proxy setup:
 
