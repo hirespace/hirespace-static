@@ -104,9 +104,12 @@
     $details-bar-height: $quadruple-unit-layout + $half-unit-layout
 
     height: $details-bar-height + rem(2px)
-    background: $color-grey-25
-    border-top: 1px solid $color-grey-75
-    border-bottom: 1px solid $color-grey-75
+    //background: $color-grey-25
+    background: $color-grey-800
+    //border-top: 1px solid $color-grey-75
+    border-top: 1px solid $color-grey-900
+    //border-bottom: 1px solid $color-grey-75
+    border-bottom: 1px solid $color-grey-900
 
     ul
       +clearfix
@@ -117,15 +120,22 @@
       height: $details-bar-height
 
       li
+        +transition(color .25s)
         +ellipsis(rem(240px))
         @extend .text-center
 
+        color: $color-grey-100
+        cursor: pointer
         display: table-cell
         height: $details-bar-height
         line-height: $details-bar-height
         font:
           weight: 500
           size: rem(14px)
+
+        +hover
+          color: white
+          //strong, .fa
 
         strong, .fa
           vertical-align: middle
@@ -153,6 +163,7 @@
             height: $details-bar-height
             width: 1px
             background: $color-grey-75
+            background: $color-grey-900
 
     .thank-you-message
       @extend .text-center
@@ -190,7 +201,7 @@
 
       .details
         float: left
-        padding: rem(7px) 0 0 $base-unit-layout
+        padding: rem(4px) 0 0 $base-unit-layout
 
         strong, small
           +ellipsis
@@ -339,3 +350,9 @@
 
       button
         margin: 0
+
+        .fa-paperclip
+          position: relative
+          top: 1px
+          font:
+            size: rem(18px)

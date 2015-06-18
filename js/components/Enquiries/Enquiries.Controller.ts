@@ -10,7 +10,7 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 6000;
+        private pollingFrequency: number = 60000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
