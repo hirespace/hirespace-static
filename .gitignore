@@ -15,3 +15,4 @@ Thumbs.db
 !*.conf.js
 
 push.sh
+commit.sh
