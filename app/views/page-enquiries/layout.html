@@ -42,7 +42,7 @@
             </aside>
         </main>
 
-        <section class="hide confirm-status" toggle-class="is-visible: bookingData.status == 'won'">
+        <section class="hide confirm-status" toggle-class="is-visible: bookingData.stage.option == 'confirmed'">
             <div class="container-narrow">
                 <h5 class="text-center margin-bottom-double">Please confirm your spend</h5>
 
@@ -62,7 +62,7 @@
             </div>
         </section>
 
-        <section class="hide confirm-status" toggle-class="is-visible: bookingData.status == 'lost'">
+        <section class="hide confirm-status" toggle-class="is-visible: bookingData.stage.option == 'closed'">
             <div class="container-narrow">
                 <h5 class="text-center margin-bottom-double">Tell Hire Space why this enquiry has been closed</h5>
 
@@ -120,18 +120,18 @@
 
                     <div class="row is-hidden" id="updateHireSpaceButtons">
                         <div class="col-md-4">
-                            <button class="large green block next-step" data-step="Needs Archiving"
+                            <button class="large green block next-step" to-step="Needs Archiving"
                                     update="needsArchivingStatus: 'confirmed'">Confirm
                             </button>
                         </div>
                         <div class="col-md-4">
-                            <button class="large black block next-step" data-step="Needs Archiving"
+                            <button class="large black block next-step" to-step="Needs Archiving"
                                     update="needsArchivingStatus: 'closed'">Close
                             </button>
                         </div>
                         <div class="col-md-4">
                             <button data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
-                                    class="large flat-grey block next-step" data-step="In Progress"
+                                    class="large flat-grey block next-step" to-step="In Progress"
                                     update="timeToFollowUp: true">Update Later
                             </button>
                         </div>
@@ -147,8 +147,9 @@
                             toggle-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
                         Suggest edits
                     </button>
-                    <button class="flat-grey hide"
-                            toggle-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+                    <button class="flat-grey next-step hide"
+                            toggle-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'"
+                            to-step="In Progress" update="reopen: true">
                         Re-open
                     </button>
                 </div>

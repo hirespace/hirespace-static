@@ -329,6 +329,10 @@
       font:
         size: rem(16px)
 
+    +respond-to-size($screen-md)
+      input
+        margin-bottom: $base-unit-layout
+
   section
     margin: $double-unit-layout 0 0
     padding: $double-unit-layout 0 0
@@ -364,6 +368,13 @@
 
         button
           margin: 0
+
+        +respond-to-size($screen-md)
+          button
+            margin-bottom: $base-unit-layout
+
+            &.flat-grey
+              margin-bottom: 0
 
     nav.controls
       button
@@ -431,6 +442,7 @@
 
         &.pull-left
           button
+            margin-bottom: $base-unit-layout
             width: 100%
 
         &.pull-right

@@ -47,11 +47,11 @@ module hirespace.specs {
             spyOn($, 'ajax').and.callFake((url, options): any => {
                 let d = $.Deferred();
 
-                switch (options.type) {
-                    case 'get':
+                switch (options.method) {
+                    case 'GET':
                         d.resolve(initBookingData);
                         break;
-                    case 'put':
+                    case 'PUT':
                         d.resolve({});
                         break;
                     default:

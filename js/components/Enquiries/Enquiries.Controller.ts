@@ -10,7 +10,7 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 60000;
+        private pollingFrequency: number = 5000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -47,12 +47,23 @@ module hirespace {
                 let toStep = $(e.target).attr('to-step');
                 let updateData = hirespace.UpdateParser.getObject($(e.target).attr('update'));
 
-                this.updateBookingDataPromise(updateData).then(() => {
-                    this.uiConfig.prevStage = this.bookingData.stage.name;
-                    this.bookingData.stage.name = toStep;
+                Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
+                    // @TODO
+                    // investigate why this does not work on success?
+                    // Also, I think it would be better to get the updated data as a result
+                    .subscribe(d => {
+                        console.info(d);
+                        this.uiConfig.prevStage = this.bookingData.stage.name;
+                        this.bookingData.stage.name = toStep;
 
-                    this.updateBookingData(this.bookingData);
-                });
+                        this.updateBookingData(this.bookingData);
+                    }, f => {
+                        console.error(f);
+                        this.uiConfig.prevStage = this.bookingData.stage.name;
+                        this.bookingData.stage.name = toStep;
+
+                        this.updateBookingData(this.bookingData);
+                    });
             });
 
             $('[data-toggle]').click(e => {
@@ -80,19 +91,21 @@ module hirespace {
             };
         }
 
+        // @TODO
+        // look into ifModified option
         bookingDataPromise(): JQueryPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '2WscqXhWtbhwxTWhs', {
-                type: 'get', headers: {
+                method: 'GET', headers: {
                     Authorization: 'Basic ' + hirespace.Base64.encode('q2iJd9ei8sz2Z6xpe')
                 }
             });
         }
 
-        updateBookingDataPromise(updateData: any): JQueryPromise<any> {
+        updateBookingDataPromise(updateData: any): JQueryGenericPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '2WscqXhWtbhwxTWhs', {
                 // @TODO
                 // resolve after we have a functioning API
-                data: updateData, type: 'put', headers: {
+                data: updateData, method: 'PUT', headers: {
                     Authorization: 'Basic ' + hirespace.Base64.encode('q2iJd9ei8sz2Z6xpe')
                 }
             });
@@ -143,9 +156,9 @@ module hirespace {
         // @TODO
         // implement differently
         ui() {
-          $('.toggle-enquiries-feed').click(e => {
-              $('.enquiries-feed, .toggle-enquiries-feed .close').toggleClass('active');
-          });
+            $('.toggle-enquiries-feed').click(e => {
+                $('.enquiries-feed, .toggle-enquiries-feed .close').toggleClass('active');
+            });
         }
     }
 
