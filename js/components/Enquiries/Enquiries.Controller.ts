@@ -10,7 +10,7 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 60000;
+        private pollingFrequency: number = 5000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -26,11 +26,11 @@ module hirespace {
             this.ui();
 
             setInterval(() => {
-                this.bookingDataPromise().then((response: string) => {
+                this.bookingDataPromise().then((response: IBookingData) => {
                     // @TODO
                     // all API methods should have a common class intermediary taking care of sending the same sort of
                     // config and parsing responses into an object with shared Interface
-                    let hsResponse: IBookingData = this.parseBookingData(JSON.parse(response));
+                    let hsResponse: IBookingData = this.parseBookingData(response);
 
                     if (_.isEqual(hsResponse, this.bookingData)) {
                         hirespace.Logger.debug('View update skipped');
@@ -140,6 +140,8 @@ module hirespace {
             return bookingData;
         }
 
+        // @TODO
+        // implement differently
         ui() {
           $('.toggle-enquiries-feed').click(e => {
               $('.enquiries-feed, .toggle-enquiries-feed .close').toggleClass('active');

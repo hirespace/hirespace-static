@@ -1,4 +1,7 @@
 .page-enquiries
+  footer
+    margin: $triple-unit-layout 0 $base-unit-layout
+  
   .layout-offset-top
     $left-nav-width: rem(270px)
 
@@ -413,7 +416,7 @@
       input
         +border-radius(4px 0 0 4px)
 
-        min-width: rem(300px)
+        min-width: rem(260px)
         border-right: 0
         padding-top: $base-unit-layout
         padding-bottom: $base-unit-layout
@@ -421,6 +424,25 @@
 
       button
         +border-radius(0 4px 4px 0)
+
+    +respond-to-size(1100px)
+      .pull-left, .pull-right
+        float: none
+
+        &.pull-left
+          button
+            width: 100%
+
+        &.pull-right
+          label
+            display: none
+
+          input
+            width: 75%
+            min-width: inherit
+
+          button
+            width: 25%
 
   .modal
     padding: $double-unit-layout
