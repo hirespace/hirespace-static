@@ -29,7 +29,8 @@ let initBookingData = {
     "timeToFollowUp": "2015-05-23T14:31:20.000Z",
     "venue": {
         "manager": "Jess ",
-        "name": "Royal Over-Seas League - ROSL"
+        "name": "Royal Over-Seas League - ROSL",
+        "spaceName": "Allen"
     },
     "word": "Networking event"
 };

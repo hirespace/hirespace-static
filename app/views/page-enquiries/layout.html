@@ -120,13 +120,20 @@
 
                     <div class="row is-hidden" id="updateHireSpaceButtons">
                         <div class="col-md-4">
-                            <button class="large green block next-step" data-step="Needs Archiving">Confirm</button>
+                            <button class="large green block next-step" data-step="Needs Archiving"
+                                    update="needsArchivingStatus: 'confirmed'">Confirm
+                            </button>
                         </div>
                         <div class="col-md-4">
-                            <button class="large black block next-step" data-step="Needs Archiving">Close</button>
+                            <button class="large black block next-step" data-step="Needs Archiving"
+                                    update="needsArchivingStatus: 'closed'">Close
+                            </button>
                         </div>
                         <div class="col-md-4">
-                            <button class="large flat-grey block">Update Later</button>
+                            <button data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                                    class="large flat-grey block next-step" data-step="In Progress"
+                                    update="timeToFollowUp: true">Update Later
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -193,7 +200,8 @@
         "timeToFollowUp": "2015-05-23T14:31:20.000Z",
         "venue": {
             "manager": "Jess ",
-            "name": "Royal Over-Seas League - ROSL"
+            "name": "Royal Over-Seas League - ROSL",
+            "spaceName": "Allen"
         },
         "word": "Networking event"
     };
