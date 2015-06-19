@@ -23,6 +23,8 @@ module hirespace {
             this.initUiConfig();
             this.initBookingData();
 
+            this.ui();
+
             setInterval(() => {
                 this.bookingDataPromise().then((response: string) => {
                     // @TODO
@@ -79,21 +81,19 @@ module hirespace {
         }
 
         bookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '56M4S8tNrujZCsvkY', {
+            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '2WscqXhWtbhwxTWhs', {
                 type: 'get', headers: {
-                    Authorization: 'Basic cFltU1B3c3VMOE40NnlqaWs='
-                    //Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
+                    Authorization: 'Basic ' + hirespace.Base64.encode('q2iJd9ei8sz2Z6xpe')
                 }
             });
         }
 
         updateBookingDataPromise(updateData: any): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '56M4S8tNrujZCsvkY', {
+            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '2WscqXhWtbhwxTWhs', {
                 // @TODO
                 // resolve after we have a functioning API
                 data: updateData, type: 'put', headers: {
-                    Authorization: 'Basic cFltU1B3c3VMOE40NnlqaWs='
-                    //Authorization: 'Basic ' + btoa('usr' + ':' + 'pwd')
+                    Authorization: 'Basic ' + hirespace.Base64.encode('q2iJd9ei8sz2Z6xpe')
                 }
             });
         }
@@ -138,6 +138,12 @@ module hirespace {
             bookingData.customer.company = bookingData.customer.company ? bookingData.customer.company : 'No Company';
 
             return bookingData;
+        }
+
+        ui() {
+          $('.toggle-enquiries-feed').click(e => {
+              $('.enquiries-feed, .toggle-enquiries-feed .close').toggleClass('active');
+          });
         }
     }
 
