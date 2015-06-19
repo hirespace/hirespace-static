@@ -17,6 +17,13 @@
             <strong data-bind="text: bookingDataObservable.venue.name">Venue</strong>
         </li>
         <li class="separator"><span></span></li>
+        <li class="date">
+            <i class="fa fa-calendar"></i>
+            <strong data-bind="text: bookingDataObservable.date.startdate">Start Date</strong>
+            -
+            <strong data-bind="text: bookingDataObservable.date.finishdate">Finish Date</strong>
+        </li>
+        <li class="separator"><span></span></li>
         <li class="budget">
             <i class="fa fa-gbp"></i>
             <strong data-bind="text: bookingDataObservable.budget">Budget</strong>
@@ -25,13 +32,6 @@
         <li class="people">
             <i class="fa fa-user"></i>
             <strong data-bind="text: bookingDataObservable.people">Number of People</strong> people
-        </li>
-        <li class="separator"><span></span></li>
-        <li class="date">
-            <i class="fa fa-calendar"></i>
-            <strong data-bind="text: bookingDataObservable.date.startdate">Start Date</strong>
-            -
-            <strong data-bind="text: bookingDataObservable.date.finishdate">Finish Date</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="time">

@@ -79,8 +79,14 @@
                     font:
                       weight: 700
 
+      +respond-to-size($screen-md)
+        left: -($left-nav-width)
+
     .enquiry-actions
       padding-left: $left-nav-width
+      
+      +respond-to-size($screen-md)
+        padding-left: 0
 
   header
     margin: $double-unit-layout 0
@@ -99,6 +105,12 @@
       right: 0
       top: 50%
       margin-top: -(rem(12px))
+
+      +respond-to-size($screen-sm)
+        right: auto
+        left: 0
+        top: -($double-half-unit-layout)
+        margin: 0
 
   .details-bar
     $details-bar-height: $quadruple-unit-layout + $half-unit-layout
@@ -121,7 +133,7 @@
 
       li
         +transition(color .25s)
-        +ellipsis(rem(240px))
+        +ellipsis(rem(140px))
         @extend .text-center
 
         color: $color-grey-100
@@ -164,6 +176,30 @@
             width: 1px
             background: $color-grey-75
             background: $color-grey-900
+
+    +respond-to-size($screen-sm)
+      height: auto
+
+      ul
+        height: auto
+        display: block
+
+        li
+          float: left
+          display: block
+          max-width: inherit
+          width: 33.33%
+          border-left: 1px solid $color-black
+
+          &.location, &.budget
+            border-left: 0
+
+          &.separator
+            display: none
+
+          &.location, &.date
+            width: 50%
+            border-bottom: 1px solid $color-black
 
     .thank-you-message
       @extend .text-center
@@ -210,6 +246,9 @@
 
         strong
           padding-bottom: $quarter-unit-layout
+
+      +respond-to-size($screen-sm)
+        margin-bottom: $base-unit-layout
 
   .confirm-spend
     input
@@ -277,6 +316,15 @@
         .fa
           margin-right: $half-unit-layout
           top: -1px
+      
+      +respond-to-size($screen-sm)
+        .row div
+          button
+            margin-bottom: $half-unit-layout
+
+          &:last-of-type
+            button
+              margin-bottom: 0
 
   .internal-note
     +clearfix

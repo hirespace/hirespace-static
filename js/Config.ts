@@ -18,7 +18,7 @@ module hirespace {
     };
 
     let apiRoutes: IApiRoutes = {
-        bookings: 'bookings/'
+        bookings: 'enquiries/'
     };
 
     let productionHost: string = 'hirespace.com';

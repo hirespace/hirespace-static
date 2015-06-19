@@ -28,7 +28,7 @@
 
         <main class="customer-details container-narrow padding-top-double"
               toggle-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost'">
-            <aside class="customer col-md-4">
+            <aside class="customer col-sm-4">
                 <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
 
                 <div class="details">
@@ -37,7 +37,7 @@
                 </div>
             </aside>
 
-            <aside class="message col-md-8">
+            <aside class="message col-sm-8">
                 <p data-bind="text: bookingDataObservable.message">Message</p>
             </aside>
         </main>
@@ -79,21 +79,21 @@
         <section class="hide" toggle-class="is-visible: bookingData.stage.name == 'New'">
             <nav class="controls container-narrow">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                         <button class="green large">
                             <span class="toggle-modal" data-toggle-modal="modalCallCustomer"></span>
                             <i class="white fa fa-phone"></i>
                             Call James
                         </button>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                         <button class="green large">
                             <span class="toggle-modal" data-toggle-modal="modalEmailCustomer"></span>
                             <i class="white fa fa-envelope-o"></i>
                             Email James
                         </button>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-sm-4">
                         <button class="green large">
                             <span class="toggle-modal" data-toggle-modal="modalQuickReply"></span>
                             <i class="white fa fa-reply"></i>

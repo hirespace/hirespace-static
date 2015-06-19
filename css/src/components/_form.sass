@@ -243,29 +243,44 @@ textarea:invalid
       color: $color-grey-200
 
   &.blue
-    border-color: $color-blue-600
+    border-color: $color-blue
     background: $color-blue
     color: white
 
+    +hover
+      border-color: $color-blue-600
+
   &.red
-    border-color: $color-red-600
+    border-color: $color-red
     background: $color-red
     color: white
 
+    +hover
+      border-color: $color-red-600
+
   &.green
-    border-color: $color-green-600
+    border-color: $color-green
     background: $color-green
     color: white
 
+    +hover
+      border-color: $color-green-600
+
   &.yellow
-    border-color: $color-yellow-600
+    border-color: $color-yellow
     background: $color-yellow
     color: white
 
+    +hover
+      border-color: $color-yellow-600
+
   &.black
-    border-color: $color-black
+    border-color: $color-grey-800
     background: $color-grey-800
     color: white
+
+    +hover
+      border-color: $color-black
 
   &.flat-grey
     +box-shadow(none)
@@ -273,6 +288,9 @@ textarea:invalid
 
     background: $color-grey-50
     border-color: $color-grey-50
+
+    +hover
+      border-color: $color-grey-100
 
   &.add-attachment
     border-color: $color-grey-100

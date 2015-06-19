@@ -57,6 +57,9 @@ module hirespace {
     interface IVenue {
         manager: string;
         name: string;
+        // @TODO
+        // is this mandatory?
+        spaceName?: string;
     }
 
     interface ISuggestedCriteria {
