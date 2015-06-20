@@ -26,21 +26,19 @@ module hirespace {
             this.ui();
 
             setInterval(() => {
-                this.bookingDataPromise().then((response: IBookingData) => {
-                    // @TODO
-                    // all API methods should have a common class intermediary taking care of sending the same sort of
-                    // config and parsing responses into an object with shared Interface
-                    let hsResponse: IBookingData = this.parseBookingData(response);
+                Rx.Observable.fromPromise(this.bookingDataPromise())
+                    .subscribe(d => {
+                        let hsResponse: IBookingData = this.parseBookingData(d);
 
-                    if (_.isEqual(hsResponse, this.bookingData)) {
-                        hirespace.Logger.debug('View update skipped');
+                        if (_.isEqual(hsResponse, this.bookingData)) {
+                            hirespace.Logger.debug('View update skipped');
 
-                        return false;
-                    }
+                            return false;
+                        }
 
-                    this.uiConfig.prevStage = this.bookingData.stage.name;
-                    this.updateBookingData(hsResponse);
-                });
+                        this.uiConfig.prevStage = this.bookingData.stage.name;
+                        this.updateBookingData(hsResponse);
+                    }, f => console.error(f));
             }, this.pollingFrequency);
 
             $('.next-step').click(e => {
@@ -49,21 +47,14 @@ module hirespace {
 
                 Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
                     // @TODO
-                    // investigate why this does not work on success?
                     // Also, I think it would be better to get the updated data as a result
                     .subscribe(d => {
-                        console.info(d);
-                        this.uiConfig.prevStage = this.bookingData.stage.name;
-                        this.bookingData.stage.name = toStep;
+                        let hsResponse: IBookingData = this.parseBookingData(d);
 
-                        this.updateBookingData(this.bookingData);
-                    }, f => {
-                        console.error(f);
                         this.uiConfig.prevStage = this.bookingData.stage.name;
-                        this.bookingData.stage.name = toStep;
 
-                        this.updateBookingData(this.bookingData);
-                    });
+                        this.updateBookingData(hsResponse);
+                    }, f => console.error(f));
             });
 
             $('[data-toggle]').click(e => {
@@ -146,8 +137,8 @@ module hirespace {
         parseBookingData(bookingData: IBookingData): IBookingData {
             bookingData.date.startdate = moment(bookingData.date.startdate).format('MMM Do YY');
             bookingData.date.finishdate = moment(bookingData.date.finishdate).format('MMM Do YY');
-            bookingData.time.starttime = moment(bookingData.time.starttime).format('h:mm');
-            bookingData.time.finishtime = moment(bookingData.time.finishtime).format('h:mm');
+            //bookingData.time.starttime = moment(bookingData.time.starttime).format('h:mm');
+            //bookingData.time.finishtime = moment(bookingData.time.finishtime).format('h:mm');
             bookingData.customer.company = bookingData.customer.company ? bookingData.customer.company : 'No Company';
 
             return bookingData;

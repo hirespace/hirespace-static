@@ -1,8 +1,8 @@
 <div class="details-bar">
     <div class="thank-you-message container-narrow"
-         toggle-class="is-visible: bookingData.stage.option == 'confirmed'">
+         toggle-class="is-visible: bookingData.stage.option == 'confirmed' || bookingData.stage.option == 'closed'">
         <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
-        <strong toggle-class="is-hidden: bookingData.status == 'lost'">Wohoo! Thanks for letting us know that <span
+        <strong toggle-class="is-hidden: bookingData.stage.option == 'closed'">Wohoo! Thanks for letting us know that <span
                 data-bind="text: bookingDataObservable.customer.name">Customer Name</span>'s
             enquiry has been confirmed.</strong>
         <strong toggle-class="is-hidden: bookingData.stage.option == 'confirmed'"><span
