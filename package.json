@@ -1,6 +1,6 @@
 {
   "name": "hirespace-static",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Hire Space static assets",
   "main": "gulpfile.js",
   "scripts": {
