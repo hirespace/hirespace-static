@@ -1,5 +1,7 @@
 .*-cache
+*.log
 
+dist
 node_modules
 bower_components
 
@@ -14,3 +16,4 @@ Thumbs.db
 !*.conf.js
 
 push.sh
+commit.sh

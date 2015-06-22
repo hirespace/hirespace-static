@@ -1,0 +1,78 @@
+<nav class="enquiries-feed">
+    <div class="toggle-enquiries-feed">
+        <div class="close">
+            <i></i><i></i>
+        </div>
+
+        <i></i>
+        <i></i>
+        <i></i>
+    </div>
+
+    <ul>
+        <li class="new" hs-class="active: bookingData.stage.name == 'New'">
+            <span class="label numeric blue">1</span>
+            <strong>New</strong>
+        </li>
+        <li class="sub" hs-class="is-visible: bookingData.stage.name == 'New'">
+            <ul>
+                <li class="active">
+                    <strong>Name of the venue</strong>
+                    <small>Info 1 &bull; Info 2 &bull; Info 3</small>
+                </li>
+                <li>
+                    <strong>Name of the venue</strong>
+                    <small>Info 1 &bull; Info 2 &bull; Info 3</small>
+                </li>
+            </ul>
+        </li>
+        <li class="in-progress" hs-class="active: bookingData.stage.name == 'In Progress'">
+            <span class="label numeric green">0</span>
+            <strong>In Progress</strong>
+        </li>
+        <li class="sub" hs-class="is-visible: bookingData.stage.name == 'In Progress'">
+            <ul>
+                <li class="active">
+                    <strong>Name of the venue</strong>
+                    <small>Info 1 &bull; Info 2 &bull; Info 3</small>
+                </li>
+                <li>
+                    <strong>Name of the venue</strong>
+                    <small>Info 1 &bull; Info 2 &bull; Info 3</small>
+                </li>
+            </ul>
+        </li>
+        <li class="needs-archiving" hs-class="active: bookingData.stage.name == 'Needs Archiving'">
+            <span class="label numeric yellow">0</span>
+            <strong>Needs Archiving</strong>
+        </li>
+        <li class="sub" hs-class="is-visible: bookingData.stage.name == 'Needs Archiving'">
+            <ul>
+                <li class="active">
+                    <strong>Name of the venue</strong>
+                    <small>Info 1 &bull; Info 2 &bull; Info 3</small>
+                </li>
+                <li>
+                    <strong>Name of the venue</strong>
+                    <small>Info 1 &bull; Info 2 &bull; Info 3</small>
+                </li>
+            </ul>
+        </li>
+        <li class="archived" hs-class="active: bookingData.stage.name == 'Archived'">
+            <span class="label numeric black">0</span>
+            <strong>Archived</strong>
+        </li>
+        <li class="sub" hs-class="is-visible: bookingData.stage.name == 'Archived'">
+            <ul>
+                <li class="active">
+                    <strong>Name of the venue</strong>
+                    <small>Info 1 &bull; Info 2 &bull; Info 3</small>
+                </li>
+                <li>
+                    <strong>Name of the venue</strong>
+                    <small>Info 1 &bull; Info 2 &bull; Info 3</small>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,4 @@
+*.js
+
+# expect.js folder
+!typings

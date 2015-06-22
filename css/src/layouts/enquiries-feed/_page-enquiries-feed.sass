@@ -1,0 +1,552 @@
+.page-enquiries
+  footer
+    margin: $triple-unit-layout 0 $base-unit-layout
+  
+  .layout-offset-top
+    $left-nav-width: rem(270px)
+
+    +clearfix
+
+    nav.enquiries-feed
+      +z-index(enquiries-feed)
+      +transition(left .25s)
+
+      width: $left-nav-width
+      background: $color-grey-25
+      position: fixed
+      height: 100%
+      border-right: 1px solid $color-grey-75
+
+      &.active
+        left: 0
+
+      .toggle-enquiries-feed
+        $toggle-box-size: $double-unit-layout * 1.5
+
+        //+z-index(toggle-enquiries-feed)
+        @extend .text-center
+
+        display: none
+        position: absolute
+        right: -($toggle-box-size + $base-unit-layout)
+        top: $double-unit-layout
+        width: $toggle-box-size
+        height: $toggle-box-size
+        background: $color-grey-50
+        background: $color-black
+
+        i
+          position: absolute
+          display: block
+          height: 1px
+          background: $color-black
+          background: white
+          width: 50%
+          left: 25%
+          top: 50%
+
+          &:first-of-type
+            top: 35%
+
+          &:last-of-type
+            top: 65%
+
+        .close
+          +transition(opacity .25s)
+          +z-index(close-enquiries-feed)
+
+          position: relative
+          left: 0
+          top: 0
+          width: 100%
+          height: 100%
+          opacity: 0
+          cursor: pointer
+          background: $color-grey-50
+          background: $color-black
+
+          &.active
+            opacity: 1
+
+          i
+            top: 50% !important
+
+            &:first-of-type
+              +transform(rotate(45deg))
+
+            &:last-of-type
+              +transform(rotate(135deg))
+
+      > ul
+        @extend .unstyled
+
+        > li
+          +transition(background .25s)
+
+          padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout
+          display: block
+          border-bottom: 1px solid $color-grey-75
+          cursor: pointer
+
+          +hover
+            background: white
+
+          &.active
+            background: white
+
+            strong
+              font:
+                weight: 700
+
+          .label, strong
+            display: inline-block
+            vertical-align: middle
+
+          strong
+            @extend .text-uppercase
+
+            letter-spacing: 0
+            font:
+              size: rem(12px)
+              weight: 500
+
+          &.sub
+            padding: 0
+            display: none
+
+            ul
+              @extend .unstyled
+
+              > li
+                padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout
+                border-bottom: 1px solid $color-grey-75
+
+                strong, small
+                  +ellipsis
+
+                strong
+                  text-transform: none
+                  display: block
+                  font:
+                    size: rem(14px)
+
+                small
+                  color: $color-grey-500
+                  font:
+                    size: rem(12px)
+
+                &:last-of-type
+                  border: 0
+
+                &.active
+                  background: white
+
+                  strong
+                    font:
+                      weight: 700
+
+      +respond-to-size($screen-md)
+        left: -($left-nav-width)
+
+        .toggle-enquiries-feed
+          display: block
+
+    .enquiry-actions
+      padding-left: $left-nav-width
+
+      +respond-to-size($screen-md)
+        padding-left: 0
+
+  header
+    margin: $double-unit-layout 0
+    position: relative
+
+    h1
+      margin: 0
+      font:
+        size: rem(28px)
+
+      strong, span
+        text-transform: capitalize
+
+    .label
+      +z-index(enquiry-status-label)
+
+      position: absolute
+      right: 0
+      top: 50%
+      margin-top: -(rem(12px))
+
+      +respond-to-size($screen-sm)
+        right: auto
+        left: 0
+        top: -($double-half-unit-layout)
+        margin: 0
+
+  .details-bar
+    $details-bar-height: $quadruple-unit-layout + $half-unit-layout
+
+    height: $details-bar-height + rem(2px)
+    background: $color-grey-25
+    //background: $color-grey-800
+    border-top: 1px solid $color-grey-75
+    //border-top: 1px solid $color-grey-900
+    border-bottom: 1px solid $color-grey-75
+    //border-bottom: 1px solid $color-grey-900
+
+    ul
+      +clearfix
+
+      width: 100%
+      list-style: none
+      display: table
+      height: $details-bar-height
+
+      li
+        +transition(color .25s)
+        +ellipsis(rem(140px))
+        @extend .text-center
+
+        position: relative
+        display: table-cell
+        height: $details-bar-height
+        line-height: $details-bar-height
+        font:
+          weight: 500
+          size: rem(14px)
+
+        +hover
+        //color: white
+        //strong, .fa
+
+        a
+          +transition(opacity .25s)
+          +z-index(enquiry-suggest-edits)
+          @extend .text-center
+
+          opacity: 0
+          display: block
+          width: 100%
+          position: absolute
+          background: $color-grey-25
+          text-decoration: none
+
+          +hover
+            opacity: 1
+
+        em.is-flexible
+          @extend .text-center
+
+          width: 100%
+          line-height: 1
+          position: absolute
+          left: 0
+          bottom: rem(8px)
+          font:
+            size: rem(12px)
+            style: normal
+            
+          .fa
+            color: $color-green
+            position: relative
+            top: -1px
+            margin-right: $quarter-unit-layout / 2
+            font:
+              size: rem(13px)
+
+            &.fa-check
+              color: $color-green
+
+            &.fa-times
+              color: $color-red
+
+        strong, .fa
+          vertical-align: middle
+          font:
+            weight: 500
+
+        .fa
+          margin-right: $half-unit-layout
+          //color: $color-hirespace
+          //top: -1px
+          font:
+            size: rem(18px)
+
+        &.separator
+          min-width: inherit
+          background: transparent
+          padding: 0 $base-unit-layout
+          position: relative
+
+          span
+            position: absolute
+            display: block
+            left: 50%
+            top: 0
+            height: $details-bar-height
+            width: 1px
+            background: $color-grey-75
+    //background: $color-grey-900
+
+    +respond-to-size($screen-sm)
+      height: auto
+
+      ul
+        height: auto
+        display: block
+
+        li
+          float: left
+          display: block
+          max-width: inherit
+          width: 33.33%
+          border-left: 1px solid $color-grey-75
+
+          &.location, &.budget
+            border-left: 0
+
+          &.separator
+            display: none
+
+          &.location, &.date
+            width: 50%
+            border-bottom: 1px solid $color-grey-75
+
+    .thank-you-message
+      @extend .text-center
+
+      display: none
+      height: $quadruple-unit-layout + $half-unit-layout
+      line-height: $quadruple-unit-layout + $half-unit-layout
+
+      img, strong
+        display: inline-block
+        vertical-align: middle
+
+      img
+        margin-right: $half-unit-layout
+        max-width: $double-unit-layout + $half-unit-layout
+        max-height: $double-unit-layout + $half-unit-layout
+
+      strong
+        font:
+          size: rem(15px)
+
+  .customer-details
+    .message
+      p:first-letter
+        text-transform: capitalize
+
+    .customer
+      +clearfix
+
+      img
+        float: left
+        display: block
+        max-width: $triple-unit-layout
+        max-height: $triple-unit-layout
+
+      .details
+        float: left
+        padding: rem(4px) 0 0 $base-unit-layout
+
+        strong, small
+          +ellipsis
+
+          display: block
+
+        strong
+          padding-bottom: $quarter-unit-layout
+
+      +respond-to-size($screen-sm)
+        margin-bottom: $base-unit-layout
+
+  .confirm-spend
+    input
+      width: 100%
+      margin: 0
+      height: $quadruple-unit-layout + rem(2px)
+      font:
+        size: rem(16px)
+
+    +respond-to-size($screen-md)
+      input
+        margin-bottom: $base-unit-layout
+
+  section
+    margin: $double-unit-layout 0 0
+    padding: $double-unit-layout 0 0
+    border-top: 1px solid $color-grey-75
+
+    &.confirm-status
+      margin: 0
+      border: 0
+
+    &.customer-contact-details
+      margin: 0
+      padding: $double-half-unit-layout 0
+
+      .fa, strong
+        vertical-align: middle
+        font:
+          size: rem(18px)
+
+      .fa
+        color: $color-hirespace
+        margin-right: $half-unit-layout
+
+      strong
+        text-transform: lowercase
+        margin-right: $base-unit-layout
+        font:
+          size: rem(20px)
+          weight: 500
+
+    &.venue-manager-actions
+      .update-hirespace
+        margin: $double-unit-layout 0 0
+
+        button
+          margin: 0
+
+        +respond-to-size($screen-md)
+          button
+            margin-bottom: $base-unit-layout
+
+            &.flat-grey
+              margin-bottom: 0
+
+    nav.controls
+      button
+        height: $quadruple-unit-layout
+        line-height: $quadruple-unit-layout
+        width: 100%
+        margin: 0
+        padding: 0
+        position: relative
+
+        strong
+          font:
+            weight: 500
+
+        span
+          +z-index(toggle-modal)
+
+          cursor: pointer
+          position: absolute
+          left: 0
+          top: 0
+          width: 100%
+          height: 100%
+
+        .fa
+          margin-right: $half-unit-layout
+          top: -1px
+
+      +respond-to-size($screen-sm)
+        .row div
+          button
+            margin-bottom: $half-unit-layout
+
+          &:last-of-type
+            button
+              margin-bottom: 0
+
+  .internal-note
+    +clearfix
+
+    .pull-right
+      +clearfix
+
+      label, input, button
+        float: left
+        display: block
+
+      label
+        padding: $base-unit-layout
+        font:
+          size: rem(14px)
+          weight: 700
+
+      input
+        +border-radius(4px 0 0 4px)
+
+        min-width: rem(260px)
+        border-right: 0
+        padding-top: $base-unit-layout
+        padding-bottom: $base-unit-layout
+        margin: 0
+
+      button
+        +border-radius(0 4px 4px 0)
+
+    +respond-to-size(1100px)
+      .pull-left, .pull-right
+        float: none
+
+        &.pull-left
+          button
+            margin-bottom: $base-unit-layout
+            width: 100%
+
+        &.pull-right
+          label
+            display: none
+
+          input
+            width: 75%
+            min-width: inherit
+
+          button
+            width: 25%
+
+  .modal
+    padding: $double-unit-layout
+
+    header,
+    main,
+    footer
+      padding: 0
+
+    main
+      +border-radius(3px)
+
+      color: $color-grey-700
+      margin: $base-unit-layout 0
+      background: $color-grey-50
+      border: 0
+      padding: $base-unit-layout
+
+      .contact-info
+        @extend .text-center
+
+        text-transform: lowercase
+        padding: $base-unit-layout
+        margin: 0
+        font:
+          weight: 700
+          size: rem(28px)
+
+      form
+        label
+          padding: 0 0 $half-unit-layout
+          display: block
+          font:
+            size: rem(14px)
+
+        textarea
+          margin-top: $half-unit-layout
+          display: block
+          width: 100%
+
+    footer
+      +clearfix
+
+      button
+        margin: 0
+
+        .fa-paperclip
+          position: relative
+          top: 1px
+          font:
+            size: rem(18px)

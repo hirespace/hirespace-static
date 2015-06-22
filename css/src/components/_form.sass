@@ -31,13 +31,17 @@ button,
 
     border-color: $color-grey-200
 
-    &:focus
-      border-color: $color-grey-300
+  &:focus
+    border-color: $color-grey-300
 
 select
   -webkit-appearance: none
-  background: url("#{$image-base}/icons/grey/arrow-bottom.svg") no-repeat right $base-unit-layout top 50%
-  background-size: $half-unit-layout
+  background:
+    color: transparent
+    image: url("#{$image-base}/ui-icons/select-arrow.svg")
+    position: right $base-unit-layout top 50%
+    repeat: no-repeat
+    size: $half-unit-layout
 
 textarea
   min-height: $quadruple-unit-layout
@@ -203,18 +207,28 @@ textarea:invalid
   margin: 0 0 $base-unit-layout
 
 .button, button
-  @extend .text-uppercase
-
   background: white
   text-decoration: none
   padding: $base-unit-layout $double-half-unit-layout
   cursor: pointer
   border-color: $color-grey-300
   color: $color-grey-300
+  font:
+    family: $font-family-secondary !important
+  //weight: 700
 
   +hover
     border-color: $color-grey-300
     color: $color-grey-300
+
+  &.block
+    width: 100%
+    display: block
+
+  &.large
+    padding: rem(22px) $base-unit-layout
+    font:
+      size: rem(18px)
 
   &:disabled
     background: $color-grey-50
@@ -229,21 +243,64 @@ textarea:invalid
       color: $color-grey-200
 
   &.blue
-    border-color: $color-blue-600
+    border-color: $color-blue
     background: $color-blue
     color: white
 
+    +hover
+      border-color: $color-blue-600
+
   &.red
-    border-color: $color-red-600
+    border-color: $color-red
     background: $color-red
     color: white
 
+    +hover
+      border-color: $color-red-600
+
   &.green
-    border-color: $color-green-600
+    border-color: $color-green
     background: $color-green
     color: white
 
+    +hover
+      border-color: $color-green-600
+
   &.yellow
-    border-color: $color-yellow-600
+    border-color: $color-yellow
     background: $color-yellow
     color: white
+
+    +hover
+      border-color: $color-yellow-600
+
+  &.black
+    border-color: $color-grey-800
+    background: $color-grey-800
+    color: white
+
+    +hover
+      border-color: $color-black
+
+  &.flat-grey
+    +box-shadow(none)
+    @extend .text-center
+
+    background: $color-grey-50
+    border-color: $color-grey-50
+
+    +hover
+      border-color: $color-grey-100
+
+  &.add-attachment
+    border-color: $color-grey-100
+    color: $color-grey-700
+    padding-left: $triple-unit-layout
+    font:
+      weight: 500
+    background:
+      color: $color-grey-50
+      image: url('../images/icon-set/icon_attachment.svg')
+      position: $base-unit-layout center
+      repeat: no-repeat
+      size: 30px

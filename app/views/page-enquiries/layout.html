@@ -1,0 +1,215 @@
+{{> navLoggedIn }}
+
+<div class="layout-offset-top">
+
+    {{> enquiriesFeed }}
+
+    <div class="enquiry-actions">
+        <div class="container-narrow margin-top-double">
+            {{> progressBar }}
+
+            <header>
+                <h1><strong data-bind="text: bookingDataObservable.word">Word</strong> at <span
+                        data-bind="text: bookingDataObservable.venue.name">Venue</span></h1>
+                <small class="label stage" data-bind="text: bookingDataObservable.stage.name">Stage</small>
+            </header>
+        </div>
+
+        <section class="customer-contact-details" hs-class="is-hidden: bookingData.stage.name == 'New'">
+            <div class="container-narrow">
+                <i class="fa fa-phone"></i>
+                <strong data-bind="text: bookingDataObservable.customer.phone">Telephone Number</strong>
+                <i class="fa fa-envelope-o"></i>
+                <strong data-bind="text: bookingDataObservable.customer.email">Email Address</strong>
+            </div>
+        </section>
+
+        {{> detailsBar }}
+
+        <main class="customer-details container-narrow padding-top-double"
+              hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving'">
+            <aside class="customer col-sm-4">
+                <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
+
+                <div class="details">
+                    <strong data-bind="text: bookingDataObservable.customer.name">Customer Name</strong>
+                    <small data-bind="text: bookingDataObservable.customer.company">Customer Company</small>
+                </div>
+            </aside>
+
+            <aside class="message col-sm-8">
+                <p data-bind="text: bookingDataObservable.message">Message</p>
+            </aside>
+        </main>
+
+        <section class="hide confirm-status" hs-class="is-visible: bookingData.stage.option == 'confirmed'">
+            <div class="container-narrow">
+                <h5 class="text-center margin-bottom-double">Please confirm your spend</h5>
+
+                <div class="row confirm-spend">
+                    <div class="col-md-4">
+                        <input type="text" placeholder="Confirm spend ex. VAT"/>
+                    </div>
+
+                    <div class="col-md-8">
+                        <ul class="tabs">
+                            <li data-value="Min"><span>Minimum spend</span></li>
+                            <li data-value="Rou"><span>Rough total</span></li>
+                            <li data-value="Fin"><span>Final spend</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="large green block margin-top-base hs-to-step archive"
+                update="status: 'won'">Archive enquiry</button>
+            </div>
+        </section>
+
+        <section class="hide confirm-status" hs-class="is-visible: bookingData.stage.option == 'closed'">
+            <div class="container-narrow confirm-reason-lost">
+                <h5 class="text-center margin-bottom-double">Tell Hire Space why this enquiry has been closed</h5>
+
+                <ul class="tabs">
+                    <li data-value="no-availability"><span>No availability</span></li>
+                    <li data-value="customer-went-elsewhere"><span>Customer went elsewhere</span></li>
+                    <li data-value="never-heard-back"><span>Never heard back</span></li>
+                    <li data-value="unsuitable-enquiry"><span>Unsuitable enquiry</span></li>
+                    <li data-value="other"><span>Other</span></li>
+                </ul>
+
+                <button class="large green block margin-top-base hs-to-step archive"
+                        update="status: 'lost'">Archive enquiry</button>
+            </div>
+        </section>
+
+        <section class="hide" hs-class="is-visible: bookingData.stage.name == 'New'">
+            <nav class="controls container-narrow">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <button class="green large">
+                            <span hs-modal="modalCallCustomer"></span>
+                            <i class="white fa fa-phone"></i>
+                            Call <strong data-bind="text: bookingDataObservable.customer.firstName">First Name</strong>
+                        </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="green large">
+                            <span hs-modal="modalEmailCustomer"></span>
+                            <i class="white fa fa-envelope-o"></i>
+                            Email <strong data-bind="text: bookingDataObservable.customer.firstName">First Name</strong>
+                        </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="green large">
+                            <span hs-modal="modalQuickReply"></span>
+                            <i class="white fa fa-reply"></i>
+                            Quick Reply
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </section>
+
+        <section class="venue-manager-actions">
+            <div class="container-narrow">
+                {{> progressBar }}
+
+                <!--<button data-toggle-view="show: bookingData.stage == 'New'" class="large flat-grey block">-->
+                <!--+1 more-->
+                <!--</button>-->
+
+                <div class="update-hirespace hide" hs-class="is-visible: bookingData.stage.name == 'In Progress'">
+                    <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                            class="large flat-grey block" id="showUpdateHireSpaceButtons">
+                        Show Update Hire Space buttons
+                    </button>
+
+                    <div class="row is-hidden" id="updateHireSpaceButtons">
+                        <div class="col-md-4">
+                            <button class="large green block hs-to-step"
+                                    update="needsArchivingStatus: 'confirmed'">Confirm
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="large black block hs-to-step"
+                                    update="needsArchivingStatus: 'closed'">Close
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                            <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                                    class="large flat-grey block hs-to-step"
+                                    update="timeToFollowUp: true">Update Later
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section hs-class="is-hidden: bookingData.stage.name == 'New'">
+            <div class="internal-note container-narrow">
+                <div class="pull-left">
+                    <button class="black"
+                            hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+                        Suggest edits
+                    </button>
+                    <button class="flat-grey hs-to-step hide"
+                            hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'"
+                            update="reopen: true">
+                        Re-open
+                    </button>
+                </div>
+
+                <div class="pull-right">
+                    <label for="internal-note">Leave an internal note</label>
+                    <input id="internal-note" type="text" placeholder="Text here..."/>
+
+                    <button class="black">Save</button>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2015, Hire Space Website Limited
+        </footer>
+    </div>
+
+</div>
+
+<script>
+    // Initial Data
+    var initBookingData = {
+        "_id": "56M4S8tNrujZCsvkY",
+        "budget": 15000,
+        "customer": {
+            "_id": "PQAfLzSLrxW8CApGF",
+            "name": "Louis Lundy",
+            "mobile": "447540226270",
+            "email": "llundy@adjuvo.com",
+            "phone": "02070709000"
+        },
+        "date": {
+            "finishdate": "1970-01-01T00:00:00.000Z",
+            "flexible": true,
+            "startdate": "1970-01-01T00:00:00.000Z"
+        },
+        "message": "private investor events. multiple events\nlate may early June \nunique \nhead of industry\ncentral, west end\nwine celler \n",
+        "people": 700,
+        "stage": {
+            "name": "New"
+        },
+        "status": "pending",
+        "time": {
+            "finishtime": "2015-05-23T14:31:20.000Z",
+            "flexible": true,
+            "starttime": "2015-05-23T14:31:20.000Z"
+        },
+        "timeToFollowUp": "2015-05-23T14:31:20.000Z",
+        "venue": {
+            "manager": "Jess ",
+            "name": "Royal Over-Seas League - ROSL",
+            "spaceName": "Allen"
+        },
+        "word": "Networking event"
+    };
+</script>

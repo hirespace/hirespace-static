@@ -36,9 +36,5 @@ module hirespace.specs {
 
             expect(_.keys(hirespace.App.knockout).length).toEqual(originalKnockoutLength + 1);
         });
-
-        it('should have register method which runs all the subscriptions', () => {
-            expect(hirespace.App.register).toBeDefined();
-        });
     });
 }

@@ -5,9 +5,9 @@ module hirespace {
         name: string;
 
         constructor() {
-            this.name = 'Hello World';
+            hirespace.Tabs.listen();
         }
     }
 
-    hirespace.App.subscribe('HomeController', new HomeController, true);
+    hirespace.App.subscribe('HomeController', HomeController);
 }

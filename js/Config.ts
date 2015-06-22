@@ -8,17 +8,17 @@ module hirespace {
     }
 
     export interface IApiRoutes {
-        search: string;
+        bookings: string;
     }
 
     let apiUrls: IApiUrls = {
         production: 'https://api.hirespace.com/',
-        development: 'http://api.hirespace.dev/',
+        development: 'https://stagingmongoapi.hirespace.com/',
         test: 'http://api.hirespace.dev/'
     };
 
     let apiRoutes: IApiRoutes = {
-        search: 'search/'
+        bookings: 'enquiries/'
     };
 
     let productionHost: string = 'hirespace.com';
