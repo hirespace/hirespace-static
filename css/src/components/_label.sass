@@ -1,28 +1,28 @@
 .label
   +border-radius(3px)
+  +transition(background .25s)
 
-  color: $color-grey-300
-  border: 1px solid $color-grey-300
+  color: white
+  background: $color-black
   padding: $quarter-unit-layout $half-unit-layout
   font:
     family: $font-family-primary
     size: rem(13px)
 
-  &.blue
-    color: $color-blue
-    border-color: $color-blue
+  &.blue, &.stage.new
+    background: $color-blue !important
 
-  &.yellow
-    color: $color-yellow
-    border-color: $color-yellow
+  &.yellow, &.stage.needs-archiving
+    background: $color-yellow !important
 
-  &.green
-    color: $color-green
-    border-color: $color-green
+  &.green, &.stage.in-progress
+    background: $color-green !important
 
   &.red
-    color: $color-red
-    border-color: $color-red
+    background: $color-red !important
+
+  &.black, &.stage.archived
+    background: $color-black !important
 
   &.numeric
     $min-size: $base-unit-layout + $quarter-unit-layout
@@ -37,5 +37,4 @@
     height: $min-size
     line-height: $min-size
     border: 0
-    color: white
     background: $color-label-numeric

@@ -1,0 +1,15 @@
+<div class="modal is-hidden" id="modalEmailCustomer">
+    <header>
+        <strong class="heading">Thanks for emailing <span data-bind="text: bookingDataObservable.customer.name">Customer Name</span>!</strong>
+        <small class="link undo" hs-modal-close>Undo</small>
+    </header>
+    <main>
+        <p class="contact-info" data-bind="text: bookingDataObservable.customer.email">Email Address</p>
+    </main>
+    <footer>
+        <button class="block green large hs-to-step" to-step="In Progress" update="customerContactedHow: 'email'"
+                hs-modal-close>
+            OK
+        </button>
+    </footer>
+</div>

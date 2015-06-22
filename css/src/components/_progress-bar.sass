@@ -1,0 +1,46 @@
+.progress-bar
+  +border-radius($quarter-unit-layout)
+
+  background: $color-grey-50
+  width: 100%
+  height: $quarter-unit-layout
+
+  .bar
+    +border-radius($quarter-unit-layout)
+    +transition(width .25s)
+
+    min-width: $quarter-unit-layout
+    background: $color-black
+    height: 100%
+
+    &.blue
+      background: $color-blue
+
+    &.green
+      background: $color-green
+
+    &.yellow
+      background: $color-yellow
+
+    &.red
+      background: $color-red
+
+  &.new
+    .bar
+      width: 25%
+      background: $color-blue
+
+  &.in-progress
+    .bar
+      width: 50%
+      background: $color-green
+
+  &.needs-archiving
+    .bar
+      width: 75%
+      background: $color-yellow
+
+  &.archived
+    .bar
+      width: 100%
+      background: $color-black

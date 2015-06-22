@@ -2,15 +2,6 @@ module hirespace.specs {
     'use strict';
 
     describe('Debug', () => {
-        it('should get the current url', () => {
-            let url = hirespace.Debug.getControllerIdentifier();
-
-            // @TODO
-            // possibly change to something more generic, although this is basically testing almost
-            // built-in functionality
-            expect(url).toEqual('context.html');
-        });
-
         it('should be able to get the current host (localhost:6065, ...)', () => {
             let getHost = hirespace.Debug.getHost();
 

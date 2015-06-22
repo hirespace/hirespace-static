@@ -3,13 +3,17 @@
   margin-right: auto
 
 .block,
-.show
-  display: block
+.show,
+.is-visible
+  display: block !important
 
   &.block
     min-width: 100%
 
 .is-hidden
+  display: none !important
+
+.hide
   display: none
 
 .is-invisible
@@ -17,3 +21,9 @@
 
 .relative
   position: relative
+
+&.pull-left
+  float: left
+
+&.pull-right
+  float: right

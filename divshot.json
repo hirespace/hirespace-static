@@ -1,0 +1,24 @@
+{
+  "name": "hirespace",
+  "root": "dist",
+  "clean_urls": true,
+  "prerender": true,
+  "error_page": "error.html",
+  "routes": {
+    "**": "index.html"
+  },
+  "exclude": [
+    ".*",
+    "*.sh",
+    "app",
+    "bower_components",
+    "data",
+    "node_modules",
+    "bower.json",
+    "package.json",
+    "gulpfile.js",
+    ".sass-cache",
+    "LICENSE",
+    "README.md"
+  ]
+}

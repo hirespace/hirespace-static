@@ -1,0 +1,63 @@
+<div class="details-bar">
+    <div class="thank-you-message container-narrow"
+         hs-class="is-visible: bookingData.stage.option == 'confirmed' || bookingData.stage.option == 'closed' || bookingData.stage.name == 'Archived'">
+        <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
+        <strong hs-class="is-hidden: bookingData.stage.option == 'closed' || bookingData.status == 'lost'">Wohoo! Thanks for letting us know that <span
+                data-bind="text: bookingDataObservable.customer.name">Customer Name</span>'s
+            enquiry has been confirmed.</strong>
+        <strong hs-class="is-hidden: bookingData.stage.option == 'confirmed' || bookingData.status == 'won'"><span
+                data-bind="text: bookingDataObservable.customer.name">Customer Name</span>'s enquiry has been
+            closed.</strong>
+    </div>
+
+    <ul class="container-narrow"
+        hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+        <li class="location">
+            <a href=""><i class="fa fa-pencil"></i> Edit</a>
+            <i class="fa fa-map-marker"></i>
+            <strong data-bind="text: bookingDataObservable.venue.spaceName">Space Name</strong>
+        </li>
+        <li class="separator"><span></span></li>
+        <li class="date">
+            <a href=""><i class="fa fa-pencil"></i> Edit</a>
+            <em hs-class="is-visible: bookingData.date.flexible == true" class="hide is-flexible">
+                <i class="fa fa-check"></i>
+                Flexible</em>
+            <em hs-class="is-hidden: bookingData.date.flexible == true" class="is-flexible">
+                <i class="fa fa-times"></i>
+                Not Flexible</em>
+
+            <i class="fa fa-calendar"></i>
+            <strong data-bind="text: bookingDataObservable.date.startdate">Start Date</strong>
+            -
+            <strong data-bind="text: bookingDataObservable.date.finishdate">Finish Date</strong>
+        </li>
+        <li class="separator"><span></span></li>
+        <li class="budget">
+            <a href=""><i class="fa fa-pencil"></i> Edit</a>
+            <i class="fa fa-gbp"></i>
+            <strong data-bind="text: bookingDataObservable.budget">Budget</strong>
+        </li>
+        <li class="separator"><span></span></li>
+        <li class="people">
+            <a href=""><i class="fa fa-pencil"></i> Edit</a>
+            <i class="fa fa-user"></i>
+            <strong data-bind="text: bookingDataObservable.people">Number of People</strong> people
+        </li>
+        <li class="separator"><span></span></li>
+        <li class="time">
+            <a href=""><i class="fa fa-pencil"></i> Edit</a>
+            <em hs-class="is-visible: bookingData.time.flexible == true" class="hide is-flexible">
+                <i class="fa fa-check"></i>
+                Flexible</em>
+            <em hs-class="is-hidden: bookingData.time.flexible == true" class="is-flexible">
+                <i class="fa fa-times"></i>
+                Not Flexible</em>
+
+            <i class="fa fa-clock-o"></i>
+            <strong data-bind="text: bookingDataObservable.time.starttime">Start Time</strong>
+            -
+            <strong data-bind="text: bookingDataObservable.time.finishtime">Finish Time</strong>
+        </li>
+    </ul>
+</div>
