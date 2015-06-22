@@ -27,7 +27,7 @@ module hirespace {
             setInterval(() => {
                 Rx.Observable.fromPromise(this.bookingDataPromise())
                     .subscribe(d => {
-                        let hsResponse: IBookingData = this.parseBookingData(d);
+                        let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
 
                         if (_.isEqual(hsResponse, this.bookingData)) {
                             hirespace.Logger.debug('View update skipped');
@@ -45,7 +45,7 @@ module hirespace {
 
                 Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
                     .subscribe(d => {
-                        let hsResponse: IBookingData = this.parseBookingData(d);
+                        let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
 
                         this.uiConfig.prevStage = this.bookingData.stage.name;
 
@@ -57,7 +57,7 @@ module hirespace {
         initBookingData() {
             hirespace.Logger.debug('Booking Data initialised from a local source');
 
-            this.bookingData = this.parseBookingData(initBookingData);
+            this.bookingData = hirespace.EnquiriesController.parseBookingData(initBookingData);
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
             this.updateUi();
@@ -129,11 +129,14 @@ module hirespace {
         }
 
         // @TODO
-        // refactor cruft and write unit tests
-        parseBookingData(bookingData: IBookingData): IBookingData {
-            bookingData.date.startdate = moment(bookingData.date.startdate).format('MMM Do YY');
-            bookingData.date.finishdate = moment(bookingData.date.finishdate).format('MMM Do YY');
-            bookingData.customer.company = bookingData.customer.company ? bookingData.customer.company : 'No Company';
+        // refactor cruft
+        static parseBookingData(bookingData: IBookingData): IBookingData {
+            let startDate = new Date(bookingData.date.startdate);
+            let finishDate = new Date(bookingData.date.finishdate);
+
+            bookingData.date.startdate = moment(startDate).format('MMM Do YY');
+            bookingData.date.finishdate = moment(finishDate).format('MMM Do YY');
+            bookingData.customer.company = bookingData.customer.company ? bookingData.customer.company : 'No Company Name';
             bookingData.customer.firstName = _.first(bookingData.customer.name.split(' '));
 
             return bookingData;

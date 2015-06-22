@@ -11,9 +11,9 @@ let initBookingData = {
         "phone": "02070709000"
     },
     "date": {
-        "finishdate": "1970-01-01T00:00:00.000Z",
+        "finishdate": "2015-06-16T10:00:00.000Z",
         "flexible": null,
-        "startdate": "1970-01-01T00:00:00.000Z"
+        "startdate": "2015-06-16T10:00:00.000Z"
     },
     "message": "private investor events. multiple events\nlate may early June \nunique \nhead of industry\ncentral, west end\nwine celler \n",
     "people": 70,
@@ -123,6 +123,13 @@ module hirespace.specs {
 
         it('should have updateUi method attached to its scope', () => {
             expect(controller.updateUi).toBeDefined();
+        });
+
+        it('should successfully parse booking data', () => {
+            let bookingData = controller.bookingData;
+
+            expect(bookingData.customer.firstName).toEqual('Louis');
+            expect(bookingData.customer.company).toEqual('No Company Name');
         });
     });
 }
