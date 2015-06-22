@@ -10,7 +10,7 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 500000;
+        private pollingFrequency: number = 5000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -41,7 +41,36 @@ module hirespace {
             }, this.pollingFrequency);
 
             $('.hs-to-step').click(e => {
-                let updateData = hirespace.UpdateParser.getObject($(e.target).attr('update'));
+                let updateData = hirespace.UpdateParser.getObject($(e.target).attr('update')),
+                    errors = [];
+
+                if ($(e.target).hasClass('archive')) {
+                    switch (updateData.status) {
+                        case 'won':
+                            updateData.priceType = $('.confirm-spend .tabs .active').attr('data-value');
+                            updateData.price = _.parseInt($('.confirm-spend input').val());
+                            break;
+                        case 'lost':
+                            updateData.reasonLost = $('.confirm-reason-lost .tabs .active').attr('data-value');
+                            break;
+                        default:
+                            hirespace.Logger.error('Status ' + updateData.status + ' not allowed.');
+                            return false;
+                    }
+
+                    // @TODO
+                    // error handling using the UI - notifications
+                    _.forEach(updateData, (value, key) => {
+                        if (!value) {
+                            hirespace.Logger.error('The value of ' + key + ' is empty');
+                            errors.push(key);
+                        }
+                    });
+                }
+
+                if (errors.length > 0) {
+                    return false;
+                }
 
                 Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
                     .subscribe(d => {
@@ -81,17 +110,18 @@ module hirespace {
         bookingDataPromise(): JQueryPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '2WscqXhWtbhwxTWhs', {
                 method: 'GET', headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode('q2iJd9ei8sz2Z6xpe')
+                    Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
                 }
             });
+
         }
 
         updateBookingDataPromise(updateData: any): JQueryGenericPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '2WscqXhWtbhwxTWhs', {
                 // @TODO
                 // resolve after we have a functioning API
-                data: updateData, method: 'PUT', headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode('q2iJd9ei8sz2Z6xpe')
+                data: JSON.stringify(updateData), contentType: "application/json; charset=utf-8", method: 'PUT', headers: {
+                    Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
                 }
             });
         }

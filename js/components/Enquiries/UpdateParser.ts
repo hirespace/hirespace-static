@@ -4,7 +4,7 @@ module hirespace {
     export class UpdateParser {
         // @TODO
         // tidy this up
-        static getObject(attr: string) {
+        static getObject(attr: string): any {
             let obj = {};
 
             _.forEach(attr.split(','), objectDef => {

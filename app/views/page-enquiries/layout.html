@@ -27,7 +27,7 @@
         {{> detailsBar }}
 
         <main class="customer-details container-narrow padding-top-double"
-              hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost'">
+              hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving'">
             <aside class="customer col-sm-4">
                 <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
 
@@ -53,26 +53,32 @@
 
                     <div class="col-md-8">
                         <ul class="tabs">
-                            <li><span>Minimum spend</span></li>
-                            <li><span>Rough total</span></li>
-                            <li><span>Final spend</span></li>
+                            <li data-value="Min"><span>Minimum spend</span></li>
+                            <li data-value="Rou"><span>Rough total</span></li>
+                            <li data-value="Fin"><span>Final spend</span></li>
                         </ul>
                     </div>
                 </div>
+
+                <button class="large green block margin-top-base hs-to-step archive"
+                update="status: 'won'">Archive enquiry</button>
             </div>
         </section>
 
         <section class="hide confirm-status" hs-class="is-visible: bookingData.stage.option == 'closed'">
-            <div class="container-narrow">
+            <div class="container-narrow confirm-reason-lost">
                 <h5 class="text-center margin-bottom-double">Tell Hire Space why this enquiry has been closed</h5>
 
                 <ul class="tabs">
-                    <li><span>No availability</span></li>
-                    <li class="active"><span>Customer went elsewhere</span></li>
-                    <li><span>Never heard back</span></li>
-                    <li><span>Unsuitable enquiry</span></li>
-                    <li><span>Other</span></li>
+                    <li data-value="no-availability"><span>No availability</span></li>
+                    <li data-value="customer-went-elsewhere"><span>Customer went elsewhere</span></li>
+                    <li data-value="never-heard-back"><span>Never heard back</span></li>
+                    <li data-value="unsuitable-enquiry"><span>Unsuitable enquiry</span></li>
+                    <li data-value="other"><span>Other</span></li>
                 </ul>
+
+                <button class="large green block margin-top-base hs-to-step archive"
+                        update="status: 'lost'">Archive enquiry</button>
             </div>
         </section>
 
