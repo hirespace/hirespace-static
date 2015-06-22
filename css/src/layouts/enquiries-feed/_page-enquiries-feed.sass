@@ -208,7 +208,6 @@
         @extend .text-center
 
         position: relative
-        cursor: pointer
         display: table-cell
         height: $details-bar-height
         line-height: $details-bar-height
@@ -219,6 +218,21 @@
         +hover
         //color: white
         //strong, .fa
+
+        a
+          +transition(opacity .25s)
+          +z-index(enquiry-suggest-edits)
+          @extend .text-center
+
+          opacity: 0
+          display: block
+          width: 100%
+          position: absolute
+          background: $color-grey-25
+          text-decoration: none
+
+          +hover
+            opacity: 1
 
         em.is-flexible
           @extend .text-center
