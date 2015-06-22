@@ -2,6 +2,14 @@
   "name": "hirespace",
   "root": "dist",
   "clean_urls": true,
+  "headers": {
+    "/css/**": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "/fonts/**": {
+      "Access-Control-Allow-Origin": "*"
+    }
+  },
   "prerender": true,
   "error_page": "error.html",
   "routes": {

@@ -13,6 +13,7 @@ select yn in "Yes" "No"; do
 
 			cp -a css dist/css && rm -r dist/css/src
 			cp -a images dist/images
+			cp -a fonts dist/fonts
 			cp js/dist/hirespace.js dist/js/hirespace.js
 			cp index.html dist/index.html && cp favicon.ico dist/favicon.ico && cp screen-icon.png dist/screen-icon.png
 
