@@ -340,11 +340,17 @@
     .customer
       +clearfix
 
-      img
+      .avatar-anonymous
         float: left
         display: block
-        max-width: $triple-unit-layout
-        max-height: $triple-unit-layout
+        width: $triple-unit-layout
+        height: $triple-unit-layout
+        background:
+          color: transparent
+          image: url('#{$image-base}/dummy/avatar-anonymous.png')
+          position: center center
+          repeat: no-repeat
+          size: cover
 
       .details
         float: left
@@ -383,8 +389,12 @@
       border: 0
 
     &.customer-contact-details
+      //@extend .text-center
+
       margin: 0
       padding: $double-half-unit-layout 0
+      //border-top: 0
+      //border-bottom: 1px solid $color-grey-75
 
       .fa, strong
         vertical-align: middle

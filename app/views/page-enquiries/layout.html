@@ -17,6 +17,8 @@
 
         <section class="customer-contact-details" hs-class="is-hidden: bookingData.stage.name == 'New'">
             <div class="container-narrow">
+                <i class="fa fa-user"></i>
+                <strong data-bind="text: bookingDataObservable.customer.name">Customer Name</strong>
                 <i class="fa fa-phone"></i>
                 <strong data-bind="text: bookingDataObservable.customer.phone">Telephone Number</strong>
                 <i class="fa fa-envelope-o"></i>
@@ -29,7 +31,7 @@
         <main class="customer-details container-narrow padding-top-double"
               hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving'">
             <aside class="customer col-sm-4">
-                <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
+                <div class="avatar-anonymous"></div>
 
                 <div class="details">
                     <strong data-bind="text: bookingDataObservable.customer.name">Customer Name</strong>
