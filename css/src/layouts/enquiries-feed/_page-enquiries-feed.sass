@@ -340,11 +340,17 @@
     .customer
       +clearfix
 
-      img
+      .avatar-anonymous
         float: left
         display: block
-        max-width: $triple-unit-layout
-        max-height: $triple-unit-layout
+        width: $triple-unit-layout
+        height: $triple-unit-layout
+        background:
+          color: transparent
+          image: url('#{$image-base}/dummy/avatar-anonymous.png')
+          position: center center
+          repeat: no-repeat
+          size: cover
 
       .details
         float: left
