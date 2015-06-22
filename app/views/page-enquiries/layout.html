@@ -120,18 +120,18 @@
 
                     <div class="row is-hidden" id="updateHireSpaceButtons">
                         <div class="col-md-4">
-                            <button class="large green block next-step"
+                            <button class="large green block hs-to-step"
                                     update="needsArchivingStatus: 'confirmed'">Confirm
                             </button>
                         </div>
                         <div class="col-md-4">
-                            <button class="large black block next-step"
+                            <button class="large black block hs-to-step"
                                     update="needsArchivingStatus: 'closed'">Close
                             </button>
                         </div>
                         <div class="col-md-4">
                             <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
-                                    class="large flat-grey block next-step"
+                                    class="large flat-grey block hs-to-step"
                                     update="timeToFollowUp: true">Update Later
                             </button>
                         </div>
@@ -147,7 +147,7 @@
                             hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
                         Suggest edits
                     </button>
-                    <button class="flat-grey next-step hide"
+                    <button class="flat-grey hs-to-step hide"
                             hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'"
                             update="reopen: true">
                         Re-open
@@ -184,7 +184,7 @@
         },
         "date": {
             "finishdate": "1970-01-01T00:00:00.000Z",
-            "flexible": null,
+            "flexible": true,
             "startdate": "1970-01-01T00:00:00.000Z"
         },
         "message": "private investor events. multiple events\nlate may early June \nunique \nhead of industry\ncentral, west end\nwine celler \n",
@@ -195,7 +195,7 @@
         "status": "pending",
         "time": {
             "finishtime": "2015-05-23T14:31:20.000Z",
-            "flexible": null,
+            "flexible": true,
             "starttime": "2015-05-23T14:31:20.000Z"
         },
         "timeToFollowUp": "2015-05-23T14:31:20.000Z",

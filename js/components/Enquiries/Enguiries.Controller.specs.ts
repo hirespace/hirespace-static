@@ -125,6 +125,8 @@ module hirespace.specs {
             expect(controller.updateUi).toBeDefined();
         });
 
+        // @TODO
+        // a way to test the Date conversion??
         it('should successfully parse booking data', () => {
             let bookingData = controller.bookingData;
 

@@ -68,9 +68,10 @@ module hirespace.specs {
         let sentenceScenariosResolveObject = {
             bookingData: {
                 _id: 'a1',
-                //boolean: false,
+                boolean: false,
                 budget: '3,000',
                 stage: 'New',
+                trueBool: true,
                 venue: {
                     name: 'The Barbican'
                 }
@@ -132,15 +133,33 @@ module hirespace.specs {
                 },
                 evaluation: false
             },
-            //{
-            //    sentence: "  bookingData.boolean == false  ",
-            //    parsed: {
-            //        path: 'bookingData.boolean',
-            //        type: 'equality',
-            //        value: false
-            //    },
-            //    evaluation: true
-            //}
+            {
+                sentence: "  bookingData.boolean == false  ",
+                parsed: {
+                    path: 'bookingData.boolean',
+                    type: 'equality',
+                    value: false
+                },
+                evaluation: true
+            },
+            {
+                sentence: "bookingData.fakeBool=='true'",
+                parsed: {
+                    path: 'bookingData.fakeBool',
+                    type: 'equality',
+                    value: true
+                },
+                evaluation: false
+            },
+            {
+                sentence: "bookingData.trueBool=='true'",
+                parsed: {
+                    path: 'bookingData.trueBool',
+                    type: 'equality',
+                    value: true
+                },
+                evaluation: true
+            }
         ];
 
         _.forEach(sentenceScenarios, (scenario) => {

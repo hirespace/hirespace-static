@@ -10,7 +10,7 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 5000;
+        private pollingFrequency: number = 500000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -40,7 +40,7 @@ module hirespace {
                     }, f => console.error(f));
             }, this.pollingFrequency);
 
-            $('.next-step').click(e => {
+            $('.hs-to-step').click(e => {
                 let updateData = hirespace.UpdateParser.getObject($(e.target).attr('update'));
 
                 Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))

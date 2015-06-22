@@ -19,10 +19,12 @@ module hirespace {
         static parseSentence(assertionSentence: string): IAssertionSentenceData {
             let assertionParts = _.map(assertionSentence.split('=='), part => _.trim(part));
 
+            let value = _.trim(_.last(assertionParts), ' \' ');
+
             return {
                 path: _.trim(_.first(assertionParts)),
                 type: assertionParts.length == 2 ? 'equality' : 'boolean',
-                value: assertionParts.length == 2 ? _.trim(_.last(assertionParts), ' \' ') : true
+                value: assertionParts.length == 2 ? (value == 'true' || value == 'false' ? value == 'true' : value) : true
             }
         }
 

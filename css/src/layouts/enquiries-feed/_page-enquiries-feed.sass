@@ -207,7 +207,7 @@
         +ellipsis(rem(140px))
         @extend .text-center
 
-        //color: $color-grey-100
+        position: relative
         cursor: pointer
         display: table-cell
         height: $details-bar-height
@@ -220,6 +220,32 @@
         //color: white
         //strong, .fa
 
+        em.is-flexible
+          @extend .text-center
+
+          width: 100%
+          line-height: 1
+          position: absolute
+          left: 0
+          bottom: rem(8px)
+          font:
+            size: rem(12px)
+            style: normal
+            
+          .fa
+            color: $color-green
+            position: relative
+            top: -1px
+            margin-right: $quarter-unit-layout / 2
+            font:
+              size: rem(13px)
+
+            &.fa-check
+              color: $color-green
+
+            &.fa-times
+              color: $color-red
+
         strong, .fa
           vertical-align: middle
           font:
@@ -228,7 +254,7 @@
         .fa
           margin-right: $half-unit-layout
           //color: $color-hirespace
-          top: -1px
+          //top: -1px
           font:
             size: rem(18px)
 
