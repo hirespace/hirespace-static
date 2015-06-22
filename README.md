@@ -68,26 +68,26 @@ element based on rules (or their combinations), the number of which is unlimited
 For example, to toggle class active only when there is an object called ```bookingData``` attached to the current
 controller, do:
 
-        <elem toggle-class="active: bookingData"></elem>
+        <elem hs-class="active: bookingData"></elem>
         
 Should you wish to add an *OR assertion*, for example ```customerData.type == 'admin'```, you can do:
 
-        <elem toggle-class="active: bookingData || customerData.role == 'admin'"></elem>
+        <elem hs-class="active: bookingData || customerData.role == 'admin'"></elem>
         
 To add a *AND assertion*, you might do:
 
-        <elem toggle-class="active: bookingData.venue.manager && bookingData.venue.name"></elem>
+        <elem hs-class="active: bookingData.venue.manager && bookingData.venue.name"></elem>
 
 #### toggle-elem
 
 The ```ToggleElem``` model enables nimble control over toggling elements' visibility. The attribute is a list of id's
 to toggle on click on ```<elem>```:
 
-        <elem toggle-elem='["elem-id-1"]'></elem>
+        <elem hs-toggle='["elem-id-1"]'></elem>
         
 This will toggle ```.is-hidden``` class on #elem-id-1. To toggle more elements, simply add them to the list:
 
-        <elem toggle-elem='["elem-id-1", "elem-id-2"]'></elem>
+        <elem hs-toggle='["elem-id-1", "elem-id-2"]'></elem>
 
 **More features to be documented overtime.**
 
