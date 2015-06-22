@@ -17,8 +17,11 @@
 
         <section class="customer-contact-details" hs-class="is-hidden: bookingData.stage.name == 'New'">
             <div class="container-narrow">
-                <i class="fa fa-user"></i>
-                <strong data-bind="text: bookingDataObservable.customer.name">Customer Name</strong>
+                <!--<i class="fa fa-user"></i>-->
+                <strong class="customer-name">
+                    <span data-bind="text: bookingDataObservable.customer.name">Customer Name</span>
+                    <small data-bind="text: bookingDataObservable.customer.company">Customer Company</small>
+                </strong>
                 <i class="fa fa-phone"></i>
                 <strong data-bind="text: bookingDataObservable.customer.phone">Telephone Number</strong>
                 <i class="fa fa-envelope-o"></i>
@@ -30,7 +33,7 @@
 
         <main class="customer-details container-narrow padding-top-double"
               hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving'">
-            <aside class="customer col-sm-4">
+            <aside class="hide customer col-sm-4" hs-class="is-visible: bookingData.stage.name == 'New'">
                 <div class="avatar-anonymous"></div>
 
                 <div class="details">
@@ -39,48 +42,80 @@
                 </div>
             </aside>
 
-            <aside class="message col-sm-8">
+            <aside class="message" hs-class="col-sm-8: bookingData.stage.name == 'Name'">
                 <p data-bind="text: bookingDataObservable.message">Message</p>
             </aside>
         </main>
 
-        <section class="hide confirm-status" hs-class="is-visible: bookingData.stage.option == 'confirmed'">
+        <section class="hide confirm-status"
+                 hs-class="is-visible: bookingData.stage.option == 'confirmed' || bookingData.status == 'won'">
             <div class="container-narrow">
-                <h5 class="text-center margin-bottom-double">Please confirm your spend</h5>
+                <h5 class="text-center margin-bottom-double" hs-class="is-hidden: bookingData.status == 'won'">Please
+                    confirm your spend</h5>
 
                 <div class="row confirm-spend">
-                    <div class="col-md-4">
+                    <div class="col-md-4 hide" hs-class="is-visible: bookingData.stage.option == 'confirmed'">
                         <input type="text" placeholder="Confirm spend ex. VAT"/>
+                    </div>
+
+                    <div class="col-md-4 hide" hs-class="is-visible: bookingData.status == 'won'">
+                        <input type="text" disabled placeholder="Confirmed spend ex. VAT"
+                               data-bind="value: bookingDataObservable.stage.option.price"/>
                     </div>
 
                     <div class="col-md-8">
                         <ul class="tabs">
-                            <li data-value="Min"><span>Minimum spend</span></li>
-                            <li data-value="Rou"><span>Rough total</span></li>
-                            <li data-value="Fin"><span>Final spend</span></li>
+                            <li data-value="Min"
+                                hs-class="active: bookingData.stage.option.priceType == 'Min'">
+                                <span>Minimum spend</span></li>
+                            <li data-value="Rou"
+                                hs-class="active: bookingData.stage.option.priceType == 'Rou'">
+                                <span>Rough total</span></li>
+                            <li data-value="Fin"
+                                hs-class="active: bookingData.stage.option.priceType == 'Fin'">
+                                <span>Final spend</span></li>
                         </ul>
                     </div>
                 </div>
 
                 <button class="large green block margin-top-base hs-to-step archive"
-                update="status: 'won'">Archive enquiry</button>
+                        hs-class="is-hidden: bookingData.status == 'won'"
+                        update="status: 'won'">Archive enquiry
+                </button>
             </div>
         </section>
 
-        <section class="hide confirm-status" hs-class="is-visible: bookingData.stage.option == 'closed'">
+        <section class="hide confirm-status"
+                 hs-class="is-visible: bookingData.stage.option == 'closed' || bookingData.status == 'lost'">
             <div class="container-narrow confirm-reason-lost">
-                <h5 class="text-center margin-bottom-double">Tell Hire Space why this enquiry has been closed</h5>
+                <h5 class="text-center margin-bottom-double" hs-class="is-hidden: bookingData.status == 'lost'">Tell
+                    Hire Space why this enquiry has been closed</h5>
 
                 <ul class="tabs">
-                    <li data-value="no-availability"><span>No availability</span></li>
-                    <li data-value="customer-went-elsewhere"><span>Customer went elsewhere</span></li>
-                    <li data-value="never-heard-back"><span>Never heard back</span></li>
-                    <li data-value="unsuitable-enquiry"><span>Unsuitable enquiry</span></li>
-                    <li data-value="other"><span>Other</span></li>
+                    <li data-value="no-availability"
+                        hs-class="active: bookingData.stage.option.reasonLost == 'no-availability'">
+                        <span>No availability</span></li>
+                    <li data-value="customer-went-elsewhere"
+                        hs-class="active: bookingData.stage.option.reasonLost == 'customer-went-elsewhere'">
+                        <span>Customer went elsewhere</span>
+                    </li>
+                    <li data-value="never-heard-back"
+                        hs-class="active: bookingData.stage.option.reasonLost == 'never-heard-back'">
+                        <span>Never heard back</span>
+                    </li>
+                    <li data-value="unsuitable-enquiry"
+                        hs-class="active: bookingData.stage.option.reasonLost == 'unsuitable-enquiry'">
+                        <span>Unsuitable enquiry</span>
+                    </li>
+                    <li data-value="other"
+                        hs-class="active: bookingData.stage.option.reasonLost == 'other'">
+                        <span>Other</span></li>
                 </ul>
 
                 <button class="large green block margin-top-base hs-to-step archive"
-                        update="status: 'lost'">Archive enquiry</button>
+                        hs-class="is-hidden: bookingData.status == 'lost'"
+                        update="status: 'lost'">Archive enquiry
+                </button>
             </div>
         </section>
 
@@ -198,7 +233,11 @@
         "message": "private investor events. multiple events\nlate may early June \nunique \nhead of industry\ncentral, west end\nwine celler \n",
         "people": 700,
         "stage": {
-            "name": "New"
+            "name": "New",
+            "option": {
+                "price": "",
+                "priceType": ""
+            }
         },
         "status": "pending",
         "time": {

@@ -188,11 +188,8 @@
 
     height: $details-bar-height + rem(2px)
     background: $color-grey-25
-    //background: $color-grey-800
     border-top: 1px solid $color-grey-75
-    //border-top: 1px solid $color-grey-900
     border-bottom: 1px solid $color-grey-75
-    //border-bottom: 1px solid $color-grey-900
 
     ul
       +clearfix
@@ -389,12 +386,10 @@
       border: 0
 
     &.customer-contact-details
-      //@extend .text-center
+      @extend .text-right
 
       margin: 0
       padding: $double-half-unit-layout 0
-      //border-top: 0
-      //border-bottom: 1px solid $color-grey-75
 
       .fa, strong
         vertical-align: middle
@@ -408,9 +403,31 @@
       strong
         text-transform: lowercase
         margin-right: $base-unit-layout
+        position: relative
         font:
           size: rem(20px)
           weight: 500
+
+        &.customer-name
+          float: left
+
+          span
+            position: relative
+            top: -(rem(8px))
+            text-transform: capitalize
+            //font:
+            //  weight: 500
+
+          small
+            +ellipsis
+
+            left: 0
+            bottom: -(rem(8px))
+            position: absolute
+            text-transform: capitalize
+            font:
+              size: rem(12px)
+              weight: 500
 
     &.venue-manager-actions
       .update-hirespace
