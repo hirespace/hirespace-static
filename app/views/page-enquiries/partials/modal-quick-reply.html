@@ -1,7 +1,7 @@
 <div class="modal is-hidden" id="modalQuickReply">
     <header>
         <strong class="heading">Thanks for using quick reply!</strong>
-        <small class="link undo">Undo</small>
+        <small class="link undo" hs-modal-close>Undo</small>
     </header>
     <main>
         <form>
@@ -18,7 +18,7 @@
         </form>
     </main>
     <footer>
-        <button class="green pull-left close next-step" to-step="In Progress" update="customerContactedHow: 'quick'">
+        <button class="green pull-left next-step" update="customerContactedHow: 'quick'" hs-modal-close>
             Send
         </button>
         <button class="pull-right flat-grey">

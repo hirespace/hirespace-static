@@ -15,7 +15,7 @@
             </header>
         </div>
 
-        <section class="customer-contact-details" toggle-class="is-hidden: bookingData.stage.name == 'New'">
+        <section class="customer-contact-details" hs-class="is-hidden: bookingData.stage.name == 'New'">
             <div class="container-narrow">
                 <i class="fa fa-phone"></i>
                 <strong data-bind="text: bookingDataObservable.customer.phone">Telephone Number</strong>
@@ -27,7 +27,7 @@
         {{> detailsBar }}
 
         <main class="customer-details container-narrow padding-top-double"
-              toggle-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost'">
+              hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost'">
             <aside class="customer col-sm-4">
                 <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
 
@@ -42,7 +42,7 @@
             </aside>
         </main>
 
-        <section class="hide confirm-status" toggle-class="is-visible: bookingData.stage.option == 'confirmed'">
+        <section class="hide confirm-status" hs-class="is-visible: bookingData.stage.option == 'confirmed'">
             <div class="container-narrow">
                 <h5 class="text-center margin-bottom-double">Please confirm your spend</h5>
 
@@ -62,7 +62,7 @@
             </div>
         </section>
 
-        <section class="hide confirm-status" toggle-class="is-visible: bookingData.stage.option == 'closed'">
+        <section class="hide confirm-status" hs-class="is-visible: bookingData.stage.option == 'closed'">
             <div class="container-narrow">
                 <h5 class="text-center margin-bottom-double">Tell Hire Space why this enquiry has been closed</h5>
 
@@ -76,26 +76,26 @@
             </div>
         </section>
 
-        <section class="hide" toggle-class="is-visible: bookingData.stage.name == 'New'">
+        <section class="hide" hs-class="is-visible: bookingData.stage.name == 'New'">
             <nav class="controls container-narrow">
                 <div class="row">
                     <div class="col-sm-4">
                         <button class="green large">
-                            <span class="toggle-modal" data-toggle-modal="modalCallCustomer"></span>
+                            <span hs-modal="modalCallCustomer"></span>
                             <i class="white fa fa-phone"></i>
                             Call James
                         </button>
                     </div>
                     <div class="col-sm-4">
                         <button class="green large">
-                            <span class="toggle-modal" data-toggle-modal="modalEmailCustomer"></span>
+                            <span hs-modal="modalEmailCustomer"></span>
                             <i class="white fa fa-envelope-o"></i>
                             Email James
                         </button>
                     </div>
                     <div class="col-sm-4">
                         <button class="green large">
-                            <span class="toggle-modal" data-toggle-modal="modalQuickReply"></span>
+                            <span hs-modal="modalQuickReply"></span>
                             <i class="white fa fa-reply"></i>
                             Quick Reply
                         </button>
@@ -112,26 +112,26 @@
                 <!--+1 more-->
                 <!--</button>-->
 
-                <div class="update-hirespace hide" toggle-class="is-visible: bookingData.stage.name == 'In Progress'">
-                    <button data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                <div class="update-hirespace hide" hs-class="is-visible: bookingData.stage.name == 'In Progress'">
+                    <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
                             class="large flat-grey block" id="showUpdateHireSpaceButtons">
                         Show Update Hire Space buttons
                     </button>
 
                     <div class="row is-hidden" id="updateHireSpaceButtons">
                         <div class="col-md-4">
-                            <button class="large green block next-step" to-step="Needs Archiving"
+                            <button class="large green block next-step"
                                     update="needsArchivingStatus: 'confirmed'">Confirm
                             </button>
                         </div>
                         <div class="col-md-4">
-                            <button class="large black block next-step" to-step="Needs Archiving"
+                            <button class="large black block next-step"
                                     update="needsArchivingStatus: 'closed'">Close
                             </button>
                         </div>
                         <div class="col-md-4">
-                            <button data-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
-                                    class="large flat-grey block next-step" to-step="In Progress"
+                            <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                                    class="large flat-grey block next-step"
                                     update="timeToFollowUp: true">Update Later
                             </button>
                         </div>
@@ -140,16 +140,16 @@
             </div>
         </section>
 
-        <section toggle-class="is-hidden: bookingData.stage.name == 'New'">
+        <section hs-class="is-hidden: bookingData.stage.name == 'New'">
             <div class="internal-note container-narrow">
                 <div class="pull-left">
                     <button class="black"
-                            toggle-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+                            hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
                         Suggest edits
                     </button>
                     <button class="flat-grey next-step hide"
-                            toggle-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'"
-                            to-step="In Progress" update="reopen: true">
+                            hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'"
+                            update="reopen: true">
                         Re-open
                     </button>
                 </div>

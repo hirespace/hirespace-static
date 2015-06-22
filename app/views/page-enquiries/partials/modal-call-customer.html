@@ -1,13 +1,14 @@
 <div class="modal is-hidden" id="modalCallCustomer">
     <header>
         <strong class="heading">Thanks for calling <span data-bind="text: bookingDataObservable.customer.name">Customer Name</span>!</strong>
-        <small class="link undo">Undo</small>
+        <!--@TODO is undo needed?-->
+        <small class="link undo" hs-modal-close>Undo</small>
     </header>
     <main>
         <p class="contact-info" data-bind="text: bookingDataObservable.customer.phone">Telephone Number</p>
     </main>
     <footer>
-        <button class="block green large close next-step" to-step="In Progress" update="customerContactedHow: 'phone'">
+        <button class="block green large next-step" update="customerContactedHow: 'phone'" hs-modal-close>
             OK
         </button>
     </footer>

@@ -7,7 +7,7 @@ module hirespace {
         static getObject(attr: string) {
             let obj = {};
 
-            _.forEach(attr.split(','), (objectDef) => {
+            _.forEach(attr.split(','), objectDef => {
                 let split = _.map(objectDef.split(':'), part => _.trim(part, ' \' '));
 
                 let key = _.first(split),

@@ -68,13 +68,13 @@ module hirespace.specs {
             };
 
             let elem: Element = document.createElement('div');
-            elem.setAttribute('toggle-class', scenario.attr);
+            elem.setAttribute('hs-class', scenario.attr);
 
             beforeEach(() => {
                 hirespace.View.updateElem(elem, target);
             });
 
-            it('should apply the correct classes on an element, given toggle-class attr is ' + scenario.attr, () => {
+            it('should apply the correct classes on an element, given hs-class attr is ' + scenario.attr, () => {
                 expect($(elem).attr('class')).toEqual(scenario.expectedClasses);
             });
         });

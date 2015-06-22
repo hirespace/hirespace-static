@@ -38,6 +38,10 @@ module hirespace.specs {
             });
         });
 
+        it('should have listen method attached', () => {
+            expect(hirespace.ToggleElem.listen).toBeDefined();
+        });
+
         _.forEach(scenarios, scenario => {
             it('should correctly toggle is-hidden classes in ' + scenario.toggleElem, () => {
                 hirespace.ToggleElem.toggle(scenario.toggleElem);

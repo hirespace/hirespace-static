@@ -4,14 +4,14 @@ module hirespace {
     export class View {
         static updateView(target) {
             // @TODO
-            // abstract toggle-class into a config var
-            let elems = $('[toggle-class]');
+            // abstract hs-class into a config var
+            let elems = $('[hs-class]');
 
             _.forEach(elems, elem => hirespace.View.updateElem(elem, target));
         }
 
         static updateElem(elem: Element, target: any) {
-            let attr = $(elem).attr('toggle-class'),
+            let attr = $(elem).attr('hs-class'),
                 rules = new hirespace.ToggleClass(attr, target);
 
             _.forEach(rules.rules, (rule: IRule) => {
@@ -27,12 +27,6 @@ module hirespace {
                         break;
                 }
             });
-        }
-
-        static toggleAttrs(attr: string) {
-            let attrs = JSON.parse(attr);
-
-            _.forEach(attrs, id => $('#' + id).toggleClass('is-hidden'));
         }
     }
 }

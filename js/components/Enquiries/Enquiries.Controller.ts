@@ -19,11 +19,10 @@ module hirespace {
         constructor() {
             hirespace.Modal.listen();
             hirespace.Tabs.listen();
+            hirespace.ToggleElem.listen();
 
             this.initUiConfig();
             this.initBookingData();
-
-            this.ui();
 
             setInterval(() => {
                 Rx.Observable.fromPromise(this.bookingDataPromise())
@@ -42,25 +41,16 @@ module hirespace {
             }, this.pollingFrequency);
 
             $('.next-step').click(e => {
-                let toStep = $(e.target).attr('to-step');
                 let updateData = hirespace.UpdateParser.getObject($(e.target).attr('update'));
 
                 Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
-                    // @TODO
-                    // Also, I think it would be better to get the updated data as a result
                     .subscribe(d => {
                         let hsResponse: IBookingData = this.parseBookingData(d);
 
                         this.uiConfig.prevStage = this.bookingData.stage.name;
 
                         this.updateBookingData(hsResponse);
-                    }, f => console.error(f));
-            });
-
-            $('[data-toggle]').click(e => {
-                let toggleAttrs = $(e.target).attr('data-toggle');
-
-                hirespace.View.toggleAttrs(toggleAttrs);
+                    }, f => hirespace.Logger.error(f));
             });
         }
 
@@ -80,6 +70,10 @@ module hirespace {
                 defaultStage: _.first(_.keys(enquiriesFeedStages)),
                 prevStage: _.first(_.keys(enquiriesFeedStages))
             };
+
+            $('.toggle-enquiries-feed').click(e => {
+                $('.enquiries-feed, .toggle-enquiries-feed .close').toggleClass('active');
+            });
         }
 
         // @TODO
@@ -103,6 +97,8 @@ module hirespace {
         }
 
         updateProgressBar(toStage?: string) {
+            // @TODO
+            // redundant in prod -> due to testing only
             if (!toStage) {
                 toStage = this.bookingData.stage.name;
             }
@@ -142,14 +138,6 @@ module hirespace {
             bookingData.customer.company = bookingData.customer.company ? bookingData.customer.company : 'No Company';
 
             return bookingData;
-        }
-
-        // @TODO
-        // implement differently
-        ui() {
-            $('.toggle-enquiries-feed').click(e => {
-                $('.enquiries-feed, .toggle-enquiries-feed .close').toggleClass('active');
-            });
         }
     }
 
