@@ -133,9 +133,8 @@ module hirespace {
         parseBookingData(bookingData: IBookingData): IBookingData {
             bookingData.date.startdate = moment(bookingData.date.startdate).format('MMM Do YY');
             bookingData.date.finishdate = moment(bookingData.date.finishdate).format('MMM Do YY');
-            //bookingData.time.starttime = moment(bookingData.time.starttime).format('h:mm');
-            //bookingData.time.finishtime = moment(bookingData.time.finishtime).format('h:mm');
             bookingData.customer.company = bookingData.customer.company ? bookingData.customer.company : 'No Company';
+            bookingData.customer.firstName = _.first(bookingData.customer.name.split(' '));
 
             return bookingData;
         }

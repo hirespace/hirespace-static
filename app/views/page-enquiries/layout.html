@@ -83,14 +83,14 @@
                         <button class="green large">
                             <span hs-modal="modalCallCustomer"></span>
                             <i class="white fa fa-phone"></i>
-                            Call James
+                            Call <strong data-bind="text: bookingDataObservable.customer.firstName">First Name</strong>
                         </button>
                     </div>
                     <div class="col-sm-4">
                         <button class="green large">
                             <span hs-modal="modalEmailCustomer"></span>
                             <i class="white fa fa-envelope-o"></i>
-                            Email James
+                            Email <strong data-bind="text: bookingDataObservable.customer.firstName">First Name</strong>
                         </button>
                     </div>
                     <div class="col-sm-4">

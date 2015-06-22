@@ -37,6 +37,7 @@ module hirespace {
         _id: string;
         company?: string;
         email: string;
+        firstName?: string;
         mobile?: string | boolean;
         name: string;
         phone?: string | boolean;
