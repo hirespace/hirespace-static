@@ -6,46 +6,54 @@ module hirespace {
         limit: number;
     }
 
+    interface IStageCounts {
+        [stage: string]: number;
+    }
+
+    interface IStageData {
+        enquiries: Array<ITemplateData>;
+        remaining: number;
+    }
+
+    interface ITemplateData {
+        _id: string;
+        budget: number;
+        customerName: string;
+        // @TODO make eventDate?
+        eventdate: string;
+        venueName: string;
+        word: string;
+    }
+
+    export interface IEnquiriesFeedData {
+        _id?: string;
+        count: IStageCounts
+        stage?: string;
+    }
+
     export class EnquiriesFeed {
-        public feedData: {
-            count: {
-                [stage: string]: number;
-            }
-        } = {
+        remainingStages: Array<string>;
+        feedData: IEnquiriesFeedData = {
             count: {}
         };
 
-        constructor(private initStage: string) {
+        constructor(public initStage: string, id: string) {
+            this.initStage = initStage;
+            this.remainingStages = _.without(_.keys(enquiriesFeedStages), this.initStage, 'Invalid');
+
+            this.feedData._id = id;
+
             if (hirespace.Debug.getEnvironment() !== 'test') {
-                Rx.Observable.fromPromise(this.stagesCountPromise())
-                    .subscribe(d => {
-                        console.log(d);
+                this.updateStageCounts();
 
-                        _.forEach(d, (count: number, stageName: string) => {
-                            this.feedData.count[enquiriesFeedStages[stageName]] = count;
+                let callback: Function = (): void => {
+                    Rx.Observable.from(this.remainingStages)
+                        .map(stage => {
+                            return this.renderView(stage);
                         });
+                };
 
-
-                        hirespace.View.updateView(this, 'nav.enquiries-feed');
-                    });
-
-                let stages = _.without(_.keys(enquiriesFeedStages), initStage, 'Invalid');
-
-                // @TODO
-                // abstract page and limit to config vars
-                Rx.Observable.fromPromise(this.feedDataPromise(initStage, {page: 0, limit: 5}))
-                    .subscribe(d => {
-                        console.log(initStage);
-                        console.log(d);
-
-                        _.forEach(stages, stage => {
-                            Rx.Observable.fromPromise(this.feedDataPromise(stage, {page: 0, limit: 5}))
-                                .subscribe(data => {
-                                    console.log(stage);
-                                    console.log(data);
-                                });
-                        });
-                    });
+                this.renderView(initStage, false, callback);
             }
         }
 
@@ -63,6 +71,58 @@ module hirespace {
                     Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
                 }
             });
+        }
+
+        // @TODO create interface
+        renderTemplate(data: ITemplateData) {
+            return '<li' + (data._id == this.feedData._id ? ' class="active"' : '') + '>' +
+                '<strong>' + data.customerName + '\'s ' + data.word + '</strong>' +
+                '<small>' + data.venueName + ' &bull; ' + data.budget + ' &bull; ' + data.eventdate + '</small>' +
+                '</li>';
+        }
+
+        renderView(toStage: string, updateCounts?: boolean, callback?: Function) {
+            // TEMP hack
+            if (hirespace.Debug.getEnvironment() == 'test') {
+                return false;
+            }
+
+            if (updateCounts) {
+                this.updateStageCounts();
+            }
+
+            // @TODO
+            // abstract page and limit to config vars
+            Rx.Observable.fromPromise(this.feedDataPromise(toStage, {page: 0, limit: 5}))
+                .subscribe((data: IStageData) => {
+                    let target = $('nav.enquiries-feed .sub ul.' + enquiriesFeedStages[toStage]);
+
+                    target.html('');
+
+                    hirespace.Logger.debug('Loading data for ' + toStage);
+                    hirespace.Logger.log(data);
+
+                    _.forEach(data.enquiries, entry => {
+                        target.append(this.renderTemplate(entry));
+                    });
+
+                    if (callback) {
+                        callback();
+                    }
+                });
+        }
+
+        updateStageCounts() {
+            Rx.Observable.fromPromise(this.stagesCountPromise())
+                .subscribe((counts: IStageCounts) => {
+                    _.forEach(counts, (count, stageName) => {
+                        this.feedData.count[enquiriesFeedStages[stageName]] = count;
+                    });
+
+                    this.feedData.stage = hirespace.SessionStorage.get('enquiriesCurrentStage');
+
+                    hirespace.View.updateView(this, 'nav.enquiries-feed');
+                });
         }
     }
 }

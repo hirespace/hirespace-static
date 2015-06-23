@@ -10,11 +10,12 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 500000;
+        private pollingFrequency: number = 5000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
         uiConfig: IUiConfig;
+        EnquiriesFeed: hirespace.EnquiriesFeed;
 
         constructor() {
             hirespace.Modal.listen();
@@ -89,7 +90,7 @@ module hirespace {
             this.bookingData = hirespace.EnquiriesController.parseBookingData(initBookingData);
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
-            new hirespace.EnquiriesFeed(this.bookingData.stage.name);
+            this.EnquiriesFeed = new hirespace.EnquiriesFeed(this.bookingData.stage.name, '2WscqXhWtbhwxTWhs');
 
             this.updateUi();
         }
@@ -134,6 +135,10 @@ module hirespace {
                 toStage = this.bookingData.stage.name;
             }
 
+            // @TODO
+            // think about storing similar data to a "rootScope" object
+            hirespace.SessionStorage.set('enquiriesCurrentStage', toStage);
+
             let redundantUiClass = enquiriesFeedStages[this.uiConfig.prevStage],
                 uiClass = enquiriesFeedStages[toStage];
 
@@ -156,7 +161,9 @@ module hirespace {
 
         updateUi() {
             this.updateProgressBar();
-            hirespace.View.updateView(this);
+            hirespace.View.updateView(this, '.enquiry-actions');
+
+            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true);
         }
 
         // @TODO

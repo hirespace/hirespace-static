@@ -5,7 +5,7 @@ module hirespace.specs {
         let controller: hirespace.EnquiriesFeed;
 
         beforeEach(() => {
-            controller = new hirespace.EnquiriesFeed('New');
+            controller = new hirespace.EnquiriesFeed('New', '2WscqXhWtbhwxTWhs');
 
             spyOn($, 'ajax').and.callFake((url, options): any => {
                 let d = $.Deferred();
@@ -37,6 +37,14 @@ module hirespace.specs {
             feedDataPromise.then((data) => {
                 expect(data).toEqual('with data');
             });
+        });
+
+        it('should have the updateStageCounts method attached', () => {
+            expect(controller.updateStageCounts).toBeDefined();
+        });
+
+        it('should have the renderTemplate method attached', () => {
+            expect(controller.renderTemplate).toBeDefined();
         });
     });
 }
