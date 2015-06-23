@@ -5,9 +5,13 @@ module hirespace {
         static updateView(target) {
             // @TODO
             // abstract hs-class into a config var
-            let elems = $('[hs-class]');
+            let hsClass = $('[hs-class]'),
+                hsBind = $('[hs-bind]');
 
-            _.forEach(elems, elem => hirespace.View.updateElem(elem, target));
+            // @TODO
+            // abstract into an object to loop through
+            _.forEach(hsClass, elem => hirespace.View.updateElem(elem, target));
+            _.forEach(hsBind, elem => hirespace.HsBind.updateElem(elem, target));
         }
 
         static updateElem(elem: Element, target: any) {

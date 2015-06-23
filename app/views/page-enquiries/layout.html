@@ -9,9 +9,9 @@
             {{> progressBar }}
 
             <header>
-                <h1><strong data-bind="text: bookingDataObservable.word">Word</strong> at <span
-                        data-bind="text: bookingDataObservable.venue.name">Venue</span></h1>
-                <small class="label stage" data-bind="text: bookingDataObservable.stage.name">Stage</small>
+                <h1><strong hs-bind="bookingData.word">Word</strong> at <span
+                        hs-bind="bookingData.venue.name">Venue</span></h1>
+                <small class="label stage" hs-bind="bookingData.stage.name">Stage</small>
             </header>
         </div>
 
@@ -19,13 +19,13 @@
             <div class="container-narrow">
                 <!--<i class="fa fa-user"></i>-->
                 <strong class="customer-name">
-                    <span data-bind="text: bookingDataObservable.customer.name">Customer Name</span>
-                    <small data-bind="text: bookingDataObservable.customer.company">Customer Company</small>
+                    <span hs-bind="bookingData.customer.name">Customer Name</span>
+                    <small hs-bind="bookingData.customer.company">Customer Company</small>
                 </strong>
                 <i class="fa fa-phone"></i>
-                <strong data-bind="text: bookingDataObservable.customer.phone">Telephone Number</strong>
+                <strong hs-bind="bookingData.customer.phone">Telephone Number</strong>
                 <i class="fa fa-envelope-o"></i>
-                <strong data-bind="text: bookingDataObservable.customer.email">Email Address</strong>
+                <strong hs-bind="bookingData.customer.email">Email Address</strong>
             </div>
         </section>
 
@@ -37,13 +37,13 @@
                 <div class="avatar-anonymous"></div>
 
                 <div class="details">
-                    <strong data-bind="text: bookingDataObservable.customer.name">Customer Name</strong>
-                    <small data-bind="text: bookingDataObservable.customer.company">Customer Company</small>
+                    <strong hs-bind="bookingData.customer.name">Customer Name</strong>
+                    <small hs-bind="bookingData.customer.company">Customer Company</small>
                 </div>
             </aside>
 
             <aside class="message" hs-class="col-sm-8: bookingData.stage.name == 'Name'">
-                <p data-bind="text: bookingDataObservable.message">Message</p>
+                <p hs-bind="bookingData.message">Message</p>
             </aside>
         </main>
 
@@ -60,7 +60,7 @@
 
                     <div class="col-md-4 hide" hs-class="is-visible: bookingData.status == 'won'">
                         <input type="text" disabled placeholder="Confirmed spend ex. VAT"
-                               data-bind="value: bookingDataObservable.stage.option.price"/>
+                               hs-bind="bookingData.stage.option.price"/>
                     </div>
 
                     <div class="col-md-8">
@@ -126,14 +126,14 @@
                         <button class="green large">
                             <span hs-modal="modalCallCustomer"></span>
                             <i class="white fa fa-phone"></i>
-                            Call <strong data-bind="text: bookingDataObservable.customer.firstName">First Name</strong>
+                            Call <strong hs-bind="bookingData.customer.firstName">First Name</strong>
                         </button>
                     </div>
                     <div class="col-sm-4">
                         <button class="green large">
                             <span hs-modal="modalEmailCustomer"></span>
                             <i class="white fa fa-envelope-o"></i>
-                            Email <strong data-bind="text: bookingDataObservable.customer.firstName">First Name</strong>
+                            Email <strong hs-bind="bookingData.customer.firstName">First Name</strong>
                         </button>
                     </div>
                     <div class="col-sm-4">
