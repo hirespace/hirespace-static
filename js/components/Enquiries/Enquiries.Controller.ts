@@ -10,7 +10,7 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 5000;
+        private pollingFrequency: number = 500000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -23,8 +23,6 @@ module hirespace {
 
             this.initUiConfig();
             this.initBookingData();
-
-            new hirespace.EnquiriesFeed();
 
             setInterval(() => {
                 Rx.Observable.fromPromise(this.bookingDataPromise())
@@ -90,6 +88,8 @@ module hirespace {
 
             this.bookingData = hirespace.EnquiriesController.parseBookingData(initBookingData);
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
+
+            new hirespace.EnquiriesFeed(this.bookingData.stage.name);
 
             this.updateUi();
         }

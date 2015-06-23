@@ -2,11 +2,11 @@ module hirespace {
     'use strict';
 
     export class View {
-        static updateView(target) {
+        static updateView(target, scope?: string) {
             // @TODO
             // abstract hs-class into a config var
-            let hsClass = $('[hs-class]'),
-                hsBind = $('[hs-bind]');
+            let hsClass = $((scope ? scope + ' ' : '') + '[hs-class]'),
+                hsBind = $((scope ? scope + ' ' : '') + '[hs-bind]');
 
             // @TODO
             // abstract into an object to loop through

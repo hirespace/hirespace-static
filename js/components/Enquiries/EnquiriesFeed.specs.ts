@@ -5,7 +5,7 @@ module hirespace.specs {
         let controller: hirespace.EnquiriesFeed;
 
         beforeEach(() => {
-            controller = new hirespace.EnquiriesFeed();
+            controller = new hirespace.EnquiriesFeed('New');
 
             spyOn($, 'ajax').and.callFake((url, options): any => {
                 let d = $.Deferred();

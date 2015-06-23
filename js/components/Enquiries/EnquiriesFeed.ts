@@ -7,13 +7,45 @@ module hirespace {
     }
 
     export class EnquiriesFeed {
-        constructor() {
+        public feedData: {
+            count: {
+                [stage: string]: number;
+            }
+        } = {
+            count: {}
+        };
+
+        constructor(private initStage: string) {
             if (hirespace.Debug.getEnvironment() !== 'test') {
                 Rx.Observable.fromPromise(this.stagesCountPromise())
-                    .subscribe(d => console.log(d));
+                    .subscribe(d => {
+                        console.log(d);
 
-                Rx.Observable.fromPromise(this.feedDataPromise('New', {page: 5, limit: 1}))
-                    .subscribe(d => console.log(d));
+                        _.forEach(d, (count: number, stageName: string) => {
+                            this.feedData.count[enquiriesFeedStages[stageName]] = count;
+                        });
+
+
+                        hirespace.View.updateView(this, 'nav.enquiries-feed');
+                    });
+
+                let stages = _.without(_.keys(enquiriesFeedStages), initStage, 'Invalid');
+
+                // @TODO
+                // abstract page and limit to config vars
+                Rx.Observable.fromPromise(this.feedDataPromise(initStage, {page: 0, limit: 5}))
+                    .subscribe(d => {
+                        console.log(initStage);
+                        console.log(d);
+
+                        _.forEach(stages, stage => {
+                            Rx.Observable.fromPromise(this.feedDataPromise(stage, {page: 0, limit: 5}))
+                                .subscribe(data => {
+                                    console.log(stage);
+                                    console.log(data);
+                                });
+                        });
+                    });
             }
         }
 

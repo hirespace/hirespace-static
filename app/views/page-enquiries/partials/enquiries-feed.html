@@ -11,7 +11,7 @@
 
     <ul>
         <li class="new" hs-class="active: bookingData.stage.name == 'New'">
-            <span class="label numeric blue">1</span>
+            <span class="label numeric blue" hs-bind="feedData.count.new">-</span>
             <strong>New</strong>
         </li>
         <li class="sub" hs-class="is-visible: bookingData.stage.name == 'New'">
@@ -27,7 +27,7 @@
             </ul>
         </li>
         <li class="in-progress" hs-class="active: bookingData.stage.name == 'In Progress'">
-            <span class="label numeric green">0</span>
+            <span class="label numeric green" hs-bind="feedData.count.in-progress"></span>
             <strong>In Progress</strong>
         </li>
         <li class="sub" hs-class="is-visible: bookingData.stage.name == 'In Progress'">
@@ -43,7 +43,7 @@
             </ul>
         </li>
         <li class="needs-archiving" hs-class="active: bookingData.stage.name == 'Needs Archiving'">
-            <span class="label numeric yellow">0</span>
+            <span class="label numeric yellow" hs-bind="feedData.count.needs-archiving">-</span>
             <strong>Needs Archiving</strong>
         </li>
         <li class="sub" hs-class="is-visible: bookingData.stage.name == 'Needs Archiving'">
@@ -59,7 +59,7 @@
             </ul>
         </li>
         <li class="archived" hs-class="active: bookingData.stage.name == 'Archived'">
-            <span class="label numeric black">0</span>
+            <span class="label numeric black" hs-bind="feedData.count.archived">-</span>
             <strong>Archived</strong>
         </li>
         <li class="sub" hs-class="is-visible: bookingData.stage.name == 'Archived'">
