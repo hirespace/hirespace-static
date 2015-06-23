@@ -10,14 +10,14 @@ module hirespace {
                 return false;
             }
 
-            let value: string = hirespace.AssertionParser.resolveObject(path, resolveObject, true).toString();
+            let value: string = hirespace.AssertionParser.resolveObject(path, resolveObject, true);
 
             switch (elem.tagName.toLowerCase()) {
                 case 'input':
-                    $(elem).attr('value', value);
+                    $(elem).attr('value', value ? value.toString() : '');
                     break;
                 default:
-                    $(elem).html(value);
+                    $(elem).html(value ? value.toString() : '');
                     break;
             }
         }
