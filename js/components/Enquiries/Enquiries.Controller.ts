@@ -24,6 +24,8 @@ module hirespace {
             this.initUiConfig();
             this.initBookingData();
 
+            new hirespace.EnquiriesFeed();
+
             setInterval(() => {
                 Rx.Observable.fromPromise(this.bookingDataPromise())
                     .subscribe(d => {
@@ -113,7 +115,6 @@ module hirespace {
                     Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
                 }
             });
-
         }
 
         updateBookingDataPromise(updateData: any): JQueryGenericPromise<any> {

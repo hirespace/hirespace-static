@@ -9,6 +9,7 @@ module hirespace {
 
     export interface IApiRoutes {
         bookings: string;
+        bookingsStages: string;
     }
 
     let apiUrls: IApiUrls = {
@@ -18,7 +19,8 @@ module hirespace {
     };
 
     let apiRoutes: IApiRoutes = {
-        bookings: 'enquiries/'
+        bookings: 'enquiries/',
+        bookingsStages: 'enquiries/stages/'
     };
 
     let productionHost: string = 'hirespace.com';
