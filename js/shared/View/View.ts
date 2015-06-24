@@ -7,8 +7,8 @@ module hirespace {
         static updateView(target, scope?: string) {
             // @TODO
             // abstract hs-class into a config var
-            let hsClass = $((scope ? scope + ' ' : '') + '[hs-class]'),
-                hsBind = $((scope ? scope + ' ' : '') + '[hs-bind]');
+            let hsClass = $(scope ? _.map(scope.split(','), elem => _.trim(elem) + ' [hs-class]').join(',') : '[hs-class]'),
+                hsBind = $(scope ? _.map(scope.split(','), elem => _.trim(elem) + ' [hs-bind]').join(',') : '[hs-bind]');
 
             // @TODO
             // abstract into an object to loop through

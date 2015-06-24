@@ -10,7 +10,7 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 500000;
+        private pollingFrequency: number = 5000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -165,7 +165,7 @@ module hirespace {
 
         updateUi() {
             this.updateProgressBar();
-            hirespace.View.updateView(this, '.enquiry-actions');
+            hirespace.View.updateView(this, '.enquiry-actions, .modal-backdrop');
         }
 
         // @TODO
