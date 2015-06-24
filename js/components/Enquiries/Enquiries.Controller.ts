@@ -15,6 +15,7 @@ module hirespace {
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
         uiConfig: IUiConfig;
+        EnquiriesFeed: hirespace.EnquiriesFeed;
 
         constructor() {
             hirespace.Modal.listen();
@@ -90,6 +91,8 @@ module hirespace {
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
             this.updateUi();
+
+            this.EnquiriesFeed = new EnquiriesFeed(this.bookingData.stage.name, '2WscqXhWtbhwxTWhs');
         }
 
         // @TODO
@@ -157,6 +160,7 @@ module hirespace {
             this.bookingData = newData;
 
             this.updateUi();
+            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true);
         }
 
         updateUi() {

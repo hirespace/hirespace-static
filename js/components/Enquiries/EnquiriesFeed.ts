@@ -78,14 +78,11 @@ module hirespace {
 
             // @TODO
             // abstract page and limit to config vars
-            Rx.Observable.fromPromise(this.feedDataPromise(toStage, {page: 0, limit: 5}))
+            Rx.Observable.fromPromise(this.feedDataPromise(toStage, {page: 0, limit: 5, ignore: this.feedData._id}))
                 .subscribe((data: IStageData) => {
                     let target = $('nav.enquiries-feed .sub ul.' + enquiriesFeedStages[toStage]);
 
                     target.html('');
-
-                    hirespace.Logger.debug('Loading data for ' + toStage);
-                    hirespace.Logger.log(data);
 
                     _.forEach(data.enquiries, entry => {
                         target.append(this.renderTemplate(entry));

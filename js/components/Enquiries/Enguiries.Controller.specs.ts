@@ -42,7 +42,13 @@ module hirespace.specs {
         let controller: hirespace.EnquiriesController;
 
         beforeEach(() => {
-            controller = new hirespace.EnquiriesController();
+            spyOn(Rx.Observable, 'fromPromise').and.callFake(() => {
+                return Rx.Observable.empty();
+            });
+
+            spyOn(Rx.Observable, 'from').and.callFake(() => {
+                return Rx.Observable.empty();
+            });
 
             spyOn($, 'ajax').and.callFake((url, options): any => {
                 let d = $.Deferred();
@@ -61,6 +67,8 @@ module hirespace.specs {
 
                 return d.promise();
             });
+
+            controller = new hirespace.EnquiriesController();
         });
 
         it('should create a new controller', () => {

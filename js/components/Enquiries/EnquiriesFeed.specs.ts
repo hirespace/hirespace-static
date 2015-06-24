@@ -3,15 +3,14 @@ module hirespace.specs {
 
     describe('EnquiriesFeed module', () => {
         let controller: hirespace.EnquiriesFeed;
+        //let fakeStages = ['New', 'Archived', 'Other'];
 
         beforeEach(() => {
             spyOn(Rx.Observable, 'fromPromise').and.callFake(() => {
-                console.log('calling fake observable.fromPromise');
                 return Rx.Observable.empty();
             });
 
             spyOn(Rx.Observable, 'from').and.callFake(() => {
-                console.log('calling fake observable.from');
                 return Rx.Observable.empty();
             });
 
@@ -31,6 +30,12 @@ module hirespace.specs {
             });
 
             controller = new hirespace.EnquiriesFeed('New', '2WscqXhWtbhwxTWhs');
+        });
+
+        it('should correctly assign data', () => {
+            expect(controller.initStage).toEqual('New');
+            expect(controller.remainingStages).toEqual(['In Progress', 'Needs Archiving', 'Archived']);
+            expect(controller.feedData._id).toEqual('2WscqXhWtbhwxTWhs');
         });
 
         it('should return stagesCountPromise', () => {
@@ -54,8 +59,17 @@ module hirespace.specs {
         });
 
         it('should have the renderTemplate method attached', () => {
-            //console.log(controller.renderView('New', false, () => {}));
             expect(controller.renderTemplate).toBeDefined();
         });
+
+        it('should have the renderView method attached', () => {
+            expect(controller.renderView).toBeDefined();
+        });
+
+        it('should have the initView method attached', () => {
+            expect(controller.initView).toBeDefined();
+        });
+
+
     });
 }
