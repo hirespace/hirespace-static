@@ -4,7 +4,7 @@ module hirespace.specs {
     declare
     var initBookingData: IBookingData;
 
-    describe('EnquiriesFeed Controller', () => {
+    describe('Enquiries Controller', () => {
         let controller: hirespace.EnquiriesController;
 
         beforeEach(() => {
@@ -104,7 +104,7 @@ module hirespace.specs {
         it('should successfully parse booking data', () => {
             let bookingData = controller.bookingData;
 
-            expect(bookingData.customer.firstName).toEqual('Louis');
+            expect(bookingData.customer.firstName).toEqual('Louise');
             expect(bookingData.customer.company).toEqual('No Company Name');
         });
     });

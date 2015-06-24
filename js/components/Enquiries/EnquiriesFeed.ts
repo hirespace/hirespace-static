@@ -30,6 +30,7 @@ module hirespace {
     export interface IEnquiriesFeedData {
         count: IStageCounts;
         current: ITemplateData;
+        remaining: number;
     }
 
     export class EnquiriesFeed {
@@ -45,7 +46,8 @@ module hirespace {
                 stage: '',
                 venueName: '',
                 word: ''
-            }
+            },
+            remaining: 0
         };
 
         constructor(private bookingData: IBookingData) {
@@ -88,8 +90,6 @@ module hirespace {
         }
 
         renderView(toStage: string, updateCounts?: boolean, callback?: Function) {
-            this.feedData.current.stage = toStage;
-
             if (updateCounts) {
                 this.updateStageCounts();
             }
@@ -111,6 +111,11 @@ module hirespace {
                     _.forEach(data.enquiries, entry => {
                         target.append(this.renderTemplate(entry));
                     });
+
+                    this.feedData.current.stage = toStage;
+                    this.feedData.remaining = data.remaining;
+
+                    hirespace.View.updateView(this, 'nav.enquiries-feed');
 
                     if (callback) {
                         callback();

@@ -1,34 +1,33 @@
 var initBookingData = {
     "_id": "2WscqXhWtbhwxTWhs",
-    "budget": 15000,
+    "budget": 150,
     "customer": {
-        "_id": "PQAfLzSLrxW8CApGF",
-        "name": "Louis Lundy",
-        "mobile": "447540226270",
-        "email": "llundy@adjuvo.com",
-        "phone": "02070709000"
+        "_id": "pyzp6XLfzXe74oNZS",
+        "phone": "02074231061",
+        "name": "Louise Oakley",
+        "email": "louise.oakley@alzheimers.org.uk"
     },
     "date": {
-        "finishdate": "2015-06-16T10:00:00.000Z",
-        "flexible": null,
         "startdate": "2015-06-16T10:00:00.000Z"
     },
-    "message": "private investor events. multiple events\nlate may early June \nunique \nhead of industry\ncentral, west end\nwine celler \n",
-    "people": 70,
+    "message": "Team meeting - 8 people, just discussions.\r\nFrom a charity - Alzheimers Society so any discounts much appreciated.",
+    "people": 8,
     "stage": {
         "name": "New"
     },
     "status": "pending",
-    "time": {
-        "finishtime": null,
-        "flexible": null,
-        "starttime": null
+    "suggestedCriteria": {
+        "people": 20
     },
-    "timeToFollowUp": "2015-05-23T14:31:20.000Z",
+    "time": {
+        "finishtime": "16:00",
+        "starttime": "10:00"
+    },
+    "timeToFollowUp": "2015-07-08T10:08:16.643Z",
     "venue": {
-        "manager": "Jess ",
-        "name": "Royal Over-Seas League - ROSL",
+        "manager": "Workspace ",
+        "name": "Pill Box",
         "spaceName": "Allen"
     },
-    "word": "Networking event"
+    "word": "Alzheimers Society Meeting"
 };
