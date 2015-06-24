@@ -11,9 +11,6 @@ module hirespace {
         constructor(attr: string, resolveObject: Array<{}>) {
             this.parseAttr(attr);
             this.objectAlias[this.attrData.objectAlias] = resolveObject;
-
-            //hsBind = $((scope ? scope + ' ' : '') + '[hs-bind]');
-            //_.forEach(hsBind, elem => hirespace.HsBind.updateElem(elem, target));
         }
 
         updateView(elem: JQuery) {
