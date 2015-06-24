@@ -14,10 +14,10 @@ module hirespace {
 
             switch (elem.tagName.toLowerCase()) {
                 case 'input':
-                    $(elem).attr('value', value ? value.toString() : '');
+                    $(elem).attr('value', !_.isUndefined(value) ? value.toString() : '');
                     break;
                 default:
-                    $(elem).html(value ? value.toString() : '');
+                    $(elem).html(!_.isUndefined(value) ? value.toString() : '');
                     break;
             }
         }

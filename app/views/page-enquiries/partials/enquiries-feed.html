@@ -16,7 +16,7 @@
         </li>
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'New'">
             <ul class="new"></ul>
-            <button hs-class="is-hidden: feedData.remaining == 0">Load <span hs-bind="feedData.remaining"></span> more</button>
+            <button class="flat-grey block" hs-class="is-hidden: feedData.remaining == 0">Load <span hs-bind="feedData.remaining"></span> more</button>
         </li>
         <li class="in-progress" hs-class="active: feedData.current.stage == 'In Progress'">
             <span class="label numeric green" hs-bind="feedData.count.in-progress"></span>
@@ -24,7 +24,7 @@
         </li>
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'In Progress'">
             <ul class="in-progress"></ul>
-            <button hs-class="is-hidden: feedData.remaining == 0">Load <span hs-bind="feedData.remaining"></span> more</button>
+            <button class="flat-grey block" hs-class="is-hidden: feedData.remaining == 0">Load <span hs-bind="feedData.remaining"></span> more</button>
         </li>
         <li class="needs-archiving" hs-class="active: feedData.current.stage == 'Needs Archiving'">
             <span class="label numeric yellow" hs-bind="feedData.count.needs-archiving">-</span>
@@ -32,7 +32,7 @@
         </li>
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'Needs Archiving'">
             <ul class="needs-archiving"></ul>
-            <button hs-class="is-hidden: feedData.remaining == 0">Load <span hs-bind="feedData.remaining"></span> more</button>
+            <button class="flat-grey block" hs-class="is-hidden: feedData.remaining == 0">Load <span hs-bind="feedData.remaining"></span> more</button>
         </li>
         <li class="archived" hs-class="active: feedData.current.stage == 'Archived'">
             <span class="label numeric black" hs-bind="feedData.count.archived">-</span>
@@ -40,7 +40,7 @@
         </li>
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'Archived'">
             <ul class="archived"></ul>
-            <button hs-class="is-hidden: feedData.remaining == 0">Load <span hs-bind="feedData.remaining"></span> more</button>
+            <button class="flat-grey block" hs-class="is-hidden: feedData.remaining == 0">Load <span hs-bind="feedData.remaining"></span> more</button>
         </li>
     </ul>
 </nav>
