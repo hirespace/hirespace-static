@@ -19,9 +19,27 @@ module hirespace {
         updateView(elem: JQuery) {
             let iteratee = hirespace.HsRepeat.getIteratee(elem);
 
-            _.forEach(this.objectAlias[this.attrData.objectAlias], resolveObject => {
-                console.log(resolveObject);
-            })
+            elem.html('');
+
+            let resolveObject = {};
+
+            _.forEach(this.objectAlias[this.attrData.objectAlias], (data, key) => {
+                iteratee.attr('hs-repeat-index', key);
+                let iterateeHtml = iteratee[0].outerHTML;
+
+                resolveObject[this.attrData.objectAlias] = data;
+
+                elem.append(iterateeHtml);
+
+                let current = $(elem).find('[hs-repeat-index=' + key + ']');
+                let hsBind = current.find('[hs-bind]');
+
+                if (!_.isUndefined(current.attr('hs-bind'))) {
+                    _.forEach(current, element => hirespace.HsBind.updateElem(element, resolveObject));
+                } else {
+                    _.forEach(hsBind, element => hirespace.HsBind.updateElem(element, resolveObject));
+                }
+            });
         }
 
         parseAttr(attr: string) {

@@ -9,24 +9,53 @@ module hirespace.specs {
 
         let scenarios = [
             {
-                html: '<div hs-repeat="data in bookingData"><strong id="child" hs-bind="data.boolean"></strong></div>',
                 attr: 'data in bookingData',
-                childId: 'child',
+                childTag: 'strong',
+                childClass: 'child',
+                children: 2,
+                expectedInnerHtml: '<strong class="child" hs-repeat-index="0"><em hs-bind="data.boolean">true</em></strong>' +
+                '<strong class="child" hs-repeat-index="1"><em hs-bind="data.boolean">false</em></strong>',
+                html: '<div hs-repeat="data in bookingData">' +
+                '<strong class="child"><em hs-bind="data.boolean"></em></strong>' +
+                '<strong></strong>' +
+                '</div>',
                 parsedAttr: {objectAlias: 'data', resolveObject: 'bookingData'}
+            },
+            {
+                attr: 'alias in aliasData',
+                childTag: 'span',
+                childClass: 'enfant',
+                children: 2,
+                expectedInnerHtml: '<span class="enfant" hs-bind="alias.boolean" hs-repeat-index="0">true</span>' +
+                '<span class="enfant" hs-bind="alias.boolean" hs-repeat-index="1">false</span>',
+                html: '<div hs-repeat="alias in aliasData">' +
+                '<span class="enfant" hs-bind="alias.boolean"></span>' +
+                '</div>',
+                parsedAttr: {objectAlias: 'alias', resolveObject: 'aliasData'}
+            },
+            {
+                attr: 'fakeKey in fakeData',
+                childTag: 'div',
+                childClass: 'fake-class',
+                children: 2,
+                expectedInnerHtml: '<div class="fake-class" hs-bind="fakeKey.boolean" hs-repeat-index="0">true</div>' +
+                '<div class="fake-class" hs-bind="fakeKey.boolean" hs-repeat-index="1">false</div>',
+                html: '<div hs-repeat="fakeKey in fakeData">' +
+                '<div class="fake-class" hs-bind="fakeKey.boolean"></div>' +
+                '</div>',
+                parsedAttr: {objectAlias: 'fakeKey', resolveObject: 'fakeData'}
             }
         ];
 
-        let model: hirespace.HsRepeat;
+        _.forEach(scenarios, (scenario, key) => {
+            let model = new hirespace.HsRepeat(scenario.attr, fakeBookingData);
 
-        _.forEach(scenarios, scenario => {
             beforeEach(() => {
-                $('body').append('<div id="test">' + scenario.html + '</div>');
-
-                model = new hirespace.HsRepeat(scenario.attr, fakeBookingData);
+                $('body').append('<div id="test' + key + '">' + scenario.html + '</div>');
             });
 
             afterEach(() => {
-                $('#test').remove();
+                $('#test' + key).remove();
             });
 
             it('should correctly parse the "' + scenario.attr + '" attribute', () => {
@@ -38,21 +67,24 @@ module hirespace.specs {
             });
 
             it('should correctly get the first common child', () => {
-                let object = $('[hs-repeat]'),
+                let object = $('#test' + key + ' [hs-repeat]'),
                     iteratee = hirespace.HsRepeat.getIteratee(object);
 
-                expect(iteratee.attr('id')).toEqual(scenario.childId);
+                expect(iteratee.attr('class')).toEqual(scenario.childClass);
             });
 
             it('should correctly update the inside html of an iteration', () => {
-                let object = $('[hs-repeat]');
+                let object = $('#test' + key + ' [hs-repeat]');
 
                 model.updateView(object);
+
+                expect(object.find(scenario.childTag).length).toEqual(fakeBookingData.length);
+                expect(object.html()).toEqual(scenario.expectedInnerHtml);
             });
         });
 
-        it('should have the updateView method', () => {
-            expect(model.updateView).toBeDefined();
-        });
+        //it('should have the updateView method', () => {
+        //    expect(model.updateView).toBeDefined();
+        //});
     });
 }
