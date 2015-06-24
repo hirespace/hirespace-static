@@ -112,8 +112,11 @@ module hirespace {
                         target.append(this.renderTemplate(entry));
                     });
 
+                    //let newRemaining = data.remaining - 1;
+
                     this.feedData.current.stage = toStage;
                     this.feedData.remaining = data.remaining;
+                    //this.feedData.remaining = newRemaining > 0 ? newRemaining : 0;
 
                     hirespace.View.updateView(this, 'nav.enquiries-feed');
 
