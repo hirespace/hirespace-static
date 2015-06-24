@@ -1,7 +1,7 @@
 .page-enquiries
   footer
     margin: $triple-unit-layout 0 $base-unit-layout
-  
+
   .layout-offset-top
     $left-nav-width: rem(280px)
 
@@ -119,7 +119,7 @@
               +border-radius(0)
 
               border: 0
-              //background: $color-grey-75
+            //background: $color-grey-75
 
             ul
               @extend .unstyled
@@ -253,7 +253,7 @@
           font:
             size: rem(12px)
             style: normal
-            
+
           .fa
             color: $color-green
             position: relative
@@ -426,8 +426,8 @@
             position: relative
             top: -(rem(8px))
             text-transform: capitalize
-            //font:
-            //  weight: 500
+          //font:
+          //  weight: 500
 
           small
             +ellipsis
@@ -580,11 +580,24 @@
     footer
       +clearfix
 
+      position: relative
+
       button
         margin: 0
+        
+        &.flat-grey
+          .fa-paperclip
+            position: relative
+            top: 1px
+            font:
+              size: rem(18px)
 
-        .fa-paperclip
-          position: relative
-          top: 1px
-          font:
-            size: rem(18px)
+        &.fp__btn
+          +z-index(filepicker-button)
+
+          position: absolute
+          right: 0
+          top: 0
+          width: rem(180px)
+          height: $triple-unit-layout + $quarter-unit-layout
+          opacity: 0

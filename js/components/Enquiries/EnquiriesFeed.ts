@@ -36,31 +36,25 @@ module hirespace {
     export class EnquiriesFeed {
         initStage: string;
         remainingStages: Array<string>;
-        feedData: IEnquiriesFeedData = {
-            count: {},
-            current: {
-                _id: '',
-                budget: 0,
-                customerName: '',
-                eventdate: '',
-                stage: '',
-                venueName: '',
-                word: ''
-            },
-            remaining: 0
-        };
+        feedData: IEnquiriesFeedData;
 
         constructor(private bookingData: IBookingData) {
             this.initStage = bookingData.stage.name;
             this.remainingStages = _.without(_.keys(enquiriesFeedStages), this.initStage, 'Invalid');
 
-            this.feedData.current._id = bookingData._id;
-            this.feedData.current.budget = bookingData.budget;
-            this.feedData.current.customerName = bookingData.customer.name;
-            this.feedData.current.eventdate = bookingData.date.startdate;
-            this.feedData.current.stage = bookingData.stage.name;
-            this.feedData.current.venueName = bookingData.venue.name;
-            this.feedData.current.word = bookingData.word;
+            this.feedData = {
+                count: {},
+                current: {
+                    _id: bookingData._id,
+                    budget: bookingData.budget,
+                    customerName: bookingData.customer.name,
+                    eventdate: bookingData.date.startdate,
+                    stage: bookingData.stage.name,
+                    venueName: bookingData.venue.name,
+                    word: bookingData.word
+                },
+                remaining: 0
+            };
 
             this.initView();
         }
@@ -104,21 +98,18 @@ module hirespace {
                 .subscribe((data: IStageData) => {
                     data.enquiries.unshift(this.feedData.current);
 
-                    let target = $('nav.enquiries-feed .sub ul.' + enquiriesFeedStages[toStage]);
-
-                    target.html('');
-
-                    _.forEach(data.enquiries, entry => {
-                        target.append(this.renderTemplate(entry));
-                    });
-
-                    //let newRemaining = data.remaining - 1;
-
                     this.feedData.current.stage = toStage;
                     this.feedData.remaining = data.remaining;
-                    //this.feedData.remaining = newRemaining > 0 ? newRemaining : 0;
 
                     hirespace.View.updateView(this, 'nav.enquiries-feed');
+
+                    let target = $('nav.enquiries-feed .sub ul.' + enquiriesFeedStages[toStage]);
+
+                    // @TODO
+                    // this will work without calling it from outside an randomly, perhaps it should work as part of
+                    // View.updateView()
+                    let HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), data.enquiries);
+                    HsRepeat.updateView(target);
 
                     if (callback) {
                         callback();
