@@ -15,7 +15,6 @@ module hirespace {
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
         uiConfig: IUiConfig;
-        EnquiriesFeed: hirespace.EnquiriesFeed;
 
         constructor() {
             hirespace.Modal.listen();
@@ -90,8 +89,6 @@ module hirespace {
             this.bookingData = hirespace.EnquiriesController.parseBookingData(initBookingData);
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
-            this.EnquiriesFeed = new hirespace.EnquiriesFeed(this.bookingData.stage.name, '2WscqXhWtbhwxTWhs');
-
             this.updateUi();
         }
 
@@ -122,7 +119,10 @@ module hirespace {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '2WscqXhWtbhwxTWhs', {
                 // @TODO
                 // resolve after we have a functioning API
-                data: JSON.stringify(updateData), contentType: "application/json; charset=utf-8", method: 'PUT', headers: {
+                data: JSON.stringify(updateData),
+                contentType: "application/json; charset=utf-8",
+                method: 'PUT',
+                headers: {
                     Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
                 }
             });
@@ -162,8 +162,6 @@ module hirespace {
         updateUi() {
             this.updateProgressBar();
             hirespace.View.updateView(this, '.enquiry-actions');
-
-            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true);
         }
 
         // @TODO

@@ -19,7 +19,8 @@ module hirespace {
         _id: string;
         budget: number;
         customerName: string;
-        // @TODO make eventDate?
+        // @TODO
+        // make eventDate?
         eventdate: string;
         venueName: string;
         word: string;
@@ -43,18 +44,7 @@ module hirespace {
 
             this.feedData._id = id;
 
-            if (hirespace.Debug.getEnvironment() !== 'test') {
-                this.updateStageCounts();
-
-                let callback: Function = (): void => {
-                    Rx.Observable.from(this.remainingStages)
-                        .map(stage => {
-                            return this.renderView(stage);
-                        });
-                };
-
-                this.renderView(initStage, false, callback);
-            }
+            this.initView();
         }
 
         stagesCountPromise(): JQueryPromise<any> {
@@ -82,11 +72,6 @@ module hirespace {
         }
 
         renderView(toStage: string, updateCounts?: boolean, callback?: Function) {
-            // TEMP hack
-            if (hirespace.Debug.getEnvironment() == 'test') {
-                return false;
-            }
-
             if (updateCounts) {
                 this.updateStageCounts();
             }
@@ -123,6 +108,19 @@ module hirespace {
 
                     hirespace.View.updateView(this, 'nav.enquiries-feed');
                 });
+        }
+
+        initView() {
+            this.updateStageCounts();
+
+            let callback: Function = (): void => {
+                Rx.Observable.from(this.remainingStages)
+                    .map(stage => {
+                        return this.renderView(stage);
+                    });
+            };
+
+            this.renderView(this.initStage, false, callback);
         }
     }
 }

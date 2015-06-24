@@ -2,6 +2,8 @@ module hirespace {
     'use strict';
 
     export class View {
+        // @TODO
+        // scope should be mandatory
         static updateView(target, scope?: string) {
             // @TODO
             // abstract hs-class into a config var

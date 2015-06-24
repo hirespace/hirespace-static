@@ -5,7 +5,15 @@ module hirespace.specs {
         let controller: hirespace.EnquiriesFeed;
 
         beforeEach(() => {
-            controller = new hirespace.EnquiriesFeed('New', '2WscqXhWtbhwxTWhs');
+            spyOn(Rx.Observable, 'fromPromise').and.callFake(() => {
+                console.log('calling fake observable.fromPromise');
+                return Rx.Observable.empty();
+            });
+
+            spyOn(Rx.Observable, 'from').and.callFake(() => {
+                console.log('calling fake observable.from');
+                return Rx.Observable.empty();
+            });
 
             spyOn($, 'ajax').and.callFake((url, options): any => {
                 let d = $.Deferred();
@@ -21,6 +29,8 @@ module hirespace.specs {
 
                 return d.promise();
             });
+
+            controller = new hirespace.EnquiriesFeed('New', '2WscqXhWtbhwxTWhs');
         });
 
         it('should return stagesCountPromise', () => {
@@ -44,6 +54,7 @@ module hirespace.specs {
         });
 
         it('should have the renderTemplate method attached', () => {
+            //console.log(controller.renderView('New', false, () => {}));
             expect(controller.renderTemplate).toBeDefined();
         });
     });
