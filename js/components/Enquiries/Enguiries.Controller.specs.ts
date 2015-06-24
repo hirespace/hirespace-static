@@ -100,7 +100,7 @@ module hirespace.specs {
         });
 
         // @TODO
-        // a way to test the Date conversion??
+        // a way to test the Date conversion?? => this will turn into filters on hs-bind
         it('should successfully parse booking data', () => {
             let bookingData = controller.bookingData;
 
