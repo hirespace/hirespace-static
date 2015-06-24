@@ -4,6 +4,7 @@ module.exports = function (config) {
         frameworks: ['jasmine'],
         files: [
             '../dist/vendor.js',
+            'bookingData.js',
             'all.js'
         ],
         exclude: [],

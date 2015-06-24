@@ -92,11 +92,11 @@ module hirespace {
 
             this.updateUi();
 
-            this.EnquiriesFeed = new EnquiriesFeed(this.bookingData.stage.name, '2WscqXhWtbhwxTWhs');
+            this.EnquiriesFeed = new EnquiriesFeed(this.bookingData);
         }
 
         // @TODO
-        // investigate if this mehtod is actually needed
+        // investigate if this method is actually needed
         initUiConfig() {
             this.uiConfig = {
                 defaultStage: _.first(_.keys(enquiriesFeedStages)),

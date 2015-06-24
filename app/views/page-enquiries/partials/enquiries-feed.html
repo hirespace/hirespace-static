@@ -10,32 +10,32 @@
     </div>
 
     <ul>
-        <li class="new" hs-class="active: feedData.stage == 'New'">
+        <li class="new" hs-class="active: feedData.current.stage == 'New'">
             <span class="label numeric blue" hs-bind="feedData.count.new">-</span>
             <strong>New</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.stage == 'New'">
+        <li class="sub" hs-class="is-visible: feedData.current.stage == 'New'">
             <ul class="new"></ul>
         </li>
-        <li class="in-progress" hs-class="active: feedData.stage == 'In Progress'">
+        <li class="in-progress" hs-class="active: feedData.current.stage == 'In Progress'">
             <span class="label numeric green" hs-bind="feedData.count.in-progress"></span>
             <strong>In Progress</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.stage == 'In Progress'">
+        <li class="sub" hs-class="is-visible: feedData.current.stage == 'In Progress'">
             <ul class="in-progress"></ul>
         </li>
-        <li class="needs-archiving" hs-class="active: feedData.stage == 'Needs Archiving'">
+        <li class="needs-archiving" hs-class="active: feedData.current.stage == 'Needs Archiving'">
             <span class="label numeric yellow" hs-bind="feedData.count.needs-archiving">-</span>
             <strong>Needs Archiving</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.stage == 'Needs Archiving'">
+        <li class="sub" hs-class="is-visible: feedData.current.stage == 'Needs Archiving'">
             <ul class="needs-archiving"></ul>
         </li>
-        <li class="archived" hs-class="active: feedData.stage == 'Archived'">
+        <li class="archived" hs-class="active: feedData.current.stage == 'Archived'">
             <span class="label numeric black" hs-bind="feedData.count.archived">-</span>
             <strong>Archived</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.stage == 'Archived'">
+        <li class="sub" hs-class="is-visible: feedData.current.stage == 'Archived'">
             <ul class="archived"></ul>
         </li>
     </ul>

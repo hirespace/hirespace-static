@@ -1,9 +1,11 @@
 module hirespace.specs {
     'use strict';
 
+    declare
+    var initBookingData: IBookingData;
+
     describe('EnquiriesFeed module', () => {
         let controller: hirespace.EnquiriesFeed;
-        //let fakeStages = ['New', 'Archived', 'Other'];
 
         beforeEach(() => {
             spyOn(Rx.Observable, 'fromPromise').and.callFake(() => {
@@ -29,13 +31,14 @@ module hirespace.specs {
                 return d.promise();
             });
 
-            controller = new hirespace.EnquiriesFeed('New', '2WscqXhWtbhwxTWhs');
+            initBookingData.stage.name = 'New';
+            controller = new hirespace.EnquiriesFeed(initBookingData);
         });
 
         it('should correctly assign data', () => {
             expect(controller.initStage).toEqual('New');
             expect(controller.remainingStages).toEqual(['In Progress', 'Needs Archiving', 'Archived']);
-            expect(controller.feedData._id).toEqual('2WscqXhWtbhwxTWhs');
+            expect(controller.feedData.current._id).toEqual('2WscqXhWtbhwxTWhs');
         });
 
         it('should return stagesCountPromise', () => {
