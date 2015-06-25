@@ -12,21 +12,15 @@ module hirespace {
 
             let value: string = hirespace.AssertionParser.resolveObject(path, resolveObject, true);
 
-            switch (elem.tagName.toLowerCase()) {
-                case 'input':
-                    if (_.isUndefined(value) || value.length < 1) {
-                        return false;
-                    }
-
-                    $(elem).attr('value', !_.isUndefined(value) ? value.toString() : '');
-                    break;
-                default:
-                    if (_.isUndefined(value) || value.length < 1) {
-                        return false;
-                    }
-
-                    $(elem).html(!_.isUndefined(value) ? value.toString() : '');
-                    break;
+            if (!_.isUndefined(value) && !_.isNull(value) && value.toString().length > 0) {
+                switch (elem.tagName.toLowerCase()) {
+                    case 'input':
+                        $(elem).attr('value', !_.isUndefined(value) ? value.toString() : '');
+                        break;
+                    default:
+                        $(elem).html(!_.isUndefined(value) ? value.toString() : '');
+                        break;
+                }
             }
         }
     }
