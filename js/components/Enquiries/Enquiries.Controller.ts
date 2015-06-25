@@ -21,7 +21,7 @@ module hirespace {
 
     export class EnquiriesController {
         private attachments: Array<{}>;
-        private pollingFrequency: number = 500000;
+        private pollingFrequency: number = 30000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -64,17 +64,25 @@ module hirespace {
 
             $('.hs-to-step').click(e => {
                 let updateData = hirespace.UpdateParser.getObject($(e.target).attr('update')),
-                    errors = [];
+                    errors = [],
+                    emailData: boolean | {} = false;
 
                 if ($(e.target).hasClass('send-email')) {
-                    let emailData = {
+                    emailData = {
                         toEmailAddress: this.bookingData.customer.email,
                         subject: 'RE: ' + this.bookingData.word + ' at ' + this.bookingData.venue.name,
                         message: $('#modalQuickReply textarea').val(),
                         attachments: _.isUndefined(this.attachments) ? [] : this.attachments
                     };
 
-                    hirespace.Logger.info(emailData);
+                    Rx.Observable.fromPromise(this.sendEmailPromise(emailData))
+                        .do(() => {
+                            hirespace.Logger.info(emailData);
+                        })
+                        .subscribe(response => {
+                            this.resolveUpdateBookingData(updateData);
+                        }, f => hirespace.Logger.error(f));
+
                     return false;
                 }
 
@@ -106,15 +114,19 @@ module hirespace {
                     return false;
                 }
 
-                Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
-                    .subscribe(d => {
-                        let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
-
-                        this.uiConfig.prevStage = this.bookingData.stage.name;
-
-                        this.updateBookingData(hsResponse);
-                    }, f => hirespace.Logger.error(f));
+                this.resolveUpdateBookingData(updateData);
             });
+        }
+
+        resolveUpdateBookingData(updateData: any) {
+            Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
+                .subscribe(d => {
+                    let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
+
+                    this.uiConfig.prevStage = this.bookingData.stage.name;
+
+                    this.updateBookingData(hsResponse);
+                }, f => hirespace.Logger.error(f));
         }
 
         initBookingData() {
@@ -148,6 +160,14 @@ module hirespace {
                 method: 'GET', headers: {
                     Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
                 }
+            });
+        }
+
+        sendEmailPromise(emailData: any): JQueryPromise<any> {
+            return $.ajax('https://venues.hirespace.com/EnquiriesFeed/SendEmail', {
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(emailData),
+                method: 'POST'
             });
         }
 

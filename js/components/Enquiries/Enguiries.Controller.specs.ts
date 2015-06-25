@@ -74,6 +74,14 @@ module hirespace.specs {
             });
         });
 
+        it('should return sendEmailPromise', () => {
+            let sendEmailPromise = controller.sendEmailPromise({});
+
+            sendEmailPromise.then((data) => {
+                expect(data).toEqual({});
+            });
+        });
+
         it('it should have a method updating the progressBar UI', () => {
             let updateProgressBarDefault = controller.updateProgressBar();
             let updateProgressBar = controller.updateProgressBar('In Progress');
