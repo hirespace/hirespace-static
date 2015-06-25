@@ -14,9 +14,17 @@ module hirespace {
 
             switch (elem.tagName.toLowerCase()) {
                 case 'input':
+                    if (_.isUndefined(value) || value.length < 1) {
+                        return false;
+                    }
+
                     $(elem).attr('value', !_.isUndefined(value) ? value.toString() : '');
                     break;
                 default:
+                    if (_.isUndefined(value) || value.length < 1) {
+                        return false;
+                    }
+
                     $(elem).html(!_.isUndefined(value) ? value.toString() : '');
                     break;
             }
