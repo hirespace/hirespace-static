@@ -1,3 +1,13 @@
+let addAttachments = (fileData) => {
+    console.info(fileData);
+};
+
+declare
+var filepicker: {
+    setKey: Function;
+    pickMultiple: Function;
+};
+
 module hirespace {
     'use strict';
 
@@ -10,7 +20,8 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 5000;
+        private attachments: Array<{}>;
+        private pollingFrequency: number = 500000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -38,12 +49,34 @@ module hirespace {
 
                         this.uiConfig.prevStage = this.bookingData.stage.name;
                         this.updateBookingData(hsResponse);
-                    }, f => console.error(f));
+                    }, f => hirespace.Logger.error(f));
             }, this.pollingFrequency);
+
+            $('#pickFiles').click((e) => {
+                filepicker.setKey("A7pkhw39DQ7a61Ax3HjlIz");
+
+                filepicker.pickMultiple(
+                    {services: ['COMPUTER', 'FACEBOOK', 'BOX', 'IMGUR', 'CLOUDDRIVE']}, (Blobs: Array<{}>) => {
+                        this.attachments = Blobs;
+                        $(e.target).html(Blobs.length + ' files attached');
+                    }, error => hirespace.Logger.error(error));
+            });
 
             $('.hs-to-step').click(e => {
                 let updateData = hirespace.UpdateParser.getObject($(e.target).attr('update')),
                     errors = [];
+
+                if ($(e.target).hasClass('send-email')) {
+                    let emailData = {
+                        toEmailAddress: this.bookingData.customer.email,
+                        subject: 'RE: ' + this.bookingData.word + ' at ' + this.bookingData.venue.name,
+                        message: $('#modalQuickReply textarea').val(),
+                        attachments: _.isUndefined(this.attachments) ? [] : this.attachments
+                    };
+
+                    hirespace.Logger.info(emailData);
+                    return false;
+                }
 
                 if ($(e.target).hasClass('archive')) {
                     switch (updateData.status) {
@@ -137,10 +170,6 @@ module hirespace {
             if (!toStage) {
                 toStage = this.bookingData.stage.name;
             }
-
-            // @TODO
-            // think about storing similar data to a "rootScope" object
-            hirespace.SessionStorage.set('enquiriesCurrentStage', toStage);
 
             let redundantUiClass = enquiriesFeedStages[this.uiConfig.prevStage],
                 uiClass = enquiriesFeedStages[toStage];
