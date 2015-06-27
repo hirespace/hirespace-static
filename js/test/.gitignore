@@ -1,3 +1,4 @@
 *
 !.gitignore
 !karma.conf.js
+!bookingData.js

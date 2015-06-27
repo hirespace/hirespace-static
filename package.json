@@ -1,6 +1,6 @@
 {
   "name": "hirespace-static",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Hire Space static assets",
   "main": "gulpfile.js",
   "scripts": {
@@ -39,6 +39,7 @@
     "karma": "^0.12.36",
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.1.4",
+    "karma-spec-reporter": "0.0.19",
     "method-override": "^2.3.3"
   }
 }

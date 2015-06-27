@@ -2,12 +2,18 @@ module hirespace {
     'use strict';
 
     export class View {
-        static updateView(target) {
+        // @TODO
+        // scope should be mandatory
+        static updateView(target, scope?: string) {
             // @TODO
             // abstract hs-class into a config var
-            let elems = $('[hs-class]');
+            let hsClass = $(scope ? _.map(scope.split(','), elem => _.trim(elem) + ' [hs-class]').join(',') : '[hs-class]'),
+                hsBind = $(scope ? _.map(scope.split(','), elem => _.trim(elem) + ' [hs-bind]').join(',') : '[hs-bind]');
 
-            _.forEach(elems, elem => hirespace.View.updateElem(elem, target));
+            // @TODO
+            // abstract into an object to loop through
+            _.forEach(hsClass, elem => hirespace.View.updateElem(elem, target));
+            _.forEach(hsBind, elem => hirespace.HsBind.updateElem(elem, target));
         }
 
         static updateElem(elem: Element, target: any) {

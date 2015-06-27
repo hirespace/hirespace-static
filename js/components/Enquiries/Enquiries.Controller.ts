@@ -1,3 +1,13 @@
+let addAttachments = (fileData) => {
+    console.info(fileData);
+};
+
+declare
+var filepicker: {
+    setKey: Function;
+    pickMultiple: Function;
+};
+
 module hirespace {
     'use strict';
 
@@ -10,11 +20,13 @@ module hirespace {
     }
 
     export class EnquiriesController {
-        private pollingFrequency: number = 5000;
+        private attachments: Array<{}>;
+        private pollingFrequency: number = 30000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
         uiConfig: IUiConfig;
+        EnquiriesFeed: hirespace.EnquiriesFeed;
 
         constructor() {
             hirespace.Modal.listen();
@@ -37,12 +49,42 @@ module hirespace {
 
                         this.uiConfig.prevStage = this.bookingData.stage.name;
                         this.updateBookingData(hsResponse);
-                    }, f => console.error(f));
+                    }, f => hirespace.Logger.error(f));
             }, this.pollingFrequency);
+
+            $('#pickFiles').click((e) => {
+                filepicker.setKey("A7pkhw39DQ7a61Ax3HjlIz");
+
+                filepicker.pickMultiple(
+                    {services: ['COMPUTER', 'FACEBOOK', 'BOX', 'IMGUR', 'CLOUDDRIVE']}, (Blobs: Array<{}>) => {
+                        this.attachments = Blobs;
+                        $(e.target).html(Blobs.length + ' files attached');
+                    }, error => hirespace.Logger.error(error));
+            });
 
             $('.hs-to-step').click(e => {
                 let updateData = hirespace.UpdateParser.getObject($(e.target).attr('update')),
-                    errors = [];
+                    errors = [],
+                    emailData: boolean | {} = false;
+
+                if ($(e.target).hasClass('send-email')) {
+                    emailData = {
+                        toEmailAddress: this.bookingData.customer.email,
+                        subject: 'RE: ' + this.bookingData.word + ' at ' + this.bookingData.venue.name,
+                        message: $('#modalQuickReply textarea').val(),
+                        attachments: _.isUndefined(this.attachments) ? [] : this.attachments
+                    };
+
+                    Rx.Observable.fromPromise(this.sendEmailPromise(emailData))
+                        .do(() => {
+                            hirespace.Logger.info(emailData);
+                        })
+                        .subscribe(response => {
+                            this.resolveUpdateBookingData(updateData);
+                        }, f => hirespace.Logger.error(f));
+
+                    return false;
+                }
 
                 if ($(e.target).hasClass('archive')) {
                     switch (updateData.status) {
@@ -72,15 +114,19 @@ module hirespace {
                     return false;
                 }
 
-                Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
-                    .subscribe(d => {
-                        let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
-
-                        this.uiConfig.prevStage = this.bookingData.stage.name;
-
-                        this.updateBookingData(hsResponse);
-                    }, f => hirespace.Logger.error(f));
+                this.resolveUpdateBookingData(updateData);
             });
+        }
+
+        resolveUpdateBookingData(updateData: any) {
+            Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
+                .subscribe(d => {
+                    let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
+
+                    this.uiConfig.prevStage = this.bookingData.stage.name;
+
+                    this.updateBookingData(hsResponse);
+                }, f => hirespace.Logger.error(f));
         }
 
         initBookingData() {
@@ -90,10 +136,12 @@ module hirespace {
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
             this.updateUi();
+
+            this.EnquiriesFeed = new EnquiriesFeed(this.bookingData);
         }
 
         // @TODO
-        // investigate if this mehtod is actually needed
+        // investigate if this method is actually needed
         initUiConfig() {
             this.uiConfig = {
                 defaultStage: _.first(_.keys(enquiriesFeedStages)),
@@ -113,14 +161,24 @@ module hirespace {
                     Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
                 }
             });
+        }
 
+        sendEmailPromise(emailData: any): JQueryPromise<any> {
+            return $.ajax('https://venues.hirespace.com/EnquiriesFeed/SendEmail', {
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(emailData),
+                method: 'POST'
+            });
         }
 
         updateBookingDataPromise(updateData: any): JQueryGenericPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '2WscqXhWtbhwxTWhs', {
                 // @TODO
                 // resolve after we have a functioning API
-                data: JSON.stringify(updateData), contentType: "application/json; charset=utf-8", method: 'PUT', headers: {
+                data: JSON.stringify(updateData),
+                contentType: "application/json; charset=utf-8",
+                method: 'PUT',
+                headers: {
                     Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
                 }
             });
@@ -151,11 +209,12 @@ module hirespace {
             this.bookingData = newData;
 
             this.updateUi();
+            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true);
         }
 
         updateUi() {
             this.updateProgressBar();
-            hirespace.View.updateView(this);
+            hirespace.View.updateView(this, '.enquiry-actions, .modal-backdrop');
         }
 
         // @TODO

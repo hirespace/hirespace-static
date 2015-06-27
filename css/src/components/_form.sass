@@ -34,6 +34,18 @@ button,
   &:focus
     border-color: $color-grey-300
 
+  &:disabled
+    background: $color-grey-50
+    border-color: $color-grey-100
+    color: $color-grey-200
+    cursor: not-allowed
+
+    &:hover, &:focus, &:active
+      +box-shadow(none)
+
+      border-color: $color-grey-100
+      color: $color-grey-200
+
 select
   -webkit-appearance: none
   background:
@@ -229,18 +241,6 @@ textarea:invalid
     padding: rem(22px) $base-unit-layout
     font:
       size: rem(18px)
-
-  &:disabled
-    background: $color-grey-50
-    border-color: $color-grey-100
-    color: $color-grey-200
-    cursor: not-allowed
-
-    &:hover, &:focus, &:active
-      +box-shadow(none)
-
-      border-color: $color-grey-100
-      color: $color-grey-200
 
   &.blue
     border-color: $color-blue
