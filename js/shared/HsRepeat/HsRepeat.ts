@@ -14,13 +14,17 @@ module hirespace {
         }
 
         updateView(elem: JQuery) {
+            // To target specific parent
+            let scopeId = Math.random().toString(36).substring(7);
+            let scopeClass = '.' + elem.parent().addClass(scopeId).attr('class').split(' ').join('.') + ' .' + elem.attr('class');
+
             let iteratee = hirespace.HsRepeat.getIteratee(elem);
 
             elem.html('');
 
-            let resolveObject = {};
-
             _.forEach(this.objectAlias[this.attrData.objectAlias], (data, key) => {
+                let resolveObject = {};
+
                 iteratee.attr('hs-repeat-index', key);
                 let iterateeHtml = iteratee[0].outerHTML;
 
@@ -36,6 +40,8 @@ module hirespace {
                 } else {
                     _.forEach(hsBind, element => hirespace.HsBind.updateElem(element, resolveObject));
                 }
+
+                hirespace.View.updateView(resolveObject, scopeClass + ' [hs-repeat-index=' + key + ']', true);
             });
         }
 

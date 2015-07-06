@@ -29,3 +29,13 @@ export function enquiries(req: express.Request, res: express.Response) {
         }
     });
 }
+
+export function sandbox(req: express.Request, res: express.Response) {
+    res.locals = {
+        controller: 'SandboxController',
+        pageTitle: 'Sandbox',
+        bodyClass: 'page-sandbox'
+    };
+
+    return res.render('page-sandbox/layout');
+}

@@ -4,7 +4,7 @@ module hirespace {
     export class View {
         // @TODO
         // scope should be mandatory
-        static updateView(target, scope?: string) {
+        static updateView(target, scope?: string, ignoreHsBind?: boolean) {
             // @TODO
             // abstract hs-class into a config var
             let hsClass = $(scope ? _.map(scope.split(','), elem => _.trim(elem) + ' [hs-class]').join(',') : '[hs-class]'),
@@ -13,7 +13,10 @@ module hirespace {
             // @TODO
             // abstract into an object to loop through
             _.forEach(hsClass, elem => hirespace.View.updateElem(elem, target));
-            _.forEach(hsBind, elem => hirespace.HsBind.updateElem(elem, target));
+
+            if (!ignoreHsBind) {
+                _.forEach(hsBind, elem => hirespace.HsBind.updateElem(elem, target));
+            }
         }
 
         static updateElem(elem: Element, target: any) {

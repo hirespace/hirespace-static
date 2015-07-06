@@ -17,12 +17,14 @@
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'New'">
             <ul class="new" hs-repeat="data in feedData">
                 <li>
-                    <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
-                    <small>
-                        <span hs-bind="data.venueName">No Venue Name</span> &bull;
-                        <span hs-bind="data.budget">No Budget</span> &bull;
-                        <span hs-bind="data.eventdate">No Event Date</span>
-                    </small>
+                    <a hs-class="active: data.current">
+                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
+                        <small>
+                            <span hs-bind="data.venueName">No Venue Name</span> &bull;
+                            <span hs-bind="data.budget">No Budget</span> &bull;
+                            <span hs-bind="data.eventdate">No Event Date</span>
+                        </small>
+                    </a>
                 </li>
             </ul>
             <button class="flat-grey block" hs-class="is-hidden: feedData.remaining == 0">Load <span
@@ -36,12 +38,14 @@
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'In Progress'">
             <ul class="in-progress" hs-repeat="data in feedData">
                 <li>
-                    <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
-                    <small>
-                        <span hs-bind="data.venueName">No Venue Name</span> &bull;
-                        <span hs-bind="data.budget">No Budget</span> &bull;
-                        <span hs-bind="data.eventdate">No Event Date</span>
-                    </small>
+                    <a hs-class="active: data.current">
+                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
+                        <small>
+                            <span hs-bind="data.venueName">No Venue Name</span> &bull;
+                            <span hs-bind="data.budget">No Budget</span> &bull;
+                            <span hs-bind="data.eventdate">No Event Date</span>
+                        </small>
+                    </a>
                 </li>
             </ul>
             <button class="flat-grey block" hs-class="is-hidden: feedData.remaining == 0">Load <span
@@ -55,12 +59,14 @@
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'Needs Archiving'">
             <ul class="needs-archiving" hs-repeat="data in feedData">
                 <li>
-                    <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
-                    <small>
-                        <span hs-bind="data.venueName">No Venue Name</span> &bull;
-                        <span hs-bind="data.budget">No Budget</span> &bull;
-                        <span hs-bind="data.eventdate">No Event Date</span>
-                    </small>
+                    <a hs-class="active: data.current">
+                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
+                        <small>
+                            <span hs-bind="data.venueName">No Venue Name</span> &bull;
+                            <span hs-bind="data.budget">No Budget</span> &bull;
+                            <span hs-bind="data.eventdate">No Event Date</span>
+                        </small>
+                    </a>
                 </li>
             </ul>
             <button class="flat-grey block" hs-class="is-hidden: feedData.remaining == 0">Load <span
@@ -74,12 +80,14 @@
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'Archived'">
             <ul class="archived" hs-repeat="data in feedData">
                 <li>
-                    <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
-                    <small>
-                        <span hs-bind="data.venueName">No Venue Name</span> &bull;
-                        <span hs-bind="data.budget">No Budget</span> &bull;
-                        <span hs-bind="data.eventdate">No Event Date</span>
-                    </small>
+                    <a hs-class="active: data.current">
+                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
+                        <small>
+                            <span hs-bind="data.venueName">No Venue Name</span> &bull;
+                            <span hs-bind="data.budget">No Budget</span> &bull;
+                            <span hs-bind="data.eventdate">No Event Date</span>
+                        </small>
+                    </a>
                 </li>
             </ul>
             <button class="flat-grey block" hs-class="is-hidden: feedData.remaining == 0">Load <span

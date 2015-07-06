@@ -21,6 +21,7 @@ module hirespace {
 
     export class EnquiriesController {
         private attachments: Array<{}>;
+        private guid: string;
         private pollingFrequency: number = 30000;
 
         bookingData: IBookingData;
@@ -135,6 +136,8 @@ module hirespace {
             this.bookingData = hirespace.EnquiriesController.parseBookingData(initBookingData);
             this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
 
+            this.guid = this.bookingData.guid;
+
             this.updateUi();
 
             this.EnquiriesFeed = new EnquiriesFeed(this.bookingData);
@@ -156,9 +159,9 @@ module hirespace {
         // @TODO
         // look into ifModified option
         bookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '2WscqXhWtbhwxTWhs', {
+            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + this.bookingData._id, {
                 method: 'GET', headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
+                    Authorization: 'Basic ' + hirespace.Base64.encode(this.guid)
                 }
             });
         }
@@ -172,14 +175,12 @@ module hirespace {
         }
 
         updateBookingDataPromise(updateData: any): JQueryGenericPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + '2WscqXhWtbhwxTWhs', {
-                // @TODO
-                // resolve after we have a functioning API
+            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + this.bookingData._id, {
                 data: JSON.stringify(updateData),
                 contentType: "application/json; charset=utf-8",
                 method: 'PUT',
                 headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
+                    Authorization: 'Basic ' + hirespace.Base64.encode(this.guid)
                 }
             });
         }
@@ -220,11 +221,6 @@ module hirespace {
         // @TODO
         // refactor cruft
         static parseBookingData(bookingData: IBookingData): IBookingData {
-            let startDate = new Date(bookingData.date.startdate);
-            let finishDate = new Date(bookingData.date.finishdate);
-
-            bookingData.date.startdate = moment(startDate).format('MMM Do YY');
-            bookingData.date.finishdate = moment(finishDate).format('MMM Do YY');
             bookingData.customer.company = bookingData.customer.company ? bookingData.customer.company : 'No Company Name';
             bookingData.customer.firstName = _.first(bookingData.customer.name.split(' '));
 
