@@ -1,11 +1,6 @@
 module hirespace {
     'use strict';
 
-    interface IFilterReduceObject {
-        value: string;
-        filter: string;
-    }
-
     export class HsBind {
         filters: Array<string> = ['date'];
 
