@@ -75,6 +75,7 @@ module hirespace {
         budget: number;
         customer: ICustomer;
         date: IDate;
+        guid: string;
         message: string;
         people: number;
         stage: IBookingStage;

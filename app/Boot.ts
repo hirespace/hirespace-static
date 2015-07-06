@@ -34,6 +34,7 @@ if (env === 'development') {
 
 app.get('/', getRequest.index);
 app.get('/enquiries', getRequest.enquiries);
+app.get('/sandbox', getRequest.sandbox);
 
 app.listen(6065, function () {
     console.log('Express server listening on port %d in %s mode', 6065, app.settings.env);

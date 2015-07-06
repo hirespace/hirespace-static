@@ -10,6 +10,7 @@ var initBookingData = {
     "date": {
         "startdate": "2015-06-16T10:00:00.000Z"
     },
+    "guid": "9ab2da75-a152-4ef8-a953-70c737e39ea5",
     "message": "Team meeting - 8 people, just discussions.\r\nFrom a charity - Alzheimers Society so any discounts much appreciated.",
     "people": 8,
     "stage": {

@@ -18,6 +18,7 @@ module hirespace {
     interface ITemplateData {
         _id: string;
         budget: number;
+        current?: boolean;
         customerName: string;
         // @TODO
         // make eventDate?
@@ -75,14 +76,6 @@ module hirespace {
             });
         }
 
-        // @TODO create interface
-        renderTemplate(data: ITemplateData) {
-            return '<li' + (data._id == this.feedData.current._id ? ' class="active"' : '') + '>' +
-                '<strong>' + data.customerName + '\'s ' + data.word + '</strong>' +
-                '<small>' + data.venueName + ' &bull; ' + data.budget + ' &bull; ' + data.eventdate + '</small>' +
-                '</li>';
-        }
-
         renderView(toStage: string, updateCounts?: boolean, callback?: Function) {
             if (updateCounts) {
                 this.updateStageCounts();
@@ -96,6 +89,8 @@ module hirespace {
                 ignore: this.feedData.current._id
             }))
                 .subscribe((data: IStageData) => {
+                    // Marks as the current enquiry
+                    this.feedData.current.current = true;
                     data.enquiries.unshift(this.feedData.current);
 
                     this.feedData.current.stage = toStage;

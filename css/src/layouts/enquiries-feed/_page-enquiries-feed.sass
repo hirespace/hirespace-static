@@ -87,10 +87,7 @@
           padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout
           display: block
           border-bottom: 1px solid $color-grey-75
-          cursor: pointer
-
-          +hover
-            background: white
+          //cursor: pointer
 
           &.active
             background: white
@@ -119,23 +116,45 @@
               +border-radius(0)
 
               border: 0
-            //background: $color-grey-75
 
             ul
               @extend .unstyled
 
               > li
-                padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout
                 border-bottom: 1px solid $color-grey-75
+
+                > a
+                  +transition(background .25s)
+
+                  padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout
+                  display: block
+                  text-decoration: none
+
+                  &.active
+                    background: white
+
+                    strong, strong > *
+                      font:
+                        weight: 700
+
+                  +hover
+                    background: white
 
                 strong, small
                   +ellipsis
 
-                strong
-                  text-transform: none
                   display: block
+
+                strong
+                  color: $color-black
+                  text-transform: none
                   font:
                     size: rem(14px)
+                    weight: 500
+
+                  > *
+                    font:
+                      weight: 500
 
                 small
                   color: $color-grey-500
@@ -144,13 +163,6 @@
 
                 &:last-of-type
                   border: 0
-
-                &.active
-                  background: white
-
-                  strong
-                    font:
-                      weight: 700
 
       +respond-to-size($screen-md)
         left: -($left-nav-width)

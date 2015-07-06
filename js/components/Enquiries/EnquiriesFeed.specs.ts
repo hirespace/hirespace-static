@@ -61,10 +61,6 @@ module hirespace.specs {
             expect(controller.updateStageCounts).toBeDefined();
         });
 
-        it('should have the renderTemplate method attached', () => {
-            expect(controller.renderTemplate).toBeDefined();
-        });
-
         it('should have the renderView method attached', () => {
             expect(controller.renderView).toBeDefined();
         });
