@@ -15,6 +15,7 @@ module hirespace {
 
         updateView(elem: JQuery) {
             // To target specific parent
+            // @TODO refactor and abstract into magic vars
             let scopeId = Math.random().toString(36).substring(7);
             let scopeClass = '.' + elem.parent().addClass(scopeId).attr('class').split(' ').join('.') + ' .' + elem.attr('class');
 
