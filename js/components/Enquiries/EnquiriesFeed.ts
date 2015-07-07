@@ -31,7 +31,13 @@ module hirespace {
     export interface IEnquiriesFeedData {
         count: IStageCounts;
         current: ITemplateData;
+        enquiries: Array<ITemplateData>;
         remaining: number;
+        pagination: {
+            [name: string]: {
+                page: number
+            }
+        };
     }
 
     export class EnquiriesFeed {
@@ -54,10 +60,19 @@ module hirespace {
                     venueName: bookingData.venue.name,
                     word: bookingData.word
                 },
-                remaining: 0
+                enquiries: [],
+                remaining: 0,
+                pagination: {}
             };
 
             this.initView();
+
+            $('nav.enquiries-feed .show-more').click((e) => {
+                let stage = $(e.currentTarget).attr('stage');
+
+                this.updatePagination(enquiriesFeedStages[stage]);
+                this.renderView(stage, false, () => {}, true);
+            });
         }
 
         stagesCountPromise(): JQueryPromise<any> {
@@ -76,22 +91,37 @@ module hirespace {
             });
         }
 
-        renderView(toStage: string, updateCounts?: boolean, callback?: Function) {
+        updatePagination(stage: string) {
+            this.feedData.pagination[stage].page = this.feedData.pagination[stage].page + 1;
+        }
+
+        renderView(toStage: string, updateCounts?: boolean, callback?: Function, append?: boolean) {
             if (updateCounts) {
                 this.updateStageCounts();
             }
 
-            // @TODO
-            // abstract page and limit to config vars
-            Rx.Observable.fromPromise(this.feedDataPromise(toStage, {
-                page: 0,
+            let feedDataPromiseData = {
+                page: this.feedData.pagination[enquiriesFeedStages[toStage]].page,
+                // @TODO
+                // abstract into config var?
                 limit: 5,
                 ignore: this.feedData.current._id
-            }))
+            };
+
+            // @TODO
+            // abstract page and limit to config vars
+            Rx.Observable.fromPromise(this.feedDataPromise(toStage, feedDataPromiseData))
                 .subscribe((data: IStageData) => {
                     // Marks as the current enquiry
                     this.feedData.current.current = true;
-                    data.enquiries.unshift(this.feedData.current);
+
+                    if (append) {
+                        this.feedData.enquiries = this.feedData.enquiries.concat(data.enquiries);
+                    } else {
+                        data.enquiries.unshift(this.feedData.current);
+
+                        this.feedData.enquiries = data.enquiries;
+                    }
 
                     this.feedData.current.stage = toStage;
                     this.feedData.remaining = data.remaining;
@@ -103,10 +133,10 @@ module hirespace {
                     // @TODO
                     // this will work without calling it from outside an randomly, perhaps it should work as part of
                     // View.updateView()
-                    let HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), data.enquiries);
+                    let HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), this.feedData.enquiries);
                     HsRepeat.updateView(target);
 
-                    if (callback) {
+                    if (_.isFunction(callback)) {
                         callback();
                     }
                 });
@@ -124,6 +154,8 @@ module hirespace {
         }
 
         initView() {
+            _.forEach(_.values(enquiriesFeedStages), (stage: string) => this.feedData.pagination[stage] = {page: 0});
+
             this.updateStageCounts();
 
             let callback: Function = (): void => {

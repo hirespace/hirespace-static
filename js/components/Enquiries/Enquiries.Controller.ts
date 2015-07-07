@@ -22,7 +22,7 @@ module hirespace {
     export class EnquiriesController {
         private attachments: Array<{}>;
         private guid: string;
-        private pollingFrequency: number = 30000;
+        private pollingFrequency: number = 5000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
