@@ -6,6 +6,7 @@ module hirespace.specs {
 
     describe('EnquiriesFeed module', () => {
         let controller: hirespace.EnquiriesFeed;
+        let pagination: {};
 
         beforeEach(() => {
             spyOn(Rx.Observable, 'fromPromise').and.callFake(() => {
@@ -39,6 +40,17 @@ module hirespace.specs {
             expect(controller.initStage).toEqual('New');
             expect(controller.remainingStages).toEqual(['In Progress', 'Needs Archiving', 'Archived']);
             expect(controller.feedData.current._id).toEqual('2WscqXhWtbhwxTWhs');
+        });
+
+        it('should set the pagination correctly upon initialisation', () => {
+            let pagination = controller.feedData.pagination[enquiriesFeedStages[controller.initStage]];
+
+            expect(pagination.page).toEqual(0);
+        });
+
+        it('should successfully bump up the page for a specific stage', () => {
+            controller.updatePagination('new');
+            expect(controller.feedData.pagination['new'].page).toEqual(1);
         });
 
         it('should return stagesCountPromise', () => {
