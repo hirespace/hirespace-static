@@ -42,6 +42,10 @@ module hirespace {
                     _.forEach(hsBind, element => hirespace.HsBind.updateElem(element, resolveObject));
                 }
 
+                let hsHrefElem = current.find('[hs-href]');
+
+                if (hsHrefElem.length > 0) hirespace.HsHref.resolve(hsHrefElem, resolveObject);
+
                 hirespace.View.updateView(resolveObject, scopeClass + ' [hs-repeat-index=' + key + ']', true);
             });
         }
