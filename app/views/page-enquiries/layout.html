@@ -183,8 +183,16 @@
             </div>
         </section>
 
-        <section hs-class="is-hidden: bookingData.stage.name == 'New'">
+        <section hs-class="is-hidden: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress'">
             <div class="internal-note container-narrow">
+                <button class="flat-grey large block hs-to-step"
+                        update="reopen: true">
+                    Re-open
+                </button>
+            </div>
+
+            <!--Temporarily hide until v2-->
+            <div class="internal-note container-narrow is-hidden">
                 <div class="pull-left">
                     <button class="black"
                             hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">

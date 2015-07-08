@@ -17,7 +17,7 @@
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'New'">
             <ul class="new" hs-repeat="data in feedData">
                 <li>
-                    <a hs-class="active: data.current">
+                    <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
                         <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
                         <small>
                             <span hs-bind="data.venueName">No Venue Name</span> &bull;
@@ -38,7 +38,7 @@
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'In Progress'">
             <ul class="in-progress" hs-repeat="data in feedData">
                 <li>
-                    <a hs-class="active: data.current">
+                    <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
                         <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
                         <small>
                             <span hs-bind="data.venueName">No Venue Name</span> &bull;
@@ -59,7 +59,7 @@
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'Needs Archiving'">
             <ul class="needs-archiving" hs-repeat="data in feedData">
                 <li>
-                    <a hs-class="active: data.current">
+                    <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
                         <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
                         <small>
                             <span hs-bind="data.venueName">No Venue Name</span> &bull;
@@ -80,7 +80,7 @@
         <li class="sub" hs-class="is-visible: feedData.current.stage == 'Archived'">
             <ul class="archived" hs-repeat="data in feedData">
                 <li>
-                    <a hs-class="active: data.current">
+                    <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
                         <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
                         <small>
                             <span hs-bind="data.venueName">No Venue Name</span> &bull;

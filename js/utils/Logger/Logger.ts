@@ -2,36 +2,28 @@ module hirespace {
     'use strict';
 
     export class Logger {
-        static log(data: any) {
-            if (hirespace.Debug.getEnvironment() !== 'development') {
-                return false;
-            }
+        private static execute(type: string, data: any, notify?: boolean) {
+            if (hirespace.Debug.getEnvironment() !== 'development') return false;
 
-            console.log(data);
+            console[type](data);
+
+            if (notify) hirespace.Notification.generate(data, type);
         }
 
-        static info(data: any) {
-            if (hirespace.Debug.getEnvironment() !== 'development') {
-                return false;
-            }
-
-            console.info(data);
+        static log(data: any, notify?: boolean) {
+            return hirespace.Logger.execute('log', data, notify);
         }
 
-        static error(data: any) {
-            if (hirespace.Debug.getEnvironment() !== 'development') {
-                return false;
-            }
-
-            console.error(data);
+        static info(data: any, notify?: boolean) {
+            return hirespace.Logger.execute('info', data, notify);
         }
 
-        static debug(message: string) {
-            if (hirespace.Debug.getEnvironment() !== 'development') {
-                return false;
-            }
+        static error(data: any, notify?: boolean) {
+            return hirespace.Logger.execute('error', data, notify);
+        }
 
-            console.debug(new Date() + ' ' + message);
+        static debug(message: string, notify?: boolean) {
+            return hirespace.Logger.execute('debug', new Date() + ' ' + message, notify);
         }
     }
 }

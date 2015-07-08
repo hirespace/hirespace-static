@@ -1,0 +1,33 @@
+#notification
+  +transition(top .25s)
+  +z-index(notification)
+
+  padding: 0 $base-unit-layout
+  position: fixed
+  width: 100%
+  height: $nav-height
+  line-height: $nav-height
+  background: $color-alert-info
+  top: -($nav-height)
+  left: 0
+
+  &.active
+    top: 0
+
+  &.info, &.log, &.debug
+    background: $color-alert-info
+
+  &.success
+    background: $color-alert-success
+
+  &.warning
+    background: $color-alert-warning
+
+  &.error
+    background: $color-alert-error
+
+  main
+    +ellipsis
+    @extend .text-center
+
+    color: rgba(0, 0, 0, .4)
