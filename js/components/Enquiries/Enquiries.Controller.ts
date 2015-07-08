@@ -22,7 +22,7 @@ module hirespace {
     export class EnquiriesController {
         private attachments: Array<{}>;
         private guid: string;
-        private pollingFrequency: number = 5000;
+        private pollingFrequency: number = 30000;
 
         bookingData: IBookingData;
         bookingDataObservable: KnockoutMapping;
@@ -105,7 +105,7 @@ module hirespace {
                     // error handling using the UI - notifications
                     _.forEach(updateData, (value, key) => {
                         if (!value) {
-                            hirespace.Logger.error('The value of ' + key + ' is empty');
+                            hirespace.Logger.error('The value of ' + key + ' is empty', true);
                             errors.push(key);
                         }
                     });
@@ -127,6 +127,7 @@ module hirespace {
                     this.uiConfig.prevStage = this.bookingData.stage.name;
 
                     this.updateBookingData(hsResponse);
+                    hirespace.Notification.generate('Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', 'success');
                 }, f => hirespace.Logger.error(f));
         }
 
