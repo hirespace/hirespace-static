@@ -2,7 +2,7 @@ module hirespace {
     'use strict';
 
     export class Logger {
-        static execute(type: string, data: any, notify?: boolean) {
+        private static execute(type: string, data: any, notify?: boolean) {
             if (hirespace.Debug.getEnvironment() !== 'development') return false;
 
             console[type](data);
