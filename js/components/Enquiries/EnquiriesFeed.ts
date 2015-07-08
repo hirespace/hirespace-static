@@ -23,6 +23,7 @@ module hirespace {
         // @TODO
         // make eventDate?
         eventdate: string;
+        guid: string;
         stage: string;
         venueName: string;
         word: string;
@@ -56,6 +57,7 @@ module hirespace {
                     budget: bookingData.budget,
                     customerName: bookingData.customer.name,
                     eventdate: bookingData.date.startdate,
+                    guid: bookingData.guid,
                     stage: bookingData.stage.name,
                     venueName: bookingData.venue.name,
                     word: bookingData.word
@@ -78,7 +80,7 @@ module hirespace {
         stagesCountPromise(): JQueryPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages, {
                 method: 'GET', headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
+                    Authorization: 'Basic ' + hirespace.Base64.encode(this.feedData.current.guid)
                 }
             });
         }
@@ -86,7 +88,7 @@ module hirespace {
         feedDataPromise(stage: string, data: IFeedData): JQueryPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + stage, {
                 data: data, method: 'GET', headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode('9ab2da75-a152-4ef8-a953-70c737e39ea5')
+                    Authorization: 'Basic ' + hirespace.Base64.encode(this.feedData.current.guid)
                 }
             });
         }

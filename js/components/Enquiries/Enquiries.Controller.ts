@@ -1,7 +1,3 @@
-let addAttachments = (fileData) => {
-    console.info(fileData);
-};
-
 declare
 var filepicker: {
     setKey: Function;
@@ -216,6 +212,7 @@ module hirespace {
 
             ko.mapping.fromJS(newData, this.bookingDataObservable);
             this.bookingData = newData;
+            this.bookingData.guid = this.guid;
 
             this.updateUi();
             this.EnquiriesFeed.renderView(this.bookingData.stage.name, true);
