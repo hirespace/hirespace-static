@@ -39,6 +39,7 @@ module hirespace {
 
             setInterval(() => {
                 Rx.Observable.fromPromise(this.bookingDataPromise())
+                    .retry(3)
                     .subscribe(d => {
                         let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
 
@@ -80,9 +81,14 @@ module hirespace {
                         .do(() => {
                             hirespace.Logger.info(emailData);
                         })
+                        .retry(3)
                         .subscribe(response => {
+                            hirespace.Notification.generate('Your email was successfully sent!', 'success');
                             this.resolveUpdateBookingData(updateData);
-                        }, f => hirespace.Logger.error(f));
+                        }, f => {
+                            hirespace.Notification.generate('There was an error sending your email.', 'error');
+                            hirespace.Logger.error(f);
+                        });
 
                     return false;
                 }
@@ -121,6 +127,7 @@ module hirespace {
 
         resolveUpdateBookingData(updateData: any) {
             Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
+                .retry(3)
                 .subscribe(d => {
                     let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
 
@@ -168,8 +175,8 @@ module hirespace {
         }
 
         sendEmailPromise(emailData: any): JQueryPromise<any> {
-            return $.ajax('https://venues.hirespace.com/EnquiriesFeed/SendEmail', {
-                contentType: "application/json; charset=utf-8",
+            return $.ajax(hirespace.Config.getEnquirySendEmailApi(), {
+                //contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(emailData),
                 method: 'POST'
             });

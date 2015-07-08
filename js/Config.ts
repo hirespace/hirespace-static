@@ -18,6 +18,12 @@ module hirespace {
         test: 'http://api.hirespace.dev/'
     };
 
+    let enquirySendEmailApi: IApiUrls = {
+        production: 'https://venues.hirespace.com/EnquiriesFeed/SendEmail',
+        development: 'http://staging.venues.hirespace.com/EnquiriesFeed/SendEmail',
+        test: 'http://staging.venues.hirespace.com/EnquiriesFeed/SendEmail'
+    };
+
     let apiRoutes: IApiRoutes = {
         bookings: 'enquiries/',
         bookingsStages: 'enquiries/stages/'
@@ -29,6 +35,10 @@ module hirespace {
     export class Config {
         static getApiUrl(): string {
             return apiUrls[hirespace.Debug.getEnvironment()];
+        }
+
+        static getEnquirySendEmailApi(): string {
+            return enquirySendEmailApi[hirespace.Debug.getEnvironment()];
         }
 
         static getProductionHost(): string {
