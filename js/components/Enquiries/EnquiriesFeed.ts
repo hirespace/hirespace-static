@@ -98,6 +98,8 @@ module hirespace {
         }
 
         renderView(toStage: string, updateCounts?: boolean, callback?: Function, append?: boolean) {
+            hirespace.Logger.debug('Feed view rendered');
+
             if (updateCounts) {
                 this.updateStageCounts();
             }
