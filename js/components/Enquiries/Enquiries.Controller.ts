@@ -39,14 +39,12 @@ module hirespace {
                     .subscribe(d => {
                         let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
 
-                        if (_.isEqual(hsResponse, this.bookingData)) {
+                        if (_.isEqual(hsResponse.stage.name, this.bookingData.stage.name)) {
                             hirespace.Logger.debug('View update skipped');
-
-                            return false;
+                        } else {
+                            this.uiConfig.prevStage = this.bookingData.stage.name;
+                            this.updateBookingData(hsResponse);
                         }
-
-                        this.uiConfig.prevStage = this.bookingData.stage.name;
-                        this.updateBookingData(hsResponse);
                     }, f => hirespace.Logger.error(f));
             }, this.pollingFrequency);
 
