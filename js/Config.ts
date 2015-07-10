@@ -14,7 +14,7 @@ module hirespace {
 
     let apiUrls: IApiUrls = {
         production: 'https://api.hirespace.com/',
-        development: 'https://stagingmongoapi.hirespace.com/',
+        development: 'http://stagingmongoapi.hirespace.com/',
         test: 'http://api.hirespace.dev/'
     };
 

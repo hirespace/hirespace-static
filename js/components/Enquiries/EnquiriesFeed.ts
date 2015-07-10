@@ -73,7 +73,8 @@ module hirespace {
                 let stage = $(e.currentTarget).attr('stage');
 
                 this.updatePagination(enquiriesFeedStages[stage]);
-                this.renderView(stage, false, () => {}, true);
+                this.renderView(stage, false, () => {
+                }, true);
             });
         }
 
@@ -98,8 +99,6 @@ module hirespace {
         }
 
         renderView(toStage: string, updateCounts?: boolean, callback?: Function, append?: boolean) {
-            hirespace.Logger.debug('Feed view rendered');
-
             if (updateCounts) {
                 this.updateStageCounts();
             }
