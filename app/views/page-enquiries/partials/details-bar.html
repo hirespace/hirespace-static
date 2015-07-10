@@ -36,13 +36,17 @@
         <li class="budget">
             <a href="" class="is-hidden"><i class="fa fa-pencil"></i> Edit</a>
             <i class="fa fa-gbp"></i>
-            <strong hs-bind="bookingData.budget">Budget</strong>
+            <strong class="hide" hs-class="show-inline: bookingData.budget == 0">N/A</strong>
+            <strong hs-class="is-hidden: bookingData.budget == 0" hs-bind="bookingData.budget">N/A</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="people">
             <a href="" class="is-hidden"><i class="fa fa-pencil"></i> Edit</a>
             <i class="fa fa-user"></i>
-            <strong hs-bind="bookingData.people">Number of People</strong> people
+            <strong class="hide" hs-class="show-inline: bookingData.people == 0">N/A</strong>
+            <span hs-class="is-hidden: bookingData.people == 0">
+                <strong hs-bind="bookingData.people">N/A</strong> people
+            </span>
         </li>
         <li class="separator"><span></span></li>
         <li class="time">
