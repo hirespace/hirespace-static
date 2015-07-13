@@ -311,9 +311,40 @@
             width: 1px
             background: $color-grey-75
 
-    +respond-to-size($screen-sm)
+    .thank-you-message
+      @extend .text-center
+
+      display: none
+      height: $quadruple-unit-layout + $half-unit-layout
+      line-height: $quadruple-unit-layout + $half-unit-layout
+
+      img, strong
+        display: inline-block
+        vertical-align: middle
+
+      img
+        margin-right: $half-unit-layout
+        max-width: $double-unit-layout + $half-unit-layout
+        max-height: $double-unit-layout + $half-unit-layout
+
+      strong
+        font:
+          size: rem(15px)
+
+    +respond-to-size($screen-lg)
       height: auto
 
+      .thank-you-message
+        padding: $base-unit-layout 0
+        height: auto
+        line-height: 1.5
+
+    +respond-to-size($screen-md)
+        img
+          display: block
+          margin: 0 auto $base-unit-layout
+
+    +respond-to-size($screen-sm)
       ul
         height: auto
         display: block
@@ -335,26 +366,6 @@
             width: 50%
             border-bottom: 1px solid $color-grey-75
 
-    .thank-you-message
-      @extend .text-center
-
-      display: none
-      height: $quadruple-unit-layout + $half-unit-layout
-      line-height: $quadruple-unit-layout + $half-unit-layout
-
-      img, strong
-        display: inline-block
-        vertical-align: middle
-
-      img
-        margin-right: $half-unit-layout
-        max-width: $double-unit-layout + $half-unit-layout
-        max-height: $double-unit-layout + $half-unit-layout
-
-      strong
-        font:
-          size: rem(15px)
-
   .customer-details
     .message
       p:first-letter
@@ -374,6 +385,9 @@
           position: center center
           repeat: no-repeat
           size: cover
+          
+      +respond-to-size($screen-md)
+        margin-bottom: $base-unit-layout
 
       .details
         float: left
@@ -412,7 +426,7 @@
       border: 0
 
     &.customer-contact-details
-      @extend .text-right
+      //@extend .text-right
 
       margin: 0
       padding: $double-half-unit-layout 0
@@ -434,42 +448,26 @@
           size: rem(20px)
           weight: 500
 
-        &.customer-name
-          float: left
-
-          span
-            position: relative
-            top: -(rem(8px))
-            text-transform: capitalize
-
-          small
-            +ellipsis
-
-            left: 0
-            bottom: -(rem(8px))
-            position: absolute
-            text-transform: capitalize
-            font:
-              size: rem(12px)
-              weight: 500
-
-      +respond-to-size($screen-md)
-        text-align: left
-
-        strong.customer-name
+      .customer-name-company
+        strong, small
           display: block
-          float: none
-          margin-bottom: $half-unit-layout
+          text-transform: capitalize
 
-          span
-            top: auto
+      .customer-tel-email
+        text-align: right
+        margin-top: $half-unit-layout
 
-          small
-            position: relative
-            bottom: auto
-            left: auto
+        span
+          &:last-of-type
+            strong
+              margin-right: 0
 
-      //+respond-to-size($screen-sm)
+          +respond-to-size($screen-sm)
+            display: block
+            padding-top: $half-unit-layout
+
+        +respond-to-size($screen-lg)
+          text-align: left
 
     &.venue-manager-actions
       .update-hirespace
