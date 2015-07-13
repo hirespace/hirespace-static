@@ -84,14 +84,14 @@ module hirespace.specs {
 
         it('it should have a method updating the progressBar UI', () => {
             let updateProgressBarDefault = controller.updateProgressBar();
-            let updateProgressBar = controller.updateProgressBar('In Progress');
+            let updateProgressBar = controller.updateProgressBar('Needs Archiving');
 
-            controller.bookingData.stage.name = 'Needs Archiving';
+            controller.bookingData.stage.name = 'Archived';
             let updateProgressBarOutside = controller.updateProgressBar();
 
-            expect(updateProgressBarDefault).toEqual('new');
-            expect(updateProgressBar).toEqual('in-progress');
-            expect(updateProgressBarOutside).toEqual('needs-archiving');
+            expect(updateProgressBarDefault).toEqual('in-progress');
+            expect(updateProgressBar).toEqual('needs-archiving');
+            expect(updateProgressBarOutside).toEqual('archived');
         });
 
         it('should update the bookingData when update has been triggered', () => {
@@ -112,7 +112,7 @@ module hirespace.specs {
         it('should successfully parse booking data', () => {
             let bookingData = controller.bookingData;
 
-            expect(bookingData.customer.firstName).toEqual('Louise');
+            expect(bookingData.customer.firstName).toEqual('Valerie');
             expect(bookingData.customer.company).toEqual('No Company Name');
         });
     });

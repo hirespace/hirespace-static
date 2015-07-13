@@ -39,7 +39,7 @@ module hirespace.specs {
         it('should correctly assign data', () => {
             expect(controller.initStage).toEqual('New');
             expect(controller.remainingStages).toEqual(['In Progress', 'Needs Archiving', 'Archived']);
-            expect(controller.feedData.current._id).toEqual('2WscqXhWtbhwxTWhs');
+            expect(controller.feedData.current._id).toEqual('BBX54hYWFmofZYgAB');
         });
 
         it('should set the pagination correctly upon initialisation', () => {

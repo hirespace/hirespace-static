@@ -15,7 +15,6 @@
       background: $color-grey-25
       position: absolute
       height: 100%
-      overflow-y: scroll
       border-right: 1px solid $color-grey-75
 
       &.active
@@ -80,6 +79,13 @@
 
       > ul
         @extend .unstyled
+
+        position: absolute
+        left: 0
+        top: 0
+        width: 100%
+        height: 100%
+        overflow: visible
 
         > li
           +transition(background .25s)

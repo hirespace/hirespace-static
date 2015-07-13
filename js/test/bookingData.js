@@ -1,34 +1,34 @@
 var initBookingData = {
-    "_id": "2WscqXhWtbhwxTWhs",
-    "budget": 150,
+    "_id": "BBX54hYWFmofZYgAB",
+    "budget": 120,
     "customer": {
-        "_id": "pyzp6XLfzXe74oNZS",
-        "phone": "02074231061",
-        "name": "Louise Oakley",
-        "email": "louise.oakley@alzheimers.org.uk"
+        "_id": "fhujvLKi5ciQAy4g3",
+        "name": "Valerie Selman",
+        "mobile": "447801721181",
+        "email": "mail@valerieselman.plus.com",
+        "phone": "0208 416 3655"
     },
     "date": {
-        "startdate": "2015-06-16T10:00:00.000Z"
+        "flexible": false,
+        "startdate": "07/06/2015"
     },
-    "guid": "9ab2da75-a152-4ef8-a953-70c737e39ea5",
-    "message": "Team meeting - 8 people, just discussions.\r\nFrom a charity - Alzheimers Society so any discounts much appreciated.",
-    "people": 8,
+    "message": "Looking for a space to hold regular dance classes, preferably three times a week but is flexible - keen to speak and discuss whatever availability you have. Will need the space from 6pm-10pm, needs to be at least 8.5m x 8.5m. We&#39;d like to start from w/c 8th June.",
+    "people": "",
     "stage": {
-        "name": "New"
+        "name": "In Progress"
     },
-    "status": "pending",
-    "suggestedCriteria": {
-        "people": 20
-    },
+    "status": "Pending",
     "time": {
-        "finishtime": "16:00",
-        "starttime": "10:00"
+        "finishtime": "",
+        "flexible": false,
+        "starttime": ""
     },
-    "timeToFollowUp": "2015-07-08T10:08:16.643Z",
+    "timeToFollowUp": "24 July 15",
     "venue": {
-        "manager": "Workspace ",
-        "name": "Pill Box",
-        "spaceName": "Allen"
+        "manager": "William Swanell",
+        "name": "The Venue @ Pimlico Academy",
+        "spaceName": "Dance and Drama Studio (Small)"
     },
-    "word": "Alzheimers Society Meeting"
+    "word": "Dance Classes",
+    "guid": "79c62b0f-6b32-42ed-a65d-29ebb4f9a25c"
 };
