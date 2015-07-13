@@ -220,6 +220,7 @@
     $details-bar-height: $quadruple-unit-layout + $half-unit-layout
 
     height: $details-bar-height + rem(2px)
+    height: auto
     background: $color-grey-25
     border-top: 1px solid $color-grey-75
     border-bottom: 1px solid $color-grey-75
@@ -319,8 +320,10 @@
       @extend .text-center
 
       display: none
-      height: $quadruple-unit-layout + $half-unit-layout
-      line-height: $quadruple-unit-layout + $half-unit-layout
+      padding: $base-unit-layout 0
+      line-height: 1.5
+      //height: $quadruple-unit-layout + $half-unit-layout
+      //line-height: $quadruple-unit-layout + $half-unit-layout
 
       img, strong
         display: inline-block
@@ -335,18 +338,10 @@
         font:
           size: rem(15px)
 
-    +respond-to-size($screen-lg)
-      height: auto
-
-      .thank-you-message
-        padding: $base-unit-layout 0
-        height: auto
-        line-height: 1.5
-
     +respond-to-size($screen-md)
-        img
-          display: block
-          margin: 0 auto $base-unit-layout
+      img
+        display: block
+        margin: 0 auto $base-unit-layout
 
     +respond-to-size($screen-sm)
       ul
@@ -389,7 +384,7 @@
           position: center center
           repeat: no-repeat
           size: cover
-          
+
       +respond-to-size($screen-md)
         margin-bottom: $base-unit-layout
 
@@ -454,6 +449,8 @@
 
       .customer-name-company
         strong, small
+          +ellipsis
+
           display: block
           text-transform: capitalize
 

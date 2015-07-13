@@ -129,16 +129,16 @@ module hirespace {
                     if (append) {
                         this.feedData.enquiries = this.feedData.enquiries.concat(data.enquiries);
                     } else {
-                        if (this.feedData.current.stage == toStage) {
+                        //if (this.feedData.current.stage !== toStage) {
                             data.enquiries.unshift(this.feedData.current);
-                        }
+                        //}
 
                         this.feedData.enquiries = data.enquiries;
                     }
 
-                    if (this.feedData.current.stage == toStage) {
+                    //if (this.feedData.current.stage == toStage) {
                         this.feedData.current.stage = toStage;
-                    }
+                    //}
 
                     this.feedData.current.openStage = toStage;
                     this.feedData.remaining = data.remaining;
