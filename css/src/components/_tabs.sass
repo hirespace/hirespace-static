@@ -38,3 +38,13 @@
       span
         font:
           weight: 700
+
+  +respond-to-size($screen-md)
+    display: block
+
+    > li
+      display: block
+      border-right: 0
+      border-bottom: 1px solid $color-grey-100
+
+      //&:last-of-type
