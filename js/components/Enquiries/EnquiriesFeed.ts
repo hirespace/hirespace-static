@@ -25,6 +25,7 @@ module hirespace {
         eventdate: string;
         guid: string;
         stage: string;
+        openStage: string;
         venueName: string;
         word: string;
     }
@@ -59,6 +60,7 @@ module hirespace {
                     eventdate: bookingData.date.startdate,
                     guid: bookingData.guid,
                     stage: bookingData.stage.name,
+                    openStage: bookingData.stage.name,
                     venueName: bookingData.venue.name,
                     word: bookingData.word
                 },
@@ -75,6 +77,12 @@ module hirespace {
                 this.updatePagination(enquiriesFeedStages[stage]);
                 this.renderView(stage, false, () => {
                 }, true);
+            });
+
+            $('nav.enquiries-feed li.stage').click((e) => {
+                let stage = $(e.currentTarget).attr('stage');
+
+                this.renderView(stage, false);
             });
         }
 
@@ -121,12 +129,18 @@ module hirespace {
                     if (append) {
                         this.feedData.enquiries = this.feedData.enquiries.concat(data.enquiries);
                     } else {
-                        data.enquiries.unshift(this.feedData.current);
+                        if (this.feedData.current.stage == toStage) {
+                            data.enquiries.unshift(this.feedData.current);
+                        }
 
                         this.feedData.enquiries = data.enquiries;
                     }
 
-                    this.feedData.current.stage = toStage;
+                    if (this.feedData.current.stage == toStage) {
+                        this.feedData.current.stage = toStage;
+                    }
+
+                    this.feedData.current.openStage = toStage;
                     this.feedData.remaining = data.remaining;
 
                     hirespace.View.updateView(this, 'nav.enquiries-feed');
