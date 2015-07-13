@@ -17,15 +17,22 @@
 
         <section class="customer-contact-details" hs-class="is-hidden: bookingData.stage.name == 'New'">
             <div class="container-narrow">
-                <!--<i class="fa fa-user"></i>-->
-                <strong class="customer-name">
-                    <span hs-bind="bookingData.customer.name">Customer Name</span>
-                    <small hs-bind="bookingData.customer.company">Customer Company</small>
-                </strong>
-                <i class="fa fa-phone"></i>
-                <strong hs-bind="bookingData.customer.phone">Telephone Number</strong>
-                <i class="fa fa-envelope-o"></i>
-                <strong hs-bind="bookingData.customer.email">Email Address</strong>
+                <div class="row">
+                    <div class="col-lg-4 customer-name-company">
+                        <strong hs-bind="bookingData.customer.name">Customer Name</strong>
+                        <small hs-bind="bookingData.customer.company">Customer Company</small>
+                    </div>
+                    <div class="col-lg-8 customer-tel-email">
+                        <span>
+                            <i class="fa fa-phone"></i>
+                            <strong hs-bind="bookingData.customer.phone">Telephone Number</strong>
+                        </span>
+                        <span>
+                            <i class="fa fa-envelope-o"></i>
+                            <strong hs-bind="bookingData.customer.email">Email Address</strong>
+                        </span>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -33,7 +40,7 @@
 
         <main class="customer-details container-narrow padding-top-double"
               hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving'">
-            <aside class="hide customer col-sm-4" hs-class="is-visible: bookingData.stage.name == 'New'">
+            <aside class="hide customer col-md-4" hs-class="is-visible: bookingData.stage.name == 'New'">
                 <div class="avatar-anonymous"></div>
 
                 <div class="details">
@@ -42,7 +49,7 @@
                 </div>
             </aside>
 
-            <aside class="message" hs-class="col-sm-8: bookingData.stage.name == 'New'">
+            <aside class="message" hs-class="col-md-8: bookingData.stage.name == 'New'">
                 <p hs-bind="bookingData.message">Message</p>
             </aside>
         </main>
