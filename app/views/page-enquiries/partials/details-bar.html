@@ -2,9 +2,9 @@
     <div class="thank-you-message container-narrow"
          hs-class="is-visible: bookingData.stage.option == 'confirmed' || bookingData.stage.option == 'closed' || bookingData.stage.name == 'Archived'">
         <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
-        <strong hs-class="is-hidden: bookingData.stage.option == 'closed' || bookingData.status == 'lost'">Wohoo! Thanks for letting us know that <span
-                hs-bind="bookingData.customer.name">Customer Name</span>'s
-            enquiry has been confirmed.</strong>
+        <strong hs-class="is-hidden: bookingData.stage.option == 'closed' || bookingData.status == 'lost'">
+            Wohoo! Great to see that <span hs-bind="bookingData.customer.name">Customer Name</span>'s enquiry has been confirmed.
+        </strong>
         <strong hs-class="is-hidden: bookingData.stage.option == 'confirmed' || bookingData.status == 'won'"><span
                 hs-bind="bookingData.customer.name">Customer Name</span>'s enquiry has been
             closed.</strong>
