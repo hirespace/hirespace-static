@@ -11,7 +11,13 @@
             <header>
                 <h1><strong hs-bind="bookingData.word">Word</strong> at <span
                         hs-bind="bookingData.venue.name">Venue</span></h1>
-                <small class="label stage" hs-bind="bookingData.stage.name">Stage</small>
+                <small hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost'"
+                       class="label stage" hs-bind="bookingData.stage.name">Stage
+                </small>
+                <small class="label stage hide"
+                       hs-class="is-visible: bookingData.status == 'won' || bookingData.status == 'lost'"
+                       hs-bind="bookingData.status">Status
+                </small>
             </header>
         </div>
 
