@@ -170,12 +170,14 @@
 
                     <div class="row is-hidden" id="updateHireSpaceButtons">
                         <div class="col-md-4">
-                            <button class="large green block hs-to-step"
+                            <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                                    class="large green block hs-to-step"
                                     update="needsArchivingStatus: 'confirmed'">Confirm
                             </button>
                         </div>
                         <div class="col-md-4">
-                            <button class="large black block hs-to-step"
+                            <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                                    class="large black block hs-to-step"
                                     update="needsArchivingStatus: 'closed'">Close
                             </button>
                         </div>
