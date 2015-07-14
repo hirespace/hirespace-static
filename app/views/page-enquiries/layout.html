@@ -11,7 +11,13 @@
             <header>
                 <h1><strong hs-bind="bookingData.word">Word</strong> at <span
                         hs-bind="bookingData.venue.name">Venue</span></h1>
-                <small class="label stage" hs-bind="bookingData.stage.name">Stage</small>
+                <small hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost'"
+                       class="label stage" hs-bind="bookingData.stage.name">Stage
+                </small>
+                <small class="label stage hide"
+                       hs-class="is-visible: bookingData.status == 'won' || bookingData.status == 'lost'"
+                       hs-bind="bookingData.status">Status
+                </small>
             </header>
         </div>
 
@@ -50,7 +56,7 @@
             </aside>
 
             <aside class="message" hs-class="col-md-8: bookingData.stage.name == 'New'">
-                <p hs-bind="bookingData.message">Message</p>
+                <p hs-bind="bookingData.message">Message not supplied. Please contact customer.</p>
             </aside>
         </main>
 
@@ -58,7 +64,7 @@
                  hs-class="is-visible: bookingData.stage.option == 'confirmed' || bookingData.status == 'won'">
             <div class="container-narrow">
                 <h5 class="text-center margin-bottom-double" hs-class="is-hidden: bookingData.status == 'won'">Please
-                    confirm your spend</h5>
+                    confirm the customer's spend to archive enquiry</h5>
 
                 <div class="row confirm-spend">
                     <div class="col-md-4 hide" hs-class="is-visible: bookingData.stage.option == 'confirmed'">
@@ -170,12 +176,14 @@
 
                     <div class="row is-hidden" id="updateHireSpaceButtons">
                         <div class="col-md-4">
-                            <button class="large green block hs-to-step"
+                            <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                                    class="large green block hs-to-step"
                                     update="needsArchivingStatus: 'confirmed'">Confirm
                             </button>
                         </div>
                         <div class="col-md-4">
-                            <button class="large black block hs-to-step"
+                            <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                                    class="large black block hs-to-step"
                                     update="needsArchivingStatus: 'closed'">Close
                             </button>
                         </div>

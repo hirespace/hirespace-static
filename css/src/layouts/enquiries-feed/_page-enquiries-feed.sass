@@ -205,6 +205,7 @@
     .label
       +z-index(enquiry-status-label)
 
+      text-transform: capitalize
       position: absolute
       right: 0
       top: 50%
@@ -311,31 +312,6 @@
             width: 1px
             background: $color-grey-75
 
-    .thank-you-message
-      @extend .text-center
-
-      display: none
-      padding: $base-unit-layout 0
-      line-height: 1.5
-
-      img, strong
-        display: inline-block
-        vertical-align: middle
-
-      img
-        margin-right: $half-unit-layout
-        max-width: $double-unit-layout + $half-unit-layout
-        max-height: $double-unit-layout + $half-unit-layout
-
-      strong
-        font:
-          size: rem(15px)
-
-    +respond-to-size($screen-md)
-      img
-        display: block
-        margin: 0 auto $base-unit-layout
-
     +respond-to-size($screen-sm)
       ul
         height: auto
@@ -358,16 +334,44 @@
             width: 50%
             border-bottom: 1px solid $color-grey-75
 
+  .thank-you-message
+    @extend .text-center
+
+    display: none
+    padding: $base-unit-layout 0
+    line-height: 1.5
+    border-bottom: 1px solid $color-grey-75
+
+    img, strong
+      display: inline-block
+      vertical-align: middle
+
+    img
+      margin-right: $half-unit-layout
+      max-width: $double-unit-layout + $half-unit-layout
+      max-height: $double-unit-layout + $half-unit-layout
+
+    strong
+      font:
+        size: rem(15px)
+
+    +respond-to-size($screen-md)
+      img
+        display: block
+        margin: 0 auto $base-unit-layout
+
   .customer-details
     .message
       p:first-letter
         text-transform: capitalize
 
     .customer
-      +clearfix
+      position: relative
 
       .avatar-anonymous
-        float: left
+        position: absolute
+        left: 0
+        top: 0
         display: block
         width: $triple-unit-layout
         height: $triple-unit-layout
@@ -382,8 +386,7 @@
         margin-bottom: $base-unit-layout
 
       .details
-        float: left
-        padding: rem(4px) 0 0 $base-unit-layout
+        padding: rem(4px) 0 0 $triple-unit-layout
 
         strong, small
           +ellipsis
