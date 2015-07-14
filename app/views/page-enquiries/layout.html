@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="col-md-8">
-                        <ul class="tabs">
+                        <ul class="tabs" hs-class="disabled: bookingData.status == 'won'">
                             <li data-value="Min"
                                 hs-class="active: bookingData.stage.option.priceType == 'Min'">
                                 <span>Minimum spend</span></li>
@@ -106,9 +106,9 @@
                  hs-class="is-visible: bookingData.stage.option == 'closed' || bookingData.status == 'lost'">
             <div class="container-narrow confirm-reason-lost">
                 <h5 class="text-center margin-bottom-double" hs-class="is-hidden: bookingData.status == 'lost'">Tell
-                    Hire Space why this enquiry has been closed</h5>
+                    Hire Space why this enquiry has been closed to Archive enquiry</h5>
 
-                <ul class="tabs">
+                <ul class="tabs" hs-class="disabled: bookingData.status == 'lost'">
                     <li data-value="no-availability"
                         hs-class="active: bookingData.stage.option.reasonLost == 'no-availability'">
                         <span>No availability</span></li>
