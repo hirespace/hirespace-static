@@ -311,31 +311,6 @@
             width: 1px
             background: $color-grey-75
 
-    .thank-you-message
-      @extend .text-center
-
-      display: none
-      padding: $base-unit-layout 0
-      line-height: 1.5
-
-      img, strong
-        display: inline-block
-        vertical-align: middle
-
-      img
-        margin-right: $half-unit-layout
-        max-width: $double-unit-layout + $half-unit-layout
-        max-height: $double-unit-layout + $half-unit-layout
-
-      strong
-        font:
-          size: rem(15px)
-
-    +respond-to-size($screen-md)
-      img
-        display: block
-        margin: 0 auto $base-unit-layout
-
     +respond-to-size($screen-sm)
       ul
         height: auto
@@ -357,6 +332,32 @@
           &.location, &.date
             width: 50%
             border-bottom: 1px solid $color-grey-75
+
+  .thank-you-message
+    @extend .text-center
+
+    display: none
+    padding: $base-unit-layout 0
+    line-height: 1.5
+    border-bottom: 1px solid $color-grey-75
+
+    img, strong
+      display: inline-block
+      vertical-align: middle
+
+    img
+      margin-right: $half-unit-layout
+      max-width: $double-unit-layout + $half-unit-layout
+      max-height: $double-unit-layout + $half-unit-layout
+
+    strong
+      font:
+        size: rem(15px)
+
+    +respond-to-size($screen-md)
+      img
+        display: block
+        margin: 0 auto $base-unit-layout
 
   .customer-details
     .message
