@@ -26,9 +26,11 @@
                 <div class="row">
                     <div class="col-lg-4 customer-name-company">
                         <strong hs-bind="bookingData.customer.name">Customer Name</strong>
-                        <small hs-bind="bookingData.customer.company">Customer Company</small>
+                        <small hs-class="is-visible: bookingData.customer.company"
+                               hs-bind="bookingData.customer.company">Customer Company
+                        </small>
                     </div>
-                    <div class="col-lg-8 customer-tel-email">
+                    <div class="col-lg-8 customer-tel-email" hs-class="margin-top-half: bookingData.customer.company">
                         <span>
                             <i class="fa fa-phone"></i>
                             <strong hs-bind="bookingData.customer.phone">Telephone Number</strong>
@@ -49,9 +51,11 @@
             <aside class="hide customer col-md-4" hs-class="is-visible: bookingData.stage.name == 'New'">
                 <div class="avatar-anonymous"></div>
 
-                <div class="details">
+                <div class="details" hs-class="padding-top-quarter: bookingData.customer.company">
                     <strong hs-bind="bookingData.customer.name">Customer Name</strong>
-                    <small hs-bind="bookingData.customer.company">Customer Company</small>
+                    <small hs-class="is-visible: bookingData.customer.company"
+                           hs-bind="bookingData.customer.company">Customer Company
+                    </small>
                 </div>
             </aside>
 

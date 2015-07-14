@@ -386,12 +386,15 @@
         margin-bottom: $base-unit-layout
 
       .details
-        padding: rem(4px) 0 0 $triple-unit-layout
+        padding: rem(13px) 0 0 $triple-unit-layout
 
         strong, small
           +ellipsis
 
           display: block
+
+        small
+          display: none
 
         strong
           padding-bottom: $quarter-unit-layout
@@ -448,9 +451,11 @@
           display: block
           text-transform: capitalize
 
+        small
+          display: none
+
       .customer-tel-email
         text-align: right
-        margin-top: $half-unit-layout
 
         span
           &:last-of-type

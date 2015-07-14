@@ -224,7 +224,6 @@ module hirespace {
         // @TODO
         // refactor cruft
         static parseBookingData(bookingData: IBookingData): IBookingData {
-            bookingData.customer.company = bookingData.customer.company ? bookingData.customer.company : 'No Company Name';
             bookingData.customer.firstName = _.first(bookingData.customer.name.split(' '));
 
             return bookingData;

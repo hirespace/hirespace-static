@@ -113,7 +113,7 @@ module hirespace.specs {
             let bookingData = controller.bookingData;
 
             expect(bookingData.customer.firstName).toEqual('Valerie');
-            expect(bookingData.customer.company).toEqual('No Company Name');
+            expect(bookingData.customer.company).toBeUndefined();
         });
     });
 }
