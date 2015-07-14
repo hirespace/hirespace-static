@@ -77,7 +77,7 @@ module hirespace {
                         })
                         .retry(3)
                         .subscribe(response => {
-                            hirespace.Notification.generate('Your email was successfully sent!', 'success');
+                            hirespace.Notification.generate('Your email was successfully sent!', 'info');
                             this.resolveUpdateBookingData(updateData);
                         }, f => {
                             hirespace.Notification.generate('There was an error sending your email.', 'error');
@@ -128,7 +128,7 @@ module hirespace {
                     this.uiConfig.prevStage = this.bookingData.stage.name;
 
                     this.updateBookingData(hsResponse);
-                    hirespace.Notification.generate('Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', 'success');
+                    hirespace.Notification.generate('Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', 'info');
                 }, f => hirespace.Logger.error(f));
         }
 
