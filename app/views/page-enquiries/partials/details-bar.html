@@ -60,8 +60,11 @@
     <strong hs-class="show-inline-block: bookingData.stage.option.priceType == 'Min'">
         We'll follow up after the event has happened to record the customer's final spend.
     </strong>
-    <strong hs-class="show-inline-block: bookingData.stage.option == 'confirmed' || bookingData.status == 'won', is-hidden: bookingData.stage.option.priceType == 'Min'">
+    <strong hs-class="show-inline-block: bookingData.stage.option == 'confirmed', is-hidden: bookingData.stage.option.priceType == 'Min'">
         Wohoo! Great to see that <span hs-bind="bookingData.customer.name">Customer Name</span>'s enquiry has been confirmed.
+    </strong>
+    <strong hs-class="show-inline-block: bookingData.status == 'won', is-hidden: bookingData.stage.option.priceType == 'Min'">
+        This enquiry has been marked as confirmed.
     </strong>
     <strong hs-class="show-inline-block: bookingData.stage.option == 'closed' || bookingData.status == 'lost', is-hidden: bookingData.stage.option.priceType == 'Min'"><span
             hs-bind="bookingData.customer.name">Customer Name</span>'s enquiry has been
