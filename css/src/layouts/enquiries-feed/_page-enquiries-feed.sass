@@ -366,10 +366,12 @@
         text-transform: capitalize
 
     .customer
-      +clearfix
+      position: relative
 
       .avatar-anonymous
-        float: left
+        position: absolute
+        left: 0
+        top: 0
         display: block
         width: $triple-unit-layout
         height: $triple-unit-layout
@@ -384,8 +386,7 @@
         margin-bottom: $base-unit-layout
 
       .details
-        float: left
-        padding: rem(4px) 0 0 $base-unit-layout
+        padding: rem(4px) 0 0 $triple-unit-layout
 
         strong, small
           +ellipsis
