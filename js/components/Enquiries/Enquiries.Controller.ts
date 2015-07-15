@@ -1,5 +1,4 @@
-declare
-var filepicker: {
+declare var filepicker: {
     setKey: Function;
     pickMultiple: Function;
 };
@@ -7,8 +6,7 @@ var filepicker: {
 module hirespace {
     'use strict';
 
-    declare
-    var initBookingData: IBookingData;
+    declare var initBookingData: IBookingData;
 
     interface IUiConfig {
         defaultStage: string;
@@ -128,7 +126,8 @@ module hirespace {
                     this.uiConfig.prevStage = this.bookingData.stage.name;
 
                     this.updateBookingData(hsResponse);
-                    hirespace.Notification.generate('Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', 'info');
+                    hirespace.Notification.generate(updateData.timeToFollowUp ?
+                        'Thanks for letting us know the enquiry is still pending. We\'ll follow up again in two weeks.' : 'Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', 'info');
                 }, f => hirespace.Logger.error(f));
         }
 
