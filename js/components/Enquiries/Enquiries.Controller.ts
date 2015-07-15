@@ -211,7 +211,7 @@ module hirespace {
             this.bookingData.guid = this.guid;
 
             this.updateUi();
-            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true);
+            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true, () => {}, false, true);
         }
 
         updateUi() {

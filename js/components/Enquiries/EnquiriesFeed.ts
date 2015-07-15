@@ -28,7 +28,6 @@ module hirespace {
         priceType?: string;
         stage: string | IArchived;
         status?: string;
-        openStage: string;
         venueName: string;
         word: string;
     }
@@ -37,6 +36,7 @@ module hirespace {
         count: IStageCounts;
         current: ITemplateData;
         enquiries: Array<ITemplateData>;
+        openStage: string;
         remaining: number;
         pagination: {
             [name: string]: {
@@ -62,12 +62,12 @@ module hirespace {
                     customerName: bookingData.customer.name,
                     eventdate: bookingData.date.startdate,
                     guid: bookingData.guid,
-                    openStage: bookingData.stage.name,
                     stage: bookingData.stage.name,
                     venueName: bookingData.venue.name,
                     word: bookingData.word
                 },
                 enquiries: [],
+                openStage: bookingData.stage.name,
                 remaining: 0,
                 pagination: {}
             };
@@ -118,7 +118,7 @@ module hirespace {
             this.feedData.pagination[stage].page = this.feedData.pagination[stage].page + 1;
         }
 
-        renderView(toStage: string, updateCounts?: boolean, callback?: Function, append?: boolean) {
+        renderView(toStage: string, updateCounts?: boolean, callback?: Function, append?: boolean, updateStage?: boolean) {
             if (updateCounts) {
                 this.updateStageCounts();
             }
@@ -138,22 +138,22 @@ module hirespace {
                     // Marks as the current enquiry
                     this.feedData.current.current = true;
 
+                    if (updateStage) {
+                        this.feedData.current.stage = toStage;
+                    }
+
                     if (append) {
                         this.feedData.enquiries = this.feedData.enquiries.concat(data.enquiries);
                     } else {
-                        //if (this.feedData.current.stage !== toStage) {
-                        data.enquiries.unshift(this.feedData.current);
-                        //}
+                        if (this.feedData.current.stage == toStage) {
+                            data.enquiries.unshift(this.feedData.current);
+                        }
 
                         this.feedData.enquiries = data.enquiries;
                     }
 
-                    //if (this.feedData.current.stage == toStage) {
-                    this.feedData.current.stage = toStage;
-                    //}
-
-                    this.feedData.current.openStage = toStage;
                     this.feedData.remaining = data.remaining;
+                    this.feedData.openStage = toStage;
 
                     hirespace.View.updateView(this, 'nav.enquiries-feed');
 
@@ -189,10 +189,10 @@ module hirespace {
 
             let callback: Function = (): void => {
                 Rx.Observable.from(this.remainingStages)
-                    .map(stage => this.renderView(stage));
+                    .map(stage => this.renderView(stage, false));
             };
 
-            this.renderView(this.initStage, false, callback);
+            this.renderView(this.initStage, false, callback, false, true);
         }
     }
 }
