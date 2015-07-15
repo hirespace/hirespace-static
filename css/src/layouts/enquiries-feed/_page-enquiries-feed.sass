@@ -23,7 +23,6 @@
       .toggle-enquiries-feed
         $toggle-box-size: $double-unit-layout * 1.5
 
-        //+z-index(toggle-enquiries-feed)
         @extend .text-center
 
         display: none
@@ -170,6 +169,15 @@
                   color: $color-grey-500
                   font:
                     size: rem(12px)
+
+                  &.archived-data
+                    .label
+                      margin-right: $quarter-unit-layout
+                      padding: rem(4px) rem(6px)
+                      line-height: 1
+                      text-transform: capitalize
+                      font:
+                        size: rem(11px)
 
                 &:last-of-type
                   border: 0

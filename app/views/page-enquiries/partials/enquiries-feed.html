@@ -84,8 +84,16 @@
                         <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
                         <small>
                             <span hs-bind="data.venueName">No Venue Name</span> &bull;
-                            <span hs-bind="data.budget | pounds">No Budget</span> &bull;
                             <span hs-bind="data.eventdate | date">No Event Date</span>
+                        </small>
+                        <small class="archived-data">
+                            <span class="label" hs-bind="data.status">Status</span>
+                            <span hs-class="is-hidden: data.status == 'lost'">
+                                <span hs-bind="data.price | pounds">Price</span>
+                            </span>
+                            <span hs-class="is-hidden: data.status == 'lost'">
+                                (<span hs-bind="data.priceType">Price Type</span>)
+                            </span>
                         </small>
                     </a>
                 </li>

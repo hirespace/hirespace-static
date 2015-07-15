@@ -24,7 +24,10 @@ module hirespace {
         // make eventDate?
         eventdate: string;
         guid: string;
-        stage: string;
+        price?: number;
+        priceType?: string;
+        stage: string | IArchived;
+        status?: string;
         openStage: string;
         venueName: string;
         word: string;
@@ -59,8 +62,8 @@ module hirespace {
                     customerName: bookingData.customer.name,
                     eventdate: bookingData.date.startdate,
                     guid: bookingData.guid,
-                    stage: bookingData.stage.name,
                     openStage: bookingData.stage.name,
+                    stage: bookingData.stage.name,
                     venueName: bookingData.venue.name,
                     word: bookingData.word
                 },
@@ -68,6 +71,15 @@ module hirespace {
                 remaining: 0,
                 pagination: {}
             };
+
+            if (bookingData.stage.name == 'Archived') {
+                this.feedData.current.status = bookingData.status;
+
+                if (bookingData.stage.options) {
+                    this.feedData.current.price = bookingData.stage.options.price;
+                    this.feedData.current.priceType = bookingData.stage.options.priceType;
+                }
+            }
 
             this.initView();
 
@@ -130,14 +142,14 @@ module hirespace {
                         this.feedData.enquiries = this.feedData.enquiries.concat(data.enquiries);
                     } else {
                         //if (this.feedData.current.stage !== toStage) {
-                            data.enquiries.unshift(this.feedData.current);
+                        data.enquiries.unshift(this.feedData.current);
                         //}
 
                         this.feedData.enquiries = data.enquiries;
                     }
 
                     //if (this.feedData.current.stage == toStage) {
-                        this.feedData.current.stage = toStage;
+                    this.feedData.current.stage = toStage;
                     //}
 
                     this.feedData.current.openStage = toStage;
@@ -148,7 +160,7 @@ module hirespace {
                     let target = $('nav.enquiries-feed .sub ul.' + enquiriesFeedStages[toStage]);
 
                     // @TODO
-                    // this will work without calling it from outside an randomly, perhaps it should work as part of
+                    // this will work without calling it from outside and randomly, perhaps it should work as part of
                     // View.updateView()
                     let HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), this.feedData.enquiries);
                     HsRepeat.updateView(target);

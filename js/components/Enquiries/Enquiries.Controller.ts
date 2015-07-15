@@ -207,7 +207,6 @@ module hirespace {
         updateBookingData(newData: IBookingData) {
             hirespace.Logger.debug('New Booking Data loaded');
 
-            ko.mapping.fromJS(newData, this.bookingDataObservable);
             this.bookingData = newData;
             this.bookingData.guid = this.guid;
 
