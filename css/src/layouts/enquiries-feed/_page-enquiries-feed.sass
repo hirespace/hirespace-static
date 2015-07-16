@@ -360,14 +360,20 @@
         font:
           weight: 700
 
-    img, strong
+    .avatar-anonymous, strong
       display: inline-block
       vertical-align: middle
 
-    img
+    .avatar-anonymous
       margin-right: $half-unit-layout
-      max-width: $double-unit-layout + $half-unit-layout
-      max-height: $double-unit-layout + $half-unit-layout
+      width: $double-unit-layout + $half-unit-layout
+      height: $double-unit-layout + $half-unit-layout
+      background:
+        color: transparent
+        image: url('#{$image-base}/dummy/avatar-anonymous.png')
+        position: center center
+        repeat: no-repeat
+        size: cover
 
     strong
       display: none
