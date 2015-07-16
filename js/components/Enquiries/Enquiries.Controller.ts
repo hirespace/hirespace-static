@@ -1,4 +1,5 @@
-declare var filepicker: {
+declare
+var filepicker: {
     setKey: Function;
     pickMultiple: Function;
 };
@@ -6,7 +7,8 @@ declare var filepicker: {
 module hirespace {
     'use strict';
 
-    declare var initBookingData: IBookingData;
+    declare
+    var initBookingData: IBookingData;
 
     interface IUiConfig {
         defaultStage: string;
@@ -115,6 +117,11 @@ module hirespace {
 
                 this.resolveUpdateBookingData(updateData);
             });
+
+            $('#showFullMessage').click((e) => {
+                $(e.target).html(($(e.target).html() == 'Show more') ? 'Show less' : 'Show more');
+                $('#showFullMessageContainer').toggleClass('show-all');
+            });
         }
 
         resolveUpdateBookingData(updateData: any) {
@@ -211,7 +218,8 @@ module hirespace {
             this.bookingData.guid = this.guid;
 
             this.updateUi();
-            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true, () => {}, false, true);
+            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true, () => {
+            }, false, true);
         }
 
         updateUi() {
@@ -223,6 +231,11 @@ module hirespace {
         // refactor cruft
         static parseBookingData(bookingData: IBookingData): IBookingData {
             bookingData.customer.firstName = _.first(bookingData.customer.name.split(' '));
+
+            let messageWords = bookingData.message ? bookingData.message.match(/(\w+)/g) : [];
+            // @TODO
+            // abstract into a config
+            bookingData.messageExceedsLimit = messageWords.length > 85;
 
             return bookingData;
         }

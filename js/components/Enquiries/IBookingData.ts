@@ -79,6 +79,7 @@ module hirespace {
         date: IDate;
         guid: string;
         message: string;
+        messageExceedsLimit?: boolean;
         people: number;
         stage: IBookingStage;
         status: string;

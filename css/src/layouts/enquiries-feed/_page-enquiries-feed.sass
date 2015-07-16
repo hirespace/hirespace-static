@@ -371,8 +371,22 @@
 
   .customer-details
     .message
-      p:first-letter
-        text-transform: capitalize
+      p
+        margin: 0
+
+        &.show-more
+          height: rem(100px)
+          overflow: hidden
+          margin-bottom: $base-unit-layout
+
+          &.show-all
+            height: auto
+
+        &:first-letter
+          text-transform: capitalize
+
+      button
+        width: 100%
 
     .customer
       position: relative
