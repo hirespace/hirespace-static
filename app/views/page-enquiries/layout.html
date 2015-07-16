@@ -11,11 +11,11 @@
             <header>
                 <h1><strong hs-bind="bookingData.word">Word</strong> at <span
                         hs-bind="bookingData.venue.name">Venue</span></h1>
-                <small hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost'"
+                <small hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost' || bookingData.status == 'void'"
                        class="label stage" hs-bind="bookingData.stage.name">Stage
                 </small>
                 <small class="label stage hide"
-                       hs-class="is-visible: bookingData.status == 'won' || bookingData.status == 'lost'"
+                       hs-class="is-visible: bookingData.status == 'won' || bookingData.status == 'lost' || bookingData.status == 'void'"
                        hs-bind="bookingData.status">Status
                 </small>
             </header>
@@ -205,7 +205,7 @@
             </div>
         </section>
 
-        <section hs-class="is-hidden: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress'">
+        <section hs-class="is-hidden: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.status == 'void'">
             <div class="internal-note container-narrow">
                 <button class="flat-grey large block hs-to-step"
                         update="reopen: true">

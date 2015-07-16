@@ -91,7 +91,7 @@ module hirespace {
                     switch (updateData.status) {
                         case 'won':
                             updateData.priceType = $('.confirm-spend .tabs .active').attr('data-value');
-                            updateData.price = _.parseInt($('.confirm-spend input').val());
+                            updateData.price = _.parseInt($('.confirm-spend input').val().replace(/£/g, ''));
                             break;
                         case 'lost':
                             updateData.reasonLost = $('.confirm-reason-lost .tabs .active').attr('data-value');
@@ -105,7 +105,7 @@ module hirespace {
                     // error handling using the UI - notifications
                     _.forEach(updateData, (value, key) => {
                         if (!value) {
-                            hirespace.Logger.error('The value of ' + key + ' is empty', true);
+                            hirespace.Logger.error('The value of ' + key + ' is invalid or empty', true);
                             errors.push(key);
                         }
                     });
@@ -219,7 +219,7 @@ module hirespace {
 
             this.updateUi();
             this.EnquiriesFeed.renderView(this.bookingData.stage.name, true, () => {
-            }, false, true);
+            }, false, this.bookingData);
         }
 
         updateUi() {
@@ -231,6 +231,7 @@ module hirespace {
         // refactor cruft
         static parseBookingData(bookingData: IBookingData): IBookingData {
             bookingData.customer.firstName = _.first(bookingData.customer.name.split(' '));
+            //bookingData.stage.options.price;
 
             let messageWords = bookingData.message ? bookingData.message.match(/(\w+)/g) : [];
             // @TODO

@@ -54,11 +54,16 @@
     </ul>
 </div>
 
+<div class="thank-you-message voided" hs-class="is-visible: bookingData.status == 'void'">
+    Woops! This enquiry has been voided. Please contact
+    <a href="mailto:janina@hirespace.com">janina@hirespace.com</a> for more details.
+</div>
+
 <div class="thank-you-message"
-     hs-class="is-visible: bookingData.stage.option == 'confirmed' || bookingData.stage.option == 'closed' || bookingData.stage.name == 'Archived'">
+     hs-class="is-visible: bookingData.stage.option == 'confirmed' || bookingData.stage.option == 'closed' || bookingData.stage.name == 'Archived', is-hidden: bookingData.status == 'void'">
     <img src="/assets/images/dummy/avatar-anonymous.png" alt="Anonymous Avatar"/>
-    <strong hs-class="show-inline-block: bookingData.stage.option.priceType == 'Min'">
-        We'll follow up after the event has happened to record the customer's final spend.
+    <strong hs-class="show-inline-block: bookingData.stage.option.priceType == 'Min', is-hidden: bookingData.stage.option.reasonLost">
+        We will follow up after the event has happened to record the customer's final spend.
     </strong>
     <strong hs-class="show-inline-block: bookingData.stage.option == 'confirmed', is-hidden: bookingData.stage.option.priceType == 'Min'">
         Wohoo! Great to see that <span hs-bind="bookingData.customer.name">Customer Name</span>'s enquiry has been confirmed.
@@ -66,7 +71,6 @@
     <strong hs-class="show-inline-block: bookingData.status == 'won', is-hidden: bookingData.stage.option.priceType == 'Min'">
         This enquiry has been marked as confirmed.
     </strong>
-    <strong hs-class="show-inline-block: bookingData.stage.option == 'closed' || bookingData.status == 'lost', is-hidden: bookingData.stage.option.priceType == 'Min'"><span
-            hs-bind="bookingData.customer.name">Customer Name</span>'s enquiry has been
-        closed.</strong>
+    <strong hs-class="show-inline-block: bookingData.stage.option == 'closed' || bookingData.stage.option.reasonLost"><span
+            hs-bind="bookingData.customer.name">Customer Name</span>'s enquiry has been closed.</strong>
 </div>

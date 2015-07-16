@@ -32,7 +32,7 @@ module hirespace {
         // @TODO
         // change to enum?
         name: string; // New / In Progress / Needs Archiving / Archived
-        options?: IArchived; // Confirmed / Closed / Pending | IArchived
+        option?: IArchived; // Confirmed / Closed / Pending | IArchived
     }
 
     interface ICustomer {

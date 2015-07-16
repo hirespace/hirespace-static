@@ -75,9 +75,9 @@ module hirespace {
             if (bookingData.stage.name == 'Archived') {
                 this.feedData.current.status = bookingData.status;
 
-                if (bookingData.stage.options) {
-                    this.feedData.current.price = bookingData.stage.options.price;
-                    this.feedData.current.priceType = bookingData.stage.options.priceType;
+                if (bookingData.stage.option) {
+                    this.feedData.current.price = bookingData.stage.option.price;
+                    this.feedData.current.priceType = bookingData.stage.option.priceType;
                 }
             }
 
@@ -118,7 +118,7 @@ module hirespace {
             this.feedData.pagination[stage].page = this.feedData.pagination[stage].page + 1;
         }
 
-        renderView(toStage: string, updateCounts?: boolean, callback?: Function, append?: boolean, updateStage?: boolean) {
+        renderView(toStage: string, updateCounts?: boolean, callback?: Function, append?: boolean, updateStage?: any) {
             if (updateCounts) {
                 this.updateStageCounts();
             }
@@ -140,6 +140,15 @@ module hirespace {
 
                     if (updateStage) {
                         this.feedData.current.stage = toStage;
+
+                        if (updateStage.stage.name == 'Archived') {
+                            this.feedData.current.status = updateStage.status;
+
+                            if (updateStage.stage.option) {
+                                this.feedData.current.price = updateStage.stage.option.price;
+                                this.feedData.current.priceType = updateStage.stage.option.priceType;
+                            }
+                        }
                     }
 
                     if (append) {
@@ -192,7 +201,7 @@ module hirespace {
                     .map(stage => this.renderView(stage, false));
             };
 
-            this.renderView(this.initStage, false, callback, false, true);
+            this.renderView(this.initStage, false, callback, false, this.feedData.current);
         }
     }
 }
