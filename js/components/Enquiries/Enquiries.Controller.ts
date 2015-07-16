@@ -77,8 +77,8 @@ module hirespace {
                         })
                         .retry(3)
                         .subscribe(response => {
-                            hirespace.Notification.generate('Your email was successfully sent!', 'info');
-                            this.resolveUpdateBookingData(updateData);
+                            hirespace.Notification.generate('Your email was successfully sent!', 'in-progress');
+                            this.resolveUpdateBookingData(updateData, true);
                         }, f => {
                             hirespace.Notification.generate('There was an error sending your email.', 'error');
                             hirespace.Logger.error(f);
@@ -124,7 +124,7 @@ module hirespace {
             });
         }
 
-        resolveUpdateBookingData(updateData: any) {
+        resolveUpdateBookingData(updateData: any, ignoreNotification?: boolean) {
             Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
                 .retry(3)
                 .subscribe(d => {
@@ -133,8 +133,11 @@ module hirespace {
                     this.uiConfig.prevStage = this.bookingData.stage.name;
 
                     this.updateBookingData(hsResponse);
-                    hirespace.Notification.generate(updateData.timeToFollowUp ?
-                        'Thanks for letting us know the enquiry is still pending. We\'ll follow up again in two weeks.' : 'Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', 'info');
+
+                    if (!ignoreNotification) {
+                        hirespace.Notification.generate(updateData.timeToFollowUp ?
+                            'Thanks for letting us know the enquiry is still pending. We\'ll follow up again in two weeks.' : 'Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', enquiriesFeedStages[hsResponse.stage.name]);
+                    }
                 }, f => hirespace.Logger.error(f));
         }
 
