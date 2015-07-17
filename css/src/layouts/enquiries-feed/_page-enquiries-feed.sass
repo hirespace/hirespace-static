@@ -342,6 +342,17 @@
             width: 50%
             border-bottom: 1px solid $color-grey-75
 
+    +respond-to-size($screen-phone)
+      ul
+        li
+          float: none
+          width: 100% !important
+          border-left: 0
+          border-bottom: 1px solid $color-grey-75
+
+          &.time
+            border-bottom: 0
+
   .thank-you-message
     @extend .text-center
 
