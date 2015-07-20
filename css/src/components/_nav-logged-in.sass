@@ -42,7 +42,7 @@ nav.logged-in
     float: right
     display: block
     height: $nav-height
-    padding-right: $double-unit-layout
+    padding-right: $base-unit-layout
 
     .drop-down-menu
       width: rem(180px)
@@ -66,8 +66,12 @@ nav.logged-in
 
     +clearfix
 
-    padding: (($nav-height - $avatar-size) / 2) 0 0
+    padding: (($nav-height - $avatar-size) / 2) 0 0 $base-unit-layout
     float: right
+
+    .drop-down-menu
+      top: $nav-height
+      width: rem(200px)
 
     .info
       @extend .text-right
@@ -89,9 +93,10 @@ nav.logged-in
           font:
             size: rem(12px)
 
-    .drop-down
+    .settings
       @extend .text-center
 
+      padding-left: $quarter-unit-layout
       float: right
       width: $avatar-size
       height: $avatar-size
@@ -100,10 +105,6 @@ nav.logged-in
         margin: $half-unit-layout 0 0
         font:
           size: rem(25px)
-
-      .drop-down-menu
-        top: $nav-height - $base-unit-layout
-        width: rem(200px)
 
     .avatar
       +border-radius(100%)
