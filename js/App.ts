@@ -28,6 +28,8 @@ module hirespace {
 
         let controller = $('body').attr('data-ctr');
 
+        hirespace.DropDown.listen();
+
         if (controller && hirespace.App.subscriptions[controller]) {
             if (hirespace.App.knockout[controller]) {
                 ko.applyBindings(new hirespace.App.subscriptions[controller]);
