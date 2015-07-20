@@ -1,0 +1,45 @@
+.drop-down
+  position: relative
+
+  .drop-down-menu
+    @extend .text-left
+    @extend .unstyled
+
+    padding: rem(4px) 0 !important
+    position: absolute
+    background: white
+    top: 100%
+    left: 0
+    border: 1px solid $color-grey-50
+    border-top: 0
+
+    li
+      font:
+        size: rem(13px)
+
+      &.divider
+        border-top: 1px solid $color-grey-50
+        margin-top: rem(4px)
+
+        a
+          padding-top: $half-unit-layout + rem(4px)
+
+      //&:last-of-type
+      //  border-bottom: 0
+
+      .fa
+        color: $color-black
+        margin: 0 $half-unit-layout 0 0 !important
+        width: 14px
+        font:
+          size: rem(14px) !important
+
+      a
+        display: block
+        text-decoration: none
+        padding: $half-unit-layout $base-unit-layout
+
+  &.right
+    .drop-down-menu
+      right: 0
+      left: auto
