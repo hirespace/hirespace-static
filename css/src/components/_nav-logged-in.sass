@@ -35,86 +35,116 @@ nav.logged-in
       height: $nav-height
       line-height: $nav-height
 
-  ul.primary
-    +clearfix
-    @extend .unstyled
-
-    float: right
-    display: block
-    height: $nav-height
-    padding-right: $base-unit-layout
-
-    .drop-down-menu
-      width: rem(180px)
-
-    li
-      float: left
-
-      a
-        text-decoration: none
-        height: $nav-height
-        line-height: $nav-height
-        display: block
-        padding: 0 $base-unit-layout
-
-        .fa
-          color: $color-black
-          margin: 0 rem(6px) 0 0
-
-  .logged-user
-    $avatar-size: $triple-unit-layout - $half-unit-layout
-
+  .menu
     +clearfix
 
-    padding: (($nav-height - $avatar-size) / 2) 0 0 $base-unit-layout
     float: right
 
-    .drop-down-menu
-      top: $nav-height
-      width: rem(200px)
+    ul.primary
+      +clearfix
+      @extend .unstyled
 
-    .info
-      @extend .text-right
+      float: right
+      display: block
+      height: $nav-height
+      padding-right: $base-unit-layout
 
-      float: left
-      padding-top: rem(2px)
+      .drop-down-menu
+        width: rem(180px)
 
-      strong
-        display: block
-        font:
-          size: rem(15px)
+      li
+        float: left
 
-      a
-        text-decoration: none
-        color: $color-grey-500
+        a
+          text-decoration: none
+          height: $nav-height
+          line-height: $nav-height
+          display: block
+          padding: 0 $base-unit-layout
 
-        small
+          .fa
+            color: $color-black
+            margin: 0 rem(6px) 0 0
+
+    .logged-user
+      $avatar-size: $triple-unit-layout - $half-unit-layout
+
+      +clearfix
+
+      padding: (($nav-height - $avatar-size) / 2) 0 0 $base-unit-layout
+      float: right
+
+      .drop-down-menu
+        top: $nav-height
+        width: rem(200px)
+
+      .info
+        @extend .text-right
+
+        float: left
+        padding-top: rem(2px)
+
+        strong
           display: block
           font:
-            size: rem(12px)
+            size: rem(15px)
 
-    .settings
-      @extend .text-center
+        a
+          text-decoration: none
+          color: $color-grey-500
 
-      padding-left: $quarter-unit-layout
-      float: right
-      width: $avatar-size
-      height: $avatar-size
+          small
+            display: block
+            font:
+              size: rem(12px)
 
-      .fa
-        margin: $half-unit-layout 0 0
-        font:
-          size: rem(25px)
+      .settings
+        @extend .text-center
 
-    .avatar
-      +border-radius(100%)
+        padding-left: $quarter-unit-layout
+        float: right
+        width: $avatar-size
+        height: $avatar-size
 
-      margin-left: $half-unit-layout
-      float: right
-      width: $avatar-size
-      height: $avatar-size
-      background:
-        color: $color-grey-100
-        position: center center
-        repeat: no-repeat
-        size: cover
+        .fa
+          margin: $half-unit-layout 0 0
+          font:
+            size: rem(25px)
+
+      .avatar
+        +border-radius(100%)
+
+        margin-left: $half-unit-layout
+        float: right
+        width: $avatar-size
+        height: $avatar-size
+        background:
+          color: $color-grey-100
+          position: center center
+          repeat: no-repeat
+          size: cover
+        
+  +respond-to-size($screen-sm)
+    //background: red
+
+    .logo
+      width: rem(42px)
+
+    .menu
+      //position: fixed
+      //right: 0
+      //top: 0
+      //height: 100%
+      //background: black
+
+      ul.primary
+        padding-right: 0
+        li
+          a
+            span
+              display: none
+        //float: none
+
+      .logged-user
+        .info
+          display: none
