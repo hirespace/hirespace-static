@@ -3,8 +3,8 @@ $nav-height: $quadruple-unit-layout + $half-unit-layout
 nav.logged-in
   +clearfix
   +z-index(nav-logged-in)
-  
-  background: rgba(255,255,255,.95)
+
+  background: rgba(255, 255, 255, .95)
   position: fixed
   top: 0
   left: 0
@@ -123,19 +123,12 @@ nav.logged-in
           position: center center
           repeat: no-repeat
           size: cover
-        
-  +respond-to-size($screen-sm)
-    //background: red
 
+  +respond-to-size($screen-sm)
     .logo
       width: rem(42px)
 
     .menu
-      //position: fixed
-      //right: 0
-      //top: 0
-      //height: 100%
-      //background: black
 
       ul.primary
         padding-right: 0
@@ -143,7 +136,6 @@ nav.logged-in
           a
             span
               display: none
-        //float: none
 
       .logged-user
         .info
