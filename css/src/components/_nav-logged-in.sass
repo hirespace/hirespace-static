@@ -50,7 +50,7 @@ nav.logged-in
       padding-right: $base-unit-layout
 
       .drop-down-menu
-        width: rem(180px)
+        width: rem(220px)
 
       > li
         float: left
@@ -148,8 +148,21 @@ nav.logged-in
         padding-right: 0
         li
           a
+            .fa
+              margin-right: 0
+
             span
               display: none
+
+          .drop-down-menu
+            +border-radius(0)
+
+            border: 0
+            border-bottom: 1px solid $color-grey-75
+            position: fixed
+            width: 100%
+            left: 0
+            top: $nav-height
 
       .logged-user
         .info
