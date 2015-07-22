@@ -77,7 +77,7 @@ module hirespace {
                         })
                         .retry(3)
                         .subscribe(response => {
-                            hirespace.Notification.generate('Your email was successfully sent!', 'in-progress');
+                            hirespace.Notification.generate('Your Message was successfully sent. The enquiry is moved to In Progress', 'in-progress');
                             this.resolveUpdateBookingData(updateData, true);
                         }, f => {
                             hirespace.Notification.generate('There was an error sending your email.', 'error');

@@ -52,10 +52,24 @@ nav.logged-in
       .drop-down-menu
         width: rem(180px)
 
-      li
+      > li
         float: left
 
+        +hover
+          > a
+            background: $color-grey-50
+
+        &.active
+          > a
+            background: $color-hirespace
+            color: white
+
+            .fa
+              color: white
+
         a
+          +transition(background .25s)
+
           text-decoration: none
           height: $nav-height
           line-height: $nav-height
