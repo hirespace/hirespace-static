@@ -7,6 +7,23 @@
 
     +clearfix
 
+    &.no-enquiries
+      @extend .text-center
+
+      background: $color-grey-50
+      padding: $quadruple-unit-layout 0 0
+      font:
+        size: rem(30px)
+
+      .no-enquiries-container
+        display: block
+
+      nav.enquiries-feed, .enquiry-actions
+        display: none
+
+    .no-enquiries-container
+      display: none
+
     nav.enquiries-feed
       +z-index(enquiries-feed)
       +transition(left .25s)

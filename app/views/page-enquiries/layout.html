@@ -2,6 +2,20 @@
 
 <div class="layout-offset-top">
 
+    <div class="container-narrow no-enquiries-container">
+        <p class="no-enquiries">
+            You have not received any enquiries yet.
+        </p>
+
+        <footer>
+            <p>Any feedback or problems - give Nina a shout at <a
+                    href="mailto:janina@hirespace.com">janina@hirespace.com</a> or <strong>0207 099 2512</strong>.</p>
+
+            <p>&copy; 2015, Hire Space Website Limited</p>
+        </footer>
+    </div>
+
+
     {{> enquiriesFeed }}
 
     <div class="enquiry-actions">
@@ -60,10 +74,13 @@
             </aside>
 
             <aside class="message" hs-class="col-md-8: bookingData.stage.name == 'New'">
-                <p hs-bind="bookingData.message" id="showFullMessageContainer" hs-class="show-more: bookingData.messageExceedsLimit == true">
+                <p hs-bind="bookingData.message" id="showFullMessageContainer"
+                   hs-class="show-more: bookingData.messageExceedsLimit == true">
                     Message not supplied. Please contact customer.
                 </p>
-                <button class="large flat-grey hide" id="showFullMessage" hs-class="is-visible: bookingData.messageExceedsLimit == true">Show more</button>
+                <button class="large flat-grey hide" id="showFullMessage"
+                        hs-class="is-visible: bookingData.messageExceedsLimit == true">Show more
+                </button>
             </aside>
         </main>
 
@@ -205,7 +222,8 @@
             </div>
         </section>
 
-        <section hs-class="is-hidden: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.status == 'void'">
+        <section
+                hs-class="is-hidden: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.status == 'void'">
             <div class="internal-note container-narrow">
                 <button class="flat-grey large block hs-to-step"
                         update="reopen: true">
@@ -239,6 +257,7 @@
         <footer>
             <p>Any feedback or problems - give Nina a shout at <a
                     href="mailto:janina@hirespace.com">janina@hirespace.com</a> or <strong>0207 099 2512</strong>.</p>
+
             <p>&copy; 2015, Hire Space Website Limited</p>
         </footer>
     </div>
