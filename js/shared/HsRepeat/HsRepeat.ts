@@ -19,30 +19,34 @@ module hirespace {
             let scopeId = Math.random().toString(36).substring(7);
             let scopeClass = '.' + elem.parent().addClass(scopeId).attr('class').split(' ').join('.') + ' .' + elem.attr('class');
 
-            let iteratee = hirespace.HsRepeat.getIteratee(elem);
+            let iteratee = _.first(hirespace.HsRepeat.getIteratee(elem));
+            let iterateeHTML = iteratee.outerHTML;
 
             elem.html('');
 
             _.forEach(this.objectAlias[this.attrData.objectAlias], (data, key) => {
+                elem.append(iterateeHTML);
+
+                let currentElem = $(_.last(elem.children()));
+                currentElem.attr('hs-repeat-index', key);
+
+                console.log(currentElem);
+
                 let resolveObject = {};
-
-                iteratee.attr('hs-repeat-index', key);
-                let iterateeHtml = iteratee[0].outerHTML;
-
                 resolveObject[this.attrData.objectAlias] = data;
 
-                elem.append(iterateeHtml);
 
-                let current = $(elem).find('[hs-repeat-index=' + key + ']');
-                let hsBind = current.find('[hs-bind]');
+                let hsBind = currentElem.find('[hs-bind]');
+                console.log(hsBind);
 
-                if (!_.isUndefined(current.attr('hs-bind'))) {
-                    _.forEach(current, element => hirespace.HsBind.updateElem(element, resolveObject));
+
+                if (!_.isUndefined(currentElem.attr('hs-bind'))) {
+                    _.forEach(currentElem, element => hirespace.HsBind.updateElem(element, resolveObject));
                 } else {
                     _.forEach(hsBind, element => hirespace.HsBind.updateElem(element, resolveObject));
                 }
 
-                let hsHrefElem = current.find('[hs-href]');
+                let hsHrefElem = currentElem.find('[hs-href]');
 
                 if (hsHrefElem.length > 0) hirespace.HsHref.resolve(hsHrefElem, resolveObject);
 
@@ -60,7 +64,9 @@ module hirespace {
         }
 
         static getIteratee(elem: JQuery): JQuery {
-            return elem.children().first();
+            //console.log(elem.children());
+
+            return $(_.first(elem.children()));
         }
     }
 }
