@@ -10,6 +10,7 @@ module hirespace {
                     return false;
                 }
 
+                $('.drop-down-menu').removeClass('is-visible');
                 $(e.currentTarget).find('.drop-down-menu').toggleClass('is-visible');
             });
 
