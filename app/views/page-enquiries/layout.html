@@ -192,7 +192,7 @@
                 <!--+1 more-->
                 <!--</button>-->
 
-                <div class="update-hirespace hide" hs-class="is-visible: bookingData.stage.name == 'In Progress'">
+                <div class="update-hirespace hide" hs-class="is-visible: bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving', is-hidden: bookingData.stage.option">
                     <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
                             class="large flat-grey block" id="showUpdateHireSpaceButtons">
                         Show Update Hire Space buttons
@@ -223,7 +223,9 @@
         </section>
 
         <section
-                hs-class="is-hidden: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.status == 'void'">
+                hs-class="
+                hide: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.status == 'void' || bookingData.stage.name == 'Needs Archiving',
+                is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
             <div class="internal-note container-narrow">
                 <button class="flat-grey large block hs-to-step"
                         update="reopen: true">
