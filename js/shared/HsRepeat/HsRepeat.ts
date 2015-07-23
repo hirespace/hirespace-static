@@ -30,15 +30,11 @@ module hirespace {
                 let currentElem = $(_.last(elem.children()));
                 currentElem.attr('hs-repeat-index', key);
 
-                console.log(currentElem);
-
                 let resolveObject = {};
                 resolveObject[this.attrData.objectAlias] = data;
 
 
                 let hsBind = currentElem.find('[hs-bind]');
-                console.log(hsBind);
-
 
                 if (!_.isUndefined(currentElem.attr('hs-bind'))) {
                     _.forEach(currentElem, element => hirespace.HsBind.updateElem(element, resolveObject));
@@ -64,8 +60,6 @@ module hirespace {
         }
 
         static getIteratee(elem: JQuery): JQuery {
-            //console.log(elem.children());
-
             return $(_.first(elem.children()));
         }
     }
