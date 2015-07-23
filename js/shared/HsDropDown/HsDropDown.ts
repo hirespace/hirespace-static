@@ -6,12 +6,10 @@ module hirespace {
             $('.drop-down').click(e => {
                 let hasDropDownParent = $(e.target).parents().closest('.drop-down-menu');
 
-                if (hasDropDownParent.length > 0) {
-                    return false;
+                if (hasDropDownParent.length < 1) {
+                    $('.drop-down-menu').removeClass('is-visible');
+                    $(e.currentTarget).find('.drop-down-menu').toggleClass('is-visible');
                 }
-
-                $('.drop-down-menu').removeClass('is-visible');
-                $(e.currentTarget).find('.drop-down-menu').toggleClass('is-visible');
             });
 
             $('body').click(e => {
