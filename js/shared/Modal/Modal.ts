@@ -8,7 +8,7 @@ module hirespace {
             });
 
             $('.hs-modal').click(e => {
-                let toggleModalId = $(e.target).attr('hs-modal');
+                let toggleModalId = $(e.currentTarget).attr('hs-modal');
 
                 $('.modal-backdrop').removeClass('is-hidden');
                 $('#' + toggleModalId).removeClass('is-hidden');
