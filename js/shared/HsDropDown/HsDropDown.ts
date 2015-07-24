@@ -15,12 +15,9 @@ module hirespace {
             $('body').click(e => {
                 let hasDropDownParent = $(e.target).parents().closest('.drop-down');
 
-                if (hasDropDownParent.length > 0) {
-                    e.preventDefault();
-                    return false;
+                if (hasDropDownParent.length < 1) {
+                    $('.drop-down-menu').removeClass('is-visible');
                 }
-
-                $('.drop-down-menu').removeClass('is-visible');
             });
         }
     }
