@@ -2,6 +2,20 @@
 
 <div class="layout-offset-top">
 
+    <div class="container-narrow no-enquiries-container">
+        <p class="no-enquiries">
+            You have not received any enquiries yet.
+        </p>
+
+        <footer>
+            <p>Any feedback or problems - give Nina a shout at <a
+                    href="mailto:janina@hirespace.com">janina@hirespace.com</a> or <strong>0207 099 2512</strong>.</p>
+
+            <p>&copy; 2015, Hire Space Website Limited</p>
+        </footer>
+    </div>
+
+
     {{> enquiriesFeed }}
 
     <div class="enquiry-actions">
@@ -11,7 +25,13 @@
             <header>
                 <h1><strong hs-bind="bookingData.word">Word</strong> at <span
                         hs-bind="bookingData.venue.name">Venue</span></h1>
-                <small class="label stage" hs-bind="bookingData.stage.name">Stage</small>
+                <small hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost' || bookingData.status == 'void'"
+                       class="label stage" hs-bind="bookingData.stage.name">Stage
+                </small>
+                <small class="label stage hide"
+                       hs-class="is-visible: bookingData.status == 'won' || bookingData.status == 'lost' || bookingData.status == 'void'"
+                       hs-bind="bookingData.status">Status
+                </small>
             </header>
         </div>
 
@@ -20,9 +40,11 @@
                 <div class="row">
                     <div class="col-lg-4 customer-name-company">
                         <strong hs-bind="bookingData.customer.name">Customer Name</strong>
-                        <small hs-bind="bookingData.customer.company">Customer Company</small>
+                        <small hs-class="is-visible: bookingData.customer.company"
+                               hs-bind="bookingData.customer.company">Customer Company
+                        </small>
                     </div>
-                    <div class="col-lg-8 customer-tel-email">
+                    <div class="col-lg-8 customer-tel-email" hs-class="margin-top-half: bookingData.customer.company">
                         <span>
                             <i class="fa fa-phone"></i>
                             <strong hs-bind="bookingData.customer.phone">Telephone Number</strong>
@@ -43,14 +65,22 @@
             <aside class="hide customer col-md-4" hs-class="is-visible: bookingData.stage.name == 'New'">
                 <div class="avatar-anonymous"></div>
 
-                <div class="details">
+                <div class="details" hs-class="padding-top-quarter: bookingData.customer.company">
                     <strong hs-bind="bookingData.customer.name">Customer Name</strong>
-                    <small hs-bind="bookingData.customer.company">Customer Company</small>
+                    <small hs-class="is-visible: bookingData.customer.company"
+                           hs-bind="bookingData.customer.company">Customer Company
+                    </small>
                 </div>
             </aside>
 
             <aside class="message" hs-class="col-md-8: bookingData.stage.name == 'New'">
-                <p hs-bind="bookingData.message">Message</p>
+                <p hs-bind="bookingData.message" id="showFullMessageContainer"
+                   hs-class="show-more: bookingData.messageExceedsLimit == true">
+                    Message not supplied. Please contact customer.
+                </p>
+                <button class="large flat-grey hide" id="showFullMessage"
+                        hs-class="is-visible: bookingData.messageExceedsLimit == true">Show more
+                </button>
             </aside>
         </main>
 
@@ -58,7 +88,7 @@
                  hs-class="is-visible: bookingData.stage.option == 'confirmed' || bookingData.status == 'won'">
             <div class="container-narrow">
                 <h5 class="text-center margin-bottom-double" hs-class="is-hidden: bookingData.status == 'won'">Please
-                    confirm your spend</h5>
+                    confirm the customer's spend to archive enquiry</h5>
 
                 <div class="row confirm-spend">
                     <div class="col-md-4 hide" hs-class="is-visible: bookingData.stage.option == 'confirmed'">
@@ -71,7 +101,7 @@
                     </div>
 
                     <div class="col-md-8">
-                        <ul class="tabs">
+                        <ul class="tabs" hs-class="disabled: bookingData.status == 'won'">
                             <li data-value="Min"
                                 hs-class="active: bookingData.stage.option.priceType == 'Min'">
                                 <span>Minimum spend</span></li>
@@ -98,7 +128,7 @@
                 <h5 class="text-center margin-bottom-double" hs-class="is-hidden: bookingData.status == 'lost'">Tell
                     Hire Space why this enquiry has been closed</h5>
 
-                <ul class="tabs">
+                <ul class="tabs" hs-class="disabled: bookingData.status == 'lost'">
                     <li data-value="no-availability"
                         hs-class="active: bookingData.stage.option.reasonLost == 'no-availability'">
                         <span>No availability</span></li>
@@ -130,22 +160,22 @@
             <nav class="controls container-narrow">
                 <div class="row">
                     <div class="col-sm-4">
-                        <button class="green large">
-                            <span hs-modal="modalCallCustomer"></span>
+                        <button class="green large" hs-modal="modalCallCustomer">
+                            <!--<span hs-modal="modalCallCustomer"></span>-->
                             <i class="white fa fa-phone"></i>
                             Call <strong hs-bind="bookingData.customer.firstName">First Name</strong>
                         </button>
                     </div>
                     <div class="col-sm-4">
-                        <button class="green large">
-                            <span hs-modal="modalEmailCustomer"></span>
+                        <button class="green large" hs-modal="modalEmailCustomer">
+                            <!--<span hs-modal="modalEmailCustomer"></span>-->
                             <i class="white fa fa-envelope-o"></i>
                             Email <strong hs-bind="bookingData.customer.firstName">First Name</strong>
                         </button>
                     </div>
                     <div class="col-sm-4">
-                        <button class="green large">
-                            <span hs-modal="modalQuickReply"></span>
+                        <button class="green large" hs-modal="modalQuickReply">
+                            <!--<span hs-modal="modalQuickReply"></span>-->
                             <i class="white fa fa-reply"></i>
                             Quick Reply
                         </button>
@@ -162,21 +192,24 @@
                 <!--+1 more-->
                 <!--</button>-->
 
-                <div class="update-hirespace hide" hs-class="is-visible: bookingData.stage.name == 'In Progress'">
+                <div class="update-hirespace hide"
+                     hs-class="is-visible: bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving', is-hidden: bookingData.stage.option">
                     <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
                             class="large flat-grey block" id="showUpdateHireSpaceButtons">
-                        Show Update Hire Space buttons
+                        Update the Hire Space team on this enquiry
                     </button>
 
                     <div class="row is-hidden" id="updateHireSpaceButtons">
                         <div class="col-md-4">
-                            <button class="large green block hs-to-step"
-                                    update="needsArchivingStatus: 'confirmed'">Confirm
+                            <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                                    class="large green block hs-to-step"
+                                    update="needsArchivingStatus: 'confirmed'">Confirm enquiry
                             </button>
                         </div>
                         <div class="col-md-4">
-                            <button class="large black block hs-to-step"
-                                    update="needsArchivingStatus: 'closed'">Close
+                            <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
+                                    class="large black block hs-to-step"
+                                    update="needsArchivingStatus: 'closed'">Close enquiry
                             </button>
                         </div>
                         <div class="col-md-4">
@@ -190,7 +223,10 @@
             </div>
         </section>
 
-        <section hs-class="is-hidden: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress'">
+        <section
+                hs-class="
+                hide: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.status == 'void' || bookingData.stage.name == 'Needs Archiving',
+                is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
             <div class="internal-note container-narrow">
                 <button class="flat-grey large block hs-to-step"
                         update="reopen: true">
@@ -222,7 +258,10 @@
         </section>
 
         <footer>
-            &copy; 2015, Hire Space Website Limited
+            <p>Any feedback or problems - give Nina a shout at <a
+                    href="mailto:janina@hirespace.com">janina@hirespace.com</a> or <strong>0207 099 2512</strong>.</p>
+
+            <p>&copy; 2015, Hire Space Website Limited</p>
         </footer>
     </div>
 

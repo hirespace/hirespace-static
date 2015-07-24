@@ -2,8 +2,8 @@ module hirespace {
     'use strict';
 
     interface hsAttributes {
-        dynamic: Array<string>,
-        static: Array<string>
+        dynamic: Array<string>;
+        static: Array<string>;
     }
 
 

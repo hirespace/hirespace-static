@@ -1,6 +1,6 @@
 {
   "name": "hirespace-static",
-  "version": "0.0.6",
+  "version": "0.1.5",
   "homepage": "https://github.com/hirespace/hirespace-static",
   "authors": [
     "Slavomir Vojacek <slavomirvojacek@gmail.com>"
@@ -21,8 +21,6 @@
     "lodash": "~3.9.3",
     "rxjs": "~2.5.2",
     "jquery": "~2.1.4",
-    "knockout": "~3.3.0",
-    "knockout-mapping": "~2.4.1",
     "moment": "~2.10.3"
   }
 }

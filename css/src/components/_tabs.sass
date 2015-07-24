@@ -47,4 +47,13 @@
       border-right: 0
       border-bottom: 1px solid $color-grey-100
 
-      //&:last-of-type
+  &.disabled
+    > li
+      cursor: not-allowed
+
+      +hover
+        background: white
+
+      &.active
+        +hover
+          background: $color-grey-50

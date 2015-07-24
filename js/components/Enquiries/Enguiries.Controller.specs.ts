@@ -45,10 +45,6 @@ module hirespace.specs {
             expect(controller.bookingData).toEqual(initBookingData);
         });
 
-        it('should populate bookingDataObservable', () => {
-            expect(controller.bookingDataObservable).toBeDefined();
-        });
-
         it('should populate the uiConfig Object containing settings for the status bar, sections, etc', () => {
             controller.initUiConfig();
 
@@ -113,7 +109,7 @@ module hirespace.specs {
             let bookingData = controller.bookingData;
 
             expect(bookingData.customer.firstName).toEqual('Valerie');
-            expect(bookingData.customer.company).toEqual('No Company Name');
+            expect(bookingData.customer.company).toBeUndefined();
         });
     });
 }
