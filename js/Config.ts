@@ -13,9 +13,9 @@ module hirespace {
     }
 
     let apiUrls: IApiUrls = {
-        production: 'https://api.hirespace.com/',
+        production: 'https://mongoapi.hirespace.com/',
         development: 'http://stagingmongoapi.hirespace.com/',
-        test: 'http://api.hirespace.dev/'
+        test: 'http://stagingmongoapi.hirespace.com/'
     };
 
     let enquirySendEmailApi: IApiUrls = {
@@ -29,7 +29,7 @@ module hirespace {
         bookingsStages: 'enquiries/stages/'
     };
 
-    let productionHost: string = 'hirespace.com';
+    let productionHost: string = 'venues.hirespace.com';
     let testHost: string = 'localhost:6066';
 
     export class Config {
