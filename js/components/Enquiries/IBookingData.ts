@@ -22,15 +22,17 @@ module hirespace {
         [key: string]: string;
     }
 
-    interface IArchived {
+    export interface IArchived {
         price: number;
         priceType: string;
         reasonLost: string;
     }
 
     interface IBookingStage {
+        // @TODO
+        // change to enum?
         name: string; // New / In Progress / Needs Archiving / Archived
-        options?: string | IArchived; // Confirmed / Closed / Pending | IArchived
+        option?: IArchived; // Confirmed / Closed / Pending | IArchived
     }
 
     interface ICustomer {
@@ -77,8 +79,10 @@ module hirespace {
         date: IDate;
         guid: string;
         message: string;
+        messageExceedsLimit?: boolean;
         people: number;
         stage: IBookingStage;
+        status: string;
         suggestedCriteria?: ISuggestedCriteria;
         time: ITime;
         // @TODO

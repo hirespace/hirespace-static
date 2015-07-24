@@ -7,6 +7,23 @@
 
     +clearfix
 
+    &.no-enquiries
+      @extend .text-center
+
+      background: $color-grey-50
+      padding: $quadruple-unit-layout 0 0
+      font:
+        size: rem(30px)
+
+      .no-enquiries-container
+        display: block
+
+      nav.enquiries-feed, .enquiry-actions
+        display: none
+
+    .no-enquiries-container
+      display: none
+
     nav.enquiries-feed
       +z-index(enquiries-feed)
       +transition(left .25s)
@@ -23,7 +40,6 @@
       .toggle-enquiries-feed
         $toggle-box-size: $double-unit-layout * 1.5
 
-        //+z-index(toggle-enquiries-feed)
         @extend .text-center
 
         display: none
@@ -85,7 +101,8 @@
         top: 0
         width: 100%
         height: 100%
-        overflow: scroll
+        overflow-y: auto
+        overflow-x: hidden
 
         > li
           +transition(background .25s)
@@ -171,6 +188,15 @@
                   font:
                     size: rem(12px)
 
+                  &.archived-data
+                    .label
+                      margin-right: $quarter-unit-layout
+                      padding: rem(4px) rem(6px)
+                      line-height: 1
+                      text-transform: capitalize
+                      font:
+                        size: rem(11px)
+
                 &:last-of-type
                   border: 0
 
@@ -184,7 +210,7 @@
       position: absolute
       width: 100%
       height: 100%
-      overflow-y: scroll
+      overflow-y: auto
       padding-left: $left-nav-width
 
       +respond-to-size($screen-md)
@@ -205,6 +231,7 @@
     .label
       +z-index(enquiry-status-label)
 
+      text-transform: capitalize
       position: absolute
       right: 0
       top: 50%
@@ -239,7 +266,7 @@
 
         position: relative
         display: table-cell
-        height: $details-bar-height
+        //height: $details-bar-height
         line-height: $details-bar-height
         font:
           weight: 500
@@ -311,31 +338,6 @@
             width: 1px
             background: $color-grey-75
 
-    .thank-you-message
-      @extend .text-center
-
-      display: none
-      padding: $base-unit-layout 0
-      line-height: 1.5
-
-      img, strong
-        display: inline-block
-        vertical-align: middle
-
-      img
-        margin-right: $half-unit-layout
-        max-width: $double-unit-layout + $half-unit-layout
-        max-height: $double-unit-layout + $half-unit-layout
-
-      strong
-        font:
-          size: rem(15px)
-
-    +respond-to-size($screen-md)
-      img
-        display: block
-        margin: 0 auto $base-unit-layout
-
     +respond-to-size($screen-sm)
       ul
         height: auto
@@ -358,16 +360,86 @@
             width: 50%
             border-bottom: 1px solid $color-grey-75
 
+    +respond-to-size($screen-phone)
+      ul
+        li
+          float: none
+          width: 100% !important
+          border-left: 0
+          border-bottom: 1px solid $color-grey-75
+
+          &.time
+            border-bottom: 0
+
+  .thank-you-message
+    @extend .text-center
+
+    display: none
+    padding: $base-unit-layout 0
+    line-height: 1.5
+    border-bottom: 1px solid $color-grey-75
+
+    &.voided
+      padding: $double-unit-layout 0
+      background: $color-grey-800
+      color: white
+
+      a
+        color: white
+        font:
+          weight: 700
+
+    .avatar-anonymous, strong
+      display: inline-block
+      vertical-align: middle
+
+    .avatar-anonymous
+      margin-right: $half-unit-layout
+      width: $double-unit-layout + $half-unit-layout
+      height: $double-unit-layout + $half-unit-layout
+      background:
+        color: transparent
+        image: url('#{$image-base}/dummy/avatar-anonymous.png')
+        position: center center
+        repeat: no-repeat
+        size: cover
+
+    strong
+      display: none
+      font:
+        size: rem(15px)
+
+    +respond-to-size($screen-md)
+      img
+        display: block
+        margin: 0 auto $base-unit-layout
+
   .customer-details
     .message
-      p:first-letter
-        text-transform: capitalize
+      p
+        margin: 0
+
+        &.show-more
+          height: rem(100px)
+          overflow: hidden
+          margin-bottom: $base-unit-layout
+
+          &.show-all
+            height: auto
+
+        &:first-letter
+          text-transform: capitalize
+
+      button
+        width: 100%
 
     .customer
-      +clearfix
+      position: relative
 
       .avatar-anonymous
-        float: left
+        position: absolute
+        left: 0
+        top: 0
         display: block
         width: $triple-unit-layout
         height: $triple-unit-layout
@@ -382,13 +454,15 @@
         margin-bottom: $base-unit-layout
 
       .details
-        float: left
-        padding: rem(4px) 0 0 $base-unit-layout
+        padding: rem(13px) 0 0 $triple-unit-layout
 
         strong, small
           +ellipsis
 
           display: block
+
+        small
+          display: none
 
         strong
           padding-bottom: $quarter-unit-layout
@@ -445,9 +519,11 @@
           display: block
           text-transform: capitalize
 
+        small
+          display: none
+
       .customer-tel-email
         text-align: right
-        margin-top: $half-unit-layout
 
         span
           &:last-of-type
@@ -579,6 +655,8 @@
       .contact-info
         @extend .text-center
 
+        overflow-x: auto
+        overflow-y: hidden
         text-transform: lowercase
         padding: $base-unit-layout
         margin: 0

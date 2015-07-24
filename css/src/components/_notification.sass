@@ -11,6 +11,11 @@
   top: -($nav-height)
   left: 0
 
+  +respond-to-size($screen-md)
+    height: auto
+    padding: $double-half-unit-layout $base-unit-layout
+    line-height: 1.5
+
   &.active
     top: 0
 
@@ -27,7 +32,24 @@
     background: $color-alert-error
 
   main
-    +ellipsis
     @extend .text-center
 
     color: rgba(0, 0, 0, .4)
+
+  &.new
+    background: $color-black
+
+    main
+      color: white
+
+  &.in-progress
+    background: $color-green
+
+  &.needs-archiving
+    background: $color-yellow
+
+  &.archived
+    background: $color-black
+
+    main
+      color: white

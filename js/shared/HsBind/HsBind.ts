@@ -54,6 +54,9 @@ module hirespace {
                 case 'date':
                     mutation = moment(value, moment.ISO_8601, true).isValid() ? moment(value).format('MMM Do YY') : 'No date';
                     break;
+                case 'pounds':
+                    mutation = '£' + value;
+                    break;
                 default:
                     mutation = value;
                     break;

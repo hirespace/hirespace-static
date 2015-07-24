@@ -1,0 +1,55 @@
+.drop-down
+  position: relative
+  cursor: pointer
+
+  .drop-down-menu
+    +border-radius(0 0 4px 4px)
+
+    @extend .text-left
+    @extend .unstyled
+
+    max-height: 80vh
+    overflow-y: auto
+    overflow-x: hidden
+    display: none
+    padding: rem(4px) 0 !important
+    position: absolute
+    background: white
+    top: 100%
+    left: 0
+    border: 1px solid $color-grey-75
+    border-top: 0
+
+    li
+      width: 100%
+      font:
+        size: rem(13px)
+
+      &.divider
+        border-top: 1px solid $color-grey-75
+        margin-top: rem(4px)
+
+        a
+          padding-top: $half-unit-layout + rem(4px)
+
+      .fa
+        color: $color-black
+        margin: 0 $half-unit-layout 0 0 !important
+        width: 14px
+        font:
+          size: rem(14px) !important
+
+      a
+        height: auto !important
+        line-height: 1.4 !important
+        display: block
+        text-decoration: none
+        padding: $half-unit-layout $base-unit-layout !important
+
+        +hover
+          text-decoration: underline !important
+
+  &.right
+    .drop-down-menu
+      right: 0
+      left: auto
