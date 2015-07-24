@@ -19,7 +19,6 @@ module hirespace {
         private pollingFrequency: number = 30000;
 
         bookingData: IBookingData;
-        bookingDataObservable: KnockoutMapping;
         uiConfig: IUiConfig;
         EnquiriesFeed: hirespace.EnquiriesFeed;
 
@@ -147,8 +146,6 @@ module hirespace {
             hirespace.Logger.debug('Booking Data initialised from a local source');
 
             this.bookingData = hirespace.EnquiriesController.parseBookingData(initBookingData);
-            this.bookingDataObservable = ko.mapping.fromJS(this.bookingData);
-
             this.guid = this.bookingData.guid;
 
             this.updateUi();
@@ -247,5 +244,5 @@ module hirespace {
         }
     }
 
-    hirespace.App.subscribe('EnquiriesController', EnquiriesController, true);
+    hirespace.App.subscribe('EnquiriesController', EnquiriesController);
 }
