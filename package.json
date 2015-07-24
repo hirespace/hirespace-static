@@ -1,6 +1,6 @@
 {
   "name": "hirespace-static",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "description": "Hire Space static assets",
   "main": "gulpfile.js",
   "scripts": {
@@ -34,6 +34,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.1",
     "gulp-tsc": "^0.9.5",
+    "gulp-uglify": "^1.2.0",
     "hogan-express": "^0.5.2",
     "jasmine-core": "^2.3.4",
     "karma": "^0.12.36",

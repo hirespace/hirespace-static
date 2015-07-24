@@ -10,7 +10,8 @@ var autoprefixer = require('gulp-autoprefixer'),
     plumber = require('gulp-plumber'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass'),
-    typescript = require('gulp-tsc');
+    typescript = require('gulp-tsc'),
+    uglify = require('gulp-uglify');
 
 gulp.task('server', function () {
     nodemon({
@@ -100,7 +101,8 @@ function compileTsc(path, isServer) {
 
     if (isServer == false) {
         dest = src
-            .pipe(concat('app.js'));
+            .pipe(concat('app.js'))
+            .pipe(uglify());
     } else {
         dest = src;
     }
