@@ -1,31 +1,67 @@
 module hirespace.specs {
     'use strict';
 
-    declare
-    var initBookingData: IBookingData;
+    declare var initBookingData: IBookingData;
+
+    let stageResponse = {
+        "enquiries": [{
+            "_id": "pADzj3B3tTjHrhCjj",
+            "customerName": "Hannah Thompson",
+            "venueName": "Will's Studio",
+            "eventdate": "2016-07-16T00:00:00.000Z",
+            "budget": 1200,
+            "word": "Wedding Reception",
+            "status": "pending"
+        }, {
+            "_id": "wzeh5vGhhXbtzqK2z",
+            "customerName": "Hannah Thompson",
+            "venueName": "Will's Studio",
+            "eventdate": "2016-07-16T00:00:00.000Z",
+            "budget": 1200,
+            "word": "Wedding Reception",
+            "status": "pending"
+        }, {
+            "_id": "hRuGiNZkm98aMXRJD",
+            "customerName": "Helena Charlesworth",
+            "venueName": "Will's Studio",
+            "eventdate": "2015-10-13T09:00:00.000Z",
+            "budget": 3000,
+            "word": "Workshop Space",
+            "status": "pending"
+        }, {
+            "_id": "sx5Eff7tHvM5mdCdr",
+            "customerName": "Adelle hannan",
+            "venueName": "Gastrocircus",
+            "eventdate": "2015-09-12T23:00:00.000Z",
+            "budget": 500,
+            "word": "30th Birthday Party",
+            "status": "pending"
+        }, {
+            "_id": "NxXiiZiLuJhfbYBRv",
+            "customerName": "Jake O'Neill",
+            "venueName": "Gastrocircus",
+            "eventdate": "2015-06-23T09:00:00.000Z",
+            "budget": 1500,
+            "word": "Full Day Conference",
+            "status": "pending"
+        }], "remaining": 12
+    };
+    let stagesCountResponse = {"New": 0, "In Progress": 18, "Needs Archiving": 4, "Archived": 174, "Invalid": 19};
 
     describe('EnquiriesFeed module', () => {
         let controller: hirespace.EnquiriesFeed;
         let pagination: {};
 
         beforeEach(() => {
-            spyOn(Rx.Observable, 'fromPromise').and.callFake(() => {
-                return Rx.Observable.empty();
-            });
-
-            spyOn(Rx.Observable, 'from').and.callFake(() => {
-                return Rx.Observable.empty();
-            });
-
-            spyOn($, 'ajax').and.callFake((url, options): any => {
+            spyOn($, 'ajax').and.callFake((url): any => {
                 let d = $.Deferred();
 
-                switch (_.isUndefined(options.data)) {
-                    case true:
-                        d.resolve({});
+                switch (url) {
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + 'New':
+                        d.resolve(stageResponse);
                         break;
                     default:
-                        d.resolve('with data');
+                        d.resolve(stagesCountResponse);
                         break;
                 }
 
@@ -57,7 +93,7 @@ module hirespace.specs {
             let stagesCountPromise = controller.stagesCountPromise();
 
             stagesCountPromise.then((data) => {
-                expect(data).toEqual({});
+                expect(data).toEqual(stagesCountResponse);
             });
         });
 
@@ -65,7 +101,7 @@ module hirespace.specs {
             let feedDataPromise = controller.feedDataPromise('New', {page: 1, limit: 1});
 
             feedDataPromise.then((data) => {
-                expect(data).toEqual('with data');
+                expect(data).toEqual(stageResponse);
             });
         });
 

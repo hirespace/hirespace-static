@@ -33,18 +33,16 @@ module hirespace {
                 this.initBookingData();
 
                 setInterval(() => {
-                    Rx.Observable.fromPromise(this.bookingDataPromise())
-                        .retry(3)
-                        .subscribe(d => {
-                            let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
+                    this.bookingDataPromise().then(d => {
+                        let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
 
-                            if (_.isEqual(hsResponse.stage.name, this.bookingData.stage.name)) {
-                                hirespace.Logger.debug('View update skipped');
-                            } else {
-                                this.uiConfig.prevStage = this.bookingData.stage.name;
-                                this.updateBookingData(hsResponse);
-                            }
-                        }, f => hirespace.Logger.error(f));
+                        if (_.isEqual(hsResponse.stage.name, this.bookingData.stage.name)) {
+                            hirespace.Logger.debug('View update skipped');
+                        } else {
+                            this.uiConfig.prevStage = this.bookingData.stage.name;
+                            this.updateBookingData(hsResponse);
+                        }
+                    }, f => hirespace.Logger.error(f));
                 }, this.pollingFrequency);
 
                 $('#pickFiles').click((e) => {
@@ -70,18 +68,14 @@ module hirespace {
                             attachments: _.isUndefined(this.attachments) ? [] : this.attachments
                         };
 
-                        Rx.Observable.fromPromise(this.sendEmailPromise(emailData))
-                            .do(() => {
-                                hirespace.Logger.info(emailData);
-                            })
-                            .retry(3)
-                            .subscribe(response => {
-                                hirespace.Notification.generate('Your Message was successfully sent. The enquiry is moved to In Progress', 'in-progress');
-                                this.resolveUpdateBookingData(updateData, true);
-                            }, f => {
-                                hirespace.Notification.generate('There was an error sending your email.', 'error');
-                                hirespace.Logger.error(f);
-                            });
+                        this.sendEmailPromise(emailData).then(response => {
+                            hirespace.Logger.info(response);
+                            hirespace.Notification.generate('Your Message was successfully sent. The enquiry is moved to In Progress', 'in-progress');
+                            this.resolveUpdateBookingData(updateData, true);
+                        }, f => {
+                            hirespace.Notification.generate('There was an error sending your email.', 'error');
+                            hirespace.Logger.error(f);
+                        });
 
                         return false;
                     }
@@ -126,20 +120,18 @@ module hirespace {
         }
 
         resolveUpdateBookingData(updateData: any, ignoreNotification?: boolean) {
-            Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
-                .retry(3)
-                .subscribe(d => {
-                    let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
+            this.updateBookingDataPromise(updateData).then(d => {
+                let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
 
-                    this.uiConfig.prevStage = this.bookingData.stage.name;
+                this.uiConfig.prevStage = this.bookingData.stage.name;
 
-                    this.updateBookingData(hsResponse);
+                this.updateBookingData(hsResponse);
 
-                    if (!ignoreNotification) {
-                        hirespace.Notification.generate(updateData.timeToFollowUp ?
-                            'Thanks for letting us know the enquiry is still pending. We\'ll follow up again in two weeks.' : 'Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', enquiriesFeedStages[hsResponse.stage.name]);
-                    }
-                }, f => hirespace.Logger.error(f));
+                if (!ignoreNotification) {
+                    hirespace.Notification.generate(updateData.timeToFollowUp ?
+                        'Thanks for letting us know the enquiry is still pending. We\'ll follow up again in two weeks.' : 'Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', enquiriesFeedStages[hsResponse.stage.name]);
+                }
+            }, f => hirespace.Logger.error(f));
         }
 
         initBookingData() {
@@ -170,15 +162,17 @@ module hirespace {
         // look into ifModified option
         bookingDataPromise(): JQueryPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + this.bookingData._id, {
-                method: 'GET', headers: {
+                crossDomain: true,
+                headers: {
                     Authorization: 'Basic ' + hirespace.Base64.encode(this.guid)
-                }
+                },
+                method: 'GET'
             });
         }
 
         sendEmailPromise(emailData: any): JQueryPromise<any> {
             return $.ajax(hirespace.Config.getEnquirySendEmailApi(), {
-                //contentType: "application/json; charset=utf-8",
+                crossDomain: true,
                 data: JSON.stringify(emailData),
                 method: 'POST'
             });
@@ -186,8 +180,9 @@ module hirespace {
 
         updateBookingDataPromise(updateData: any): JQueryGenericPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + this.bookingData._id, {
-                data: JSON.stringify(updateData),
+                crossDomain: true,
                 contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(updateData),
                 method: 'PUT',
                 headers: {
                     Authorization: 'Basic ' + hirespace.Base64.encode(this.guid)
@@ -220,8 +215,7 @@ module hirespace {
             this.bookingData.guid = this.guid;
 
             this.updateUi();
-            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true, () => {
-            }, false, this.bookingData);
+            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true, false, false, this.bookingData);
         }
 
         updateUi() {

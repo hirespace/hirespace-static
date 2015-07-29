@@ -48,9 +48,8 @@ gulp.task('concatDistJS', function () {
 gulp.task('concatVendor', function () {
     gulp.src([
         'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/lodash/lodash.min.js',
-        'bower_components/moment/min/moment.min.js',
-        'bower_components/rxjs/dist/rx.all.min.js'
+        'bower_components/lodash-compat/lodash.min.js',
+        'bower_components/moment/min/moment.min.js'
     ])
         .pipe(plumber({errorHandler: onError}))
         .pipe(concat('vendor.js'))

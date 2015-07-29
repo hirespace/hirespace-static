@@ -14,6 +14,8 @@ module hirespace {
     }
 
     $(document).ready(() => {
+        $.support.cors = true;
+
         let body = $('body');
 
         hirespace.Logger.debug('Hire Space app now running');

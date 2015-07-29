@@ -4,24 +4,71 @@ module hirespace.specs {
     declare
     var initBookingData: IBookingData;
 
+    let stageResponse = {
+        "enquiries": [{
+            "_id": "pADzj3B3tTjHrhCjj",
+            "customerName": "Hannah Thompson",
+            "venueName": "Will's Studio",
+            "eventdate": "2016-07-16T00:00:00.000Z",
+            "budget": 1200,
+            "word": "Wedding Reception",
+            "status": "pending"
+        }, {
+            "_id": "wzeh5vGhhXbtzqK2z",
+            "customerName": "Hannah Thompson",
+            "venueName": "Will's Studio",
+            "eventdate": "2016-07-16T00:00:00.000Z",
+            "budget": 1200,
+            "word": "Wedding Reception",
+            "status": "pending"
+        }, {
+            "_id": "hRuGiNZkm98aMXRJD",
+            "customerName": "Helena Charlesworth",
+            "venueName": "Will's Studio",
+            "eventdate": "2015-10-13T09:00:00.000Z",
+            "budget": 3000,
+            "word": "Workshop Space",
+            "status": "pending"
+        }, {
+            "_id": "sx5Eff7tHvM5mdCdr",
+            "customerName": "Adelle hannan",
+            "venueName": "Gastrocircus",
+            "eventdate": "2015-09-12T23:00:00.000Z",
+            "budget": 500,
+            "word": "30th Birthday Party",
+            "status": "pending"
+        }, {
+            "_id": "NxXiiZiLuJhfbYBRv",
+            "customerName": "Jake O'Neill",
+            "venueName": "Gastrocircus",
+            "eventdate": "2015-06-23T09:00:00.000Z",
+            "budget": 1500,
+            "word": "Full Day Conference",
+            "status": "pending"
+        }], "remaining": 12
+    };
+    let stagesCountResponse = {"New": 0, "In Progress": 18, "Needs Archiving": 4, "Archived": 174, "Invalid": 19};
+
     describe('Enquiries Controller', () => {
         let controller: hirespace.EnquiriesController;
 
         beforeEach(() => {
-            spyOn(Rx.Observable, 'fromPromise').and.callFake(() => {
-                return Rx.Observable.empty();
-            });
-
-            spyOn(Rx.Observable, 'from').and.callFake(() => {
-                return Rx.Observable.empty();
-            });
-
             spyOn($, 'ajax').and.callFake((url, options): any => {
                 let d = $.Deferred();
 
                 switch (options.method) {
                     case 'GET':
-                        d.resolve(initBookingData);
+                        switch(url) {
+                            case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + 'In Progress':
+                                d.resolve(stageResponse);
+                                break;
+                            case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages:
+                                d.resolve(stagesCountResponse);
+                                break;
+                            default:
+                                d.resolve(initBookingData);
+                                break;
+                        }
                         break;
                     case 'PUT':
                         d.resolve({});
@@ -88,6 +135,9 @@ module hirespace.specs {
             expect(updateProgressBarDefault).toEqual('in-progress');
             expect(updateProgressBar).toEqual('needs-archiving');
             expect(updateProgressBarOutside).toEqual('archived');
+
+            // Reset back to the original init stage
+            controller.bookingData.stage.name = 'In Progress';
         });
 
         it('should update the bookingData when update has been triggered', () => {

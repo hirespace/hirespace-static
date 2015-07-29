@@ -100,17 +100,22 @@ module hirespace {
 
         stagesCountPromise(): JQueryPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages, {
-                method: 'GET', headers: {
+                crossDomain: true,
+                headers: {
                     Authorization: 'Basic ' + hirespace.Base64.encode(this.feedData.current.guid)
-                }
+                },
+                method: 'GET'
             });
         }
 
         feedDataPromise(stage: string, data: IFeedData): JQueryPromise<any> {
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + stage, {
-                data: data, method: 'GET', headers: {
+                crossDomain: true,
+                data: data,
+                headers: {
                     Authorization: 'Basic ' + hirespace.Base64.encode(this.feedData.current.guid)
-                }
+                },
+                method: 'GET'
             });
         }
 
@@ -118,7 +123,7 @@ module hirespace {
             this.feedData.pagination[stage].page = this.feedData.pagination[stage].page + 1;
         }
 
-        renderView(toStage: string, updateCounts?: boolean, callback?: Function, append?: boolean, updateStage?: any) {
+        renderView(toStage: string, updateCounts?: boolean, callback?: Function | boolean, append?: boolean, updateStage?: any) {
             if (updateCounts) {
                 this.updateStageCounts();
             }
@@ -133,62 +138,58 @@ module hirespace {
 
             // @TODO
             // abstract page and limit to config vars
-            Rx.Observable.fromPromise(this.feedDataPromise(toStage, feedDataPromiseData))
-                .subscribe((data: IStageData) => {
-                    // Marks as the current enquiry
-                    this.feedData.current.current = true;
+            this.feedDataPromise(toStage, feedDataPromiseData).then((data: IStageData) => {
+                // Marks as the current enquiry
+                this.feedData.current.current = true;
 
-                    if (updateStage) {
-                        this.feedData.current.stage = toStage;
+                if (updateStage) {
+                    this.feedData.current.stage = toStage;
 
-                        if (updateStage.stage.name == 'Archived') {
-                            this.feedData.current.status = updateStage.status;
+                    if (updateStage.stage.name == 'Archived') {
+                        this.feedData.current.status = updateStage.status;
 
-                            if (updateStage.stage.option) {
-                                this.feedData.current.price = updateStage.stage.option.price;
-                                this.feedData.current.priceType = updateStage.stage.option.priceType;
-                            }
+                        if (updateStage.stage.option) {
+                            this.feedData.current.price = updateStage.stage.option.price;
+                            this.feedData.current.priceType = updateStage.stage.option.priceType;
                         }
                     }
+                }
 
-                    if (append) {
-                        this.feedData.enquiries = this.feedData.enquiries.concat(data.enquiries);
-                    } else {
-                        if (this.feedData.current.stage == toStage) {
-                            data.enquiries.unshift(this.feedData.current);
-                        }
-
-                        this.feedData.enquiries = data.enquiries;
+                if (append) {
+                    this.feedData.enquiries = this.feedData.enquiries.concat(data.enquiries);
+                } else {
+                    if (this.feedData.current.stage == toStage) {
+                        data.enquiries.unshift(this.feedData.current);
                     }
 
-                    this.feedData.remaining = data.remaining;
-                    this.feedData.openStage = toStage;
+                    this.feedData.enquiries = data.enquiries;
+                }
 
-                    hirespace.View.updateView(this, 'nav.enquiries-feed');
+                this.feedData.remaining = data.remaining;
+                this.feedData.openStage = toStage;
 
-                    let target = $('nav.enquiries-feed .sub ul.' + enquiriesFeedStages[toStage]);
+                hirespace.View.updateView(this, 'nav.enquiries-feed');
 
-                    // @TODO
-                    // this will work without calling it from outside and randomly, perhaps it should work as part of
-                    // View.updateView()
+                let target = $('nav.enquiries-feed .sub ul.' + enquiriesFeedStages[toStage]);
+
+                // @TODO
+                // this will work without calling it from outside and randomly, perhaps it should work as part of
+                // View.updateView()
+                if (hirespace.Debug.getEnvironment() !== 'test') {
                     let HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), this.feedData.enquiries);
                     HsRepeat.updateView(target);
-
-                    if (_.isFunction(callback)) {
-                        callback();
-                    }
-                });
+                }
+            });
         }
 
         updateStageCounts() {
-            Rx.Observable.fromPromise(this.stagesCountPromise())
-                .subscribe((counts: IStageCounts) => {
-                    _.forEach(counts, (count, stageName) => {
-                        this.feedData.count[enquiriesFeedStages[stageName]] = count;
-                    });
-
-                    hirespace.View.updateView(this, 'nav.enquiries-feed');
+            this.stagesCountPromise().then((counts: IStageCounts) => {
+                _.forEach(counts, (count, stageName) => {
+                    this.feedData.count[enquiriesFeedStages[stageName]] = count;
                 });
+
+                hirespace.View.updateView(this, 'nav.enquiries-feed');
+            });
         }
 
         initView() {
@@ -196,12 +197,7 @@ module hirespace {
 
             this.updateStageCounts();
 
-            let callback: Function = (): void => {
-                Rx.Observable.from(this.remainingStages)
-                    .map(stage => this.renderView(stage, false));
-            };
-
-            this.renderView(this.initStage, false, callback, false, this.feedData.current);
+            this.renderView(this.initStage, false, false, false, this.feedData.current);
         }
     }
 }
