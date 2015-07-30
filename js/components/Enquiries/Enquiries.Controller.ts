@@ -161,6 +161,8 @@ module hirespace {
         // @TODO
         // look into ifModified option
         bookingDataPromise(): JQueryPromise<any> {
+            // methods/enquiries/getEnquiry/:id
+            // {guid: String}
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + this.bookingData._id, {
                 crossDomain: true,
                 headers: {
@@ -179,6 +181,8 @@ module hirespace {
         }
 
         updateBookingDataPromise(updateData: any): JQueryGenericPromise<any> {
+            // methods/enquiries/updateEnquiry/:id
+            // {guid: String, enquiry: updateData}
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + this.bookingData._id, {
                 crossDomain: true,
                 contentType: "application/json; charset=utf-8",

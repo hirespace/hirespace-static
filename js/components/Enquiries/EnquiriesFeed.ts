@@ -99,6 +99,8 @@ module hirespace {
         }
 
         stagesCountPromise(): JQueryPromise<any> {
+            // methods/enquiries/stages
+            // {guid: String}
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages, {
                 crossDomain: true,
                 headers: {
@@ -109,6 +111,8 @@ module hirespace {
         }
 
         feedDataPromise(stage: string, data: IFeedData): JQueryPromise<any> {
+            // methods/enquiries/stage/:stageName
+            // {guid: String}
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + stage, {
                 crossDomain: true,
                 data: data,
