@@ -20,6 +20,7 @@
   "dependencies": {
     "jquery": "~2.1.4",
     "moment": "~2.10.3",
-    "lodash-compat": "~3.10.0"
+    "lodash-compat": "~3.10.0",
+    "jQuery-ajaxTransport-XDomainRequest": "~1.0.4"
   }
 }

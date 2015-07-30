@@ -161,28 +161,35 @@ module hirespace {
         // @TODO
         // look into ifModified option
         bookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getEnquiry + this.bookingData._id, {
+            return $.ajax({
                 contentType: "text/plain",
                 crossDomain: true,
                 data: JSON.stringify({guid: this.guid}),
-                method: 'POST'
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getEnquiry + this.bookingData._id
             });
         }
 
         sendEmailPromise(emailData: any): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getEnquirySendEmailApi(), {
+            return $.ajax({
+                contentType: "text/plain",
                 crossDomain: true,
                 data: JSON.stringify(emailData),
-                method: 'POST'
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getEnquirySendEmailApi()
             });
         }
 
         updateBookingDataPromise(updateData: any): JQueryGenericPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().updateEnquiry + this.bookingData._id, {
+            return $.ajax({
                 contentType: "text/plain",
                 crossDomain: true,
                 data: JSON.stringify({guid: this.guid, enquiry: updateData}),
-                method: 'POST'
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().updateEnquiry + this.bookingData._id
             });
         }
 

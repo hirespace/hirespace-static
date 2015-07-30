@@ -100,20 +100,24 @@ module hirespace {
         }
 
         stagesCountPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stages, {
+            return $.ajax({
                 contentType: "text/plain",
                 crossDomain: true,
                 data: JSON.stringify({guid: this.feedData.current.guid}),
-                method: 'POST'
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stages
             });
         }
 
         feedDataPromise(stage: string, data: IFeedData): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stage + stage, {
+            return $.ajax({
                 contentType: "text/plain",
                 crossDomain: true,
                 data: JSON.stringify({guid: this.feedData.current.guid, data: data}),
-                method: 'POST'
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stage + stage
             });
         }
 
