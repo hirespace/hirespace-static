@@ -57,7 +57,7 @@ module hirespace.specs {
                 let d = $.Deferred();
 
                 switch (url) {
-                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + 'New':
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stage + 'New':
                         d.resolve(stageResponse);
                         break;
                     default:

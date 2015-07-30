@@ -1,8 +1,7 @@
 module hirespace.specs {
     'use strict';
 
-    declare
-    var initBookingData: IBookingData;
+    declare var initBookingData: IBookingData;
 
     let stageResponse = {
         "enquiries": [{
@@ -53,28 +52,24 @@ module hirespace.specs {
         let controller: hirespace.EnquiriesController;
 
         beforeEach(() => {
-            spyOn($, 'ajax').and.callFake((url, options): any => {
+            spyOn($, 'ajax').and.callFake((url): any => {
                 let d = $.Deferred();
 
-                switch (options.method) {
-                    case 'GET':
-                        switch(url) {
-                            case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + 'In Progress':
-                                d.resolve(stageResponse);
-                                break;
-                            case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages:
-                                d.resolve(stagesCountResponse);
-                                break;
-                            default:
-                                d.resolve(initBookingData);
-                                break;
-                        }
+                switch (url) {
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getEnquiry + initBookingData._id:
+                        d.resolve(initBookingData);
                         break;
-                    case 'PUT':
-                        d.resolve({});
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().updateEnquiry + initBookingData._id:
+                        d.resolve(initBookingData);
+                        break;
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stage + 'In Progress':
+                        d.resolve(stageResponse);
+                        break;
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stages:
+                        d.resolve(stagesCountResponse);
                         break;
                     default:
-                        d.resolve({});
+                        d.resolve('sendEmailPromise response');
                         break;
                 }
 
@@ -113,7 +108,7 @@ module hirespace.specs {
             let updateBookingDataPromise = controller.updateBookingDataPromise({});
 
             updateBookingDataPromise.then((data) => {
-                expect(data).toEqual({});
+                expect(data).toEqual(initBookingData);
             });
         });
 
@@ -121,7 +116,7 @@ module hirespace.specs {
             let sendEmailPromise = controller.sendEmailPromise({});
 
             sendEmailPromise.then((data) => {
-                expect(data).toEqual({});
+                expect(data).toEqual('sendEmailPromise response');
             });
         });
 
