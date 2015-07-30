@@ -29,7 +29,7 @@ module hirespace {
     let apiRoutes: IApiRoutes = {
         getEnquiry: 'methods/enquiries/getEnquiry/',
         updateEnquiry: 'methods/enquiries/updateEnquiry/',
-        stage: 'methods/enquiries/stage/',
+        stage: 'methods/stages/getStageEnquiries/',
         stages: 'methods/stages/getStagesCount'
     };
 
