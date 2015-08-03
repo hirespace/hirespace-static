@@ -36,7 +36,9 @@ module hirespace {
         count: IStageCounts;
         current: ITemplateData;
         enquiries: Array<ITemplateData>;
-        openStage: string;
+        openStage: {
+            [stageName: string]: boolean
+        };
         remaining: number;
         pagination: {
             [name: string]: {
@@ -67,10 +69,12 @@ module hirespace {
                     word: bookingData.word
                 },
                 enquiries: [],
-                openStage: bookingData.stage.name,
+                openStage: {},
                 remaining: 0,
                 pagination: {}
             };
+
+            this.feedData.openStage[enquiriesFeedStages[bookingData.stage.name]] = true;
 
             if (bookingData.stage.name == 'Archived') {
                 this.feedData.current.status = bookingData.status;
@@ -99,8 +103,6 @@ module hirespace {
         }
 
         stagesCountPromise(): JQueryPromise<any> {
-            // methods/enquiries/stages
-            // {guid: String}
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages, {
                 crossDomain: true,
                 headers: {
@@ -111,8 +113,6 @@ module hirespace {
         }
 
         feedDataPromise(stage: string, data: IFeedData): JQueryPromise<any> {
-            // methods/enquiries/stage/:stageName
-            // {guid: String}
             return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + stage, {
                 crossDomain: true,
                 data: data,
@@ -170,7 +170,7 @@ module hirespace {
                 }
 
                 this.feedData.remaining = data.remaining;
-                this.feedData.openStage = toStage;
+                this.feedData.openStage[enquiriesFeedStages[toStage]] = true;
 
                 hirespace.View.updateView(this, 'nav.enquiries-feed');
 
