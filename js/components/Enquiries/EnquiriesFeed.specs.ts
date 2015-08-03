@@ -53,11 +53,11 @@ module hirespace.specs {
         let pagination: {};
 
         beforeEach(() => {
-            spyOn($, 'ajax').and.callFake((url): any => {
+            spyOn($, 'ajax').and.callFake((opt): any => {
                 let d = $.Deferred();
 
-                switch (url) {
-                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + 'New':
+                switch (opt.url) {
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stage + 'New':
                         d.resolve(stageResponse);
                         break;
                     default:
