@@ -122,6 +122,11 @@
               font:
                 weight: 700
 
+          &.open
+            strong
+              font:
+                weight: 700
+
           .label, strong
             display: inline-block
             vertical-align: middle
@@ -131,7 +136,7 @@
 
             letter-spacing: 0
             font:
-              size: rem(12px)
+              size: rem(13px)
               weight: 500
 
           &.sub
@@ -183,7 +188,8 @@
                       position: absolute
                       display: block
                       left: rem(15px)
-                      top: rem(19px)
+                      top: 50%
+                      margin-top: -($half-unit-layout / 2)
 
                     strong, strong > *
                       font:
@@ -201,7 +207,7 @@
                   color: $color-black
                   text-transform: none
                   font:
-                    size: rem(14px)
+                    size: rem(13px)
                     weight: 500
 
                   > *

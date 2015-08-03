@@ -10,7 +10,7 @@
     </div>
 
     <ul>
-        <li class="stage new" stage="New" hs-class="active: feedData.openStage.new">
+        <li class="stage new" stage="New" hs-class="active: feedData.current.stage == 'New', open: feedData.openStage.new">
             <span class="label numeric blue" hs-bind="feedData.count.new">-</span>
             <strong>New</strong>
         </li>
@@ -27,11 +27,11 @@
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="New" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="New" hs-class="is-hidden: feedData.remaining.new == 0">Load <span
+                    hs-bind="feedData.remaining.new"></span> more
             </button>
         </li>
-        <li class="stage in-progress" stage="In Progress" hs-class="active: feedData.openStage.in-progress'">
+        <li class="stage in-progress" stage="In Progress" hs-class="active: feedData.current.stage == 'In Progress', open: feedData.openStage.in-progress">
             <span class="label numeric green" hs-bind="feedData.count.in-progress"></span>
             <strong>In Progress</strong>
         </li>
@@ -48,11 +48,11 @@
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="In Progress" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="In Progress" hs-class="is-hidden: feedData.remaining.in-progress == 0">Load <span
+                    hs-bind="feedData.remaining.in-progress"></span> more
             </button>
         </li>
-        <li class="stage needs-archiving" stage="Needs Archiving" hs-class="active: feedData.openStage.needs-archiving">
+        <li class="stage needs-archiving" stage="Needs Archiving" hs-class="active: feedData.current.stage == 'Needs Archiving', open: feedData.openStage.needs-archiving">
             <span class="label numeric yellow" hs-bind="feedData.count.needs-archiving">-</span>
             <strong>Needs Archiving</strong>
         </li>
@@ -69,11 +69,11 @@
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="Needs Archiving" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="Needs Archiving" hs-class="is-hidden: feedData.remaining.needs-archiving == 0">Load <span
+                    hs-bind="feedData.remaining.needs-archiving"></span> more
             </button>
         </li>
-        <li class="stage archived" stage="Archived" hs-class="active: feedData.openStage.archived">
+        <li class="stage archived" stage="Archived" hs-class="active: feedData.current.stage == 'Archived', open: feedData.openStage.archived">
             <span class="label numeric black" hs-bind="feedData.count.archived">-</span>
             <strong>Archived</strong>
         </li>
@@ -98,8 +98,8 @@
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="Archived" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="Archived" hs-class="is-hidden: feedData.remaining.archived == 0">Load <span
+                    hs-bind="feedData.remaining.archived"></span> more
             </button>
         </li>
     </ul>
