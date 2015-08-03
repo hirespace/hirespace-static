@@ -3,7 +3,7 @@
     margin: $triple-unit-layout 0 $base-unit-layout
 
   .layout-offset-top
-    $left-nav-width: rem(280px)
+    $left-nav-width: rem(300px)
 
     +clearfix
 
@@ -146,6 +146,18 @@
             ul
               @extend .unstyled
 
+              &.new
+                > li a.active:before
+                  background: $color-blue
+
+              &.in-progress
+                > li a.active:before
+                  background: $color-green
+
+              &.needs-archiving
+                > li a.active:before
+                  background: $color-yellow
+
               > li
                 border-bottom: 1px solid $color-grey-75
                 background: $color-grey-25
@@ -153,12 +165,25 @@
                 > a
                   +transition(background .25s)
 
-                  padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout
+                  padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout ($half-unit-layout + $quarter-unit-layout) rem(35px)
                   display: block
                   text-decoration: none
 
                   &.active
                     background: white
+                    position: relative
+
+                    &:before
+                      +border-radius(100%)
+
+                      content: ''
+                      width: $half-unit-layout
+                      height: $half-unit-layout
+                      background: $color-black
+                      position: absolute
+                      display: block
+                      left: rem(15px)
+                      top: rem(19px)
 
                     strong, strong > *
                       font:
