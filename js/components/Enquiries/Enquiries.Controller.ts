@@ -161,36 +161,35 @@ module hirespace {
         // @TODO
         // look into ifModified option
         bookingDataPromise(): JQueryPromise<any> {
-            // methods/enquiries/getEnquiry/:id
-            // {guid: String}
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + this.bookingData._id, {
+            return $.ajax({
+                contentType: "text/plain",
                 crossDomain: true,
-                headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode(this.guid)
-                },
-                method: 'GET'
+                data: JSON.stringify({guid: this.guid}),
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getEnquiry + this.bookingData._id
             });
         }
 
         sendEmailPromise(emailData: any): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getEnquirySendEmailApi(), {
+            return $.ajax({
+                contentType: "text/plain",
                 crossDomain: true,
                 data: JSON.stringify(emailData),
-                method: 'POST'
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getEnquirySendEmailApi()
             });
         }
 
         updateBookingDataPromise(updateData: any): JQueryGenericPromise<any> {
-            // methods/enquiries/updateEnquiry/:id
-            // {guid: String, enquiry: updateData}
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + this.bookingData._id, {
+            return $.ajax({
+                contentType: "text/plain",
                 crossDomain: true,
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(updateData),
-                method: 'PUT',
-                headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode(this.guid)
-                }
+                data: JSON.stringify({guid: this.guid, enquiry: updateData}),
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().updateEnquiry + this.bookingData._id
             });
         }
 

@@ -8,8 +8,10 @@ module hirespace {
     }
 
     export interface IApiRoutes {
-        bookings: string;
-        bookingsStages: string;
+        getEnquiry: string;
+        updateEnquiry: string;
+        stage: string;
+        stages: string;
     }
 
     let apiUrls: IApiUrls = {
@@ -25,8 +27,10 @@ module hirespace {
     };
 
     let apiRoutes: IApiRoutes = {
-        bookings: 'enquiries/',
-        bookingsStages: 'enquiries/stages/'
+        getEnquiry: 'methods/enquiries/getEnquiry/',
+        updateEnquiry: 'methods/enquiries/updateEnquiry/',
+        stage: 'methods/stages/getStageEnquiries/',
+        stages: 'methods/stages/getStagesCount'
     };
 
     let productionHost: string = 'venues.hirespace.com';

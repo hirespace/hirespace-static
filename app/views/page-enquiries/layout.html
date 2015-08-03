@@ -61,7 +61,7 @@
         {{> detailsBar }}
 
         <main class="customer-details container-narrow padding-top-double"
-              hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving'">
+              hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
             <aside class="hide customer col-md-4" hs-class="is-visible: bookingData.stage.name == 'New'">
                 <div class="avatar-anonymous"></div>
 
@@ -193,7 +193,28 @@
                 <!--</button>-->
 
                 <div class="update-hirespace hide"
-                     hs-class="is-visible: bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving', is-hidden: bookingData.stage.option">
+                     hs-class="is-visible: bookingData.stage.name == 'Needs Archiving', is-hidden: bookingData.stage.option">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="large green block hs-to-step"
+                                    update="needsArchivingStatus: 'confirmed'">Confirm enquiry
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="large black block hs-to-step"
+                                    update="needsArchivingStatus: 'closed'">Close enquiry
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="large flat-grey block hs-to-step"
+                                    update="timeToFollowUp: true">Update Later
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="update-hirespace hide"
+                     hs-class="is-visible: bookingData.stage.name == 'In Progress'">
                     <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
                             class="large flat-grey block" id="showUpdateHireSpaceButtons">
                         Update the Hire Space team on this enquiry
