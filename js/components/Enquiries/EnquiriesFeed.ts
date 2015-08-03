@@ -37,8 +37,12 @@ module hirespace {
         count: IStageCounts;
         current: ITemplateData;
         enquiries: Array<ITemplateData>;
-        openStage: string;
-        remaining: number;
+        openStage: {
+            [stageName: string]: boolean
+        };
+        remaining: {
+            [stageName: string]: number
+        };
         pagination: {
             [name: string]: {
                 page: number
@@ -68,10 +72,12 @@ module hirespace {
                     word: bookingData.word
                 },
                 enquiries: [],
-                openStage: bookingData.stage.name,
-                remaining: 0,
+                openStage: {},
+                remaining: {},
                 pagination: {}
             };
+
+            this.feedData.openStage[enquiriesFeedStages[bookingData.stage.name]] = true;
 
             if (bookingData.stage.name == 'Archived') {
                 this.feedData.current.status = bookingData.status;
@@ -95,6 +101,7 @@ module hirespace {
             $('nav.enquiries-feed li.stage').click((e) => {
                 let stage = $(e.currentTarget).attr('stage');
 
+                this.feedData.openStage[enquiriesFeedStages[stage]] = !this.feedData.openStage[enquiriesFeedStages[stage]];
                 this.renderView(stage, false);
             });
         }
@@ -167,8 +174,11 @@ module hirespace {
                     this.feedData.enquiries = data.enquiries;
                 }
 
-                this.feedData.remaining = data.remaining;
-                this.feedData.openStage = toStage;
+                this.feedData.remaining[enquiriesFeedStages[toStage]] = data.remaining;
+
+                if (!this.feedData.openStage[enquiriesFeedStages[toStage]]) {
+                    delete this.feedData.openStage[enquiriesFeedStages[toStage]];
+                }
 
                 hirespace.View.updateView(this, 'nav.enquiries-feed');
 
@@ -189,6 +199,12 @@ module hirespace {
                 _.forEach(counts, (count, stageName) => {
                     this.feedData.count[enquiriesFeedStages[stageName]] = count;
                 });
+
+                if (this.feedData.count['new'] > 0) {
+                    $('nav.enquiries-feed li.new .label').addClass('pulsing');
+                } else {
+                    $('nav.enquiries-feed li.new .label').removeClass('pulsing');
+                }
 
                 hirespace.View.updateView(this, 'nav.enquiries-feed');
             });

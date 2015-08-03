@@ -10,11 +10,11 @@
     </div>
 
     <ul>
-        <li class="stage new" stage="New" hs-class="active: feedData.openStage == 'New'">
+        <li class="stage new" stage="New" hs-class="active: feedData.current.stage == 'New', open: feedData.openStage.new">
             <span class="label numeric blue" hs-bind="feedData.count.new">-</span>
             <strong>New</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.openStage == 'New'">
+        <li class="sub" hs-class="is-visible: feedData.openStage.new">
             <ul class="new" hs-repeat="data in feedData">
                 <li>
                     <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
@@ -27,15 +27,15 @@
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="New" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="New" hs-class="is-hidden: feedData.remaining.new == 0">Load <span
+                    hs-bind="feedData.remaining.new"></span> more
             </button>
         </li>
-        <li class="stage in-progress" stage="In Progress" hs-class="active: feedData.openStage == 'In Progress'">
+        <li class="stage in-progress" stage="In Progress" hs-class="active: feedData.current.stage == 'In Progress', open: feedData.openStage.in-progress">
             <span class="label numeric green" hs-bind="feedData.count.in-progress"></span>
             <strong>In Progress</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.openStage == 'In Progress'">
+        <li class="sub" hs-class="is-visible: feedData.openStage.in-progress">
             <ul class="in-progress" hs-repeat="data in feedData">
                 <li>
                     <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
@@ -48,15 +48,15 @@
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="In Progress" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="In Progress" hs-class="is-hidden: feedData.remaining.in-progress == 0">Load <span
+                    hs-bind="feedData.remaining.in-progress"></span> more
             </button>
         </li>
-        <li class="stage needs-archiving" stage="Needs Archiving" hs-class="active: feedData.openStage == 'Needs Archiving'">
+        <li class="stage needs-archiving" stage="Needs Archiving" hs-class="active: feedData.current.stage == 'Needs Archiving', open: feedData.openStage.needs-archiving">
             <span class="label numeric yellow" hs-bind="feedData.count.needs-archiving">-</span>
             <strong>Needs Archiving</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.openStage == 'Needs Archiving'">
+        <li class="sub" hs-class="is-visible: feedData.openStage.needs-archiving">
             <ul class="needs-archiving" hs-repeat="data in feedData">
                 <li>
                     <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
@@ -69,15 +69,15 @@
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="Needs Archiving" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="Needs Archiving" hs-class="is-hidden: feedData.remaining.needs-archiving == 0">Load <span
+                    hs-bind="feedData.remaining.needs-archiving"></span> more
             </button>
         </li>
-        <li class="stage archived" stage="Archived" hs-class="active: feedData.openStage == 'Archived'">
+        <li class="stage archived" stage="Archived" hs-class="active: feedData.current.stage == 'Archived', open: feedData.openStage.archived">
             <span class="label numeric black" hs-bind="feedData.count.archived">-</span>
             <strong>Archived</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.openStage == 'Archived'">
+        <li class="sub" hs-class="is-visible: feedData.openStage.archived">
             <ul class="archived" hs-repeat="data in feedData">
                 <li>
                     <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
@@ -98,8 +98,8 @@
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="Archived" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="Archived" hs-class="is-hidden: feedData.remaining.archived == 0">Load <span
+                    hs-bind="feedData.remaining.archived"></span> more
             </button>
         </li>
     </ul>
