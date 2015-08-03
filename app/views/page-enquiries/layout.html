@@ -184,10 +184,52 @@
             </nav>
         </section>
 
+        <section
+                hs-class="
+                hide: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.status == 'void' || bookingData.stage.name == 'Needs Archiving',
+                is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
+
+            <div class="internal-note container-narrow hide"
+                 hs-class="is-visible: bookingData.stage.name == 'Needs Archiving'">
+                <button class="flat-grey large block hs-to-step"
+                        update="reopen: true">
+                    Update Later
+                </button>
+            </div>
+
+            <div class="internal-note container-narrow hide"
+                 hs-class="is-visible: bookingData.stage.name == 'Archived'">
+                <button class="flat-grey large block hs-to-step hide"
+                        update="reopen: true">
+                    Re-open
+                </button>
+            </div>
+
+            <!--Temporarily hide until v2-->
+            <div class="internal-note container-narrow is-hidden">
+                <div class="pull-left">
+                    <button class="black"
+                            hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
+                        Suggest edits
+                    </button>
+                    <button class="flat-grey hs-to-step hide"
+                            hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'"
+                            update="reopen: true">
+                        Re-open
+                    </button>
+                </div>
+
+                <div class="pull-right">
+                    <label for="internal-note">Leave an internal note</label>
+                    <input id="internal-note" type="text" placeholder="Text here..."/>
+
+                    <button class="black">Save</button>
+                </div>
+            </div>
+        </section>
+
         <section class="venue-manager-actions">
             <div class="container-narrow">
-                {{> progressBar }}
-
                 <!--<button data-toggle-view="show: bookingData.stage == 'New'" class="large flat-grey block">-->
                 <!--+1 more-->
                 <!--</button>-->
@@ -220,40 +262,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section
-                hs-class="
-                hide: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.status == 'void' || bookingData.stage.name == 'Needs Archiving',
-                is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
-            <div class="internal-note container-narrow">
-                <button class="flat-grey large block hs-to-step"
-                        update="reopen: true">
-                    Re-open
-                </button>
-            </div>
-
-            <!--Temporarily hide until v2-->
-            <div class="internal-note container-narrow is-hidden">
-                <div class="pull-left">
-                    <button class="black"
-                            hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
-                        Suggest edits
-                    </button>
-                    <button class="flat-grey hs-to-step hide"
-                            hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'"
-                            update="reopen: true">
-                        Re-open
-                    </button>
-                </div>
-
-                <div class="pull-right">
-                    <label for="internal-note">Leave an internal note</label>
-                    <input id="internal-note" type="text" placeholder="Text here..."/>
-
-                    <button class="black">Save</button>
-                </div>
+                {{> progressBar }}
             </div>
         </section>
 
