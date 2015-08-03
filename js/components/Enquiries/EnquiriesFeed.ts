@@ -4,6 +4,7 @@ module hirespace {
     interface IFeedData {
         page: number;
         limit: number;
+        ignoreEnquiryById?: string;
     }
 
     interface IStageCounts {
@@ -103,23 +104,24 @@ module hirespace {
         }
 
         stagesCountPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages, {
+            return $.ajax({
+                contentType: "text/plain",
                 crossDomain: true,
-                headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode(this.feedData.current.guid)
-                },
-                method: 'GET'
+                data: JSON.stringify({guid: this.feedData.current.guid}),
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stages
             });
         }
 
         feedDataPromise(stage: string, data: IFeedData): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + stage, {
+            return $.ajax({
+                contentType: "text/plain",
                 crossDomain: true,
-                data: data,
-                headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode(this.feedData.current.guid)
-                },
-                method: 'GET'
+                data: JSON.stringify({guid: this.feedData.current.guid, data: data}),
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stage + stage
             });
         }
 
@@ -137,7 +139,7 @@ module hirespace {
                 // @TODO
                 // abstract into config var?
                 limit: 5,
-                ignore: this.feedData.current._id
+                ignoreEnquiryById: this.feedData.current._id
             };
 
             // @TODO
