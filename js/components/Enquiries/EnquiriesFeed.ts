@@ -27,7 +27,7 @@ module hirespace {
         guid: string;
         price?: number;
         priceType?: string;
-        stage: string | IArchived;
+        stage: string;
         status?: string;
         venueName: string;
         word: string;
@@ -35,8 +35,8 @@ module hirespace {
 
     export class EnquiriesFeed {
         initStage: string;
+        currentEnquiry: ITemplateData;
         enquiriesFeed: {
-            currentEnquiry: ITemplateData,
             [stage: string]: {
                 count: number;
                 enquiries: {
@@ -55,18 +55,18 @@ module hirespace {
         constructor(private bookingData: IBookingData) {
             this.initStage = bookingData.stage.name;
 
-            this.enquiriesFeed = {
-                currentEnquiry: {
-                    _id: bookingData._id,
-                    budget: bookingData.budget,
-                    active: true,
-                    customerName: bookingData.customer.name,
-                    eventdate: bookingData.date.startdate,
-                    guid: bookingData.guid,
-                    stage: bookingData.stage.name,
-                    venueName: bookingData.venue.name,
-                    word: bookingData.word
-                }
+            this.enquiriesFeed = {};
+
+            this.currentEnquiry = {
+                _id: bookingData._id,
+                budget: bookingData.budget,
+                active: true,
+                customerName: bookingData.customer.name,
+                eventdate: bookingData.date.startdate,
+                guid: bookingData.guid,
+                stage: bookingData.stage.name,
+                venueName: bookingData.venue.name,
+                word: bookingData.word
             };
 
             _.forEach(_.values(enquiriesFeedStages), (stage: string) => {
@@ -86,11 +86,11 @@ module hirespace {
 
             // @TODO unhack cruft and implement in updateView
             if (bookingData.stage.name == 'Archived') {
-                this.enquiriesFeed.currentEnquiry.status = bookingData.status;
+                this.currentEnquiry.status = bookingData.status;
 
                 if (bookingData.stage.option) {
-                    this.enquiriesFeed.currentEnquiry.price = bookingData.stage.option.price;
-                    this.enquiriesFeed.currentEnquiry.priceType = bookingData.stage.option.priceType;
+                    this.currentEnquiry.price = bookingData.stage.option.price;
+                    this.currentEnquiry.priceType = bookingData.stage.option.priceType;
                 }
             }
 
@@ -113,7 +113,7 @@ module hirespace {
             return $.ajax({
                 contentType: "text/plain",
                 crossDomain: true,
-                data: JSON.stringify({guid: this.enquiriesFeed.currentEnquiry.guid}),
+                data: JSON.stringify({guid: this.currentEnquiry.guid}),
                 dataType: 'json',
                 method: 'POST',
                 url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stages
@@ -124,7 +124,7 @@ module hirespace {
             return $.ajax({
                 contentType: "text/plain",
                 crossDomain: true,
-                data: JSON.stringify({guid: this.enquiriesFeed.currentEnquiry.guid, data: data}),
+                data: JSON.stringify({guid: this.currentEnquiry.guid, data: data}),
                 dataType: 'json',
                 method: 'POST',
                 url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stage + stage
@@ -157,7 +157,7 @@ module hirespace {
             }
 
             if (newData) {
-                this.enquiriesFeed.currentEnquiry = {
+                this.currentEnquiry = {
                     _id: newData._id,
                     budget: newData.budget,
                     active: true,
@@ -176,20 +176,19 @@ module hirespace {
 
             this.feedDataPromise(toStage, this.enquiriesFeed[enquiriesFeedStages[toStage]].pagination).then((data: IStageData) => {
                 _.forEach(this.enquiriesFeed, (stageData, stageName) => {
-                    if (_.contains(_.values(enquiriesFeedStages), stageName)) {
-                        if (stageData.enquiries.data.length > 0) {
-                            if (stageName !== enquiriesFeedStages[this.enquiriesFeed.currentEnquiry.stage]) {
-                                if (_.first(stageData.enquiries.data) == this.enquiriesFeed.currentEnquiry._id) {
-                                    this.enquiriesFeed[stageName].enquiries.data.shift();
-                                }
-                            }
+                    if (stageData.enquiries.data.length > 0) {
+                        if (stageName !== enquiriesFeedStages[this.currentEnquiry.stage]) {
+                            this.enquiriesFeed[stageName].pagination.page = 0;
 
-                            _.forEach(stageData.enquiries.data, (enquiry: ITemplateData) => {
-                                if (enquiry._id !== this.enquiriesFeed.currentEnquiry._id) {
-                                    delete enquiry.active;
-                                }
-                            });
+                            if (_.first(stageData.enquiries.data)._id == this.currentEnquiry._id) {
+                                this.enquiriesFeed[stageName].enquiries.data.shift();
+                            }
                         }
+                        _.forEach(stageData.enquiries.data, (enquiry: ITemplateData) => {
+                            if (enquiry._id !== this.currentEnquiry._id) {
+                                delete enquiry.active;
+                            }
+                        });
                     }
                 });
 
@@ -198,8 +197,8 @@ module hirespace {
                 if (append) {
                     this.enquiriesFeed[enquiriesFeedStages[toStage]].enquiries.data = this.enquiriesFeed[enquiriesFeedStages[toStage]].enquiries.data.concat(data.enquiries);
                 } else {
-                    if (this.enquiriesFeed.currentEnquiry.stage == toStage) {
-                        data.enquiries.unshift(this.enquiriesFeed.currentEnquiry);
+                    if (this.currentEnquiry.stage == toStage) {
+                        data.enquiries.unshift(this.currentEnquiry);
                     }
 
                     this.enquiriesFeed[enquiriesFeedStages[toStage]].enquiries.data = data.enquiries;

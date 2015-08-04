@@ -10,7 +10,7 @@
     </div>
 
     <ul>
-        <li class="stage new" stage="New" hs-class="active: enquiriesFeed.currentEnquiry.stage == 'New', open: enquiriesFeed.new.open == true">
+        <li class="stage new" stage="New" hs-class="active: currentEnquiry.stage == 'New', open: enquiriesFeed.new.open == true">
             <span class="label numeric blue" hs-bind="enquiriesFeed.new.count">-</span>
             <strong>New</strong>
         </li>
@@ -32,7 +32,7 @@
             </button>
         </li>
 
-        <li class="stage in-progress" stage="In Progress" hs-class="active: enquiriesFeed.currentEnquiry.stage == 'In Progress', open: enquiriesFeed.in-progress.open == true">
+        <li class="stage in-progress" stage="In Progress" hs-class="active: currentEnquiry.stage == 'In Progress', open: enquiriesFeed.in-progress.open == true">
             <span class="label numeric green" hs-bind="enquiriesFeed.in-progress.count"></span>
             <strong>In Progress</strong>
         </li>
@@ -54,7 +54,7 @@
             </button>
         </li>
 
-        <li class="stage needs-archiving" stage="Needs Archiving" hs-class="active: enquiriesFeed.currentEnquiry.stage == 'Needs Archiving', open: enquiriesFeed.needs-archiving.open == true">
+        <li class="stage needs-archiving" stage="Needs Archiving" hs-class="active: currentEnquiry.stage == 'Needs Archiving', open: enquiriesFeed.needs-archiving.open == true">
             <span class="label numeric yellow" hs-bind="enquiriesFeed.needs-archiving.count">-</span>
             <strong>Needs Archiving</strong>
         </li>
@@ -76,7 +76,7 @@
             </button>
         </li>
 
-        <li class="stage archived" stage="Archived" hs-class="active: enquiriesFeed.currentEnquiry.stage == 'Archived', open: enquiriesFeed.archived.open == true">
+        <li class="stage archived" stage="Archived" hs-class="active: currentEnquiry.stage == 'Archived', open: enquiriesFeed.archived.open == true">
             <span class="label numeric black" hs-bind="enquiriesFeed.archived.count">-</span>
             <strong>Archived</strong>
         </li>
