@@ -180,6 +180,10 @@ module hirespace {
                         if (stageName !== enquiriesFeedStages[this.currentEnquiry.stage]) {
                             this.enquiriesFeed[stageName].pagination.page = 0;
 
+                            if (newData) {
+                                this.enquiriesFeed[stageName].open = false;
+                            }
+
                             if (_.first(stageData.enquiries.data)._id == this.currentEnquiry._id) {
                                 this.enquiriesFeed[stageName].enquiries.data.shift();
                             }
