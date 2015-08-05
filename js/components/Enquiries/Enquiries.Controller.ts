@@ -70,12 +70,20 @@ module hirespace {
                         };
 
                         this.sendEmailPromise(emailData).then(response => {
-                            hirespace.Logger.info(response);
                             hirespace.Notification.generate('Your Message was successfully sent. The enquiry is moved to In Progress', 'in-progress');
+                            hirespace.Logger.info(response);
+
                             this.resolveUpdateBookingData(updateData, true);
-                        }, f => {
-                            hirespace.Notification.generate('There was an error sending your email.', 'error');
-                            hirespace.Logger.error(f);
+                        }, response => {
+                            if (response.status == 200) {
+                                hirespace.Notification.generate('Your Message was successfully sent. The enquiry is moved to In Progress', 'in-progress');
+                                hirespace.Logger.info(response);
+
+                                this.resolveUpdateBookingData(updateData, true);
+                            } else {
+                                hirespace.Notification.generate('There was an error sending your email.', 'error');
+                                hirespace.Logger.error(response);
+                            }
                         });
 
                         return false;
