@@ -65,6 +65,9 @@ module hirespace {
                     if ($(e.target).hasClass('send-email')) {
                         emailData = {
                             toEmailAddress: this.bookingData.customer.email,
+                            toName: this.bookingData.customer.name,
+                            fromName: this.bookingData.venue.name,
+                            fromEmailAddress: 'hello@hirespace.com',
                             subject: 'RE: ' + this.bookingData.word + ' at ' + this.bookingData.venue.name,
                             message: $('#modalQuickReply textarea').val(),
                             attachments: _.isUndefined(this.attachments) ? [] : this.attachments
