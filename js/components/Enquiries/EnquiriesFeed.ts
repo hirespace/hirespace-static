@@ -16,7 +16,7 @@ module hirespace {
         remaining: number;
     }
 
-    interface ITemplateData {
+    export interface ITemplateData {
         _id: string;
         active?: boolean;
         budget: number;
@@ -84,7 +84,7 @@ module hirespace {
                 }
             });
 
-            // @TODO unhack cruft and implement in updateView
+            // @TODO unhack cruft and abstract
             if (bookingData.stage.name == 'Archived') {
                 this.currentEnquiry.status = bookingData.status;
 
@@ -168,6 +168,16 @@ module hirespace {
                     venueName: newData.venue.name,
                     word: newData.word
                 };
+
+                // @TODO unhack cruft and abstract
+                if (newData.stage.name == 'Archived') {
+                    this.currentEnquiry.status = newData.status;
+
+                    if (newData.stage.option) {
+                        this.currentEnquiry.price = newData.stage.option.price;
+                        this.currentEnquiry.priceType = newData.stage.option.priceType;
+                    }
+                }
             }
 
             if (append) {
