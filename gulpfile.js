@@ -63,9 +63,11 @@ gulp.task('typescript', function () {
 });
 
 gulp.task('test', function (done) {
-    karma.server.start({
+    var server = new karma.Server({
         configFile: process.cwd() + '/js/test/karma.conf.js'
     }, done);
+
+    server.start();
 });
 
 gulp.task('sass', function () {
