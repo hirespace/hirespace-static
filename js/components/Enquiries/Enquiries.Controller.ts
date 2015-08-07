@@ -143,7 +143,9 @@ module hirespace {
 
                     this.updateBookingDataPromise(payload).then(response => {
                         hirespace.Logger.info(response);
-                        hirespace.Notification.generate('Your changes have been successfully saved', 'success')
+                        hirespace.Notification.generate('Your changes have been successfully saved', 'success');
+
+                        this.resolveUpdateBookingData(response);
                     }, response => {
                         hirespace.Logger.error(response);
                         hirespace.Notification.generate('There was an error saving your changes', 'error')
