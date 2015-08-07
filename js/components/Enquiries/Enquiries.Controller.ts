@@ -140,6 +140,14 @@ module hirespace {
 
                         if (value !== 'N/A') payload.suggestedEdits[name] = name == 'budget' ? _.parseInt(value) : value;
                     });
+
+                    this.updateBookingDataPromise(payload).then(response => {
+                        hirespace.Logger.info(response);
+                        hirespace.Notification.generate('Your changes have been successfully saved', 'success')
+                    }, response => {
+                        hirespace.Logger.error(response);
+                        hirespace.Notification.generate('There was an error saving your changes', 'error')
+                    });
                 });
             }
         }
