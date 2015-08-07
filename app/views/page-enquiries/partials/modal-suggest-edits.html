@@ -11,7 +11,7 @@
                     Type
                 </label>
 
-                <input type="text" id="suggestEditsType" class="col-sm-9"/>
+                <input hs-bind="bookingData.word" value="N/A" type="text" id="suggestEditsType" class="col-sm-9"/>
             </div>
             <div class="form-controls">
                 <label for="suggestEditsDate" class="col-sm-3">
@@ -19,7 +19,7 @@
                     Date
                 </label>
 
-                <input type="text" id="suggestEditsDate" class="col-sm-9"/>
+                <input hs-bind="bookingData.date.stardate" value="N/A" type="text" id="suggestEditsDate" class="col-sm-9"/>
             </div>
             <div class="form-controls">
                 <label for="suggestEditsBudet" class="col-sm-3">
@@ -27,7 +27,7 @@
                     Budget
                 </label>
 
-                <input type="text" id="suggestEditsBudet" class="col-sm-9"/>
+                <input hs-bind="bookingData.budget" value="N/A" type="text" id="suggestEditsBudet" class="col-sm-9"/>
             </div>
             <div class="form-controls">
                 <label for="suggestEditsPeople" class="col-sm-3">
@@ -35,7 +35,7 @@
                     People
                 </label>
 
-                <input type="text" id="suggestEditsPeople" class="col-sm-9"/>
+                <input hs-bind="bookingData.people" value="N/A" type="text" id="suggestEditsPeople" class="col-sm-9"/>
             </div>
             <div class="form-controls">
                 <label for="suggestEditsStartTime" class="col-sm-3">
@@ -43,7 +43,7 @@
                     Start time
                 </label>
 
-                <input type="text" id="suggestEditsStartTime" class="col-sm-9"/>
+                <input hs-bind="bookingData.time.starttime" value="N/A" type="text" id="suggestEditsStartTime" class="col-sm-9"/>
             </div>
             <div class="form-controls">
                 <label for="suggestEditsFinishTime" class="col-sm-3">
@@ -51,7 +51,7 @@
                     Finish time
                 </label>
 
-                <input type="text" id="suggestEditsFinishTime" class="col-sm-9"/>
+                <input hs-bind="bookingData.time.finishtime" value="N/A" type="text" id="suggestEditsFinishTime" class="col-sm-9"/>
             </div>
         </form>
     </main>
