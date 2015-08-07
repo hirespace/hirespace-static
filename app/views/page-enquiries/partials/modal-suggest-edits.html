@@ -4,13 +4,56 @@
         <small class="link undo" hs-modal-close>Back</small>
     </header>
     <main>
-        <form action="">
+        <form class="suggest-edits">
             <div class="form-controls">
-                <label for="suggestEditsDate">Date</label>
-                <input type="text" id="suggestEditsDate"/>
+                <label for="suggestEditsType" class="col-sm-3">
+                    <i class="fa fa-calendar"></i>
+                    Type
+                </label>
+
+                <input type="text" id="suggestEditsType" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsDate" class="col-sm-3">
+                    <i class="fa fa-calendar"></i>
+                    Date
+                </label>
+
+                <input type="text" id="suggestEditsDate" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsBudet" class="col-sm-3">
+                    <i class="fa fa-gbp"></i>
+                    Budget
+                </label>
+
+                <input type="text" id="suggestEditsBudet" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsPeople" class="col-sm-3">
+                    <i class="fa fa-user"></i>
+                    People
+                </label>
+
+                <input type="text" id="suggestEditsPeople" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsStartTime" class="col-sm-3">
+                    <i class="fa fa-clock-o"></i>
+                    Start time
+                </label>
+
+                <input type="text" id="suggestEditsStartTime" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsFinishTime" class="col-sm-3">
+                    <i class="fa fa-clock-o"></i>
+                    Finish time
+                </label>
+
+                <input type="text" id="suggestEditsFinishTime" class="col-sm-9"/>
             </div>
         </form>
-        <!--<p class="contact-info" hs-bind="bookingData.customer.phone">Telephone Number</p>-->
     </main>
     <footer>
         <button class="block green large" hs-modal-close>
