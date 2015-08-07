@@ -65,7 +65,7 @@ module hirespace {
         spaceName?: string;
     }
 
-    interface ISuggestedCriteria {
+    interface ISuggestedEdits{
         budget?: number;
         date?: IDate;
         people?: number;
@@ -83,7 +83,7 @@ module hirespace {
         people: number;
         stage: IBookingStage;
         status: string;
-        suggestedCriteria?: ISuggestedCriteria;
+        suggestedEdits?: ISuggestedEdits;
         time: ITime;
         // @TODO
         // resolve this to Date only?

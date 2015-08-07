@@ -125,6 +125,22 @@ module hirespace {
                     $('#showFullMessageContainer').toggleClass('show-all');
                 });
 
+                $('#saveSuggestedEdits').click(e => {
+                    let inputs = $('#formSuggestedEdits input');
+
+                    let payload = {
+                            suggestedEdits: {}
+                        },
+                        name,
+                        value;
+
+                    _.forEach(inputs, input => {
+                        name = $(input).attr('name');
+                        value = $(input).val();
+
+                        if (value !== 'N/A') payload.suggestedEdits[name] = name == 'budget' ? _.parseInt(value) : value;
+                    });
+                });
             }
         }
 
