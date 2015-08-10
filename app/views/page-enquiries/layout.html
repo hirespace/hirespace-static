@@ -246,27 +246,30 @@
         <section hs-class="is-hidden: bookingData.status == 'void'">
 
             <div class="internal-note container-narrow">
-                <div class="pull-left">
-                    <button class="black hide" hs-modal="modalSuggestEdits"
-                            hs-class="is-visible: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress'">
-                        Suggest edits
-                    </button>
+                <div class="row">
+                    <div hs-class="col-md-6: bookingData.stage.name == 'Needs Archiving', col-md-12: bookingData.stage.name == 'Archived'">
+                        <button class="flat-grey hs-to-step hide"
+                                hs-class="is-visible: bookingData.stage.name == 'Archived'"
+                                update="reopen: true">
+                            Re-open
+                        </button>
 
-                    <button class="flat-grey hs-to-step hide"
-                            hs-class="is-visible: bookingData.stage.name == 'Archived'"
-                            update="reopen: true">
-                        Re-open
-                    </button>
-
-                    <button class="flat-grey hs-to-step hide"
-                            hs-class="is-visible: bookingData.stage.name == 'Needs Archiving'"
-                            update="reopen: true">
-                        Update Later
-                    </button>
+                        <button class="flat-grey hs-to-step hide"
+                                hs-class="is-visible: bookingData.stage.name == 'Needs Archiving'"
+                                update="reopen: true">
+                            Update Later
+                        </button>
+                    </div>
+                    <div hs-class="col-md-12: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress', col-md-6: bookingData.stage.name == 'Needs Archiving'">
+                        <button class="flat-grey hide" hs-modal="modalSuggestEdits"
+                                hs-class="is-visible: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving'">
+                            Suggest edits
+                        </button>
+                    </div>
                 </div>
 
 
-                <div class="pull-right">
+                <div class="pull-right is-hidden">
                     <label for="internal-note">Leave an internal note</label>
                     <input id="internal-note" type="text" placeholder="Text here..."/>
 
