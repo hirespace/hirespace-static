@@ -139,17 +139,21 @@ module hirespace {
                         value = $(input).val();
 
                         // @TODO create a separate class for testing this
-                        if (!_.isEmpty(value) && value !== 'N/A' && value !== this.bookingData[name]) {
-                            switch (name) {
-                                case 'budget':
-                                    value = _.parseInt(value);
-                                    break;
-                                case 'startdate':
-                                    value = new Date(value);
-                                    break;
-                                case 'finishdate':
-                                    value = new Date(value);
-                                    break;
+                        if (value !== this.bookingData[name]) {
+                            if (_.isEmpty(value) || value == 'N/A') {
+                                value = (name == 'word') ? this.bookingData.word : false;
+                            } else {
+                                switch (name) {
+                                    case 'budget':
+                                        value = _.parseInt(value);
+                                        break;
+                                    case 'finishdate':
+                                        value = Date.parse(value);
+                                        break;
+                                    case 'startdate':
+                                        value = Date.parse(value);
+                                        break;
+                                }
                             }
 
                             payload.suggestedEdits[name] = value;
