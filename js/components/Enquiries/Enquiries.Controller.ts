@@ -125,7 +125,7 @@ module hirespace {
                     $('#showFullMessageContainer').toggleClass('show-all');
                 });
 
-                $('#saveSuggestedEdits').click(e => {
+                $('#saveSuggestedEdits').click(() => {
                     let inputs = $('#formSuggestedEdits input');
 
                     let payload = {
@@ -138,7 +138,22 @@ module hirespace {
                         name = $(input).attr('name');
                         value = $(input).val();
 
-                        if (value !== 'N/A') payload.suggestedEdits[name] = name == 'budget' ? _.parseInt(value) : value;
+                        // @TODO create a separate class for testing this
+                        if (!_.isEmpty(value) && value !== 'N/A' && value !== this.bookingData[name]) {
+                            switch (name) {
+                                case 'budget':
+                                    value = _.parseInt(value);
+                                    break;
+                                case 'startdate':
+                                    value = new Date(value);
+                                    break;
+                                case 'finishdate':
+                                    value = new Date(value);
+                                    break;
+                            }
+
+                            payload.suggestedEdits[name] = value;
+                        }
                     });
 
                     this.updateBookingDataPromise(payload).then(response => {

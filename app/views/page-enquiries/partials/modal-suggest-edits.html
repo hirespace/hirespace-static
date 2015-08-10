@@ -19,7 +19,7 @@
                     Start Date
                 </label>
 
-                <input name="startdate" hs-bind="bookingData.date.stardate" value="N/A" type="text" id="suggestEditsStartDate" class="col-sm-9"/>
+                <input name="startdate" hs-bind="bookingData.date.stardate | date" value="N/A" type="text" id="suggestEditsStartDate" class="col-sm-9"/>
             </div>
             <div class="form-controls">
                 <label for="suggestEditsFinishDate" class="col-sm-3">
@@ -27,7 +27,7 @@
                     Finish Date
                 </label>
 
-                <input name="finishdate" hs-bind="bookingData.date.finishdate" value="N/A" type="text" id="suggestEditsFinishDate" class="col-sm-9"/>
+                <input name="finishdate" hs-bind="bookingData.date.finishdate | date" value="N/A" type="text" id="suggestEditsFinishDate" class="col-sm-9"/>
             </div>
             <div class="form-controls">
                 <label for="suggestEditsBudet" class="col-sm-3">
