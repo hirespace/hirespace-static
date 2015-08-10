@@ -624,6 +624,10 @@
   .internal-note
     +clearfix
 
+    .row
+      button
+        width: 100%
+
     .pull-right
       +clearfix
 
@@ -697,6 +701,34 @@
         font:
           weight: 700
           size: rem(28px)
+
+      .suggest-edits
+        padding: $half-unit-layout
+
+        .form-controls
+          +clearfix
+
+          margin-bottom: $base-unit-layout
+
+          &:last-of-type
+            margin-bottom: 0
+
+          +respond-to-size($screen-sm)
+            margin-bottom: 0
+
+          label
+            height: $triple-unit-layout
+            line-height: $triple-unit-layout
+
+            .fa
+              margin-right: $quarter-unit-layout
+
+          input
+            height: $triple-unit-layout
+            padding: 0 $half-unit-layout
+
+            +respond-to-size($screen-sm)
+              width: 100%
 
       form
         label

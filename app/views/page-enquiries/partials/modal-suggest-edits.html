@@ -1,0 +1,71 @@
+<div class="modal is-hidden" id="modalSuggestEdits">
+    <header>
+        <strong class="heading">Suggest edits for this enquiry</strong>
+        <small class="link undo" hs-modal-close>Back</small>
+    </header>
+    <main>
+        <form class="suggest-edits" id="formSuggestedEdits">
+            <div class="form-controls">
+                <label for="suggestEditsType" class="col-sm-3">
+                    <i class="fa fa-suitcase fa-fw"></i>
+                    Type
+                </label>
+
+                <input name="word" hs-bind="bookingData.word" placeholder="N/A" type="text" id="suggestEditsType" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsStartDate" class="col-sm-3">
+                    <i class="fa fa-calendar-o fa-fw"></i>
+                    Start Date
+                </label>
+
+                <input name="startdate" hs-bind="bookingData.date.stardate | date" placeholder="N/A" type="text" id="suggestEditsStartDate" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsFinishDate" class="col-sm-3">
+                    <i class="fa fa-calendar-o fa-fw"></i>
+                    Finish Date
+                </label>
+
+                <input name="finishdate" hs-bind="bookingData.date.finishdate | date" placeholder="N/A" type="text" id="suggestEditsFinishDate" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsBudet" class="col-sm-3">
+                    <i class="fa fa-gbp fa-fw"></i>
+                    Budget
+                </label>
+
+                <input name="budget" hs-bind="bookingData.budget" placeholder="N/A" type="text" id="suggestEditsBudet" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsPeople" class="col-sm-3">
+                    <i class="fa fa-user fa-fw"></i>
+                    People
+                </label>
+
+                <input name="people" hs-bind="bookingData.people" placeholder="N/A" type="text" id="suggestEditsPeople" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsStartTime" class="col-sm-3">
+                    <i class="fa fa-clock-o fa-fw"></i>
+                    Start time
+                </label>
+
+                <input name="starttime" hs-bind="bookingData.time.starttime" placeholder="N/A" type="text" id="suggestEditsStartTime" class="col-sm-9"/>
+            </div>
+            <div class="form-controls">
+                <label for="suggestEditsFinishTime" class="col-sm-3">
+                    <i class="fa fa-clock-o fa-fw"></i>
+                    Finish time
+                </label>
+
+                <input name="finishtime" hs-bind="bookingData.time.finishtime" placeholder="N/A" type="text" id="suggestEditsFinishTime" class="col-sm-9"/>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <button class="block green large" hs-modal-close id="saveSuggestedEdits">
+            Save Edits
+        </button>
+    </footer>
+</div>
