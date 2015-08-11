@@ -1,4 +1,4 @@
-module hirepace.Form.specs {
+module hirespace.Form.specs {
     'use strict';
 
     describe('Form.Validate.normalise() method', () => {
