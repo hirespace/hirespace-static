@@ -12,7 +12,7 @@ module hirepace.Form.specs {
         ];
 
         _.forEach(validate, assertion => {
-            fit('should correctly normalise ' + assertion.input, () => {
+            it('should correctly normalise ' + assertion.input, () => {
                 expect(hirepace.Form.Validate.normalise(assertion.input)).toEqual(assertion.output);
             });
         });
@@ -87,6 +87,44 @@ module hirepace.Form.specs {
         _.forEach(invalidTimes, time => {
             it('should evaluate ' + time + ' to false', () => {
                 expect(hirepace.Form.Validate.time(time)).toEqual(false);
+            });
+        });
+    });
+
+    describe('Form.Validate.tel() method', () => {
+        // @TODO check why '+44 (0) 7894 846 483' evaluates to invalid
+        let validTels = ['07894 846 483', '+421 904 024 789', '+4407894846483'];
+
+        _.forEach(validTels, tel => {
+            it('should evaluate ' + tel + ' to true', () => {
+                expect(hirepace.Form.Validate.tel(tel)).toEqual(true);
+            });
+        });
+
+        let invalidTels = ['9:61', 'anything else'];
+
+        _.forEach(invalidTels, tel => {
+            it('should evaluate ' + tel + ' to false', () => {
+                expect(hirepace.Form.Validate.tel(tel)).toEqual(false);
+            });
+        });
+    });
+
+    describe('Form.Validate.email() method', () => {
+        // @TODO check why '+44 (0) 7894 846 483' evaluates to invalid
+        let validEmails = ['someone@hirespace.com'];
+
+        _.forEach(validEmails, email => {
+            it('should evaluate ' + email + ' to true', () => {
+                expect(hirepace.Form.Validate.email(email)).toEqual(true);
+            });
+        });
+
+        let invalidEmails = ['someone@hirespace. com', 'someone@hirespace.', 'someone@hirespacecom', 'someone@.com', 'someone@'];
+
+        _.forEach(invalidEmails, email => {
+            it('should evaluate ' + email + ' to false', () => {
+                expect(hirepace.Form.Validate.email(email)).toEqual(false);
             });
         });
     });
