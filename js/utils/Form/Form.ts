@@ -1,7 +1,22 @@
-module hirepace.Form {
+module hirespace.Form {
     'use strict';
 
+    interface IValid {
+        [rule: string]: boolean;
+    }
+
     export class Validate {
+        static all(value: any, rules: string[]) {
+            let valid: IValid = {};
+
+            _.forEach(rules, rule => {
+                if (Validate[rule]) valid[rule] = Validate[rule](value);
+            });
+
+            // @NOTE 'optional' overrides 'required'!
+            return (_.isEmpty(Validate.normalise(value)) && valid['optional']) ? true : !_.contains(_.values(valid), false);
+        }
+
         static normalise(value: any): string {
             return _.isUndefined(value) || _.isNull(value) || _.isNaN(value) ? '' : value.toString();
         }

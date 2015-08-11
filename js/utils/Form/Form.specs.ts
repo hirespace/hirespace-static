@@ -13,7 +13,7 @@ module hirepace.Form.specs {
 
         _.forEach(validate, assertion => {
             it('should correctly normalise ' + assertion.input, () => {
-                expect(hirepace.Form.Validate.normalise(assertion.input)).toEqual(assertion.output);
+                expect(hirespace.Form.Validate.normalise(assertion.input)).toEqual(assertion.output);
             });
         });
     });
@@ -23,7 +23,7 @@ module hirepace.Form.specs {
 
         _.forEach(validValues, value => {
             it('should correctly evaluate ' + value + ' to true', () => {
-                expect(hirepace.Form.Validate.required(value)).toEqual(true);
+                expect(hirespace.Form.Validate.required(value)).toEqual(true);
             });
         });
 
@@ -31,7 +31,7 @@ module hirepace.Form.specs {
 
         _.forEach(invalidValues, value => {
             it('should correctly evaluate ' + value + ' to false', () => {
-                expect(hirepace.Form.Validate.required(value)).toEqual(false);
+                expect(hirespace.Form.Validate.required(value)).toEqual(false);
             });
         });
     });
@@ -41,7 +41,7 @@ module hirepace.Form.specs {
 
         _.forEach(validValues, value => {
             it('should correctly evaluate ' + value + ' to true', () => {
-                expect(hirepace.Form.Validate.numeric(value)).toEqual(true);
+                expect(hirespace.Form.Validate.numeric(value)).toEqual(true);
             });
         });
 
@@ -49,7 +49,7 @@ module hirepace.Form.specs {
 
         _.forEach(invalidValues, value => {
             it('should correctly evaluate ' + value + ' to false', () => {
-                expect(hirepace.Form.Validate.numeric(value)).toEqual(false);
+                expect(hirespace.Form.Validate.numeric(value)).toEqual(false);
             });
         });
     });
@@ -60,7 +60,7 @@ module hirepace.Form.specs {
 
         _.forEach(validDates, date => {
             it('should evaluate ' + date + ' to true', () => {
-                expect(hirepace.Form.Validate.date(date)).toEqual(true);
+                expect(hirespace.Form.Validate.date(date)).toEqual(true);
             });
         });
 
@@ -68,7 +68,7 @@ module hirepace.Form.specs {
 
         _.forEach(invalidDates, date => {
             it('should evaluate ' + date + ' to false', () => {
-                expect(hirepace.Form.Validate.date(date)).toEqual(false);
+                expect(hirespace.Form.Validate.date(date)).toEqual(false);
             });
         });
     });
@@ -78,7 +78,7 @@ module hirepace.Form.specs {
 
         _.forEach(validTimes, time => {
             it('should evaluate ' + time + ' to true', () => {
-                expect(hirepace.Form.Validate.time(time)).toEqual(true);
+                expect(hirespace.Form.Validate.time(time)).toEqual(true);
             });
         });
 
@@ -86,7 +86,7 @@ module hirepace.Form.specs {
 
         _.forEach(invalidTimes, time => {
             it('should evaluate ' + time + ' to false', () => {
-                expect(hirepace.Form.Validate.time(time)).toEqual(false);
+                expect(hirespace.Form.Validate.time(time)).toEqual(false);
             });
         });
     });
@@ -97,7 +97,7 @@ module hirepace.Form.specs {
 
         _.forEach(validTels, tel => {
             it('should evaluate ' + tel + ' to true', () => {
-                expect(hirepace.Form.Validate.tel(tel)).toEqual(true);
+                expect(hirespace.Form.Validate.tel(tel)).toEqual(true);
             });
         });
 
@@ -105,18 +105,17 @@ module hirepace.Form.specs {
 
         _.forEach(invalidTels, tel => {
             it('should evaluate ' + tel + ' to false', () => {
-                expect(hirepace.Form.Validate.tel(tel)).toEqual(false);
+                expect(hirespace.Form.Validate.tel(tel)).toEqual(false);
             });
         });
     });
 
     describe('Form.Validate.email() method', () => {
-        // @TODO check why '+44 (0) 7894 846 483' evaluates to invalid
         let validEmails = ['someone@hirespace.com'];
 
         _.forEach(validEmails, email => {
             it('should evaluate ' + email + ' to true', () => {
-                expect(hirepace.Form.Validate.email(email)).toEqual(true);
+                expect(hirespace.Form.Validate.email(email)).toEqual(true);
             });
         });
 
@@ -124,7 +123,26 @@ module hirepace.Form.specs {
 
         _.forEach(invalidEmails, email => {
             it('should evaluate ' + email + ' to false', () => {
-                expect(hirepace.Form.Validate.email(email)).toEqual(false);
+                expect(hirespace.Form.Validate.email(email)).toEqual(false);
+            });
+        });
+    });
+
+    describe('Form.Validate.all() method', () => {
+        let validate = [
+            {value: '1.45', rules: ['required', 'numeric'], result: true},
+            {value: '', rules: ['numeric', 'optional'], result: true},
+            {value: 'hello@hirespace', rules: ['email', 'optional'], result: false},
+            {value: '07894846843', rules: ['tel', 'optional', 'numeric'], result: true},
+            {value: '07894 846 843', rules: ['tel', 'numeric'], result: false},
+            {value: 'hello@hirespace.com', rules: ['email', 'optional', 'required'], result: true},
+            // Optional overrides required!
+            {value: '', rules: ['email', 'optional', 'required'], result: true}
+        ];
+
+        _.forEach(validate, obj => {
+            it('should evaluate multiple ' + JSON.stringify(obj.rules) + ' assertions for ' + obj.value, () => {
+                expect(hirespace.Form.Validate.all(obj.value, obj.rules)).toEqual(obj.result);
             });
         });
     });
