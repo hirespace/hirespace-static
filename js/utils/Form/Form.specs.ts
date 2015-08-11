@@ -1,6 +1,23 @@
 module hirepace.Form.specs {
     'use strict';
 
+    describe('Form.Validate.normalise() method', () => {
+        let validate = [
+            {input: true, output: 'true'},
+            {input: 1, output: '1'},
+            {input: null, output: ''},
+            {input: undefined, output: ''},
+            {input: NaN, output: ''},
+            {input: 'string', output: 'string'}
+        ];
+
+        _.forEach(validate, assertion => {
+            fit('should correctly normalise ' + assertion.input, () => {
+                expect(hirepace.Form.Validate.normalise(assertion.input)).toEqual(assertion.output);
+            });
+        });
+    });
+
     describe('Form.Validate.required() method', () => {
         let validValues = ['s', true, 1, '0', ' '];
 
@@ -15,6 +32,24 @@ module hirepace.Form.specs {
         _.forEach(invalidValues, value => {
             it('should correctly evaluate ' + value + ' to false', () => {
                 expect(hirepace.Form.Validate.required(value)).toEqual(false);
+            });
+        });
+    });
+
+    describe('Form.Validate.numeric() method', () => {
+        let validValues = [1, '1', '-8', '2.4', '3,3', '6,280.200'];
+
+        _.forEach(validValues, value => {
+            it('should correctly evaluate ' + value + ' to true', () => {
+                expect(hirepace.Form.Validate.numeric(value)).toEqual(true);
+            });
+        });
+
+        let invalidValues = ['', 'string', 'string with 1 number'];
+
+        _.forEach(invalidValues, value => {
+            it('should correctly evaluate ' + value + ' to false', () => {
+                expect(hirepace.Form.Validate.numeric(value)).toEqual(false);
             });
         });
     });
