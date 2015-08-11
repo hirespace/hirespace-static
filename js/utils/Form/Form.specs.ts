@@ -37,7 +37,7 @@ module hirespace.Form.specs {
     });
 
     describe('Form.Validate.numeric() method', () => {
-        let validValues = [1, '1', '-8', '2.4', '3,3', '6,280.200'];
+        let validValues = [1, '1', '-8', -8, '2.4', 2.4, '3,3', '6,280.200'];
 
         _.forEach(validValues, value => {
             it('should correctly evaluate ' + value + ' to true', () => {
