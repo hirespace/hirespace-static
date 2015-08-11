@@ -1,6 +1,24 @@
 module hirepace.Form.specs {
     'use strict';
 
+    describe('Form.Validate.required() method', () => {
+        let validValues = ['s', true, 1, '0', ' '];
+
+        _.forEach(validValues, value => {
+            it('should correctly evaluate ' + value + ' to true', () => {
+                expect(hirepace.Form.Validate.required(value)).toEqual(true);
+            });
+        });
+
+        let invalidValues = ['', null, undefined, NaN];
+
+        _.forEach(invalidValues, value => {
+            it('should correctly evaluate ' + value + ' to false', () => {
+                expect(hirepace.Form.Validate.required(value)).toEqual(false);
+            });
+        });
+    });
+
     describe('Form.Validate.date() method', () => {
         let validDates = ['22 Aug 2015', 'August 22 2015', 'September 08 2015', 'Sep 8 2015', '8 September 2015',
             '22-08-2015', '22/08/2015', '2015-22-08', '22.Aug.2015', '22.08.2015'];

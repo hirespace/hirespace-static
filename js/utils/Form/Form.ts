@@ -2,8 +2,8 @@ module hirepace.Form {
     'use strict';
 
     export class Validate {
-        static required(value: string) {
-            return _.isEmpty(value);
+        static required(value: string | boolean | number) {
+            return !_.isEmpty((_.isUndefined(value) || _.isNull(value) || _.isNaN(value)) ? '' : value.toString());
         }
 
         static number(value: string) {
@@ -19,7 +19,7 @@ module hirepace.Form {
         }
 
         static time(value: string) {
-            return moment(value, ['HH:mm A', ]).isValid();
+            return moment(value, ['HH:mm A',]).isValid();
         }
 
         static email(value: string) {
