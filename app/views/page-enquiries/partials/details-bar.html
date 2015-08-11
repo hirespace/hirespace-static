@@ -7,7 +7,7 @@
         </li>
         <li class="separator"><span></span></li>
         <li class="date">
-            <a href="#" hs-modal="modalSuggestEdits"><i class="fa fa-edit"></i> Edit</a>
+            <a href="#" hs-modal="modalSuggestEdits" class="toggle-edit" edit-only="date"><i class="fa fa-edit"></i> Edit</a>
             <em hs-class="is-visible: bookingData.date.flexible == true" class="hide is-flexible">
                 <i class="fa fa-check"></i>
                 Flexible</em>
@@ -22,14 +22,14 @@
         </li>
         <li class="separator"><span></span></li>
         <li class="budget">
-            <a href="#" hs-modal="modalSuggestEdits"><i class="fa fa-edit"></i> Edit</a>
+            <a href="#" hs-modal="modalSuggestEdits" class="toggle-edit" edit-only="budget"><i class="fa fa-edit"></i> Edit</a>
             <i class="fa fa-gbp"></i>
             <strong class="hide" hs-class="show-inline: bookingData.budget == 0">N/A</strong>
             <strong hs-class="is-hidden: bookingData.budget == 0" hs-bind="bookingData.budget">N/A</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="people">
-            <a href="#" hs-modal="modalSuggestEdits"><i class="fa fa-edit"></i> Edit</a>
+            <a href="#" hs-modal="modalSuggestEdits" class="toggle-edit" edit-only="people"><i class="fa fa-edit"></i> Edit</a>
             <i class="fa fa-user"></i>
             <strong class="hide" hs-class="show-inline: bookingData.people == 0">N/A</strong>
             <span hs-class="is-hidden: bookingData.people == 0">
@@ -38,7 +38,7 @@
         </li>
         <li class="separator"><span></span></li>
         <li class="time">
-            <a href="#" hs-modal="modalSuggestEdits"><i class="fa fa-edit"></i> Edit</a>
+            <a href="#" hs-modal="modalSuggestEdits" class="toggle-edit" edit-only="time"><i class="fa fa-edit"></i> Edit</a>
             <em hs-class="is-visible: bookingData.time.flexible == true" class="hide is-flexible">
                 <i class="fa fa-check"></i>
                 Flexible</em>

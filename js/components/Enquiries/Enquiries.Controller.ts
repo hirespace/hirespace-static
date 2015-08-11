@@ -18,6 +18,7 @@ module hirespace {
         private guid: string;
         private pollingFrequency: number = 30000;
 
+        editBookingData: string;
         bookingData: IBookingData;
         uiConfig: IUiConfig;
         EnquiriesFeed: hirespace.EnquiriesFeed;
@@ -125,6 +126,13 @@ module hirespace {
                     $('#showFullMessageContainer').toggleClass('show-all');
                 });
 
+                $('.toggle-edit').click((e) => {
+                    let editOnly = $(e.currentTarget).attr('edit-only');
+
+                    this.editBookingData = _.isUndefined(editOnly) ? 'all' : editOnly;
+                    hirespace.View.updateView(this, '#modalSuggestEdits');
+                });
+
                 $('#saveSuggestedEdits').click(() => {
                     let inputs = $('#formSuggestedEdits input');
 
@@ -132,43 +140,60 @@ module hirespace {
                             suggestedEdits: {}
                         },
                         name,
-                        value;
+                        value,
+                        checkAgainstUpdateValues: Array<string> = [];
+
+                    switch (this.editBookingData) {
+                        case 'date':
+                            checkAgainstUpdateValues = ['startdate', 'finishdate'];
+                            break;
+                        case 'time':
+                            checkAgainstUpdateValues = ['starttime', 'finishtime'];
+                            break;
+                        default:
+                            checkAgainstUpdateValues.push(this.editBookingData);
+                            break;
+                    }
 
                     _.forEach(inputs, input => {
                         name = $(input).attr('name');
                         value = $(input).val();
 
-                        // @TODO create a separate class for testing this
-                        if (value !== this.bookingData[name]) {
-                            if (_.isEmpty(value) || value == 'N/A') {
-                                value = (name == 'word') ? this.bookingData.word : false;
-                            } else {
-                                switch (name) {
-                                    case 'budget':
-                                        value = _.parseInt(value);
-                                        break;
-                                    case 'finishdate':
-                                        value = Date.parse(value);
-                                        break;
-                                    case 'startdate':
-                                        value = Date.parse(value);
-                                        break;
+                        if (_.contains(checkAgainstUpdateValues, name) || _.contains(checkAgainstUpdateValues, 'all')) {
+                            // @TODO create a separate class for testing this
+                            if (value !== this.bookingData[name]) {
+                                if (_.isEmpty(value) || value == 'N/A') {
+                                    value = (name == 'word') ? this.bookingData.word : false;
+                                } else {
+                                    switch (name) {
+                                        case 'budget':
+                                            value = _.parseInt(value);
+                                            break;
+                                        case 'finishdate':
+                                            value = Date.parse(value);
+                                            break;
+                                        case 'startdate':
+                                            value = Date.parse(value);
+                                            break;
+                                    }
                                 }
-                            }
 
-                            payload.suggestedEdits[name] = value;
+                                payload.suggestedEdits[name] = value;
+                            }
                         }
                     });
 
-                    this.updateBookingDataPromise(payload).then(response => {
-                        hirespace.Logger.info(response);
-                        hirespace.Notification.generate('Your changes have been successfully saved', 'success');
+                    if (_.values(payload).length > 0) {
+                        this.updateBookingDataPromise(payload).then(response => {
+                            hirespace.Logger.info(response);
+                            hirespace.Notification.generate('Your changes have been successfully saved', 'success');
 
-                        this.resolveUpdateBookingData(response);
-                    }, response => {
-                        hirespace.Logger.error(response);
-                        hirespace.Notification.generate('There was an error saving your changes', 'error')
-                    });
+                            this.resolveUpdateBookingData(response);
+                        }, response => {
+                            hirespace.Logger.error(response);
+                            hirespace.Notification.generate('There was an error saving your changes', 'error')
+                        });
+                    }
                 });
             }
         }

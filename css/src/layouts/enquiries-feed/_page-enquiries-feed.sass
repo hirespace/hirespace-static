@@ -675,6 +675,10 @@
 
   .modal
     padding: $double-unit-layout
+    
+    &#modalSuggestEdits
+      main
+        padding-bottom: 0
 
     header,
     main,
@@ -709,9 +713,6 @@
           +clearfix
 
           margin-bottom: $base-unit-layout
-
-          &:last-of-type
-            margin-bottom: 0
 
           +respond-to-size($screen-sm)
             margin-bottom: 0

@@ -1,11 +1,11 @@
 <div class="modal is-hidden" id="modalSuggestEdits">
     <header>
-        <strong class="heading">Suggest edits for this enquiry</strong>
+        <strong class="heading">Edit Enquiry Details</strong>
         <small class="link undo" hs-modal-close>Back</small>
     </header>
     <main>
         <form class="suggest-edits" id="formSuggestedEdits">
-            <div class="form-controls">
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'all'">
                 <label for="suggestEditsType" class="col-sm-3">
                     <i class="fa fa-suitcase fa-fw"></i>
                     Type
@@ -13,7 +13,7 @@
 
                 <input name="word" hs-bind="bookingData.word" placeholder="N/A" type="text" id="suggestEditsType" class="col-sm-9"/>
             </div>
-            <div class="form-controls">
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'date' || editBookingData == 'all'">
                 <label for="suggestEditsStartDate" class="col-sm-3">
                     <i class="fa fa-calendar-o fa-fw"></i>
                     Start Date
@@ -21,7 +21,7 @@
 
                 <input name="startdate" hs-bind="bookingData.date.stardate | date" placeholder="N/A" type="text" id="suggestEditsStartDate" class="col-sm-9"/>
             </div>
-            <div class="form-controls">
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'date' || editBookingData == 'all'">
                 <label for="suggestEditsFinishDate" class="col-sm-3">
                     <i class="fa fa-calendar-o fa-fw"></i>
                     Finish Date
@@ -29,7 +29,7 @@
 
                 <input name="finishdate" hs-bind="bookingData.date.finishdate | date" placeholder="N/A" type="text" id="suggestEditsFinishDate" class="col-sm-9"/>
             </div>
-            <div class="form-controls">
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'budget' || editBookingData == 'all'">
                 <label for="suggestEditsBudet" class="col-sm-3">
                     <i class="fa fa-gbp fa-fw"></i>
                     Budget
@@ -37,7 +37,7 @@
 
                 <input name="budget" hs-bind="bookingData.budget" placeholder="N/A" type="text" id="suggestEditsBudet" class="col-sm-9"/>
             </div>
-            <div class="form-controls">
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'people' || editBookingData == 'all'">
                 <label for="suggestEditsPeople" class="col-sm-3">
                     <i class="fa fa-user fa-fw"></i>
                     People
@@ -45,7 +45,7 @@
 
                 <input name="people" hs-bind="bookingData.people" placeholder="N/A" type="text" id="suggestEditsPeople" class="col-sm-9"/>
             </div>
-            <div class="form-controls">
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'time' || editBookingData == 'all'">
                 <label for="suggestEditsStartTime" class="col-sm-3">
                     <i class="fa fa-clock-o fa-fw"></i>
                     Start time
@@ -53,7 +53,7 @@
 
                 <input name="starttime" hs-bind="bookingData.time.starttime" placeholder="N/A" type="text" id="suggestEditsStartTime" class="col-sm-9"/>
             </div>
-            <div class="form-controls">
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'time' || editBookingData == 'all'">
                 <label for="suggestEditsFinishTime" class="col-sm-3">
                     <i class="fa fa-clock-o fa-fw"></i>
                     Finish time
@@ -65,7 +65,7 @@
     </main>
     <footer>
         <button class="block green large" hs-modal-close id="saveSuggestedEdits">
-            Save Edits
+            Save
         </button>
     </footer>
 </div>
