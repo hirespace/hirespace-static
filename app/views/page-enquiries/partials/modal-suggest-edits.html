@@ -11,7 +11,7 @@
                     Type
                 </label>
 
-                <input name="word" hs-bind="bookingData.word" placeholder="N/A" type="text" id="suggestEditsType" class="col-sm-9"/>
+                <input name="word" rule='["required"]' hs-bind="bookingData.word" placeholder="N/A" type="text" id="suggestEditsType" class="col-sm-9"/>
             </div>
             <div class="form-controls hide" hs-class="is-visible: editBookingData == 'date' || editBookingData == 'all'">
                 <label for="suggestEditsStartDate" class="col-sm-3">
@@ -19,7 +19,7 @@
                     Start Date
                 </label>
 
-                <input name="startdate" hs-bind="bookingData.date.stardate | date" placeholder="N/A" type="text" id="suggestEditsStartDate" class="col-sm-9"/>
+                <input name="startdate" rule='["date"]' hs-bind="bookingData.date.stardate | date" placeholder="N/A" type="text" id="suggestEditsStartDate" class="col-sm-9"/>
             </div>
             <div class="form-controls hide" hs-class="is-visible: editBookingData == 'date' || editBookingData == 'all'">
                 <label for="suggestEditsFinishDate" class="col-sm-3">
@@ -27,7 +27,7 @@
                     Finish Date
                 </label>
 
-                <input name="finishdate" hs-bind="bookingData.date.finishdate | date" placeholder="N/A" type="text" id="suggestEditsFinishDate" class="col-sm-9"/>
+                <input name="finishdate" rule='["date"]' hs-bind="bookingData.date.finishdate | date" placeholder="N/A" type="text" id="suggestEditsFinishDate" class="col-sm-9"/>
             </div>
             <div class="form-controls hide" hs-class="is-visible: editBookingData == 'budget' || editBookingData == 'all'">
                 <label for="suggestEditsBudet" class="col-sm-3">
@@ -43,7 +43,7 @@
                     People
                 </label>
 
-                <input name="people" hs-bind="bookingData.people" placeholder="N/A" type="text" id="suggestEditsPeople" class="col-sm-9"/>
+                <input name="people" rule='["number"]' hs-bind="bookingData.people" placeholder="N/A" type="text" id="suggestEditsPeople" class="col-sm-9"/>
             </div>
             <div class="form-controls hide" hs-class="is-visible: editBookingData == 'time' || editBookingData == 'all'">
                 <label for="suggestEditsStartTime" class="col-sm-3">
@@ -51,7 +51,7 @@
                     Start time
                 </label>
 
-                <input name="starttime" hs-bind="bookingData.time.starttime" placeholder="N/A" type="text" id="suggestEditsStartTime" class="col-sm-9"/>
+                <input name="starttime" rule='["time"]' hs-bind="bookingData.time.starttime" placeholder="N/A" type="text" id="suggestEditsStartTime" class="col-sm-9"/>
             </div>
             <div class="form-controls hide" hs-class="is-visible: editBookingData == 'time' || editBookingData == 'all'">
                 <label for="suggestEditsFinishTime" class="col-sm-3">
@@ -59,7 +59,7 @@
                     Finish time
                 </label>
 
-                <input name="finishtime" hs-bind="bookingData.time.finishtime" placeholder="N/A" type="text" id="suggestEditsFinishTime" class="col-sm-9"/>
+                <input name="finishtime" rule='["time"]' hs-bind="bookingData.time.finishtime" placeholder="N/A" type="text" id="suggestEditsFinishTime" class="col-sm-9"/>
             </div>
         </form>
     </main>

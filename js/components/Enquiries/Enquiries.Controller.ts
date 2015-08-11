@@ -139,6 +139,7 @@ module hirespace {
                     let payload = {
                             suggestedEdits: {}
                         },
+                        rule,
                         name,
                         value,
                         checkAgainstUpdateValues: Array<string> = [];
@@ -158,6 +159,7 @@ module hirespace {
                     _.forEach(inputs, input => {
                         name = $(input).attr('name');
                         value = $(input).val();
+                        rule = $(input).attr('rule');
 
                         if (_.contains(checkAgainstUpdateValues, name) || _.contains(checkAgainstUpdateValues, 'all')) {
                             // @TODO create a separate class for testing this
@@ -166,7 +168,7 @@ module hirespace {
                                     value = (name == 'word') ? this.bookingData.word : false;
                                 } else {
                                     switch (name) {
-                                        case 'budget':
+                                        case 'people':
                                             value = _.parseInt(value);
                                             break;
                                         case 'finishdate':
