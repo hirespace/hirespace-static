@@ -276,6 +276,8 @@ declare module moment {
         isSame(b: Date, granularity: string): boolean;
         isSame(b: number[], granularity: string): boolean;
 
+        invalidAt(): number;
+
         // Deprecated as of 2.8.0.
         lang(language: string): Moment;
         lang(reset: boolean): Moment;
