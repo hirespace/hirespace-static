@@ -139,7 +139,7 @@ module hirespace {
                     let payload = {
                             suggestedEdits: {}
                         },
-                        rule,
+                        rules,
                         name,
                         value,
                         checkAgainstUpdateValues: Array<string> = [];
@@ -159,9 +159,18 @@ module hirespace {
                     _.forEach(inputs, input => {
                         name = $(input).attr('name');
                         value = $(input).val();
-                        rule = $(input).attr('rule');
+                        rules = $(input).attr('rule');
 
                         if (_.contains(checkAgainstUpdateValues, name) || _.contains(checkAgainstUpdateValues, 'all')) {
+                            let valid = hirespace.Form.Validate.all(value, JSON.parse(rules));
+
+
+                            console.log(valid + ' for ' + name);
+
+                            if (!valid) {
+                                $(input).parent().append('<strong style="color: red">Error!</strong>');
+                            }
+
                             // @TODO create a separate class for testing this
                             if (value !== this.bookingData[name]) {
                                 if (_.isEmpty(value) || value == 'N/A') {
@@ -185,17 +194,19 @@ module hirespace {
                         }
                     });
 
-                    if (_.values(payload).length > 0) {
-                        this.updateBookingDataPromise(payload).then(response => {
-                            hirespace.Logger.info(response);
-                            hirespace.Notification.generate('Your changes have been successfully saved', 'success');
+                    console.log(payload.suggestedEdits);
 
-                            this.resolveUpdateBookingData(response);
-                        }, response => {
-                            hirespace.Logger.error(response);
-                            hirespace.Notification.generate('There was an error saving your changes', 'error')
-                        });
-                    }
+                    //if (_.values(payload).length > 0) {
+                    //    this.updateBookingDataPromise(payload).then(response => {
+                    //        hirespace.Logger.info(response);
+                    //        hirespace.Notification.generate('Your changes have been successfully saved', 'success');
+                    //
+                    //        this.resolveUpdateBookingData(response);
+                    //    }, response => {
+                    //        hirespace.Logger.error(response);
+                    //        hirespace.Notification.generate('There was an error saving your changes', 'error')
+                    //    });
+                    //}
                 });
             }
         }
