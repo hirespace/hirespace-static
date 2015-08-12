@@ -128,6 +128,22 @@ module hirespace.Form.specs {
         });
     });
 
+    describe('Form.Validate.maxLength() method', () => {
+        let validate = [
+            {value: 'Test Value', extraParam: '2', result: false},
+            {value: 'Test Value', extraParam: '128', result: true},
+            {value: '', extraParam: 0, result: true},
+            {value: 'Test Value', extraParam: false, result: false},
+            {value: '', extraParam: null, result: false}
+        ];
+
+        _.forEach(validate, obj => {
+            it('should evaluate ' + obj.value + ' to ' + obj.result, () => {
+                expect(hirespace.Form.Validate.maxLength(obj.value, obj.extraParam)).toEqual(obj.result);
+            });
+        });
+    });
+
     describe('Form.Validate.all() method', () => {
         let validate = [
             {value: '1.45', rules: ['required', 'numeric'], result: true},
@@ -135,6 +151,9 @@ module hirespace.Form.specs {
             {value: 'hello@hirespace', rules: ['email', 'optional'], result: false},
             {value: '07894846843', rules: ['tel', 'optional', 'numeric'], result: true},
             {value: '07894 846 843', rules: ['tel', 'numeric'], result: false},
+            {value: 'String', rules: ['required', 'maxLength:8'], result: true},
+            {value: 'This is a long string', rules: ['optional', 'maxLength:10'], result: false},
+            {value: '', rules: ['optional', 'maxLength:10'], result: true},
             {value: 'hello@hirespace.com', rules: ['email', 'optional', 'required'], result: true},
             // Optional overrides required!
             {value: '', rules: ['email', 'optional', 'required'], result: true}

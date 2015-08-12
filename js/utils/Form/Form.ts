@@ -7,18 +7,32 @@ module hirespace.Form {
 
     export class Validate {
         static all(value: any, rules: string[]) {
-            let valid: IValid = {};
+            let valid: IValid = {},
+                normalisedValue: string = Validate.normalise(value),
+                splitRule: string[],
+                extraParam: string | boolean;
 
             _.forEach(rules, rule => {
-                if (Validate[rule]) valid[rule] = Validate[rule](value);
+                splitRule = rule.split(':');
+                extraParam = (splitRule.length > 1) ? _.last(splitRule) : false;
+
+                if (extraParam && Validate[_.first(splitRule)]) {
+                    valid[rule] = Validate[_.first(splitRule)](normalisedValue, extraParam);
+                } else {
+                    if (Validate[rule]) {
+                        valid[rule] = Validate[rule](normalisedValue);
+                    }
+                }
             });
 
             // @NOTE 'optional' overrides 'required'!
-            return (_.isEmpty(Validate.normalise(value)) && valid['optional']) ? true : !_.contains(_.values(valid), false);
+            return (_.isEmpty(normalisedValue) && valid['optional']) ? true : !_.contains(_.values(valid), false);
         }
 
         static normalise(value: any): string {
-            return _.isUndefined(value) || _.isNull(value) || _.isNaN(value) ? '' : value.toString();
+            return (typeof value == 'string')
+                ? value : (_.isUndefined(value) || _.isNull(value) || _.isNaN(value)
+                ? '' : value.toString());
         }
 
         static required(value: any): boolean {
@@ -44,6 +58,11 @@ module hirespace.Form {
         static email(value: any): boolean {
             return (/^("([ !\x23-\x5B\x5D-\x7E]*|\\[ -~])+"|[-a-z0-9!#$%&'*+\/=?^_`{|}~]+(\.[-a-z0-9!#$%&'*+\/=?^_`{|}~]+)*)@([0-9a-z\u00C0-\u02FF\u0370-\u1EFF]([-0-9a-z\u00C0-\u02FF\u0370-\u1EFF]{0,61}[0-9a-z\u00C0-\u02FF\u0370-\u1EFF])?\.)+[a-z\u00C0-\u02FF\u0370-\u1EFF][-0-9a-z\u00C0-\u02FF\u0370-\u1EFF]{0,17}[a-z\u00C0-\u02FF\u0370-\u1EFF]$/i)
                 .test(Validate.normalise(value));
+        }
+
+        static maxLength(value: any, extraParam: any) {
+            console.log(value.length);
+            return Validate.normalise(value).length <= _.parseInt(extraParam);
         }
 
         static optional(value?: any): boolean {
