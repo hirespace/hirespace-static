@@ -31,8 +31,8 @@ module hirespace.Form {
 
         static normalise(value: any): string {
             return (typeof value == 'string')
-                ? value : (_.isUndefined(value) || _.isNull(value) || _.isNaN(value)
-                ? '' : value.toString());
+                ? value : (_.isUndefined(value) || _.isNull(value) || _.isNaN(value))
+                ? '' : value.toString();
         }
 
         static required(value: any): boolean {
@@ -61,7 +61,6 @@ module hirespace.Form {
         }
 
         static maxLength(value: any, extraParam: any) {
-            console.log(value.length);
             return Validate.normalise(value).length <= _.parseInt(extraParam);
         }
 
