@@ -153,6 +153,10 @@ module hirespace {
                 }
                 return false;
             } else {
+                if (this.enquiriesFeed[enquiriesFeedStages[toStage]].count < 1 && toStage !== this.currentEnquiry.stage && !newData) {
+                    return false;
+                }
+
                 this.enquiriesFeed[enquiriesFeedStages[toStage]].open = true;
             }
 
