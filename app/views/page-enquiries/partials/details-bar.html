@@ -16,25 +16,21 @@
                 <!--Not Flexible</em>-->
 
             <i class="fa fa-calendar-o"></i>
-            <strong class="hide" hs-class="show-inline: bookingData.date.startdate" hs-bind="bookingData.date.startdate | date">N/A</strong>
+            <strong class="hide" hs-class="show-inline: bookingData.date.startdate" hs-bind="bookingData.date.startdate | N/A, date">N/A</strong>
             <span class="hide" hs-class="show-inline: bookingData.date.startdate && bookingData.date.finishdate">-</span>
-            <strong class="hide" hs-class="show-inline: bookingData.date.finishdate" hs-bind="bookingData.date.finishdate | date">N/A</strong>
+            <strong class="hide" hs-class="show-inline: bookingData.date.finishdate" hs-bind="bookingData.date.finishdate | N/A, date">N/A</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="budget">
             <a href="#" hs-modal="modalSuggestEdits" class="toggle-edit" edit-only="budget"><i class="fa fa-edit"></i> Edit</a>
             <i class="fa fa-gbp"></i>
-            <strong class="hide" hs-class="show-inline: bookingData.budget == 0">N/A</strong>
-            <strong hs-class="is-hidden: bookingData.budget == 0" hs-bind="bookingData.budget">N/A</strong>
+            <strong hs-bind="bookingData.budget | N/A">N/A</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="people">
             <a href="#" hs-modal="modalSuggestEdits" class="toggle-edit" edit-only="people"><i class="fa fa-edit"></i> Edit</a>
             <i class="fa fa-user"></i>
-            <strong class="hide" hs-class="show-inline: bookingData.people == 0">N/A</strong>
-            <span hs-class="is-hidden: bookingData.people == 0">
-                <strong hs-bind="bookingData.people">N/A</strong> people
-            </span>
+            <strong hs-bind="bookingData.people | N/A">N/A</strong>
         </li>
         <li class="separator"><span></span></li>
         <li class="time">
@@ -47,9 +43,9 @@
                 <!--Not Flexible</em>-->
 
             <i class="fa fa-clock-o"></i>
-            <strong class="hide" hs-class="show-inline: bookingData.time.starttime" hs-bind="bookingData.time.starttime">N/A</strong>
-            <span class="hide" hs-class="show-inline: bookingData.time.starttime && bookingData.time.finishtime">-</span>
-            <strong class="hide" hs-class="show-inline: bookingData.time.finishtime" hs-bind="bookingData.time.finishtime">N/A</strong>
+            <strong hs-bind="bookingData.time.starttime | N/A">N/A</strong>
+            <span class="hide" hs-class="show-inline: bookingData.time.finishtime">-</span>
+            <strong class="hide" hs-class="show-inline: bookingData.time.finishtime" hs-bind="bookingData.time.finishtime | N/A">N/A</strong>
         </li>
     </ul>
 </div>

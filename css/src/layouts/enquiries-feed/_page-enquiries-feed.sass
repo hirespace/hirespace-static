@@ -115,14 +115,9 @@
           +hover
             background: white
 
-          &.active
+          &.active, &.open
             background: white
 
-            strong
-              font:
-                weight: 700
-
-          &.open
             strong
               font:
                 weight: 700
@@ -137,7 +132,6 @@
             letter-spacing: 0
             font:
               size: rem(13px)
-              weight: 500
 
           &.sub
             padding: 0
@@ -708,6 +702,12 @@
 
       .suggest-edits
         padding: $half-unit-layout
+
+        .error
+          color: $color-alert-error
+          font:
+            size: rem(14px)
+            weight: 500
 
         .form-controls
           +clearfix

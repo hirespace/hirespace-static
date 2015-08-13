@@ -158,6 +158,8 @@ module hirespace {
 
                     $('#modalSuggestEdits').find('.error').remove();
 
+                    let formValid = [];
+
                     _.forEach(inputs, input => {
                         name = $(input).attr('name');
                         value = $(input).val();
@@ -169,34 +171,34 @@ module hirespace {
                             if (!validateForm.valid) {
                                 let errMsg = '';
 
-                                _.forEach(validateForm.error, errorMessage => errMsg += '<strong class="error">' + errorMessage + '</div>');
+                                _.forEach(validateForm.error, errorMessage => errMsg += '<strong class="error"><i class="fa fa-warning"></i> ' + errorMessage + '</div>');
 
                                 $(input).parent().append(errMsg);
+                                formValid.push(false);
                             } else {
                                 let updateVal;
 
                                 // @TODO create a separate class for testing this
                                 if (value !== this.bookingData[name]) {
-                                    if (_.isEmpty(value) || value == 'N/A') {
-                                        updateVal = (name == 'word') ? this.bookingData.word : false;
-                                    } else {
-                                        switch (name) {
-                                            case 'finishdate':
-                                                updateVal = Date.parse(value);
-                                                break;
-                                            case 'startdate':
-                                                updateVal = Date.parse(value);
-                                                break;
-                                        }
+                                    switch (name) {
+                                        case 'finishdate':
+                                            updateVal = Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
+                                            break;
+                                        case 'startdate':
+                                            updateVal = Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
+                                            break;
+                                        default:
+                                            updateVal = value;
+                                            break;
                                     }
 
-                                    payload.suggestedEdits[name] = updateVal;
+                                    payload.suggestedEdits[name] = (updateVal.toString().length == 0 || _.isNaN(updateVal)) ? false : updateVal;
                                 }
                             }
                         }
                     });
 
-                    if (_.values(payload).length > 0) {
+                    if (_.values(payload).length > 0 && !_.contains(formValid, false)) {
                         this.updateBookingDataPromise(payload).then(response => {
                             hirespace.Notification.generate('Your changes have been successfully saved', 'success');
                             this.resolveUpdateBookingData(response, true);
