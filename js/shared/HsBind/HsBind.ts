@@ -24,15 +24,15 @@ module hirespace {
             let value: string = hirespace.AssertionParser.resolveObject(path, resolveObject, true);
 
             if (!_.isUndefined(value) && !_.isNull(value) && value.toString().length > 0) {
+                if (applyFilters.length > 0) {
+                    value = hirespace.HsBind.applyFilters(value, applyFilters);
+                }
+
                 switch (elem.tagName.toLowerCase()) {
                     case 'input':
                         $(elem).attr('value', !_.isUndefined(value) ? value.toString() : '');
                         break;
                     default:
-                        if (applyFilters.length > 0) {
-                            value = hirespace.HsBind.applyFilters(value, applyFilters);
-                        }
-
                         $(elem).html(!_.isUndefined(value) ? value.toString() : '');
                         break;
                 }
@@ -52,7 +52,7 @@ module hirespace {
 
             switch (filter) {
                 case 'date':
-                    mutation = moment(value, moment.ISO_8601, true).isValid() ? moment(value).format('MMM Do YY') : 'No date';
+                    mutation = moment(value, moment.ISO_8601).isValid() ? moment(value).format('DD MMMM YYYY') : 'No date';
                     break;
                 case 'pounds':
                     mutation = '£' + value;

@@ -19,7 +19,7 @@
                     Start Date
                 </label>
 
-                <input name="startdate" rule='["date","optional"]' hs-bind="bookingData.date.stardate | date" placeholder="N/A" type="text" id="suggestEditsStartDate" class="col-sm-9"/>
+                <input name="startdate" rule='["date","optional"]' hs-bind="bookingData.date.startdate | date" placeholder="N/A" type="text" id="suggestEditsStartDate" class="col-sm-9"/>
             </div>
             <div class="form-controls hide" hs-class="is-visible: editBookingData == 'date' || editBookingData == 'all'">
                 <label for="suggestEditsFinishDate" class="col-sm-3">
@@ -64,7 +64,7 @@
         </form>
     </main>
     <footer>
-        <button class="block green large" hs-modal-close id="saveSuggestedEdits">
+        <button class="block green large" id="saveSuggestedEdits">
             Save
         </button>
     </footer>
