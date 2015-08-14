@@ -77,7 +77,7 @@
                    hs-class="show-more: bookingData.messageExceedsLimit == true">
                     Message not supplied. Please contact customer.
                 </p>
-                <button class="large flat-grey hide" id="showFullMessage"
+                <button class="flat-grey hide" id="showFullMessage"
                         hs-class="is-visible: bookingData.messageExceedsLimit == true">Show more
                 </button>
             </aside>
@@ -248,20 +248,21 @@
             <div class="internal-note container-narrow">
                 <div class="row">
                     <div hs-class="col-md-6: bookingData.stage.name == 'Needs Archiving', col-md-12: bookingData.stage.name == 'Archived'">
-                        <button class="flat-grey hs-to-step hide"
+                        <button class="flat-grey large hs-to-step hide"
                                 hs-class="is-visible: bookingData.stage.name == 'Archived'"
                                 update="reopen: true">
                             Re-open
                         </button>
 
-                        <button class="flat-grey hs-to-step hide"
-                                hs-class="is-visible: bookingData.stage.name == 'Needs Archiving'"
+                        <button class="flat-grey large hs-to-step hide"
+                                hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option"
                                 update="reopen: true">
-                            Update Later
+                            Go Back
                         </button>
                     </div>
-                    <div hs-class="col-md-12: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress', col-md-6: bookingData.stage.name == 'Needs Archiving'">
-                        <button class="flat-grey hide toggle-edit" hs-modal="modalSuggestEdits"
+                    <div class="edit-enqiury-details"
+                         hs-class="col-md-12: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress', col-md-6: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
+                        <button class="flat-grey large hide toggle-edit" hs-modal="modalSuggestEdits"
                                 hs-class="is-visible: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving'">
                             Edit Enquiry Details
                         </button>

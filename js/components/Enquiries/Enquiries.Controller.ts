@@ -214,8 +214,9 @@ module hirespace {
             this.updateBookingDataPromise(updateData).then(d => {
                 let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
 
-                this.uiConfig.prevStage = this.bookingData.stage.name;
+                ignoreNotification = (hsResponse.stage.name == this.bookingData.stage.name) ? true : ignoreNotification;
 
+                this.uiConfig.prevStage = this.bookingData.stage.name;
                 this.updateBookingData(hsResponse);
 
                 if (!ignoreNotification) {

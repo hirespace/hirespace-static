@@ -24,11 +24,11 @@ module hirespace {
             let value: string = hirespace.AssertionParser.resolveObject(path, resolveObject, true);
 
             if (applyFilters.length > 0) {
-                if (_.contains(applyFilters, 'N/A')) {
+                if (_.contains(applyFilters, 'N/A') || _.contains(applyFilters, 'TBC')) {
                     if (_.isUndefined(value) || _.isNull(value) || value.toString().length == 0) {
-                        value = 'N/A';
+                        value = _.contains(applyFilters, 'N/A') ? 'N/A' : 'TBC';
                     } else {
-                        let newFilters = _.without(applyFilters, 'N/A');
+                        let newFilters = _.without(_.without(applyFilters, 'N/A'), 'TBC');
                         value = newFilters.length > 0 ? hirespace.HsBind.applyFilters(value, newFilters) : value;
                     }
                 } else {
