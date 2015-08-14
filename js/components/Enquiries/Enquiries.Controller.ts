@@ -18,6 +18,7 @@ module hirespace {
         private guid: string;
         private pollingFrequency: number = 30000;
 
+        editBookingData: string;
         bookingData: IBookingData;
         uiConfig: IUiConfig;
         EnquiriesFeed: hirespace.EnquiriesFeed;
@@ -125,50 +126,86 @@ module hirespace {
                     $('#showFullMessageContainer').toggleClass('show-all');
                 });
 
-                $('#saveSuggestedEdits').click(() => {
+                $('.toggle-edit').click((e) => {
+                    let editOnly = $(e.currentTarget).attr('edit-only');
+
+                    this.editBookingData = _.isUndefined(editOnly) ? 'all' : editOnly;
+                    hirespace.View.updateView(this, '#modalSuggestEdits');
+                });
+
+                $('#saveSuggestedEdits').click((e) => {
                     let inputs = $('#formSuggestedEdits input');
 
                     let payload = {
                             suggestedEdits: {}
                         },
+                        rules,
                         name,
-                        value;
+                        value,
+                        checkAgainstUpdateValues: Array<string> = [];
+
+                    switch (this.editBookingData) {
+                        case 'date':
+                            checkAgainstUpdateValues = ['startdate', 'finishdate'];
+                            break;
+                        case 'time':
+                            checkAgainstUpdateValues = ['starttime', 'finishtime'];
+                            break;
+                        default:
+                            checkAgainstUpdateValues.push(this.editBookingData);
+                            break;
+                    }
+
+                    $('#modalSuggestEdits').find('.error').remove();
+
+                    let formValid = [];
 
                     _.forEach(inputs, input => {
                         name = $(input).attr('name');
                         value = $(input).val();
+                        rules = $(input).attr('rule');
 
-                        // @TODO create a separate class for testing this
-                        if (value !== this.bookingData[name]) {
-                            if (_.isEmpty(value) || value == 'N/A') {
-                                value = (name == 'word') ? this.bookingData.word : false;
+                        if (_.contains(checkAgainstUpdateValues, name) || _.contains(checkAgainstUpdateValues, 'all')) {
+                            let validateForm = hirespace.Form.Validate.all(value, JSON.parse(rules));
+
+                            if (!validateForm.valid) {
+                                let errMsg = '';
+
+                                _.forEach(validateForm.error, errorMessage => errMsg += '<strong class="error"><i class="fa fa-warning"></i> ' + errorMessage + '</div>');
+
+                                $(input).parent().append(errMsg);
+                                formValid.push(false);
                             } else {
-                                switch (name) {
-                                    case 'budget':
-                                        value = _.parseInt(value);
-                                        break;
-                                    case 'finishdate':
-                                        value = Date.parse(value);
-                                        break;
-                                    case 'startdate':
-                                        value = Date.parse(value);
-                                        break;
+                                let updateVal;
+
+                                // @TODO create a separate class for testing this
+                                if (value !== this.bookingData[name]) {
+                                    switch (name) {
+                                        case 'finishdate':
+                                            updateVal = Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
+                                            break;
+                                        case 'startdate':
+                                            updateVal = Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
+                                            break;
+                                        default:
+                                            updateVal = value;
+                                            break;
+                                    }
+
+                                    payload.suggestedEdits[name] = (updateVal.toString().length == 0 || _.isNaN(updateVal)) ? false : updateVal;
                                 }
                             }
-
-                            payload.suggestedEdits[name] = value;
                         }
                     });
 
-                    this.updateBookingDataPromise(payload).then(response => {
-                        hirespace.Logger.info(response);
-                        hirespace.Notification.generate('Your changes have been successfully saved', 'success');
+                    if (_.values(payload).length > 0 && !_.contains(formValid, false)) {
+                        this.updateBookingDataPromise(payload).then(response => {
+                            hirespace.Notification.generate('Your changes have been successfully saved', 'success');
+                            this.resolveUpdateBookingData(response, true);
+                        }, response => hirespace.Notification.generate('There was an error saving your changes', 'error'));
 
-                        this.resolveUpdateBookingData(response);
-                    }, response => {
-                        hirespace.Logger.error(response);
-                        hirespace.Notification.generate('There was an error saving your changes', 'error')
-                    });
+                        $('.modal, .modal-backdrop').addClass('is-hidden');
+                    }
                 });
             }
         }

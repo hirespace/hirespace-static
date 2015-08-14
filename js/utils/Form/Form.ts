@@ -5,28 +5,56 @@ module hirespace.Form {
         [rule: string]: boolean;
     }
 
+    interface IValidateAllResponse {
+        valid: boolean;
+        error: string[];
+    }
+
+    let errorMessages = {
+        required: 'This field is required',
+        numeric: 'Needs to be numeric',
+        tel: 'Needs to be a valid telephone number',
+        date: 'Needs to be a valid date',
+        time: 'Needs to be a valid time',
+        email: 'Needs to be a valid email',
+        maxLength: 'Needs to be less than '
+    };
+
     export class Validate {
-        static all(value: any, rules: string[]) {
+        // @TODO refactor cruft
+        static all(value: any, rules: string[]): IValidateAllResponse {
             let valid: IValid = {},
                 normalisedValue: string = Validate.normalise(value),
                 splitRule: string[],
-                extraParam: string | boolean;
+                extraParam: string | boolean,
+                response = {
+                    valid: false,
+                    error: []
+                };
 
             _.forEach(rules, rule => {
                 splitRule = rule.split(':');
                 extraParam = (splitRule.length > 1) ? _.last(splitRule) : false;
 
                 if (extraParam && Validate[_.first(splitRule)]) {
-                    valid[rule] = Validate[_.first(splitRule)](normalisedValue, extraParam);
+                    valid[_.first(splitRule)] = Validate[_.first(splitRule)](normalisedValue, extraParam);
+                    if (valid[_.first(splitRule)] === false) {
+                        response.error.push(errorMessages[_.first(splitRule)] + _.last(splitRule));
+                    }
                 } else {
                     if (Validate[rule]) {
                         valid[rule] = Validate[rule](normalisedValue);
+                        if (valid[rule] === false) {
+                            response.error.push(errorMessages[rule]);
+                        }
                     }
                 }
             });
 
-            // @NOTE 'optional' overrides 'required'!
-            return (_.isEmpty(normalisedValue) && valid['optional']) ? true : !_.contains(_.values(valid), false);
+            response.valid = _.isEmpty(normalisedValue) && valid['optional'] ? true : !_.contains(_.values(valid), false);
+            response.error = _.isEmpty(normalisedValue) && valid['optional'] ? [] : response.error;
+
+            return response;
         }
 
         static normalise(value: any): string {

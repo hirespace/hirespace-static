@@ -146,22 +146,36 @@ module hirespace.Form.specs {
 
     describe('Form.Validate.all() method', () => {
         let validate = [
-            {value: '1.45', rules: ['required', 'numeric'], result: true},
-            {value: '', rules: ['numeric', 'optional'], result: true},
-            {value: 'hello@hirespace', rules: ['email', 'optional'], result: false},
-            {value: '07894846843', rules: ['tel', 'optional', 'numeric'], result: true},
-            {value: '07894 846 843', rules: ['tel', 'numeric'], result: false},
-            {value: 'String', rules: ['required', 'maxLength:8'], result: true},
-            {value: 'This is a long string', rules: ['optional', 'maxLength:10'], result: false},
-            {value: '', rules: ['optional', 'maxLength:10'], result: true},
-            {value: 'hello@hirespace.com', rules: ['email', 'optional', 'required'], result: true},
+            {value: '1.45', rules: ['required', 'numeric'], result: true, error: []},
+            {value: '', rules: ['numeric', 'optional'], result: true, error: []},
+            {
+                value: 'hello@hirespace',
+                rules: ['email', 'optional'],
+                result: false,
+                error: ['Needs to be a valid email']
+            },
+            {value: '07894846843', rules: ['tel', 'optional', 'numeric'], result: true, error: []},
+            {value: '07894 846 843', rules: ['tel', 'numeric'], result: false, error: ['Needs to be numeric']},
+            {value: 'String', rules: ['required', 'maxLength:8'], result: true, error: []},
+            {
+                value: 'This is a long string',
+                rules: ['optional', 'maxLength:10'],
+                result: false,
+                error: ['Needs to be less than 10']
+            },
+            {value: '', rules: ['optional', 'maxLength:10'], result: true, error: []},
+            {value: 'hello@hirespace.com', rules: ['email', 'optional', 'required'], result: true, error: []},
             // Optional overrides required!
-            {value: '', rules: ['email', 'optional', 'required'], result: true}
+            {value: '', rules: ['email', 'optional', 'required'], result: true, error: []}
         ];
 
         _.forEach(validate, obj => {
             it('should evaluate multiple ' + JSON.stringify(obj.rules) + ' assertions for ' + obj.value, () => {
-                expect(hirespace.Form.Validate.all(obj.value, obj.rules)).toEqual(obj.result);
+                expect(hirespace.Form.Validate.all(obj.value, obj.rules).valid).toEqual(obj.result);
+            });
+
+            it('should respond with appropriate error messages in ' + JSON.stringify(obj.rules), () => {
+                expect(hirespace.Form.Validate.all(obj.value, obj.rules).error).toEqual(obj.error);
             });
         });
     });
