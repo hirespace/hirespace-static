@@ -52,6 +52,21 @@ module hirespace.Form.specs {
                 expect(hirespace.Form.Validate.numeric(value)).toEqual(false);
             });
         });
+
+        let onlyPositive = [1, '1', '2.4', 2.4, '3,3', '6,280.200'];
+        let onlyNegative = [-1, '-1', '-2.4', -2.4, '-3,3', '-6,280.200'];
+
+        _.forEach(onlyPositive, positive => {
+            it('should correctly evaluate ' + positive + ' to true when positiveOnly flag is set', () => {
+                expect(hirespace.Form.Validate.numeric(positive, 'positiveOnly')).toEqual(true);
+            });
+        });
+
+        _.forEach(onlyNegative, negative => {
+            it('should correctly evaluate ' + negative + ' to false when positiveOnly flag is set', () => {
+                expect(hirespace.Form.Validate.numeric(negative, 'positiveOnly')).toEqual(false);
+            });
+        });
     });
 
     describe('Form.Validate.date() method', () => {

@@ -17,7 +17,11 @@ module hirespace.Form {
         date: 'Must be a valid date',
         time: 'Must be a valid time',
         email: 'Must be a valid email address',
-        maxLength: 'Must be less than '
+        maxLength: 'Must be less than'
+    };
+
+    let splitRuleMessages = {
+        positiveOnly: '(positive values only)'
     };
 
     export class Validate {
@@ -39,7 +43,9 @@ module hirespace.Form {
                 if (extraParam && Validate[_.first(splitRule)]) {
                     valid[_.first(splitRule)] = Validate[_.first(splitRule)](normalisedValue, extraParam);
                     if (valid[_.first(splitRule)] === false) {
-                        response.error.push(errorMessages[_.first(splitRule)] + _.last(splitRule));
+                        let extraParamId = extraParam.toString();
+                        let additionalMessage = splitRuleMessages[extraParamId] ? splitRuleMessages[extraParamId] : extraParamId;
+                        response.error.push(errorMessages[_.first(splitRule)] + ' ' + additionalMessage);
                     }
                 } else {
                     if (Validate[rule]) {
@@ -67,7 +73,13 @@ module hirespace.Form {
             return !_.isEmpty(Validate.normalise(value));
         }
 
-        static numeric(value: any): boolean {
+        static numeric(value: any, limit?: string): boolean {
+            let number = Validate.normalise(value);
+
+            if (limit == 'positiveOnly' && parseFloat(number) < 0) {
+                return false;
+            }
+
             return (/^-?[\d,.]+$/).test(Validate.normalise(value));
         }
 

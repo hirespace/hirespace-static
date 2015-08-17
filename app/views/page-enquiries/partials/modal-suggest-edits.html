@@ -35,7 +35,7 @@
                     Budget
                 </label>
 
-                <input name="budget" rule='["numeric","optional"]' hs-bind="bookingData.budget" placeholder="TBC" type="text" id="suggestEditsBudet" class="col-sm-9"/>
+                <input name="budget" rule='["numeric:positiveOnly","optional"]' hs-bind="bookingData.budget" placeholder="TBC" type="text" id="suggestEditsBudet" class="col-sm-9"/>
             </div>
             <div class="form-controls hide" hs-class="is-visible: editBookingData == 'people' || editBookingData == 'all'">
                 <label for="suggestEditsPeople" class="col-sm-3">
@@ -43,7 +43,7 @@
                     People
                 </label>
 
-                <input name="people" rule='["numeric","optional"]' hs-bind="bookingData.people" placeholder="TBC" type="text" id="suggestEditsPeople" class="col-sm-9"/>
+                <input name="people" rule='["numeric:positiveOnly","optional"]' hs-bind="bookingData.people" placeholder="TBC" type="text" id="suggestEditsPeople" class="col-sm-9"/>
             </div>
             <div class="form-controls hide" hs-class="is-visible: editBookingData == 'time' || editBookingData == 'all'">
                 <label for="suggestEditsStartTime" class="col-sm-3">
