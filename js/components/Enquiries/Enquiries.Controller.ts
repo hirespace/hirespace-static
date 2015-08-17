@@ -183,22 +183,16 @@ module hirespace {
                                     // @TODO abstract reused code
                                     switch (name) {
                                         case 'finishdate':
-                                            updateVal = Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
+                                            updateVal = EnquiriesController.dateToUNIX(value);
                                             break;
                                         case 'startdate':
-                                            updateVal = Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
+                                            updateVal = EnquiriesController.dateToUNIX(value);
                                             break;
                                         case 'starttime':
-                                            updateVal = new Date(moment(value, 'HH:mm A').format()).
-                                                toTimeString().split(' ')[0].split(':');
-                                            updateVal.pop();
-                                            updateVal = updateVal.join(':');
+                                           updateVal = EnquiriesController.parseTime(value);
                                             break;
                                         case 'finishtime':
-                                            updateVal = new Date(moment(value, 'HH:mm A').format()).
-                                                toTimeString().split(' ')[0].split(':');
-                                            updateVal.pop();
-                                            updateVal = updateVal.join(':');
+                                            updateVal = EnquiriesController.parseTime(value);
                                             break;
                                         default:
                                             updateVal = value;
@@ -221,6 +215,21 @@ module hirespace {
                     }
                 });
             }
+        }
+
+        private static parseTime(value: string): string {
+            let updateVal = new Date(moment(value, 'HH:mm A').format())
+                .toTimeString()
+                .split(' ')[0]
+                .split(':');
+
+            updateVal.pop();
+
+            return updateVal.join(':');
+        }
+
+        private static dateToUNIX(value: string): number {
+            return Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
         }
 
         resolveUpdateBookingData(updateData: any, ignoreNotification?: boolean) {
