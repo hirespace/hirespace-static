@@ -152,16 +152,16 @@ module hirespace.Form.specs {
                 value: 'hello@hirespace',
                 rules: ['email', 'optional'],
                 result: false,
-                error: ['Needs to be a valid email']
+                error: ['Must be a valid email address']
             },
             {value: '07894846843', rules: ['tel', 'optional', 'numeric'], result: true, error: []},
-            {value: '07894 846 843', rules: ['tel', 'numeric'], result: false, error: ['Needs to be numeric']},
+            {value: '07894 846 843', rules: ['tel', 'numeric'], result: false, error: ['Must be a number']},
             {value: 'String', rules: ['required', 'maxLength:8'], result: true, error: []},
             {
                 value: 'This is a long string',
                 rules: ['optional', 'maxLength:10'],
                 result: false,
-                error: ['Needs to be less than 10']
+                error: ['Must be less than 10']
             },
             {value: '', rules: ['optional', 'maxLength:10'], result: true, error: []},
             {value: 'hello@hirespace.com', rules: ['email', 'optional', 'required'], result: true, error: []},

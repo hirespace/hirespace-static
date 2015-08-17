@@ -11,13 +11,13 @@ module hirespace.Form {
     }
 
     let errorMessages = {
-        required: 'This field is required',
-        numeric: 'Needs to be numeric',
-        tel: 'Needs to be a valid telephone number',
-        date: 'Needs to be a valid date',
-        time: 'Needs to be a valid time',
-        email: 'Needs to be a valid email',
-        maxLength: 'Needs to be less than '
+        required: 'This information is required',
+        numeric: 'Must be a number',
+        tel: 'Must be a valid telephone number',
+        date: 'Must be a valid date',
+        time: 'Must be a valid time',
+        email: 'Must be a valid email address',
+        maxLength: 'Must be less than '
     };
 
     export class Validate {
