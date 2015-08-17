@@ -180,12 +180,25 @@ module hirespace {
 
                                 // @TODO create a separate class for testing this
                                 if (value !== this.bookingData[name]) {
+                                    // @TODO abstract reused code
                                     switch (name) {
                                         case 'finishdate':
                                             updateVal = Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
                                             break;
                                         case 'startdate':
                                             updateVal = Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
+                                            break;
+                                        case 'starttime':
+                                            updateVal = new Date(moment(value, 'HH:mm A').format()).
+                                                toTimeString().split(' ')[0].split(':');
+                                            updateVal.pop();
+                                            updateVal = updateVal.join(':');
+                                            break;
+                                        case 'finishtime':
+                                            updateVal = new Date(moment(value, 'HH:mm A').format()).
+                                                toTimeString().split(' ')[0].split(':');
+                                            updateVal.pop();
+                                            updateVal = updateVal.join(':');
                                             break;
                                         default:
                                             updateVal = value;
