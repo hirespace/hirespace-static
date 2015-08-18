@@ -95,6 +95,14 @@ module hirespace {
                             case 'won':
                                 updateData.priceType = $('.confirm-spend .tabs .active').attr('data-value');
                                 updateData.price = parseFloat($('.confirm-spend input').val().replace(/£/g, ''));
+
+                                let checkPrice = hirespace.Form.Validate.all(updateData.price, ['numeric:positiveOnly']);
+
+                                if (checkPrice.valid !== true) {
+                                    hirespace.Logger.error(checkPrice.error, true);
+                                    errors.push('price');
+                                }
+
                                 break;
                             case 'lost':
                                 updateData.reasonLost = $('.confirm-reason-lost .tabs .active').attr('data-value');
@@ -137,21 +145,6 @@ module hirespace {
                     this.saveSuggestedEdits(inputs);
                 });
             }
-        }
-
-        static parseTime(value: string): string {
-            let updateVal = new Date(moment(value, 'HH:mm A').format())
-                .toTimeString()
-                .split(' ')[0]
-                .split(':');
-
-            updateVal.pop();
-
-            return updateVal.join(':');
-        }
-
-        static dateToUNIX(value: string): number {
-            return Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
         }
 
         resolveUpdateBookingData(updateData: any, ignoreNotification?: boolean) {
@@ -344,6 +337,21 @@ module hirespace {
 
                 $('.modal, .modal-backdrop').addClass('is-hidden');
             }
+        }
+
+        static parseTime(value: string): string {
+            let updateVal = new Date(moment(value, 'HH:mm A').format())
+                .toTimeString()
+                .split(' ')[0]
+                .split(':');
+
+            updateVal.pop();
+
+            return updateVal.join(':');
+        }
+
+        static dateToUNIX(value: string): number {
+            return Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
         }
     }
 
