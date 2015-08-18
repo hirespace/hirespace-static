@@ -3,7 +3,7 @@
     margin: $triple-unit-layout 0 $base-unit-layout
 
   .layout-offset-top
-    $left-nav-width: rem(280px)
+    $left-nav-width: rem(300px)
 
     +clearfix
 
@@ -115,7 +115,7 @@
           +hover
             background: white
 
-          &.active
+          &.active, &.open
             background: white
 
             strong
@@ -131,8 +131,7 @@
 
             letter-spacing: 0
             font:
-              size: rem(12px)
-              weight: 500
+              size: rem(13px)
 
           &.sub
             padding: 0
@@ -146,6 +145,18 @@
             ul
               @extend .unstyled
 
+              &.new
+                > li a.active:before
+                  background: $color-blue
+
+              &.in-progress
+                > li a.active:before
+                  background: $color-green
+
+              &.needs-archiving
+                > li a.active:before
+                  background: $color-yellow
+
               > li
                 border-bottom: 1px solid $color-grey-75
                 background: $color-grey-25
@@ -153,12 +164,26 @@
                 > a
                   +transition(background .25s)
 
-                  padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout
+                  padding: ($half-unit-layout + $quarter-unit-layout) $half-unit-layout ($half-unit-layout + $quarter-unit-layout) rem(35px)
                   display: block
                   text-decoration: none
 
                   &.active
                     background: white
+                    position: relative
+
+                    &:before
+                      +border-radius(100%)
+
+                      content: ''
+                      width: $half-unit-layout
+                      height: $half-unit-layout
+                      background: $color-black
+                      position: absolute
+                      display: block
+                      left: rem(15px)
+                      top: 50%
+                      margin-top: -($half-unit-layout / 2)
 
                     strong, strong > *
                       font:
@@ -176,7 +201,7 @@
                   color: $color-black
                   text-transform: none
                   font:
-                    size: rem(14px)
+                    size: rem(13px)
                     weight: 500
 
                   > *
@@ -418,6 +443,7 @@
     .message
       p
         margin: 0
+        white-space: pre-line
 
         &.show-more
           height: rem(100px)
@@ -526,6 +552,8 @@
         text-align: right
 
         span
+          white-space: nowrap
+
           &:last-of-type
             strong
               margin-right: 0
@@ -539,7 +567,7 @@
 
     &.venue-manager-actions
       .update-hirespace
-        margin: $double-unit-layout 0 0
+        margin: 0 0 $double-unit-layout
 
         button
           margin: 0
@@ -590,6 +618,14 @@
   .internal-note
     +clearfix
 
+    .row
+      button
+        width: 100%
+
+      .edit-enqiury-details
+        padding-left: $grid-gutter-width / 2
+        padding-right: $grid-gutter-width / 2
+
     .pull-right
       +clearfix
 
@@ -637,6 +673,10 @@
 
   .modal
     padding: $double-unit-layout
+    
+    &#modalSuggestEdits
+      main
+        padding-bottom: 0
 
     header,
     main,
@@ -663,6 +703,37 @@
         font:
           weight: 700
           size: rem(28px)
+
+      .suggest-edits
+        padding: $half-unit-layout
+
+        .error
+          color: $color-alert-error
+          font:
+            size: rem(14px)
+            weight: 500
+
+        .form-controls
+          +clearfix
+
+          margin-bottom: $base-unit-layout
+
+          +respond-to-size($screen-sm)
+            margin-bottom: 0
+
+          label
+            height: $triple-unit-layout
+            line-height: $triple-unit-layout
+
+            .fa
+              margin-right: $quarter-unit-layout
+
+          input
+            height: $triple-unit-layout
+            padding: 0 $half-unit-layout
+
+            +respond-to-size($screen-sm)
+              width: 100%
 
       form
         label

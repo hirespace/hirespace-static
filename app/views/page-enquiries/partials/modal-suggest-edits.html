@@ -1,0 +1,71 @@
+<div class="modal is-hidden" id="modalSuggestEdits">
+    <header>
+        <strong class="heading">Edit Enquiry Details</strong>
+        <small class="link undo" hs-modal-close>Back</small>
+    </header>
+    <main>
+        <form class="suggest-edits" id="formSuggestedEdits">
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'all'">
+                <label for="suggestEditsType" class="col-sm-3">
+                    <i class="fa fa-suitcase fa-fw"></i>
+                    Type
+                </label>
+
+                <input name="word" rule='["required"]' hs-bind="bookingData.word" placeholder="TBC" type="text" id="suggestEditsType" class="col-sm-9"/>
+            </div>
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'date' || editBookingData == 'all'">
+                <label for="suggestEditsStartDate" class="col-sm-3">
+                    <i class="fa fa-calendar-o fa-fw"></i>
+                    Start Date
+                </label>
+
+                <input name="startdate" rule='["date","optional"]' hs-bind="bookingData.date.startdate | date" placeholder="TBC" type="text" id="suggestEditsStartDate" class="col-sm-9"/>
+            </div>
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'date' || editBookingData == 'all'">
+                <label for="suggestEditsFinishDate" class="col-sm-3">
+                    <i class="fa fa-calendar-o fa-fw"></i>
+                    Finish Date
+                </label>
+
+                <input name="finishdate" rule='["date","optional"]' hs-bind="bookingData.date.finishdate | date" placeholder="TBC" type="text" id="suggestEditsFinishDate" class="col-sm-9"/>
+            </div>
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'budget' || editBookingData == 'all'">
+                <label for="suggestEditsBudet" class="col-sm-3">
+                    <i class="fa fa-gbp fa-fw"></i>
+                    Budget
+                </label>
+
+                <input name="budget" rule='["numeric:positiveOnly","optional"]' hs-bind="bookingData.budget" placeholder="TBC" type="text" id="suggestEditsBudet" class="col-sm-9"/>
+            </div>
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'people' || editBookingData == 'all'">
+                <label for="suggestEditsPeople" class="col-sm-3">
+                    <i class="fa fa-user fa-fw"></i>
+                    People
+                </label>
+
+                <input name="people" rule='["numeric:positiveOnly","optional"]' hs-bind="bookingData.people" placeholder="TBC" type="text" id="suggestEditsPeople" class="col-sm-9"/>
+            </div>
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'time' || editBookingData == 'all'">
+                <label for="suggestEditsStartTime" class="col-sm-3">
+                    <i class="fa fa-clock-o fa-fw"></i>
+                    Start time
+                </label>
+
+                <input name="starttime" rule='["time","optional"]' hs-bind="bookingData.time.starttime" placeholder="TBC" type="text" id="suggestEditsStartTime" class="col-sm-9"/>
+            </div>
+            <div class="form-controls hide" hs-class="is-visible: editBookingData == 'time' || editBookingData == 'all'">
+                <label for="suggestEditsFinishTime" class="col-sm-3">
+                    <i class="fa fa-clock-o fa-fw"></i>
+                    Finish time
+                </label>
+
+                <input name="finishtime" rule='["time","optional"]' hs-bind="bookingData.time.finishtime" placeholder="TBC" type="text" id="suggestEditsFinishTime" class="col-sm-9"/>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <button class="block green large" id="saveSuggestedEdits">
+            Save
+        </button>
+    </footer>
+</div>

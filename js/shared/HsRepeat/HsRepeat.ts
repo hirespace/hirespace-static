@@ -33,7 +33,6 @@ module hirespace {
                 let resolveObject = {};
                 resolveObject[this.attrData.objectAlias] = data;
 
-
                 let hsBind = currentElem.find('[hs-bind]');
 
                 if (!_.isUndefined(currentElem.attr('hs-bind'))) {

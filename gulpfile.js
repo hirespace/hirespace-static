@@ -48,9 +48,9 @@ gulp.task('concatDistJS', function () {
 gulp.task('concatVendor', function () {
     gulp.src([
         'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/lodash/lodash.min.js',
-        'bower_components/moment/min/moment.min.js',
-        'bower_components/rxjs/dist/rx.all.min.js'
+        'bower_components/jQuery-ajaxTransport-XDomainRequest/jquery.xdomainrequest.min.js',
+        'bower_components/lodash-compat/lodash.min.js',
+        'bower_components/moment/min/moment.min.js'
     ])
         .pipe(plumber({errorHandler: onError}))
         .pipe(concat('vendor.js'))
@@ -63,9 +63,11 @@ gulp.task('typescript', function () {
 });
 
 gulp.task('test', function (done) {
-    karma.server.start({
+    var server = new karma.Server({
         configFile: process.cwd() + '/js/test/karma.conf.js'
     }, done);
+
+    server.start();
 });
 
 gulp.task('sass', function () {

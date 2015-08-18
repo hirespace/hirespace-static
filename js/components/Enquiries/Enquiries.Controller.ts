@@ -18,6 +18,7 @@ module hirespace {
         private guid: string;
         private pollingFrequency: number = 30000;
 
+        editBookingData: string;
         bookingData: IBookingData;
         uiConfig: IUiConfig;
         EnquiriesFeed: hirespace.EnquiriesFeed;
@@ -33,18 +34,16 @@ module hirespace {
                 this.initBookingData();
 
                 setInterval(() => {
-                    Rx.Observable.fromPromise(this.bookingDataPromise())
-                        .retry(3)
-                        .subscribe(d => {
-                            let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
+                    this.bookingDataPromise().then(d => {
+                        let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
 
-                            if (_.isEqual(hsResponse.stage.name, this.bookingData.stage.name)) {
-                                hirespace.Logger.debug('View update skipped');
-                            } else {
-                                this.uiConfig.prevStage = this.bookingData.stage.name;
-                                this.updateBookingData(hsResponse);
-                            }
-                        }, f => hirespace.Logger.error(f));
+                        if (_.isEqual(hsResponse.stage.name, this.bookingData.stage.name)) {
+                            hirespace.Logger.debug('View update skipped');
+                        } else {
+                            this.uiConfig.prevStage = this.bookingData.stage.name;
+                            this.updateBookingData(hsResponse);
+                        }
+                    }, f => hirespace.Logger.error(f));
                 }, this.pollingFrequency);
 
                 $('#pickFiles').click((e) => {
@@ -66,25 +65,27 @@ module hirespace {
                         emailData = {
                             toEmailAddress: this.bookingData.customer.email,
                             toName: this.bookingData.customer.name,
-                            fromName: this.bookingData.venue.name,
-                            fromEmailAddress: 'hello@hirespace.com',
                             subject: 'RE: ' + this.bookingData.word + ' at ' + this.bookingData.venue.name,
                             message: $('#modalQuickReply textarea').val(),
                             attachments: _.isUndefined(this.attachments) ? [] : this.attachments
                         };
 
-                        Rx.Observable.fromPromise(this.sendEmailPromise(emailData))
-                            .do(() => {
-                                hirespace.Logger.info(emailData);
-                            })
-                            .retry(3)
-                            .subscribe(response => {
+                        this.sendEmailPromise(emailData).then(response => {
+                            hirespace.Notification.generate('Your Message was successfully sent. The enquiry is moved to In Progress', 'in-progress');
+                            hirespace.Logger.info(response);
+
+                            this.resolveUpdateBookingData(updateData, true);
+                        }, response => {
+                            if (response.status == 200) {
                                 hirespace.Notification.generate('Your Message was successfully sent. The enquiry is moved to In Progress', 'in-progress');
+                                hirespace.Logger.info(response);
+
                                 this.resolveUpdateBookingData(updateData, true);
-                            }, f => {
+                            } else {
                                 hirespace.Notification.generate('There was an error sending your email.', 'error');
-                                hirespace.Logger.error(f);
-                            });
+                                hirespace.Logger.error(response);
+                            }
+                        });
 
                         return false;
                     }
@@ -93,7 +94,15 @@ module hirespace {
                         switch (updateData.status) {
                             case 'won':
                                 updateData.priceType = $('.confirm-spend .tabs .active').attr('data-value');
-                                updateData.price = _.parseInt($('.confirm-spend input').val().replace(/£/g, ''));
+                                updateData.price = parseFloat($('.confirm-spend input').val().replace(/£/g, ''));
+
+                                let checkPrice = hirespace.Form.Validate.all(updateData.price, ['numeric:positiveOnly']);
+
+                                if (checkPrice.valid !== true) {
+                                    hirespace.Logger.error(checkPrice.error, true);
+                                    errors.push('price');
+                                }
+
                                 break;
                             case 'lost':
                                 updateData.reasonLost = $('.confirm-reason-lost .tabs .active').attr('data-value');
@@ -103,8 +112,6 @@ module hirespace {
                                 return false;
                         }
 
-                        // @TODO
-                        // error handling using the UI - notifications
                         _.forEach(updateData, (value, key) => {
                             if (!value) {
                                 hirespace.Logger.error('The value of ' + key + ' is invalid or empty', true);
@@ -125,24 +132,35 @@ module hirespace {
                     $('#showFullMessageContainer').toggleClass('show-all');
                 });
 
+                $('.toggle-edit').click((e) => {
+                    let editOnly = $(e.currentTarget).attr('edit-only');
+
+                    this.editBookingData = _.isUndefined(editOnly) ? 'all' : editOnly;
+                    hirespace.View.updateView(this, '#modalSuggestEdits');
+                });
+
+                $('#saveSuggestedEdits').click(() => {
+                    let inputs = $('#formSuggestedEdits input');
+
+                    this.saveSuggestedEdits(inputs);
+                });
             }
         }
 
         resolveUpdateBookingData(updateData: any, ignoreNotification?: boolean) {
-            Rx.Observable.fromPromise(this.updateBookingDataPromise(updateData))
-                .retry(3)
-                .subscribe(d => {
-                    let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
+            this.updateBookingDataPromise(updateData).then(d => {
+                let hsResponse: IBookingData = hirespace.EnquiriesController.parseBookingData(d);
 
-                    this.uiConfig.prevStage = this.bookingData.stage.name;
+                ignoreNotification = (hsResponse.stage.name == this.bookingData.stage.name) ? true : ignoreNotification;
 
-                    this.updateBookingData(hsResponse);
+                this.uiConfig.prevStage = this.bookingData.stage.name;
+                this.updateBookingData(hsResponse);
 
-                    if (!ignoreNotification) {
-                        hirespace.Notification.generate(updateData.timeToFollowUp ?
-                            'Thanks for letting us know the enquiry is still pending. We\'ll follow up again in two weeks.' : 'Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', enquiriesFeedStages[hsResponse.stage.name]);
-                    }
-                }, f => hirespace.Logger.error(f));
+                if (!ignoreNotification) {
+                    hirespace.Notification.generate(updateData.timeToFollowUp ?
+                        'Thanks for letting us know the enquiry is still pending. We\'ll follow up again in two weeks.' : 'Status has been changed to <strong>' + hsResponse.stage.name + '</strong>!', enquiriesFeedStages[hsResponse.stage.name]);
+                }
+            }, f => hirespace.Logger.error(f));
         }
 
         initBookingData() {
@@ -172,29 +190,35 @@ module hirespace {
         // @TODO
         // look into ifModified option
         bookingDataPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + this.bookingData._id, {
-                method: 'GET', headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode(this.guid)
-                }
+            return $.ajax({
+                contentType: "text/plain",
+                crossDomain: true,
+                data: JSON.stringify({guid: this.guid}),
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getEnquiry + this.bookingData._id
             });
         }
 
         sendEmailPromise(emailData: any): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getEnquirySendEmailApi(), {
-                //contentType: "application/json; charset=utf-8",
+            return $.ajax({
+                contentType: "text/plain",
+                crossDomain: true,
                 data: JSON.stringify(emailData),
-                method: 'POST'
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getEnquirySendEmailApi()
             });
         }
 
         updateBookingDataPromise(updateData: any): JQueryGenericPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookings + this.bookingData._id, {
-                data: JSON.stringify(updateData),
-                contentType: "application/json; charset=utf-8",
-                method: 'PUT',
-                headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode(this.guid)
-                }
+            return $.ajax({
+                contentType: "text/plain",
+                crossDomain: true,
+                data: JSON.stringify({guid: this.guid, enquiry: updateData}),
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().updateEnquiry + this.bookingData._id
             });
         }
 
@@ -223,8 +247,7 @@ module hirespace {
             this.bookingData.guid = this.guid;
 
             this.updateUi();
-            this.EnquiriesFeed.renderView(this.bookingData.stage.name, true, () => {
-            }, false, this.bookingData);
+            this.EnquiriesFeed.nRenderView(this.bookingData.stage.name, true, false, this.bookingData, true);
         }
 
         updateUi() {
@@ -243,6 +266,89 @@ module hirespace {
             bookingData.messageExceedsLimit = messageWords.length > 85;
 
             return bookingData;
+        }
+
+        saveSuggestedEdits(inputs) {
+            let payload = {
+                    suggestedEdits: {}
+                },
+                rules,
+                name,
+                value,
+                checkAgainstUpdateValues: Array<string> = [];
+
+            switch (this.editBookingData) {
+                case 'date':
+                    checkAgainstUpdateValues = ['startdate', 'finishdate'];
+                    break;
+                case 'time':
+                    checkAgainstUpdateValues = ['starttime', 'finishtime'];
+                    break;
+                default:
+                    checkAgainstUpdateValues.push(this.editBookingData);
+                    break;
+            }
+
+            $('#modalSuggestEdits').find('.error').remove();
+
+            let formValid = [];
+
+            _.forEach(inputs, input => {
+                name = $(input).attr('name');
+                value = $(input).val();
+                rules = $(input).attr('rule');
+
+                if (_.contains(checkAgainstUpdateValues, name) || _.contains(checkAgainstUpdateValues, 'all')) {
+                    let validateForm = hirespace.Form.Validate.all(value, JSON.parse(rules));
+
+                    if (!validateForm.valid) {
+                        let errMsg = '';
+
+                        _.forEach(validateForm.error, errorMessage => errMsg += '<strong class="error"><i class="fa fa-warning"></i> ' + errorMessage + '</div>');
+
+                        $(input).parent().append(errMsg);
+                        formValid.push(false);
+                    } else {
+                        let updateVal;
+
+                        // @TODO create a separate class for testing this
+                        if (value !== this.bookingData[name]) {
+                            if (name == 'finishdate' || name == 'startdate') {
+                                updateVal = EnquiriesController.dateToUNIX(value);
+                            } else {
+                                if (name == 'starttime' || name == 'finishtime') {
+                                    updateVal = EnquiriesController.parseTime(value);
+                                } else {
+                                    updateVal = value;
+                                }
+                            }
+
+                            payload.suggestedEdits[name] = (updateVal.toString().length == 0 || _.isNaN(updateVal)) ? false : updateVal;
+                        }
+                    }
+                }
+            });
+
+            if (_.values(payload).length > 0 && !_.contains(formValid, false)) {
+                this.resolveUpdateBookingData(payload);
+
+                $('.modal, .modal-backdrop').addClass('is-hidden');
+            }
+        }
+
+        static parseTime(value: string): string {
+            let updateVal = new Date(moment(value, 'HH:mm A').format())
+                .toTimeString()
+                .split(' ')[0]
+                .split(':');
+
+            updateVal.pop();
+
+            return updateVal.join(':');
+        }
+
+        static dateToUNIX(value: string): number {
+            return Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
         }
     }
 

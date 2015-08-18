@@ -4,6 +4,7 @@ module hirespace {
     interface IFeedData {
         page: number;
         limit: number;
+        ignoreEnquiryById?: string;
     }
 
     interface IStageCounts {
@@ -15,10 +16,10 @@ module hirespace {
         remaining: number;
     }
 
-    interface ITemplateData {
+    export interface ITemplateData {
         _id: string;
+        active?: boolean;
         budget: number;
-        current?: boolean;
         customerName: string;
         // @TODO
         // make eventDate?
@@ -26,58 +27,70 @@ module hirespace {
         guid: string;
         price?: number;
         priceType?: string;
-        stage: string | IArchived;
+        stage: string;
         status?: string;
         venueName: string;
         word: string;
     }
 
-    export interface IEnquiriesFeedData {
-        count: IStageCounts;
-        current: ITemplateData;
-        enquiries: Array<ITemplateData>;
-        openStage: string;
-        remaining: number;
-        pagination: {
-            [name: string]: {
-                page: number
-            }
-        };
-    }
-
     export class EnquiriesFeed {
         initStage: string;
-        remainingStages: Array<string>;
-        feedData: IEnquiriesFeedData;
+        currentEnquiry: ITemplateData;
+        enquiriesFeed: {
+            [stage: string]: {
+                count: number;
+                enquiries: {
+                    data: Array<ITemplateData>;
+                    remaining?: number;
+                },
+                open: boolean;
+                pagination: {
+                    page: number;
+                    limit: number;
+                    ignoreEnquiryById: string;
+                }
+            }
+        };
 
         constructor(private bookingData: IBookingData) {
             this.initStage = bookingData.stage.name;
-            this.remainingStages = _.without(_.keys(enquiriesFeedStages), this.initStage, 'Invalid');
 
-            this.feedData = {
-                count: {},
-                current: {
-                    _id: bookingData._id,
-                    budget: bookingData.budget,
-                    customerName: bookingData.customer.name,
-                    eventdate: bookingData.date.startdate,
-                    guid: bookingData.guid,
-                    stage: bookingData.stage.name,
-                    venueName: bookingData.venue.name,
-                    word: bookingData.word
-                },
-                enquiries: [],
-                openStage: bookingData.stage.name,
-                remaining: 0,
-                pagination: {}
+            this.enquiriesFeed = {};
+
+            this.currentEnquiry = {
+                _id: bookingData._id,
+                budget: bookingData.budget,
+                active: true,
+                customerName: bookingData.customer.name,
+                eventdate: bookingData.date.startdate,
+                guid: bookingData.guid,
+                stage: bookingData.stage.name,
+                venueName: bookingData.venue.name,
+                word: bookingData.word
             };
 
+            _.forEach(_.values(enquiriesFeedStages), (stage: string) => {
+                this.enquiriesFeed[stage] = {
+                    count: 0,
+                    enquiries: {
+                        data: []
+                    },
+                    open: false,
+                    pagination: {
+                        page: 0,
+                        limit: 5,
+                        ignoreEnquiryById: bookingData._id
+                    }
+                }
+            });
+
+            // @TODO unhack cruft and abstract
             if (bookingData.stage.name == 'Archived') {
-                this.feedData.current.status = bookingData.status;
+                this.currentEnquiry.status = bookingData.status;
 
                 if (bookingData.stage.option) {
-                    this.feedData.current.price = bookingData.stage.option.price;
-                    this.feedData.current.priceType = bookingData.stage.option.priceType;
+                    this.currentEnquiry.price = bookingData.stage.option.price;
+                    this.currentEnquiry.priceType = bookingData.stage.option.priceType;
                 }
             }
 
@@ -86,122 +99,170 @@ module hirespace {
             $('nav.enquiries-feed .show-more').click((e) => {
                 let stage = $(e.currentTarget).attr('stage');
 
-                this.updatePagination(enquiriesFeedStages[stage]);
-                this.renderView(stage, false, () => {
-                }, true);
+                this.nRenderView(stage, false, true, false, true);
             });
 
             $('nav.enquiries-feed li.stage').click((e) => {
                 let stage = $(e.currentTarget).attr('stage');
 
-                this.renderView(stage, false);
+                this.nRenderView(stage, false, false, false, !this.enquiriesFeed[enquiriesFeedStages[stage]].open);
             });
         }
 
         stagesCountPromise(): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages, {
-                method: 'GET', headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode(this.feedData.current.guid)
-                }
+            return $.ajax({
+                contentType: "text/plain",
+                crossDomain: true,
+                data: JSON.stringify({guid: this.currentEnquiry.guid}),
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stages
             });
         }
 
         feedDataPromise(stage: string, data: IFeedData): JQueryPromise<any> {
-            return $.ajax(hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().bookingsStages + stage, {
-                data: data, method: 'GET', headers: {
-                    Authorization: 'Basic ' + hirespace.Base64.encode(this.feedData.current.guid)
-                }
+            return $.ajax({
+                contentType: "text/plain",
+                crossDomain: true,
+                data: JSON.stringify({guid: this.currentEnquiry.guid, data: data}),
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stage + stage
             });
         }
 
-        updatePagination(stage: string) {
-            this.feedData.pagination[stage].page = this.feedData.pagination[stage].page + 1;
-        }
-
-        renderView(toStage: string, updateCounts?: boolean, callback?: Function, append?: boolean, updateStage?: any) {
+        nRenderView(toStage: string, updateCounts?: boolean, append?: boolean, newData?: any, openStage?: boolean) {
             if (updateCounts) {
                 this.updateStageCounts();
             }
 
-            let feedDataPromiseData = {
-                page: this.feedData.pagination[enquiriesFeedStages[toStage]].page,
-                // @TODO
-                // abstract into config var?
-                limit: 5,
-                ignore: this.feedData.current._id
-            };
+            if (!openStage) {
+                this.enquiriesFeed[enquiriesFeedStages[toStage]].open = false;
 
-            // @TODO
-            // abstract page and limit to config vars
-            Rx.Observable.fromPromise(this.feedDataPromise(toStage, feedDataPromiseData))
-                .subscribe((data: IStageData) => {
-                    // Marks as the current enquiry
-                    this.feedData.current.current = true;
+                hirespace.View.updateView(this, 'nav.enquiries-feed');
 
-                    if (updateStage) {
-                        this.feedData.current.stage = toStage;
+                if (hirespace.Debug.getEnvironment() !== 'test') {
+                    _.forEach(_.values(enquiriesFeedStages), stage => {
+                        if (this.enquiriesFeed[stage].enquiries.data.length > 0) {
+                            let target = $('nav.enquiries-feed .sub ul.' + stage),
+                                HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), this.enquiriesFeed[stage].enquiries.data);
 
-                        if (updateStage.stage.name == 'Archived') {
-                            this.feedData.current.status = updateStage.status;
+                            HsRepeat.updateView(target);
+                        }
+                    });
+                }
+                return false;
+            } else {
+                if (this.enquiriesFeed[enquiriesFeedStages[toStage]].count < 1 && toStage !== this.currentEnquiry.stage && !newData) {
+                    return false;
+                }
 
-                            if (updateStage.stage.option) {
-                                this.feedData.current.price = updateStage.stage.option.price;
-                                this.feedData.current.priceType = updateStage.stage.option.priceType;
+                this.enquiriesFeed[enquiriesFeedStages[toStage]].open = true;
+            }
+
+            if (newData) {
+                this.currentEnquiry = {
+                    _id: newData._id,
+                    budget: newData.budget,
+                    active: true,
+                    customerName: newData.customer.name,
+                    eventdate: newData.date.startdate,
+                    guid: newData.guid,
+                    stage: newData.stage.name,
+                    venueName: newData.venue.name,
+                    word: newData.word
+                };
+
+                // @TODO unhack cruft and abstract
+                if (newData.stage.name == 'Archived') {
+                    this.currentEnquiry.status = newData.status;
+
+                    if (newData.stage.option) {
+                        this.currentEnquiry.price = newData.stage.option.price;
+                        this.currentEnquiry.priceType = newData.stage.option.priceType;
+                    }
+                }
+            }
+
+            if (append) {
+                this.enquiriesFeed[enquiriesFeedStages[toStage]].pagination.page = this.enquiriesFeed[enquiriesFeedStages[toStage]].pagination.page + 1;
+            }
+
+            this.feedDataPromise(toStage, this.enquiriesFeed[enquiriesFeedStages[toStage]].pagination).then((data: IStageData) => {
+                _.forEach(this.enquiriesFeed, (stageData, stageName) => {
+                    if (stageData.enquiries.data.length > 0) {
+                        if (stageName !== enquiriesFeedStages[this.currentEnquiry.stage]) {
+                            this.enquiriesFeed[stageName].pagination.page = 0;
+
+                            if (newData) {
+                                this.enquiriesFeed[stageName].open = false;
+                            }
+
+                            if (_.first(stageData.enquiries.data)._id == this.currentEnquiry._id) {
+                                this.enquiriesFeed[stageName].enquiries.data.shift();
                             }
                         }
-                    }
-
-                    if (append) {
-                        this.feedData.enquiries = this.feedData.enquiries.concat(data.enquiries);
-                    } else {
-                        if (this.feedData.current.stage == toStage) {
-                            data.enquiries.unshift(this.feedData.current);
-                        }
-
-                        this.feedData.enquiries = data.enquiries;
-                    }
-
-                    this.feedData.remaining = data.remaining;
-                    this.feedData.openStage = toStage;
-
-                    hirespace.View.updateView(this, 'nav.enquiries-feed');
-
-                    let target = $('nav.enquiries-feed .sub ul.' + enquiriesFeedStages[toStage]);
-
-                    // @TODO
-                    // this will work without calling it from outside and randomly, perhaps it should work as part of
-                    // View.updateView()
-                    let HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), this.feedData.enquiries);
-                    HsRepeat.updateView(target);
-
-                    if (_.isFunction(callback)) {
-                        callback();
+                        _.forEach(stageData.enquiries.data, (enquiry: ITemplateData) => {
+                            if (enquiry._id !== this.currentEnquiry._id) {
+                                delete enquiry.active;
+                            }
+                        });
                     }
                 });
+
+                this.enquiriesFeed[enquiriesFeedStages[toStage]].enquiries.remaining = data.remaining;
+
+                if (append) {
+                    this.enquiriesFeed[enquiriesFeedStages[toStage]].enquiries.data = this.enquiriesFeed[enquiriesFeedStages[toStage]].enquiries.data.concat(data.enquiries);
+                } else {
+                    if (this.currentEnquiry.stage == toStage) {
+                        data.enquiries.unshift(this.currentEnquiry);
+                    }
+
+                    this.enquiriesFeed[enquiriesFeedStages[toStage]].enquiries.data = data.enquiries;
+                }
+
+                hirespace.View.updateView(this, 'nav.enquiries-feed');
+
+                if (hirespace.Debug.getEnvironment() !== 'test') {
+                    _.forEach(_.values(enquiriesFeedStages), stage => {
+                        if (this.enquiriesFeed[stage].enquiries.data.length > 0) {
+                            let target = $('nav.enquiries-feed .sub ul.' + stage),
+                                HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), this.enquiriesFeed[stage].enquiries.data);
+
+                            HsRepeat.updateView(target);
+                        }
+                    });
+                }
+            });
+        }
+
+        renderView(toStage: string, updateCounts?: boolean, callback?: Function | boolean, append?: boolean, updateStage?: any) {
+            this.nRenderView(toStage, updateCounts, append, updateStage);
         }
 
         updateStageCounts() {
-            Rx.Observable.fromPromise(this.stagesCountPromise())
-                .subscribe((counts: IStageCounts) => {
-                    _.forEach(counts, (count, stageName) => {
-                        this.feedData.count[enquiriesFeedStages[stageName]] = count;
-                    });
-
-                    hirespace.View.updateView(this, 'nav.enquiries-feed');
+            this.stagesCountPromise().then((counts: IStageCounts) => {
+                _.forEach(counts, (count, stageName) => {
+                    if (enquiriesFeedStages[stageName]) {
+                        this.enquiriesFeed[enquiriesFeedStages[stageName]].count = count;
+                    }
                 });
+
+                if (this.enquiriesFeed['new'].count > 0) {
+                    $('nav.enquiries-feed li.new .label').addClass('pulsing');
+                } else {
+                    $('nav.enquiries-feed li.new .label').removeClass('pulsing');
+                }
+
+                hirespace.View.updateView(this, 'nav.enquiries-feed');
+            });
         }
 
         initView() {
-            _.forEach(_.values(enquiriesFeedStages), (stage: string) => this.feedData.pagination[stage] = {page: 0});
-
             this.updateStageCounts();
 
-            let callback: Function = (): void => {
-                Rx.Observable.from(this.remainingStages)
-                    .map(stage => this.renderView(stage, false));
-            };
-
-            this.renderView(this.initStage, false, callback, false, this.feedData.current);
+            this.nRenderView(this.initStage, false, false, false, true);
         }
     }
 }

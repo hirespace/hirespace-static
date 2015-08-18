@@ -23,16 +23,27 @@ module hirespace {
 
             let value: string = hirespace.AssertionParser.resolveObject(path, resolveObject, true);
 
+            if (applyFilters.length > 0) {
+                if (_.contains(applyFilters, 'N/A') || _.contains(applyFilters, 'TBC')) {
+                    if (_.isUndefined(value) || _.isNull(value) || value.toString().length == 0) {
+                        value = _.contains(applyFilters, 'N/A') ? 'N/A' : 'TBC';
+                    } else {
+                        let newFilters = _.without(_.without(applyFilters, 'N/A'), 'TBC');
+                        value = newFilters.length > 0 ? hirespace.HsBind.applyFilters(value, newFilters) : value;
+                    }
+                } else {
+                    value = hirespace.HsBind.applyFilters(value, applyFilters);
+                }
+            }
+
             if (!_.isUndefined(value) && !_.isNull(value) && value.toString().length > 0) {
                 switch (elem.tagName.toLowerCase()) {
                     case 'input':
-                        $(elem).attr('value', !_.isUndefined(value) ? value.toString() : '');
+                        $(elem)
+                            .attr('value', !_.isUndefined(value) ? value.toString() : '')
+                            .val(!_.isUndefined(value) ? value.toString() : '');
                         break;
                     default:
-                        if (applyFilters.length > 0) {
-                            value = hirespace.HsBind.applyFilters(value, applyFilters);
-                        }
-
                         $(elem).html(!_.isUndefined(value) ? value.toString() : '');
                         break;
                 }
@@ -42,7 +53,7 @@ module hirespace {
         static applyFilters(value: string, filters: Array<string>): string {
             let mutation: string = '';
 
-            _.forEach(filters, (filter: string) => mutation = hirespace.HsBind.mutate((mutation.length > 0 ? mutation : value), filter));
+            _.forEach(filters, (filter: string) => mutation = hirespace.HsBind.mutate(value, filter));
 
             return mutation;
         }
@@ -52,7 +63,7 @@ module hirespace {
 
             switch (filter) {
                 case 'date':
-                    mutation = moment(value, moment.ISO_8601, true).isValid() ? moment(value).format('MMM Do YY') : 'No date';
+                    mutation = moment(value, moment.ISO_8601).isValid() ? moment(value).format('DD MMMM YYYY') : '';
                     break;
                 case 'pounds':
                     mutation = '£' + value;

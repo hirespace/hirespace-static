@@ -15,7 +15,6 @@
         </footer>
     </div>
 
-
     {{> enquiriesFeed }}
 
     <div class="enquiry-actions">
@@ -23,7 +22,7 @@
             {{> progressBar }}
 
             <header>
-                <h1><strong hs-bind="bookingData.word">Word</strong> at <span
+                <h1><strong hs-bind="bookingData.word">Enquiry</strong> at <span
                         hs-bind="bookingData.venue.name">Venue</span></h1>
                 <small hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost' || bookingData.status == 'void'"
                        class="label stage" hs-bind="bookingData.stage.name">Stage
@@ -61,7 +60,7 @@
         {{> detailsBar }}
 
         <main class="customer-details container-narrow padding-top-double"
-              hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving'">
+              hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
             <aside class="hide customer col-md-4" hs-class="is-visible: bookingData.stage.name == 'New'">
                 <div class="avatar-anonymous"></div>
 
@@ -78,7 +77,7 @@
                    hs-class="show-more: bookingData.messageExceedsLimit == true">
                     Message not supplied. Please contact customer.
                 </p>
-                <button class="large flat-grey hide" id="showFullMessage"
+                <button class="flat-grey hide" id="showFullMessage"
                         hs-class="is-visible: bookingData.messageExceedsLimit == true">Show more
                 </button>
             </aside>
@@ -109,7 +108,7 @@
                                 hs-class="active: bookingData.stage.option.priceType == 'Rou'">
                                 <span>Rough total</span></li>
                             <li data-value="Fin"
-                                hs-class="active: bookingData.stage.option.priceType == 'Fin'">
+                                hs-class="active: bookingData.stage.option.priceType == 'Fin' || bookingData.stage.name == 'Needs Archiving'">
                                 <span>Final spend</span></li>
                         </ul>
                     </div>
@@ -184,16 +183,35 @@
             </nav>
         </section>
 
-        <section class="venue-manager-actions">
+        <section class="venue-manager-actions" hs-class="is-hidden: bookingData.status == 'void'">
             <div class="container-narrow">
-                {{> progressBar }}
-
                 <!--<button data-toggle-view="show: bookingData.stage == 'New'" class="large flat-grey block">-->
                 <!--+1 more-->
                 <!--</button>-->
 
+                <div class="update-hirespace"
+                     hs-class="hide: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Archived', is-hidden: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="large green block hs-to-step"
+                                    update="needsArchivingStatus: 'confirmed'">Confirm enquiry
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="large black block hs-to-step"
+                                    update="needsArchivingStatus: 'closed'">Close enquiry
+                            </button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="large flat-grey block hs-to-step"
+                                    update="timeToFollowUp: true">Update Later
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="update-hirespace hide"
-                     hs-class="is-visible: bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving', is-hidden: bookingData.stage.option">
+                     hs-class="is-visible: bookingData.stage.name == 'In Progress'">
                     <button hs-toggle='["updateHireSpaceButtons", "showUpdateHireSpaceButtons"]'
                             class="large flat-grey block" id="showUpdateHireSpaceButtons">
                         Update the Hire Space team on this enquiry
@@ -220,35 +238,39 @@
                         </div>
                     </div>
                 </div>
+
+                {{> progressBar }}
             </div>
         </section>
 
-        <section
-                hs-class="
-                hide: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.status == 'void' || bookingData.stage.name == 'Needs Archiving',
-                is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
-            <div class="internal-note container-narrow">
-                <button class="flat-grey large block hs-to-step"
-                        update="reopen: true">
-                    Re-open
-                </button>
-            </div>
+        <section hs-class="is-hidden: bookingData.status == 'void'">
 
-            <!--Temporarily hide until v2-->
-            <div class="internal-note container-narrow is-hidden">
-                <div class="pull-left">
-                    <button class="black"
-                            hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'">
-                        Suggest edits
-                    </button>
-                    <button class="flat-grey hs-to-step hide"
-                            hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' || bookingData.stage.name == 'Archived'"
-                            update="reopen: true">
-                        Re-open
-                    </button>
+            <div class="internal-note container-narrow">
+                <div class="row">
+                    <div hs-class="col-md-6: bookingData.stage.name == 'Needs Archiving', col-md-12: bookingData.stage.name == 'Archived'">
+                        <button class="flat-grey large hs-to-step hide"
+                                hs-class="is-visible: bookingData.stage.name == 'Archived'"
+                                update="reopen: true">
+                            Re-open
+                        </button>
+
+                        <button class="flat-grey large hs-to-step hide"
+                                hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option"
+                                update="needsArchivingStatus: false">
+                            Go Back
+                        </button>
+                    </div>
+                    <div class="edit-enqiury-details"
+                         hs-class="col-md-12: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress', col-md-6: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
+                        <button class="flat-grey large hide toggle-edit" hs-modal="modalSuggestEdits"
+                                hs-class="is-visible: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving'">
+                            Edit Enquiry Details
+                        </button>
+                    </div>
                 </div>
 
-                <div class="pull-right">
+
+                <div class="pull-right is-hidden">
                     <label for="internal-note">Leave an internal note</label>
                     <input id="internal-note" type="text" placeholder="Text here..."/>
 
@@ -281,10 +303,9 @@
         },
         "date": {
             "flexible": false,
-            "startdate": "07/06/2015"
+            "startdate": "2015-08-21T23:00:00.000Z"
         },
         "message": "Looking for a space to hold regular dance classes, preferably three times a week but is flexible - keen to speak and discuss whatever availability you have. Will need the space from 6pm-10pm, needs to be at least 8.5m x 8.5m. We&#39;d like to start from w/c 8th June.",
-        "people": "",
         "stage": {
             "name": "In Progress"
         },

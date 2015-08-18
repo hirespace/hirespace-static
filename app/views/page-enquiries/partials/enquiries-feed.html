@@ -10,78 +10,81 @@
     </div>
 
     <ul>
-        <li class="stage new" stage="New" hs-class="active: feedData.openStage == 'New'">
-            <span class="label numeric blue" hs-bind="feedData.count.new">-</span>
+        <li class="stage new" stage="New" hs-class="active: currentEnquiry.stage == 'New', open: enquiriesFeed.new.open == true">
+            <span class="label numeric blue" hs-bind="enquiriesFeed.new.count">-</span>
             <strong>New</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.openStage == 'New'">
-            <ul class="new" hs-repeat="data in feedData">
+        <li class="sub" hs-class="is-visible: enquiriesFeed.new.open == true">
+            <ul class="new" hs-repeat="data in enquiriesFeed">
                 <li>
-                    <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
-                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
+                    <a hs-class="active: data.active" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
+                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Enquiry</span></strong>
                         <small>
                             <span hs-bind="data.venueName">No Venue Name</span> &bull;
-                            <span hs-bind="data.budget | pounds">No Budget</span> &bull;
+                            <span hs-bind="data.budget | TBC, pounds">No Budget</span> &bull;
                             <span hs-bind="data.eventdate | date">No Event Date</span>
                         </small>
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="New" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="New" hs-class="is-hidden: enquiriesFeed.new.enquiries.remaining == 0">Load <span
+                    hs-bind="enquiriesFeed.new.enquiries.remaining"></span> more
             </button>
         </li>
-        <li class="stage in-progress" stage="In Progress" hs-class="active: feedData.openStage == 'In Progress'">
-            <span class="label numeric green" hs-bind="feedData.count.in-progress"></span>
+
+        <li class="stage in-progress" stage="In Progress" hs-class="active: currentEnquiry.stage == 'In Progress', open: enquiriesFeed.in-progress.open == true">
+            <span class="label numeric green" hs-bind="enquiriesFeed.in-progress.count"></span>
             <strong>In Progress</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.openStage == 'In Progress'">
-            <ul class="in-progress" hs-repeat="data in feedData">
+        <li class="sub" hs-class="is-visible: enquiriesFeed.in-progress.open == true">
+            <ul class="in-progress" hs-repeat="data in enquiriesFeed">
                 <li>
-                    <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
-                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
+                    <a hs-class="active: data.active" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
+                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Enquiry</span></strong>
                         <small>
                             <span hs-bind="data.venueName">No Venue Name</span> &bull;
-                            <span hs-bind="data.budget | pounds">No Budget</span> &bull;
+                            <span hs-bind="data.budget | TBC, pounds">No Budget</span> &bull;
                             <span hs-bind="data.eventdate | date">No Event Date</span>
                         </small>
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="In Progress" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="In Progress" hs-class="is-hidden: enquiriesFeed.in-progress.enquiries.remaining == 0">Load <span
+                    hs-bind="enquiriesFeed.in-progress.enquiries.remaining"></span> more
             </button>
         </li>
-        <li class="stage needs-archiving" stage="Needs Archiving" hs-class="active: feedData.openStage == 'Needs Archiving'">
-            <span class="label numeric yellow" hs-bind="feedData.count.needs-archiving">-</span>
+
+        <li class="stage needs-archiving" stage="Needs Archiving" hs-class="active: currentEnquiry.stage == 'Needs Archiving', open: enquiriesFeed.needs-archiving.open == true">
+            <span class="label numeric yellow" hs-bind="enquiriesFeed.needs-archiving.count">-</span>
             <strong>Needs Archiving</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.openStage == 'Needs Archiving'">
-            <ul class="needs-archiving" hs-repeat="data in feedData">
+        <li class="sub" hs-class="is-visible: enquiriesFeed.needs-archiving.open == true">
+            <ul class="needs-archiving" hs-repeat="data in enquiriesFeed">
                 <li>
-                    <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
-                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
+                    <a hs-class="active: data.active" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
+                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Enquiry</span></strong>
                         <small>
                             <span hs-bind="data.venueName">No Venue Name</span> &bull;
-                            <span hs-bind="data.budget | pounds">No Budget</span> &bull;
+                            <span hs-bind="data.budget | TBC, pounds">No Budget</span> &bull;
                             <span hs-bind="data.eventdate | date">No Event Date</span>
                         </small>
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="Needs Archiving" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="Needs Archiving" hs-class="is-hidden: enquiriesFeed.needs-archiving.enquiries.remaining == 0">Load <span
+                    hs-bind="enquiriesFeed.needs-archiving.enquiries.remaining"></span> more
             </button>
         </li>
-        <li class="stage archived" stage="Archived" hs-class="active: feedData.openStage == 'Archived'">
-            <span class="label numeric black" hs-bind="feedData.count.archived">-</span>
+
+        <li class="stage archived" stage="Archived" hs-class="active: currentEnquiry.stage == 'Archived', open: enquiriesFeed.archived.open == true">
+            <span class="label numeric black" hs-bind="enquiriesFeed.archived.count">-</span>
             <strong>Archived</strong>
         </li>
-        <li class="sub" hs-class="is-visible: feedData.openStage == 'Archived'">
-            <ul class="archived" hs-repeat="data in feedData">
+        <li class="sub" hs-class="is-visible: enquiriesFeed.archived.open == true">
+            <ul class="archived" hs-repeat="data in enquiriesFeed">
                 <li>
-                    <a hs-class="active: data.current" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
-                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Booking Word</span></strong>
+                    <a hs-class="active: data.active" hs-href="/EnquiriesFeed/Enquiry/{=data._id}">
+                        <strong><span hs-bind="data.customerName">Customer Name</span>'s <span hs-bind="data.word">Enquiry</span></strong>
                         <small>
                             <span hs-bind="data.venueName">No Venue Name</span> &bull;
                             <span hs-bind="data.eventdate | date">No Event Date</span>
@@ -89,7 +92,7 @@
                         <small class="archived-data">
                             <span class="label" hs-bind="data.status">Status</span>
                             <span hs-class="is-hidden: data.status == 'lost'">
-                                <span hs-bind="data.price | pounds">Price</span>
+                                <span hs-bind="data.price | TBC, pounds">Price</span>
                             </span>
                             <span hs-class="is-hidden: data.status == 'lost'">
                                 (<span hs-bind="data.priceType">Price Type</span>)
@@ -98,8 +101,8 @@
                     </a>
                 </li>
             </ul>
-            <button class="flat-grey block show-more" stage="Archived" hs-class="is-hidden: feedData.remaining == 0">Load <span
-                    hs-bind="feedData.remaining"></span> more
+            <button class="flat-grey block show-more" stage="Archived" hs-class="is-hidden: enquiriesFeed.archived.enquiries.remaining == 0">Load <span
+                    hs-bind="enquiriesFeed.archived.enquiries.remaining"></span> more
             </button>
         </li>
     </ul>

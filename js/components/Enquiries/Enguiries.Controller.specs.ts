@@ -1,33 +1,75 @@
 module hirespace.specs {
     'use strict';
 
-    declare
-    var initBookingData: IBookingData;
+    declare var initBookingData: IBookingData;
+
+    let stageResponse = {
+        "enquiries": [{
+            "_id": "pADzj3B3tTjHrhCjj",
+            "customerName": "Hannah Thompson",
+            "venueName": "Will's Studio",
+            "eventdate": "2016-07-16T00:00:00.000Z",
+            "budget": 1200,
+            "word": "Wedding Reception",
+            "status": "pending"
+        }, {
+            "_id": "wzeh5vGhhXbtzqK2z",
+            "customerName": "Hannah Thompson",
+            "venueName": "Will's Studio",
+            "eventdate": "2016-07-16T00:00:00.000Z",
+            "budget": 1200,
+            "word": "Wedding Reception",
+            "status": "pending"
+        }, {
+            "_id": "hRuGiNZkm98aMXRJD",
+            "customerName": "Helena Charlesworth",
+            "venueName": "Will's Studio",
+            "eventdate": "2015-10-13T09:00:00.000Z",
+            "budget": 3000,
+            "word": "Workshop Space",
+            "status": "pending"
+        }, {
+            "_id": "sx5Eff7tHvM5mdCdr",
+            "customerName": "Adelle hannan",
+            "venueName": "Gastrocircus",
+            "eventdate": "2015-09-12T23:00:00.000Z",
+            "budget": 500,
+            "word": "30th Birthday Party",
+            "status": "pending"
+        }, {
+            "_id": "NxXiiZiLuJhfbYBRv",
+            "customerName": "Jake O'Neill",
+            "venueName": "Gastrocircus",
+            "eventdate": "2015-06-23T09:00:00.000Z",
+            "budget": 1500,
+            "word": "Full Day Conference",
+            "status": "pending"
+        }], "remaining": 12
+    };
+    let stagesCountResponse = {"New": 0, "In Progress": 18, "Needs Archiving": 4, "Archived": 174, "Invalid": 19};
 
     describe('Enquiries Controller', () => {
         let controller: hirespace.EnquiriesController;
 
         beforeEach(() => {
-            spyOn(Rx.Observable, 'fromPromise').and.callFake(() => {
-                return Rx.Observable.empty();
-            });
-
-            spyOn(Rx.Observable, 'from').and.callFake(() => {
-                return Rx.Observable.empty();
-            });
-
-            spyOn($, 'ajax').and.callFake((url, options): any => {
+            spyOn($, 'ajax').and.callFake((opt): any => {
                 let d = $.Deferred();
 
-                switch (options.method) {
-                    case 'GET':
+                switch (opt.url) {
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getEnquiry + initBookingData._id:
                         d.resolve(initBookingData);
                         break;
-                    case 'PUT':
-                        d.resolve({});
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().updateEnquiry + initBookingData._id:
+                        d.resolve(initBookingData);
+                        break;
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stage + 'In Progress':
+                        d.resolve(stageResponse);
+                        break;
+                    case hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().stages:
+                        d.resolve(stagesCountResponse);
                         break;
                     default:
-                        d.resolve({});
+                        d.resolve('sendEmailPromise response');
                         break;
                 }
 
@@ -66,7 +108,7 @@ module hirespace.specs {
             let updateBookingDataPromise = controller.updateBookingDataPromise({});
 
             updateBookingDataPromise.then((data) => {
-                expect(data).toEqual({});
+                expect(data).toEqual(initBookingData);
             });
         });
 
@@ -74,7 +116,7 @@ module hirespace.specs {
             let sendEmailPromise = controller.sendEmailPromise({});
 
             sendEmailPromise.then((data) => {
-                expect(data).toEqual({});
+                expect(data).toEqual('sendEmailPromise response');
             });
         });
 
@@ -88,6 +130,9 @@ module hirespace.specs {
             expect(updateProgressBarDefault).toEqual('in-progress');
             expect(updateProgressBar).toEqual('needs-archiving');
             expect(updateProgressBarOutside).toEqual('archived');
+
+            // Reset back to the original init stage
+            controller.bookingData.stage.name = 'In Progress';
         });
 
         it('should update the bookingData when update has been triggered', () => {
@@ -110,6 +155,32 @@ module hirespace.specs {
 
             expect(bookingData.customer.firstName).toEqual('Valerie');
             expect(bookingData.customer.company).toBeUndefined();
+        });
+
+        let validateDateToUNIX = [
+            {date: '22 Apr 2012', timestamp: 1335049200000},
+            {date: '30 08 2014', timestamp: 1409353200000},
+            {date: 'September 22 2015', timestamp: 1421884800000},
+            {date: '33 Apr 2012', timestamp: NaN},
+        ];
+
+        _.forEach(validateDateToUNIX, obj => {
+            it('should convert ' + obj.date + ' into a UNIX timestamp correctly', () => {
+                expect(hirespace.EnquiriesController.dateToUNIX(obj.date)).toEqual(obj.timestamp);
+            });
+        });
+
+        let validateParseTime = [
+            {time: '8 am', parsed: '08:00'},
+            {time: '9.03pm', parsed: '21:03'},
+            {time: '22:59', parsed: '22:59'},
+            {time: '12 am', parsed: '00:00'}
+        ];
+
+        _.forEach(validateParseTime, obj => {
+            it('should format ' + obj.time + ' correctly', () => {
+                expect(hirespace.EnquiriesController.parseTime(obj.time)).toEqual(obj.parsed);
+            });
         });
     });
 }
