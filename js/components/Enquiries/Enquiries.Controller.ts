@@ -332,11 +332,6 @@ module hirespace {
 
             if (_.values(payload).length > 0 && !_.contains(formValid, false)) {
                 this.resolveUpdateBookingData(payload);
-                //
-                //this.updateBookingDataPromise(payload).then(response => {
-                //    hirespace.Notification.generate('Your changes have been successfully saved', 'success');
-                //    this.resolveUpdateBookingData(response, true);
-                //}, response => hirespace.Notification.generate('There was an error saving your changes', 'error'));
 
                 $('.modal, .modal-backdrop').addClass('is-hidden');
             }
