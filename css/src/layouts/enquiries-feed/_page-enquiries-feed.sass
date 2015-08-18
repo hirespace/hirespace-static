@@ -618,13 +618,11 @@
   .internal-note
     +clearfix
 
-    .row
-      button
-        width: 100%
+    .pull-left
+      +clearfix
 
-      .edit-enqiury-details
-        padding-left: $grid-gutter-width / 2
-        padding-right: $grid-gutter-width / 2
+      button
+        margin-right: $half-unit-layout
 
     .pull-right
       +clearfix
@@ -642,7 +640,7 @@
       input
         +border-radius(4px 0 0 4px)
 
-        min-width: rem(260px)
+        min-width: rem(240px)
         border-right: 0
         padding-top: $base-unit-layout
         padding-bottom: $base-unit-layout
@@ -657,6 +655,7 @@
 
         &.pull-left
           button
+            margin-right: 0
             margin-bottom: $base-unit-layout
             width: 100%
 

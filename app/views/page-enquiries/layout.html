@@ -246,33 +246,29 @@
         <section hs-class="is-hidden: bookingData.status == 'void'">
 
             <div class="internal-note container-narrow">
-                <div class="row">
-                    <div hs-class="col-md-6: bookingData.stage.name == 'Needs Archiving', col-md-12: bookingData.stage.name == 'Archived'">
-                        <button class="flat-grey large hs-to-step hide"
-                                hs-class="is-visible: bookingData.stage.name == 'Archived'"
-                                update="reopen: true">
-                            Re-open
-                        </button>
+                <div class="pull-left">
+                    <button class="flat-grey pull-left hs-to-step hide"
+                            hs-class="is-visible: bookingData.stage.name == 'Archived'"
+                            update="reopen: true">
+                        Re-open
+                    </button>
 
-                        <button class="flat-grey large hs-to-step hide"
-                                hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option"
-                                update="needsArchivingStatus: false">
-                            Go Back
-                        </button>
-                    </div>
-                    <div class="edit-enqiury-details"
-                         hs-class="col-md-12: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress', col-md-6: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
-                        <button class="flat-grey large hide toggle-edit" hs-modal="modalSuggestEdits"
-                                hs-class="is-visible: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving'">
-                            Edit Enquiry Details
-                        </button>
-                    </div>
+                    <button class="flat-grey pull-left hs-to-step hide"
+                            hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option"
+                            update="needsArchivingStatus: false">
+                        Go Back
+                    </button>
+
+                    <button class="flat-grey pull-left hide toggle-edit" hs-modal="modalSuggestEdits"
+                            hs-class="is-visible: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving'">
+                        Edit Enquiry Details
+                    </button>
                 </div>
 
 
-                <div class="pull-right is-hidden">
-                    <label for="internal-note">Leave an internal note</label>
-                    <input id="internal-note" type="text" placeholder="Text here..."/>
+                <div class="pull-right">
+                    <label for="internalNote">Leave internal note</label>
+                    <input id="internalNote" type="text" placeholder="Text here..."/>
 
                     <button class="black">Save</button>
                 </div>
