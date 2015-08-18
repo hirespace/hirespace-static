@@ -94,7 +94,7 @@ module hirespace {
                         switch (updateData.status) {
                             case 'won':
                                 updateData.priceType = $('.confirm-spend .tabs .active').attr('data-value');
-                                updateData.price = _.parseInt($('.confirm-spend input').val().replace(/£/g, ''));
+                                updateData.price = parseFloat($('.confirm-spend input').val().replace(/£/g, ''));
                                 break;
                             case 'lost':
                                 updateData.reasonLost = $('.confirm-reason-lost .tabs .active').attr('data-value');
@@ -104,8 +104,6 @@ module hirespace {
                                 return false;
                         }
 
-                        // @TODO
-                        // error handling using the UI - notifications
                         _.forEach(updateData, (value, key) => {
                             if (!value) {
                                 hirespace.Logger.error('The value of ' + key + ' is invalid or empty', true);
@@ -133,91 +131,15 @@ module hirespace {
                     hirespace.View.updateView(this, '#modalSuggestEdits');
                 });
 
-                $('#saveSuggestedEdits').click((e) => {
+                $('#saveSuggestedEdits').click(() => {
                     let inputs = $('#formSuggestedEdits input');
 
-                    let payload = {
-                            suggestedEdits: {}
-                        },
-                        rules,
-                        name,
-                        value,
-                        checkAgainstUpdateValues: Array<string> = [];
-
-                    switch (this.editBookingData) {
-                        case 'date':
-                            checkAgainstUpdateValues = ['startdate', 'finishdate'];
-                            break;
-                        case 'time':
-                            checkAgainstUpdateValues = ['starttime', 'finishtime'];
-                            break;
-                        default:
-                            checkAgainstUpdateValues.push(this.editBookingData);
-                            break;
-                    }
-
-                    $('#modalSuggestEdits').find('.error').remove();
-
-                    let formValid = [];
-
-                    _.forEach(inputs, input => {
-                        name = $(input).attr('name');
-                        value = $(input).val();
-                        rules = $(input).attr('rule');
-
-                        if (_.contains(checkAgainstUpdateValues, name) || _.contains(checkAgainstUpdateValues, 'all')) {
-                            let validateForm = hirespace.Form.Validate.all(value, JSON.parse(rules));
-
-                            if (!validateForm.valid) {
-                                let errMsg = '';
-
-                                _.forEach(validateForm.error, errorMessage => errMsg += '<strong class="error"><i class="fa fa-warning"></i> ' + errorMessage + '</div>');
-
-                                $(input).parent().append(errMsg);
-                                formValid.push(false);
-                            } else {
-                                let updateVal;
-
-                                // @TODO create a separate class for testing this
-                                if (value !== this.bookingData[name]) {
-                                    // @TODO abstract reused code
-                                    switch (name) {
-                                        case 'finishdate':
-                                            updateVal = EnquiriesController.dateToUNIX(value);
-                                            break;
-                                        case 'startdate':
-                                            updateVal = EnquiriesController.dateToUNIX(value);
-                                            break;
-                                        case 'starttime':
-                                           updateVal = EnquiriesController.parseTime(value);
-                                            break;
-                                        case 'finishtime':
-                                            updateVal = EnquiriesController.parseTime(value);
-                                            break;
-                                        default:
-                                            updateVal = value;
-                                            break;
-                                    }
-
-                                    payload.suggestedEdits[name] = (updateVal.toString().length == 0 || _.isNaN(updateVal)) ? false : updateVal;
-                                }
-                            }
-                        }
-                    });
-
-                    if (_.values(payload).length > 0 && !_.contains(formValid, false)) {
-                        this.updateBookingDataPromise(payload).then(response => {
-                            hirespace.Notification.generate('Your changes have been successfully saved', 'success');
-                            this.resolveUpdateBookingData(response, true);
-                        }, response => hirespace.Notification.generate('There was an error saving your changes', 'error'));
-
-                        $('.modal, .modal-backdrop').addClass('is-hidden');
-                    }
+                    this.saveSuggestedEdits(inputs);
                 });
             }
         }
 
-        private static parseTime(value: string): string {
+        static parseTime(value: string): string {
             let updateVal = new Date(moment(value, 'HH:mm A').format())
                 .toTimeString()
                 .split(' ')[0]
@@ -228,7 +150,7 @@ module hirespace {
             return updateVal.join(':');
         }
 
-        private static dateToUNIX(value: string): number {
+        static dateToUNIX(value: string): number {
             return Date.parse(moment(value, ['DD MMMM YYYY', 'DD-MM-YYYY']).format());
         }
 
@@ -351,6 +273,77 @@ module hirespace {
             bookingData.messageExceedsLimit = messageWords.length > 85;
 
             return bookingData;
+        }
+
+        saveSuggestedEdits(inputs) {
+            let payload = {
+                    suggestedEdits: {}
+                },
+                rules,
+                name,
+                value,
+                checkAgainstUpdateValues: Array<string> = [];
+
+            switch (this.editBookingData) {
+                case 'date':
+                    checkAgainstUpdateValues = ['startdate', 'finishdate'];
+                    break;
+                case 'time':
+                    checkAgainstUpdateValues = ['starttime', 'finishtime'];
+                    break;
+                default:
+                    checkAgainstUpdateValues.push(this.editBookingData);
+                    break;
+            }
+
+            $('#modalSuggestEdits').find('.error').remove();
+
+            let formValid = [];
+
+            _.forEach(inputs, input => {
+                name = $(input).attr('name');
+                value = $(input).val();
+                rules = $(input).attr('rule');
+
+                if (_.contains(checkAgainstUpdateValues, name) || _.contains(checkAgainstUpdateValues, 'all')) {
+                    let validateForm = hirespace.Form.Validate.all(value, JSON.parse(rules));
+
+                    if (!validateForm.valid) {
+                        let errMsg = '';
+
+                        _.forEach(validateForm.error, errorMessage => errMsg += '<strong class="error"><i class="fa fa-warning"></i> ' + errorMessage + '</div>');
+
+                        $(input).parent().append(errMsg);
+                        formValid.push(false);
+                    } else {
+                        let updateVal;
+
+                        // @TODO create a separate class for testing this
+                        if (value !== this.bookingData[name]) {
+                            if (name == 'finishdate' || name == 'startdate') {
+                                updateVal = EnquiriesController.dateToUNIX(value);
+                            } else {
+                                if (name == 'starttime' || name == 'finishtime') {
+                                    updateVal = EnquiriesController.parseTime(value);
+                                } else {
+                                    updateVal = value;
+                                }
+                            }
+
+                            payload.suggestedEdits[name] = (updateVal.toString().length == 0 || _.isNaN(updateVal)) ? false : updateVal;
+                        }
+                    }
+                }
+            });
+
+            if (_.values(payload).length > 0 && !_.contains(formValid, false)) {
+                this.updateBookingDataPromise(payload).then(response => {
+                    hirespace.Notification.generate('Your changes have been successfully saved', 'success');
+                    this.resolveUpdateBookingData(response, true);
+                }, response => hirespace.Notification.generate('There was an error saving your changes', 'error'));
+
+                $('.modal, .modal-backdrop').addClass('is-hidden');
+            }
         }
     }
 

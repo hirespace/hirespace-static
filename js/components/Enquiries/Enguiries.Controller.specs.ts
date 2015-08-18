@@ -156,5 +156,31 @@ module hirespace.specs {
             expect(bookingData.customer.firstName).toEqual('Valerie');
             expect(bookingData.customer.company).toBeUndefined();
         });
+
+        let validateDateToUNIX = [
+            {date: '22 Apr 2012', timestamp: 1335049200000},
+            {date: '30 08 2014', timestamp: 1409353200000},
+            {date: 'September 22 2015', timestamp: 1421884800000},
+            {date: '33 Apr 2012', timestamp: NaN},
+        ];
+
+        _.forEach(validateDateToUNIX, obj => {
+            it('should convert ' + obj.date + ' into a UNIX timestamp correctly', () => {
+                expect(hirespace.EnquiriesController.dateToUNIX(obj.date)).toEqual(obj.timestamp);
+            });
+        });
+
+        let validateParseTime = [
+            {time: '8 am', parsed: '08:00'},
+            {time: '9.03pm', parsed: '21:03'},
+            {time: '22:59', parsed: '22:59'},
+            {time: '12 am', parsed: '00:00'}
+        ];
+
+        _.forEach(validateParseTime, obj => {
+            it('should format ' + obj.time + ' correctly', () => {
+                expect(hirespace.EnquiriesController.parseTime(obj.time)).toEqual(obj.parsed);
+            });
+        });
     });
 }
