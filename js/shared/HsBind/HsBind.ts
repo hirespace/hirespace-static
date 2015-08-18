@@ -39,7 +39,9 @@ module hirespace {
             if (!_.isUndefined(value) && !_.isNull(value) && value.toString().length > 0) {
                 switch (elem.tagName.toLowerCase()) {
                     case 'input':
-                        $(elem).attr('value', !_.isUndefined(value) ? value.toString() : '');
+                        $(elem)
+                            .attr('value', !_.isUndefined(value) ? value.toString() : '')
+                            .val(!_.isUndefined(value) ? value.toString() : '');
                         break;
                     default:
                         $(elem).html(!_.isUndefined(value) ? value.toString() : '');
