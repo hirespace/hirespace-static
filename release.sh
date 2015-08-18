@@ -4,7 +4,7 @@ printf "\n\n\nDo you wish to release to staging?\n\n"
 select yn in "Yes" "No"; do
 	case $yn in
 		Yes )
-			gulp concatVendor typescript && gulp test concatDistJS
+			gulp sass concatVendor typescript && gulp test concatDistJS
 
 			divshot login
 
