@@ -252,7 +252,6 @@ module hirespace {
 
         updateUi() {
             this.updateProgressBar();
-            console.log(this.bookingData);
             hirespace.View.updateView(this, '.enquiry-actions, .modal-backdrop');
         }
 
