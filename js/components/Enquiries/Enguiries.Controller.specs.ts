@@ -157,6 +157,10 @@ module hirespace.specs {
             expect(bookingData.customer.company).toBeUndefined();
         });
 
+        it('should be able to save internal notes', () => {
+            expect(controller.saveInternalNote).toBeDefined();
+        });
+
         let validateDateToUNIX = [
             {date: '22 Apr 2012', timestamp: 1335049200000},
             {date: '30 08 2014', timestamp: 1409353200000},

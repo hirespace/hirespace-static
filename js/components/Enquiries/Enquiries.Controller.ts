@@ -144,6 +144,12 @@ module hirespace {
 
                     this.saveSuggestedEdits(inputs);
                 });
+
+                $('#saveInternalNote').click(() => {
+                    let note = $('#internalNote').val();
+
+                    if (!_.isEmpty(note)) this.saveInternalNote(note);
+                });
             }
         }
 
@@ -334,6 +340,10 @@ module hirespace {
 
                 $('.modal, .modal-backdrop').addClass('is-hidden');
             }
+        }
+
+        saveInternalNote(note: string) {
+            this.resolveUpdateBookingData({internalNote: note}, true);
         }
 
         static parseTime(value: string): string {
