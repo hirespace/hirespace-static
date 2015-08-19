@@ -245,6 +245,19 @@
     margin: $double-unit-layout 0
     position: relative
 
+    .internal-note-message
+      display: none
+      color: $color-grey-300
+      font:
+        size: rem(14px)
+
+      em
+        font:
+          style: normal
+
+      +respond-to-size($screen-sm)
+        padding-top: $base-unit-layout
+
     h1
       margin: 0
       font:
@@ -252,6 +265,9 @@
 
       strong, span
         text-transform: capitalize
+
+      +respond-to-size($screen-sm)
+        padding-top: $half-unit-layout
 
     .label
       +z-index(enquiry-status-label)
@@ -263,7 +279,8 @@
       margin-top: -(rem(12px))
 
       +respond-to-size($screen-sm)
-        right: auto
+        text-align: center
+        right: 0
         left: 0
         top: -($double-half-unit-layout)
         margin: 0

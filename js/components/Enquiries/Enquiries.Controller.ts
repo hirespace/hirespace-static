@@ -18,6 +18,8 @@ module hirespace {
         private guid: string;
         private pollingFrequency: number = 30000;
 
+        nBookingData: hirespace.BookingData;
+
         editBookingData: string;
         bookingData: IBookingData;
         uiConfig: IUiConfig;
@@ -146,9 +148,9 @@ module hirespace {
                 });
 
                 $('#saveInternalNote').click(() => {
-                    let note = $('#internalNote').val();
+                    let input = $('#internalNote');
 
-                    if (!_.isEmpty(note)) this.saveInternalNote(note);
+                    this.saveInternalNote(input.val(), input.attr('rules'));
                 });
             }
         }
@@ -171,6 +173,9 @@ module hirespace {
 
         initBookingData() {
             hirespace.Logger.debug('Booking Data initialised from a local source');
+
+            this.nBookingData = new hirespace.BookingData(initBookingData);
+            console.log(this.nBookingData);
 
             this.bookingData = hirespace.EnquiriesController.parseBookingData(initBookingData);
             this.guid = this.bookingData.guid;
@@ -342,8 +347,15 @@ module hirespace {
             }
         }
 
-        saveInternalNote(note: string) {
-            this.resolveUpdateBookingData({internalNote: note}, true);
+        saveInternalNote(note: string, rules: string) {
+            let form = hirespace.Form.Validate.all(note, JSON.parse(rules));
+
+            if (form.valid) {
+                this.resolveUpdateBookingData({internalNote: note}, true);
+                hirespace.Notification.generate('Internal note has been saved', 'success');
+            } else {
+                hirespace.Notification.generate('Internal note cannot be empty', 'error');
+            }
         }
 
         static parseTime(value: string): string {

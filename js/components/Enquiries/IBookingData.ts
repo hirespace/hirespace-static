@@ -65,7 +65,7 @@ module hirespace {
         spaceName?: string;
     }
 
-    interface ISuggestedEdits{
+    interface ISuggestedEdits {
         budget?: number;
         date?: IDate;
         people?: number;
@@ -91,5 +91,38 @@ module hirespace {
         venue: IVenue;
         word: string;
         internalNote?: string;
+    }
+
+    export class BookingData {
+        _id: string;
+        budget: number;
+        customer: ICustomer;
+        date: IDate;
+        guid: string;
+        message: string;
+        messageExceedsLimit: boolean;
+        people: number;
+        stage: IBookingStage;
+        status: string;
+        suggestedEdits: ISuggestedEdits;
+        time: ITime;
+        timeToFollowUp: string | Date;
+        venue: IVenue;
+        word: string;
+        internalNote: string;
+
+        constructor(data?) {
+            this._id = data._id;
+            this.budget = data.budget;
+            this.customer = {
+                _id: data.customer._id,
+                company: data.customer.company,
+                email: data.customer.email,
+                firstName: data.customer.firstName,
+                mobile: data.customer.mobile,
+                name: data.customer.name,
+                phone: data.customer.phone
+            };
+        }
     }
 }

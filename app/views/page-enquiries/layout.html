@@ -22,7 +22,11 @@
             {{> progressBar }}
 
             <header>
-                <em hs-bind="bookingData.internalNote"></em>
+                <div class="internal-note-message" hs-class="is-visible: bookingData.internalNote">
+                    <strong>Last note:</strong>
+                    <em hs-bind="bookingData.internalNote"></em>
+                </div>
+
                 <h1><strong hs-bind="bookingData.word">Enquiry</strong> at <span
                         hs-bind="bookingData.venue.name">Venue</span></h1>
                 <small hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost' || bookingData.status == 'void'"
@@ -269,7 +273,7 @@
 
                 <div class="pull-right">
                     <label for="internalNote">Leave internal note</label>
-                    <input id="internalNote" type="text" placeholder="Text here..."/>
+                    <input id="internalNote" type="text" rules='["required"]' placeholder="Text here..."/>
 
                     <button class="black" id="saveInternalNote">Save</button>
                 </div>
