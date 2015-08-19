@@ -259,6 +259,7 @@ module hirespace {
         // refactor cruft
         static parseBookingData(bookingData: IBookingData): IBookingData {
             bookingData.customer.firstName = _.first(bookingData.customer.name.split(' '));
+            bookingData.word = _.isEmpty(bookingData.word) ? 'Enquiry' : bookingData.word;
 
             let messageWords = bookingData.message ? bookingData.message.match(/(\w+)/g) : [];
             // @TODO
