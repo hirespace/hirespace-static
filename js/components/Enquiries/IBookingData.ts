@@ -99,17 +99,16 @@ module hirespace {
         customer: ICustomer;
         date: IDate;
         guid: string;
+        internalNote: string;
         message: string;
         messageExceedsLimit: boolean;
         people: number;
         stage: IBookingStage;
         status: string;
-        suggestedEdits: ISuggestedEdits;
         time: ITime;
         timeToFollowUp: string | Date;
         venue: IVenue;
         word: string;
-        internalNote: string;
 
         constructor(data?) {
             this._id = data._id;
@@ -123,6 +122,38 @@ module hirespace {
                 name: data.customer.name,
                 phone: data.customer.phone
             };
+            this.date = {
+                finishdate: data.date.finishdate,
+                flexible: data.date.flexible,
+                startdate: data.date.startdate
+            };
+            this.guid = data.guid;
+            this.internalNote = data.internalNote;
+            this.message = data.message;
+            this.messageExceedsLimit = false;
+            this.people = data.people;
+            this.stage = {
+                name: data.stage.name,
+                option: {
+                    price: data.stage.option.price,
+                    priceType: data.stage.option.priceType,
+                    reasonLost: data.stage.option.reasonLost,
+                    // @TODO to become Closed / Confirmed / ??Pending??
+                    needsArchiving: undefined
+                }
+            };
+            this.status = data.status;
+            this.time = {
+                finishtime: data.time.finishtime,
+                flexible: data.time.flexible,
+                starttime: data.time.starttime
+            };
+            this.timeToFollowUp = data.timeToFollowUp;
+            this.venue = {
+                manager: data.venue.manager,
+                name: data.venue.name,
+                spaceName: data.venue.spaceName,
+            }
         }
     }
 }
