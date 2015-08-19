@@ -135,9 +135,10 @@ module hirespace {
             this.stage = {
                 name: data.stage.name,
                 option: {
-                    price: data.stage.option.price,
-                    priceType: data.stage.option.priceType,
-                    reasonLost: data.stage.option.reasonLost,
+                    // @TODO refactor
+                    price: undefined, //data.stage.option.price,
+                    priceType: undefined, //data.stage.option.priceType,
+                    reasonLost: undefined, //data.stage.option.reasonLost,
                     // @TODO to become Closed / Confirmed / ??Pending??
                     needsArchiving: undefined
                 }

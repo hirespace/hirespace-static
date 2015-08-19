@@ -190,10 +190,6 @@
 
         <section class="venue-manager-actions" hs-class="is-hidden: bookingData.status == 'void'">
             <div class="container-narrow">
-                <!--<button data-toggle-view="show: bookingData.stage == 'New'" class="large flat-grey block">-->
-                <!--+1 more-->
-                <!--</button>-->
-
                 <div class="update-hirespace"
                      hs-class="hide: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Archived', is-hidden: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
                     <div class="row">
@@ -243,6 +239,12 @@
                         </div>
                     </div>
                 </div>
+
+                <button class="flat-grey large hs-to-step hide"
+                        hs-class="is-visible: bookingData.stage.name == 'Archived'"
+                        update="reopen: true">
+                    Re-open
+                </button>
 
                 {{> progressBar }}
             </div>

@@ -172,17 +172,20 @@ module hirespace {
         }
 
         initBookingData() {
-            hirespace.Logger.debug('Booking Data initialised from a local source');
+            this.bookingDataPromise(initBookingData._id, initBookingData.guid).then(bookingData => {
+                // @TODO remove after refactor
+                this.nBookingData = new hirespace.BookingData(bookingData);
+                //console.log(this.nBookingData);
 
-            this.nBookingData = new hirespace.BookingData(initBookingData);
-            console.log(this.nBookingData);
+                this.bookingData = hirespace.EnquiriesController.parseBookingData(bookingData);
+                this.bookingData.guid = initBookingData.guid;
+                this.guid = initBookingData.guid;
 
-            this.bookingData = hirespace.EnquiriesController.parseBookingData(initBookingData);
-            this.guid = this.bookingData.guid;
+                hirespace.Logger.debug('Booking Data initialised');
 
-            this.updateUi();
-
-            this.EnquiriesFeed = new EnquiriesFeed(this.bookingData);
+                this.updateUi();
+                this.EnquiriesFeed = new EnquiriesFeed(this.bookingData);
+            }, f => hirespace.Logger.error(f));
         }
 
         // @TODO
@@ -200,14 +203,14 @@ module hirespace {
 
         // @TODO
         // look into ifModified option
-        bookingDataPromise(): JQueryPromise<any> {
+        bookingDataPromise(bookingId?: string, guid?: string): JQueryPromise<any> {
             return $.ajax({
                 contentType: "text/plain",
                 crossDomain: true,
-                data: JSON.stringify({guid: this.guid}),
+                data: JSON.stringify({guid: (guid ? guid : this.guid)}),
                 dataType: 'json',
                 method: 'POST',
-                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getEnquiry + this.bookingData._id
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getEnquiry + (bookingId ? bookingId : this.bookingData._id)
             });
         }
 
