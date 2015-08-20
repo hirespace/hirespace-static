@@ -241,5 +241,9 @@ module hirespace {
         private static messageWordCount(message: string): number {
             return message ? message.match(/(\w+)/g).length : 0;
         }
+
+        private static formatBookingWord(word: string) {
+            return _.isUndefined(word) ? 'Enquiry' : word;
+        }
     }
 }

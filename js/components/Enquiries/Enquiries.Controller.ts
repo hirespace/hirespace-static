@@ -173,13 +173,15 @@ module hirespace {
 
         initBookingData() {
             this.bookingDataPromise(initBookingData._id, initBookingData.guid).then(bookingData => {
+                bookingData.guid = initBookingData.guid;
+
                 // @TODO remove after refactor
                 this.BookingData = new hirespace.BookingData(bookingData);
                 console.log(this.BookingData);
 
 
                 this.bookingData = hirespace.EnquiriesController.parseBookingData(bookingData);
-                this.bookingData.guid = initBookingData.guid;
+                //this.bookingData.guid = initBookingData.guid;
                 this.guid = initBookingData.guid;
 
                 hirespace.Logger.debug('Booking Data initialised');
