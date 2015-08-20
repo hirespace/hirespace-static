@@ -22,9 +22,11 @@
             {{> progressBar }}
 
             <header>
-                <div class="internal-note-message" hs-class="is-visible: bookingData.internalNote">
-                    <strong>Last note:</strong>
-                    <em hs-bind="bookingData.internalNote"></em>
+                <div class="internal-note-message" hs-class="is-visible: BookingData.recentStory">
+                    <strong hs-bind="BookingData.recentStory.timestamp | Date">Yesterday 18:00</strong>
+                    <em hs-bind="BookingData.recentStory.storytext">User ABC contacted Customer Name</em>
+                    <!--<strong>Last note:</strong>-->
+                    <!--<em hs-bind="bookingData.internalNote"></em>-->
                 </div>
 
                 <h1><strong hs-bind="bookingData.word">Enquiry</strong> at <span

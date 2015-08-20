@@ -93,68 +93,153 @@ module hirespace {
         internalNote?: string;
     }
 
+    class BookingDataStageOption {
+        price: number;
+        priceType: string;
+        reasonLost: string;
+        needsArchiving: string;
+
+        // @TODO change any
+        constructor(data: any) {
+            this.price = data.price;
+            this.priceType = data.priceType;
+            this.reasonLost = data.reasonLost;
+
+            // @TODO to become Closed / Confirmed / ??Pending??
+            this.needsArchiving = undefined;
+        }
+    }
+
+    // @TODO implement option.needsArchiving
+    class BookingDataStage {
+        name: string; // New / In Progress / Needs Archiving / Archived
+        option: string | BookingDataStageOption; // Confirmed / Closed / Pending | IArchived
+
+        // @TODO change any
+        constructor(data: any) {
+            this.name = data.name;
+            this.option = data.option;
+            //this.option = (data.option && _.isString(data.option)) ? data.option : new BookingDataStageOption(data.option);
+        }
+    }
+
+    class BookingDataVenue {
+        manager: string;
+        name: string;
+        spaceName: string;
+
+        // @TODO change any
+        constructor(data: any) {
+            this.manager = data.manager;
+            this.name = data.name;
+            this.spaceName = data.spaceName;
+        }
+    }
+
+    class BookingDataCustomer {
+        _id: string;
+        company: string;
+        email: string;
+        firstName: string;
+        mobile: string;
+        name: string;
+        phone: string;
+
+        // @TODO change any
+        constructor(data: any) {
+            this._id = data._id;
+            this.company = data.company;
+            this.email = data.email;
+            this.firstName = data.name; // @TODO this will be a method
+            this.mobile = data.mobile;
+            this.name = data.name;
+            this.phone = data.phone;
+        }
+    }
+
+    class BookingDataDate {
+        finishdate: string;
+        flexible: boolean;
+        startdate: string;
+
+        // @TODO change any
+        constructor(data: any) {
+            this.finishdate = data.finishdate;
+            this.flexible = data.flexible;
+            this.startdate = data.startdate;
+        }
+    }
+
+    class BookingDataTime {
+        finishtime: string;
+        flexible: boolean;
+        starttime: string;
+
+        // @TODO change any
+        constructor(data: any) {
+            this.finishtime = data.finishtime;
+            this.flexible = data.flexible;
+            this.starttime = data.starttime;
+        }
+    }
+
+    class BookingDataStory {
+        _id: string;
+        timestamp: number;
+        action: string;
+        storytext: string;
+
+        // @TODO change any
+        constructor(data: any) {
+            this._id = data._id;
+            this.action = data.action;
+            this.storytext = data.storytext;
+            this.timestamp = data.timestamp;
+        }
+    }
+
     export class BookingData {
+        private static messageWordCountLimit = 85;
+
         _id: string;
         budget: number;
-        customer: ICustomer;
-        date: IDate;
+        customer: BookingDataCustomer;
+        date: BookingDataDate;
         guid: string;
         internalNote: string;
         message: string;
         messageExceedsLimit: boolean;
         people: number;
-        stage: IBookingStage;
+        recentStory: BookingDataStory;
+        stage: BookingDataStage;
         status: string;
-        time: ITime;
-        timeToFollowUp: string | Date;
-        venue: IVenue;
+        time: BookingDataTime;
+        timeToFollowUp: Date;
+        venue: BookingDataVenue;
         word: string;
 
-        constructor(data?) {
+        // @TODO change any
+        constructor(data: any) {
             this._id = data._id;
             this.budget = data.budget;
-            this.customer = {
-                _id: data.customer._id,
-                company: data.customer.company,
-                email: data.customer.email,
-                firstName: data.customer.firstName,
-                mobile: data.customer.mobile,
-                name: data.customer.name,
-                phone: data.customer.phone
-            };
-            this.date = {
-                finishdate: data.date.finishdate,
-                flexible: data.date.flexible,
-                startdate: data.date.startdate
-            };
+            this.customer = new BookingDataCustomer(data.customer);
+            this.date = new BookingDataDate(data.date);
             this.guid = data.guid;
             this.internalNote = data.internalNote;
             this.message = data.message;
-            this.messageExceedsLimit = false;
+            this.messageExceedsLimit = BookingData.messageWordCount(data.message) > BookingData.messageWordCountLimit;
             this.people = data.people;
-            this.stage = {
-                name: data.stage.name,
-                option: {
-                    // @TODO refactor
-                    price: undefined, //data.stage.option.price,
-                    priceType: undefined, //data.stage.option.priceType,
-                    reasonLost: undefined, //data.stage.option.reasonLost,
-                    // @TODO to become Closed / Confirmed / ??Pending??
-                    needsArchiving: undefined
-                }
-            };
+            this.recentStory = new BookingDataStory(data.recentStory);
+            this.stage = new BookingDataStage(data.stage);
             this.status = data.status;
-            this.time = {
-                finishtime: data.time.finishtime,
-                flexible: data.time.flexible,
-                starttime: data.time.starttime
-            };
+            this.time = new BookingDataTime(data.time);
             this.timeToFollowUp = data.timeToFollowUp;
-            this.venue = {
-                manager: data.venue.manager,
-                name: data.venue.name,
-                spaceName: data.venue.spaceName,
-            }
+            this.venue = new BookingDataVenue(data.venue);
+            this.word = data.word;
+        }
+
+        private static messageWordCount(message: string): number {
+            return message ? message.match(/(\w+)/g).length : 0;
         }
     }
 }

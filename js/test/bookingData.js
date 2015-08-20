@@ -30,5 +30,11 @@ var initBookingData = {
         "spaceName": "Dance and Drama Studio (Small)"
     },
     "word": "Dance Classes",
-    "guid": "79c62b0f-6b32-42ed-a65d-29ebb4f9a25c"
+    "guid": "79c62b0f-6b32-42ed-a65d-29ebb4f9a25c",
+    "recentStory": {
+        "_id": "Y9hhxXCDtSKpcDyFR",
+        "timestamp": 1439818220210,
+        "action": "quickRepliedCustomer",
+        "storytext": "Hire Space Team sent quick reply to customer"
+    }
 };

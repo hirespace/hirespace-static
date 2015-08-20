@@ -18,7 +18,7 @@ module hirespace {
         private guid: string;
         private pollingFrequency: number = 30000;
 
-        nBookingData: hirespace.BookingData;
+        BookingData: hirespace.BookingData;
 
         editBookingData: string;
         bookingData: IBookingData;
@@ -174,8 +174,9 @@ module hirespace {
         initBookingData() {
             this.bookingDataPromise(initBookingData._id, initBookingData.guid).then(bookingData => {
                 // @TODO remove after refactor
-                this.nBookingData = new hirespace.BookingData(bookingData);
-                //console.log(this.nBookingData);
+                this.BookingData = new hirespace.BookingData(bookingData);
+                console.log(this.BookingData);
+
 
                 this.bookingData = hirespace.EnquiriesController.parseBookingData(bookingData);
                 this.bookingData.guid = initBookingData.guid;
