@@ -188,6 +188,8 @@ module hirespace {
         timestamp: number;
         action: string;
         storytext: string;
+        date: string;
+        time: string;
 
         // @TODO change any
         constructor(data: any) {
@@ -195,6 +197,11 @@ module hirespace {
             this.action = data.action;
             this.storytext = data.storytext;
             this.timestamp = data.timestamp;
+            this.time = BookingDataStory.parseTimestamp(data.timestamp);
+        }
+
+        private static parseTimestamp(value: number): string {
+            return moment(new Date(value)).format("DD MMM YYYY");
         }
     }
 
