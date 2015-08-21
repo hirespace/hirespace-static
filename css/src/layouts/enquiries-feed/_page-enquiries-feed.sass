@@ -246,6 +246,8 @@
     position: relative
 
     .internal-note-message
+      padding-top: $quarter-unit-layout
+      position: relative
       display: none
       color: $color-grey-300
       font:
@@ -257,6 +259,10 @@
 
       +respond-to-size($screen-sm)
         padding-top: $base-unit-layout
+
+    .full-history
+      position: absolute
+      right: 0
 
     h1
       margin: 0
@@ -275,14 +281,12 @@
       text-transform: capitalize
       position: absolute
       right: 0
-      top: 50%
-      margin-top: -(rem(12px))
+      top: -($double-half-unit-layout)
 
       +respond-to-size($screen-sm)
         text-align: center
         right: 0
         left: 0
-        top: -($double-half-unit-layout)
         margin: 0
 
   .details-bar

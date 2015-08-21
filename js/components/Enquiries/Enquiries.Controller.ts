@@ -181,7 +181,6 @@ module hirespace {
 
 
                 this.bookingData = hirespace.EnquiriesController.parseBookingData(bookingData);
-                //this.bookingData.guid = initBookingData.guid;
                 this.guid = initBookingData.guid;
 
                 hirespace.Logger.debug('Booking Data initialised');

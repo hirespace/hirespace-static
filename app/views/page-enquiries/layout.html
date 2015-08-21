@@ -22,15 +22,20 @@
             {{> progressBar }}
 
             <header>
+                <h1><strong hs-bind="bookingData.word">Enquiry</strong> at <span
+                        hs-bind="bookingData.venue.name">Venue</span></h1>
+
                 <div class="internal-note-message" hs-class="is-visible: BookingData.recentStory">
-                    <strong hs-bind="BookingData.recentStory.timestamp | Date">Yesterday 18:00</strong>
+                    <strong hs-bind="BookingData.recentStory.timestamp">Yesterday 18:00</strong>
                     <em hs-bind="BookingData.recentStory.storytext">User ABC contacted Customer Name</em>
+
+                    <span class="full-history">
+                        <i class="fa fa-history"></i> See full history
+                    </span>
                     <!--<strong>Last note:</strong>-->
                     <!--<em hs-bind="bookingData.internalNote"></em>-->
                 </div>
 
-                <h1><strong hs-bind="bookingData.word">Enquiry</strong> at <span
-                        hs-bind="bookingData.venue.name">Venue</span></h1>
                 <small hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost' || bookingData.status == 'void'"
                        class="label stage" hs-bind="bookingData.stage.name">Stage
                 </small>
