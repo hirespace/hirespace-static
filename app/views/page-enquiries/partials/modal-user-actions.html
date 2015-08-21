@@ -1,0 +1,18 @@
+<div class="modal is-hidden" id="modalUserActions">
+    <header>
+        <strong class="heading">History</strong>
+        <small class="link undo" hs-modal-close>Back</small>
+    </header>
+    <main class="user-stories" hs-repeat="data in userStories">
+        <article>
+            <strong hs-bind="data.time"></strong>
+            <span hs-bind="data.storytext"></span>
+        </article>
+    </main>
+    <footer class="is-hidden">
+        <button class="block green large hs-to-step" to-step="In Progress" update="customerContactedHow: 'email'"
+                hs-modal-close>
+            Yes, I have emailed <span hs-bind="bookingData.customer.firstName">Customer Name</span>
+        </button>
+    </footer>
+</div>

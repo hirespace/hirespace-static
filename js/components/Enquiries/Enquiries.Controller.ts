@@ -141,6 +141,20 @@ module hirespace {
                     hirespace.View.updateView(this, '#modalSuggestEdits');
                 });
 
+                $('.show-venue-stories').click(() => {
+                    this.venueStoriesPromise(this.bookingData._id, this.guid).then(response => {
+                        let data = _.map(response, userStory => new hirespace.BookingDataStory(userStory));
+                        console.log(data);
+
+                        let target = $('#modalUserActions .user-stories'),
+                            HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), data);
+
+                        HsRepeat.updateView(target);
+                    }, e => {
+                        hirespace.Logger.error(e);
+                    });
+                });
+
                 $('#saveSuggestedEdits').click(() => {
                     let inputs = $('#formSuggestedEdits input');
 
@@ -179,7 +193,6 @@ module hirespace {
                 this.BookingData = new hirespace.BookingData(bookingData);
                 console.log(this.BookingData);
 
-
                 this.bookingData = hirespace.EnquiriesController.parseBookingData(bookingData);
                 this.guid = initBookingData.guid;
 
@@ -213,6 +226,17 @@ module hirespace {
                 dataType: 'json',
                 method: 'POST',
                 url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getEnquiry + (bookingId ? bookingId : this.bookingData._id)
+            });
+        }
+
+        venueStoriesPromise(bookingId: string, guid: string): JQueryPromise<any> {
+            return $.ajax({
+                contentType: "text/plain",
+                crossDomain: true,
+                data: JSON.stringify({guid: guid}),
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().venueStories + bookingId
             });
         }
 

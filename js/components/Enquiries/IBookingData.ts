@@ -183,7 +183,7 @@ module hirespace {
         }
     }
 
-    class BookingDataStory {
+    export class BookingDataStory {
         _id: string;
         timestamp: number;
         action: string;
@@ -242,14 +242,15 @@ module hirespace {
             this.time = new BookingDataTime(data.time);
             this.timeToFollowUp = data.timeToFollowUp;
             this.venue = new BookingDataVenue(data.venue);
-            this.word = data.word;
+            this.word = BookingData.formatBookingWord(data.word);
+
         }
 
         private static messageWordCount(message: string): number {
             return message ? message.match(/(\w+)/g).length : 0;
         }
 
-        private static formatBookingWord(word: string) {
+        private static formatBookingWord(word: string): string {
             return _.isUndefined(word) ? 'Enquiry' : word;
         }
     }
