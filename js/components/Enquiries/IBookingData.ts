@@ -81,6 +81,7 @@ module hirespace {
         message: string;
         messageExceedsLimit?: boolean;
         people: number;
+        recentStory: any;
         stage: IBookingStage;
         status: string;
         suggestedEdits?: ISuggestedEdits;
@@ -201,7 +202,7 @@ module hirespace {
         }
 
         private static parseTimestamp(value: number): string {
-            return moment(new Date(value)).format("DD MMM YYYY");
+            return moment(new Date(value)).format("DD MMM YYYY, hh:mm a");
         }
     }
 
