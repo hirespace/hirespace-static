@@ -16,9 +16,9 @@ module hirespace {
     export class EnquiriesController {
         private attachments: Array<{}>;
         private guid: string;
-        private pollingFrequency: number = 30000;
+        private pollingFrequency: number = 60000;
 
-        nBookingData: hirespace.BookingData;
+        BookingData: hirespace.BookingData;
 
         editBookingData: string;
         bookingData: IBookingData;
@@ -141,6 +141,19 @@ module hirespace {
                     hirespace.View.updateView(this, '#modalSuggestEdits');
                 });
 
+                $('.show-venue-stories').click(() => {
+                    this.venueStoriesPromise(this.bookingData._id, this.guid).then(response => {
+                        let data = _.map(response, userStory => new hirespace.BookingDataStory(userStory));
+
+                        let target = $('#modalUserActions .user-stories'),
+                            HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), data);
+
+                        HsRepeat.updateView(target);
+                    }, e => {
+                        hirespace.Logger.error(e);
+                    });
+                });
+
                 $('#saveSuggestedEdits').click(() => {
                     let inputs = $('#formSuggestedEdits input');
 
@@ -173,12 +186,13 @@ module hirespace {
 
         initBookingData() {
             this.bookingDataPromise(initBookingData._id, initBookingData.guid).then(bookingData => {
+                bookingData.guid = initBookingData.guid;
+
+                this.BookingData = new hirespace.BookingData(bookingData);
                 // @TODO remove after refactor
-                this.nBookingData = new hirespace.BookingData(bookingData);
-                //console.log(this.nBookingData);
+                //console.log(this.BookingData);
 
                 this.bookingData = hirespace.EnquiriesController.parseBookingData(bookingData);
-                this.bookingData.guid = initBookingData.guid;
                 this.guid = initBookingData.guid;
 
                 hirespace.Logger.debug('Booking Data initialised');
@@ -211,6 +225,17 @@ module hirespace {
                 dataType: 'json',
                 method: 'POST',
                 url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().getEnquiry + (bookingId ? bookingId : this.bookingData._id)
+            });
+        }
+
+        venueStoriesPromise(bookingId: string, guid: string): JQueryPromise<any> {
+            return $.ajax({
+                contentType: "text/plain",
+                crossDomain: true,
+                data: JSON.stringify({guid: guid}),
+                dataType: 'json',
+                method: 'POST',
+                url: hirespace.Config.getApiUrl() + hirespace.Config.getApiRoutes().venueStories + bookingId
             });
         }
 
@@ -259,6 +284,7 @@ module hirespace {
 
             this.bookingData = newData;
             this.bookingData.guid = this.guid;
+            this.BookingData.recentStory = new BookingDataStory(newData.recentStory);
 
             this.updateUi();
             this.EnquiriesFeed.nRenderView(this.bookingData.stage.name, true, false, this.bookingData, true);

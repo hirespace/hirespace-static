@@ -25,6 +25,7 @@ export function enquiries(req: express.Request, res: express.Response) {
             modalEmailCustomer: 'page-enquiries/partials/modal-email-customer',
             modalQuickReply: 'page-enquiries/partials/modal-quick-reply',
             modalSuggestEdits: 'page-enquiries/partials/modal-suggest-edits',
+            modalUserActions: 'page-enquiries/partials/modal-user-actions',
             progressBar: 'page-enquiries/partials/progress-bar',
             navLoggedIn: 'partials/nav-logged-in'
         }
