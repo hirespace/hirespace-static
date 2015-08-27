@@ -230,19 +230,19 @@ module hirespace {
         constructor(data: any) {
             this._id = data._id;
             this.budget = data.budget;
-            this.customer = new BookingDataCustomer(data.customer);
-            this.date = new BookingDataDate(data.date);
+            this.customer = data.customer ? new BookingDataCustomer(data.customer) : undefined;
+            this.date = data.date ? new BookingDataDate(data.date) : undefined;
             this.guid = data.guid;
             this.internalNote = data.internalNote;
             this.message = data.message;
             this.messageExceedsLimit = BookingData.messageWordCount(data.message) > BookingData.messageWordCountLimit;
             this.people = data.people;
-            this.recentStory = new BookingDataStory(data.recentStory);
-            this.stage = new BookingDataStage(data.stage);
+            this.recentStory = data.recentStory ? new BookingDataStory(data.recentStory) : undefined;
+            this.stage = data.stage ? new BookingDataStage(data.stage) : undefined;
             this.status = data.status;
-            this.time = new BookingDataTime(data.time);
+            this.time = data.time ? new BookingDataTime(data.time) : undefined;
             this.timeToFollowUp = data.timeToFollowUp;
-            this.venue = new BookingDataVenue(data.venue);
+            this.venue = data.venue ? new BookingDataVenue(data.venue) : undefined;
             this.word = BookingData.formatBookingWord(data.word);
 
         }
