@@ -24,6 +24,16 @@
             <header>
                 <h1><strong hs-bind="bookingData.word">Enquiry</strong> at <span
                         hs-bind="bookingData.venue.name">Venue</span></h1>
+
+                <div class="venue-stories" hs-class="is-visible: BookingData.recentStory">
+                    <strong hs-bind="BookingData.recentStory.time">Story Time</strong>
+                    <em hs-bind="BookingData.recentStory.storytext">Story Text</em>
+
+                    <span class="full-history show-venue-stories" hs-modal="modalUserActions">
+                        <i class="fa fa-history"></i> See full history
+                    </span>
+                </div>
+
                 <small hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost' || bookingData.status == 'void'"
                        class="label stage" hs-bind="bookingData.stage.name">Stage
                 </small>
@@ -185,10 +195,6 @@
 
         <section class="venue-manager-actions" hs-class="is-hidden: bookingData.status == 'void'">
             <div class="container-narrow">
-                <!--<button data-toggle-view="show: bookingData.stage == 'New'" class="large flat-grey block">-->
-                <!--+1 more-->
-                <!--</button>-->
-
                 <div class="update-hirespace"
                      hs-class="hide: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Archived', is-hidden: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
                     <div class="row">
@@ -239,6 +245,12 @@
                     </div>
                 </div>
 
+                <button class="flat-grey large hs-to-step hide"
+                        hs-class="is-visible: bookingData.stage.name == 'Archived'"
+                        update="reopen: true">
+                    Re-open
+                </button>
+
                 {{> progressBar }}
             </div>
         </section>
@@ -246,36 +258,35 @@
         <section hs-class="is-hidden: bookingData.status == 'void'">
 
             <div class="internal-note container-narrow">
-                <div class="row">
-                    <div hs-class="col-md-6: bookingData.stage.name == 'Needs Archiving', col-md-12: bookingData.stage.name == 'Archived'">
-                        <button class="flat-grey large hs-to-step hide"
-                                hs-class="is-visible: bookingData.stage.name == 'Archived'"
-                                update="reopen: true">
-                            Re-open
-                        </button>
+                <div class="pull-left">
+                    <button class="flat-grey pull-left hs-to-step hide"
+                            hs-class="is-visible: bookingData.stage.name == 'Archived'"
+                            update="reopen: true">
+                        Re-open
+                    </button>
 
-                        <button class="flat-grey large hs-to-step hide"
-                                hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option"
-                                update="needsArchivingStatus: false">
-                            Go Back
-                        </button>
-                    </div>
-                    <div class="edit-enqiury-details"
-                         hs-class="col-md-12: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress', col-md-6: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
-                        <button class="flat-grey large hide toggle-edit" hs-modal="modalSuggestEdits"
-                                hs-class="is-visible: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving'">
-                            Edit Enquiry Details
-                        </button>
-                    </div>
+                    <button class="flat-grey pull-left hs-to-step hide"
+                            hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option"
+                            update="needsArchivingStatus: false">
+                        Go Back
+                    </button>
+
+                    <button class="flat-grey pull-left hide toggle-edit" hs-modal="modalSuggestEdits"
+                            hs-class="is-visible: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Needs Archiving'">
+                        Edit Enquiry Details
+                    </button>
                 </div>
 
 
-                <div class="pull-right is-hidden">
-                    <label for="internal-note">Leave an internal note</label>
-                    <input id="internal-note" type="text" placeholder="Text here..."/>
-
-                    <button class="black">Save</button>
+                <div class="pull-right">
+                    <input id="internalNote" type="text" rules='["required"]' placeholder="Leave internal note"/>
+                    <button id="saveInternalNote">Save</button>
                 </div>
+            </div>
+
+            <div class="container-narrow internal-notes" hs-class="is-visible: bookingData.internalNote">
+                <strong>Last note:</strong>
+                <em hs-bind="bookingData.internalNote"></em>
             </div>
         </section>
 
@@ -292,7 +303,7 @@
 <script>
     // Initial Data
     var initBookingData = {
-        "_id": "BBX54hYWFmofZYgAB",
+        "_id": "Qtm7tXJGaJocYNKcY",
         "budget": 120,
         "customer": {
             "_id": "fhujvLKi5ciQAy4g3",
@@ -322,6 +333,6 @@
             "spaceName": "Dance and Drama Studio (Small)"
         },
         "word": "Dance Classes",
-        "guid": "79c62b0f-6b32-42ed-a65d-29ebb4f9a25c"
+        "guid": "f9dea4d7-f4de-4ecc-a2cf-c4298225ee35"
     };
 </script>

@@ -1,0 +1,19 @@
+<div class="modal is-hidden" id="modalUserActions">
+    <header>
+        <strong class="heading">Enquiry History</strong>
+        <small class="link undo" hs-modal-close>Close</small>
+    </header>
+    <main>
+        <ul class="user-stories unstyled" hs-repeat="data in userStories">
+            <li>
+                <strong hs-bind="data.time"></strong>
+                <span hs-bind="data.storytext"></span>
+            </li>
+        </ul>
+    </main>
+    <footer>
+        <button class="block flat-grey" hs-modal-close>
+            Close
+        </button>
+    </footer>
+</div>

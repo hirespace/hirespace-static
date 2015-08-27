@@ -245,6 +245,33 @@
     margin: $double-unit-layout 0
     position: relative
 
+    .venue-stories
+      padding-top: $quarter-unit-layout
+      position: relative
+      display: none
+      color: $color-grey-300
+      font:
+        size: rem(14px)
+
+      em
+        font:
+          style: normal
+
+      +respond-to-size($screen-sm)
+        padding-top: $base-unit-layout
+
+    .full-history
+      +transition(color .25s)
+
+      padding-left: $half-unit-layout
+      background: white
+      position: absolute
+      right: 0
+      cursor: pointer
+
+      +hover
+        color: $color-hirespace
+
     h1
       margin: 0
       font:
@@ -253,19 +280,21 @@
       strong, span
         text-transform: capitalize
 
+      +respond-to-size($screen-sm)
+        padding-top: $half-unit-layout
+
     .label
       +z-index(enquiry-status-label)
 
       text-transform: capitalize
       position: absolute
       right: 0
-      top: 50%
-      margin-top: -(rem(12px))
+      top: -($double-half-unit-layout)
 
       +respond-to-size($screen-sm)
-        right: auto
+        text-align: center
+        right: 0
         left: 0
-        top: -($double-half-unit-layout)
         margin: 0
 
   .details-bar
@@ -513,6 +542,20 @@
     padding: $double-unit-layout 0 0
     border-top: 1px solid $color-grey-75
 
+    .internal-notes
+      @extend .text-right
+
+      padding-top: $base-unit-layout
+      position: relative
+      display: none
+      color: $color-grey-300
+      font:
+        size: rem(14px)
+
+      em
+        font:
+          style: normal
+
     &.confirm-status
       margin: 0
       border: 0
@@ -566,6 +609,9 @@
           text-align: left
 
     &.venue-manager-actions
+      button
+        width: 100%
+
       .update-hirespace
         margin: 0 0 $double-unit-layout
 
@@ -618,13 +664,11 @@
   .internal-note
     +clearfix
 
-    .row
-      button
-        width: 100%
+    .pull-left
+      +clearfix
 
-      .edit-enqiury-details
-        padding-left: $grid-gutter-width / 2
-        padding-right: $grid-gutter-width / 2
+      button
+        margin-right: $half-unit-layout
 
     .pull-right
       +clearfix
@@ -642,7 +686,7 @@
       input
         +border-radius(4px 0 0 4px)
 
-        min-width: rem(260px)
+        min-width: rem(280px)
         border-right: 0
         padding-top: $base-unit-layout
         padding-bottom: $base-unit-layout
@@ -657,6 +701,7 @@
 
         &.pull-left
           button
+            margin-right: 0
             margin-bottom: $base-unit-layout
             width: 100%
 
@@ -673,10 +718,68 @@
 
   .modal
     padding: $double-unit-layout
-    
+
     &#modalSuggestEdits
       main
         padding-bottom: 0
+
+    &#modalUserActions
+      main
+        padding-left: 0
+        padding-right: 0
+        background: transparent
+
+        ul
+          $timeline-pt-size: rem(9px)
+          $timeline-pt-offset-top: rem(3px)
+          $timeline-pt-offset-left: rem(14px)
+
+          li
+            position: relative
+            padding-bottom: $base-unit-layout
+            font:
+              size: rem(15px)
+
+            &:before
+              position: absolute
+              left: $timeline-pt-offset-left
+              content: ''
+              height: 100%
+              width: 1px
+              background: $color-grey-50
+
+            strong, span
+              padding-left: $timeline-pt-offset-left * 3
+              display: block
+
+            strong
+              color: $color-grey-300
+              font:
+                size: rem(12px)
+                weight: 500
+
+              &:before
+                +border-radius(100%)
+
+                content: ''
+                display: block
+                width: $timeline-pt-size
+                height: $timeline-pt-size
+                background: $color-grey-50
+                border: 2px solid $color-grey-700
+                position: absolute
+                left: $timeline-pt-offset-left - (($timeline-pt-size / 2) + rem(2px))
+                top: $timeline-pt-offset-top
+
+            &:first-of-type
+              &:before
+                top: $timeline-pt-offset-top
+
+            &:last-of-type
+              padding-bottom: 0
+
+              &:before
+                height: $timeline-pt-offset-top
 
     header,
     main,
