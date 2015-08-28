@@ -35,7 +35,7 @@
                 </div>
 
                 <small hs-class="is-hidden: bookingData.status == 'won' || bookingData.status == 'lost' || bookingData.status == 'void'"
-                       class="label stage" hs-bind="bookingData.stage.name">Stage
+                       class="label stage" hs-bind="BookingData.stage.name">Stage
                 </small>
                 <small class="label stage hide"
                        hs-class="is-visible: bookingData.status == 'won' || bookingData.status == 'lost' || bookingData.status == 'void'"
@@ -70,7 +70,7 @@
         {{> detailsBar }}
 
         <main class="customer-details container-narrow padding-top-double"
-              hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
+              hs-class="is-hidden: bookingData.stage.name == 'Needs Archiving' && BookingData.stage.option.needsArchiving">
             <aside class="hide customer col-md-4" hs-class="is-visible: bookingData.stage.name == 'New'">
                 <div class="avatar-anonymous"></div>
 
@@ -94,13 +94,13 @@
         </main>
 
         <section class="hide confirm-status"
-                 hs-class="is-visible: bookingData.stage.option == 'confirmed' || bookingData.status == 'won'">
+                 hs-class="is-visible: BookingData.stage.option.needsArchiving == 'confirmed' || bookingData.status == 'won'">
             <div class="container-narrow">
                 <h5 class="text-center margin-bottom-double" hs-class="is-hidden: bookingData.status == 'won'">Please
                     confirm the customer's spend to archive enquiry</h5>
 
                 <div class="row confirm-spend">
-                    <div class="col-md-4 hide" hs-class="is-visible: bookingData.stage.option == 'confirmed'">
+                    <div class="col-md-4 hide" hs-class="is-visible: BookingData.stage.option.needsArchiving == 'confirmed'">
                         <input type="text" placeholder="Confirm spend ex. VAT"/>
                     </div>
 
@@ -132,7 +132,7 @@
         </section>
 
         <section class="hide confirm-status"
-                 hs-class="is-visible: bookingData.stage.option == 'closed' || bookingData.status == 'lost'">
+                 hs-class="is-visible: BookingData.stage.option.needsArchiving == 'closed' || bookingData.status == 'lost'">
             <div class="container-narrow confirm-reason-lost">
                 <h5 class="text-center margin-bottom-double" hs-class="is-hidden: bookingData.status == 'lost'">Tell
                     Hire Space why this enquiry has been closed</h5>
@@ -196,7 +196,7 @@
         <section class="venue-manager-actions" hs-class="is-hidden: bookingData.status == 'void'">
             <div class="container-narrow">
                 <div class="update-hirespace"
-                     hs-class="hide: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Archived', is-hidden: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option">
+                     hs-class="hide: bookingData.stage.name == 'New' || bookingData.stage.name == 'In Progress' || bookingData.stage.name == 'Archived', is-hidden: bookingData.stage.name == 'Needs Archiving' && BookingData.stage.option.needsArchiving">
                     <div class="row">
                         <div class="col-md-4">
                             <button class="large green block hs-to-step"
@@ -245,11 +245,11 @@
                     </div>
                 </div>
 
-                <button class="flat-grey large hs-to-step hide"
-                        hs-class="is-visible: bookingData.stage.name == 'Archived'"
-                        update="reopen: true">
-                    Re-open
-                </button>
+                <!--<button class="flat-grey large hs-to-step hide"-->
+                        <!--hs-class="is-visible: bookingData.stage.name == 'Archived'"-->
+                        <!--update="reopen: true">-->
+                    <!--Re-open-->
+                <!--</button>-->
 
                 {{> progressBar }}
             </div>
@@ -266,7 +266,7 @@
                     </button>
 
                     <button class="flat-grey pull-left hs-to-step hide"
-                            hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' && bookingData.stage.option"
+                            hs-class="is-visible: bookingData.stage.name == 'Needs Archiving' && BookingData.stage.option.needsArchiving"
                             update="needsArchivingStatus: false">
                         Go Back
                     </button>

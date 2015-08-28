@@ -284,7 +284,7 @@ module hirespace {
 
             this.bookingData = newData;
             this.bookingData.guid = this.guid;
-            this.BookingData.recentStory = new BookingDataStory(newData.recentStory);
+            this.BookingData = new BookingData(newData);
 
             this.updateUi();
             this.EnquiriesFeed.nRenderView(this.bookingData.stage.name, true, false, this.bookingData, true);

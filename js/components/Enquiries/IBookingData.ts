@@ -102,25 +102,25 @@ module hirespace {
 
         // @TODO change any
         constructor(data: any) {
-            this.price = data.price;
-            this.priceType = data.priceType;
-            this.reasonLost = data.reasonLost;
-
-            // @TODO to become Closed / Confirmed / ??Pending??
-            this.needsArchiving = undefined;
+            if (_.isString(data)) {
+                this.needsArchiving = data;
+            } else {
+                this.price = data.price;
+                this.priceType = data.priceType;
+                this.reasonLost = data.reasonLost;
+                this.needsArchiving = data.needsArchiving;
+            }
         }
     }
 
-    // @TODO implement option.needsArchiving
     class BookingDataStage {
-        name: string; // New / In Progress / Needs Archiving / Archived
-        option: string | BookingDataStageOption; // Confirmed / Closed / Pending | IArchived
+        name: string;
+        option: BookingDataStageOption;
 
         // @TODO change any
         constructor(data: any) {
             this.name = data.name;
-            this.option = data.option;
-            //this.option = (data.option && _.isString(data.option)) ? data.option : new BookingDataStageOption(data.option);
+            this.option = data.option ? new BookingDataStageOption(data.option) : undefined;
         }
     }
 
