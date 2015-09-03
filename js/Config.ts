@@ -12,6 +12,7 @@ module hirespace {
         updateEnquiry: string;
         stage: string;
         stages: string;
+        venueStories: string;
     }
 
     let apiUrls: IApiUrls = {
@@ -30,7 +31,8 @@ module hirespace {
         getEnquiry: 'methods/enquiries/getEnquiry/',
         updateEnquiry: 'methods/enquiries/updateEnquiry/',
         stage: 'methods/stages/getStageEnquiries/',
-        stages: 'methods/stages/getStagesCount'
+        stages: 'methods/stages/getStagesCount',
+        venueStories: 'methods/enquiries/getVenueStories/'
     };
 
     let productionHost: string = 'venues.hirespace.com';
