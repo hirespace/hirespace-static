@@ -8,7 +8,10 @@ git diff HEAD --stat
 printf "\n"
 git status
 
-printf "\nHave you prefixed your commit message with JIRA ticket reference?\n"
+blue=$(tput setaf 6)
+normal=$(tput sgr0)
+
+printf "%40s\n\n" "${blue}Have you prefixed your commit message with JIRA ticket reference?${normal}"
 printf "\nDo you wish to commit on branch ${branch_name}?\nThe commit message is: ${1}\n"
 
 select yn in "Yes" "No"; do
