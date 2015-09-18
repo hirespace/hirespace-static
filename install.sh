@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-sudo npm install gulp npm-check-updates -g
+sudo npm install gulp@latest npm-check-updates@latest tsc@latest typescript@latest -g
 
 sudo ncu -u
 sudo npm install
