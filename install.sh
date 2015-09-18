@@ -6,4 +6,4 @@ sudo npm install
 
 bower install
 
-gulp sass typescript-server concatVendor typescript sass
+gulp typescript-server concatVendor typescript sass
