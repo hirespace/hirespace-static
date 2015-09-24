@@ -1,0 +1,55 @@
+.page-sandbox
+  footer
+    background: $color-black
+    padding-left: 0
+    padding-right: 0
+
+    section
+      &:first-of-type
+        $form-height: rem(48px)
+
+        border-bottom: 1px solid gray
+
+        .container
+          form, strong
+            height: $form-height
+          strong
+            @extend .text-left
+
+            display: block
+            line-height: $form-height
+            color: white
+            font:
+              size: rem(20px)
+              weight: 700
+
+        .container
+          $radius: 4px
+
+          input, button
+            +border-radius(0)
+
+            margin: 0
+            padding: 0 $unit-layout
+            background: transparent
+            float: left
+
+          input
+            height: $form-height
+            width: rem(300px)
+            border-color: grey
+            border-radius: 0
+            float: left
+            border-right-style: none
+
+            &:first-of-type
+              +border-radius($radius 0 0 $radius)
+
+          button
+            +border-radius(0 $radius $radius 0)
+
+            height: $form-height
+            border-color: white
+            color: white
+            padding-left: $double-half-unit-layout
+            padding-right: $double-half-unit-layout
