@@ -1,0 +1,82 @@
+body
+  background: white
+
+  footer
+    background: $color-black
+    padding-top: $double-unit-layout
+    +respond-to-size($screen-md)
+      padding-top: $half-unit-layout
+    .sign-up-form
+      strong
+        font:
+          size: rem(24px)
+        height: $triple-unit-layout
+        line-height: $triple-unit-layout
+        color: white
+      .text-left
+        +respond-to-size($screen-md)
+          text-align: center !important
+      form
+        +clearfix
+        input, button
+          float: left
+          margin: 0
+          height: $triple-unit-layout
+          line-height: $triple-unit-layout
+          padding-top: 0
+          padding-bottom: 0
+          background: transparent
+          border: 1px solid $color-grey-500
+          +respond-to-size($screen-md)
+            margin-bottom: $half-unit-layout
+        input
+          &:first-of-type
+            +border-radius(3px 0 0 3px)
+          &:nth-of-type(2)
+            +border-radius(0)
+            border-left: 0
+            border-right: 0
+          +respond-to-size($screen-md)
+            border:
+              left: 1px solid $color-grey-500 !important
+              right: 1px solid $color-grey-500 !important
+          color: white
+          +placeholder
+            color: $color-grey-500
+        button
+          +border-radius(0 3px 3px 0)
+          border-color: $color-grey-300
+          color: $color-grey-300
+          +hover
+            color: white
+            border-color: white
+    .splitter
+      border-bottom: 1px solid $color-grey-500
+      padding: 0
+      margin:
+        left: 0
+        right: 0
+        top: $double-unit-layout
+        bottom: $double-unit-layout
+      +respond-to-size($screen-md)
+        border-bottom: 0 !important
+        margin: 0 0 $base-unit-layout 0 !important
+    .links
+      .col-md-2
+        text-align: left
+        +respond-to-size($screen-md)
+          text-align: center
+      strong
+        color: white
+        font-size: rem(16px)
+        +respond-to-size($screen-md)
+          font-size: rem(24px)
+      ul
+        margin-top: $base-unit-layout
+        +respond-to-size($screen-md)
+          margin-bottom: $base-unit-layout
+      li
+        color: $color-grey-300
+        +respond-to-size($screen-md)
+          font-size: rem(16px)
+

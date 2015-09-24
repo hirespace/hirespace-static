@@ -39,5 +39,37 @@ export function sandbox(req: express.Request, res: express.Response) {
         bodyClass: 'page-sandbox'
     };
 
-    return res.render('page-sandbox/layout');
+    return res.render('page-sandbox/layout', {
+        partials: {
+            footer: 'partials/footer'
+        }
+    });
+}
+
+export function legal(req: express.Request, res: express.Response) {
+    res.locals = {
+        controller: 'LegalController',
+        pageTitle: 'Legal',
+        bodyClass: 'page-legal'
+    };
+
+    return res.render('page-legal/layout', {
+        partials: {
+            footer: 'partials/footer'
+        }
+    });
+}
+
+export function press(req: express.Request, res: express.Response) {
+    res.locals = {
+        controller: 'PressController',
+        pageTitle: 'Press',
+        bodyClass: 'page-press'
+    };
+
+    return res.render('page-press/layout', {
+        partials: {
+            footer: 'partials/footer'
+        }
+    });
 }
