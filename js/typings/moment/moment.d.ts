@@ -5,5 +5,4 @@
 
 /// <reference path="moment-node.d.ts" />
 
-declare
-var moment: moment.MomentStatic;
+declare var moment: moment.MomentStatic;

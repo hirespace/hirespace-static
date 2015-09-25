@@ -73,3 +73,17 @@ export function press(req: express.Request, res: express.Response) {
         }
     });
 }
+
+export function team(req: express.Request, res: express.Response) {
+    res.locals = {
+        controller: 'TeamController',
+        pageTitle: 'Team',
+        bodyClass: 'page-team'
+    };
+
+    return res.render('page-team/layout', {
+        partials: {
+            footer: 'partials/footer'
+        }
+    });
+}
