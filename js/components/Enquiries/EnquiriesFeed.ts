@@ -142,7 +142,7 @@ module hirespace {
                 hirespace.View.updateView(this, 'nav.enquiries-feed');
 
                 if (hirespace.Debug.getEnvironment() !== 'test') {
-                    _.forEach(_.values(enquiriesFeedStages), stage => {
+                    _.forEach(_.values(enquiriesFeedStages), (stage: string) => {
                         if (this.enquiriesFeed[stage].enquiries.data.length > 0) {
                             let target = $('nav.enquiries-feed .sub ul.' + stage),
                                 HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), this.enquiriesFeed[stage].enquiries.data);
@@ -225,7 +225,7 @@ module hirespace {
                 hirespace.View.updateView(this, 'nav.enquiries-feed');
 
                 if (hirespace.Debug.getEnvironment() !== 'test') {
-                    _.forEach(_.values(enquiriesFeedStages), stage => {
+                    _.forEach(_.values(enquiriesFeedStages), (stage: string) => {
                         if (this.enquiriesFeed[stage].enquiries.data.length > 0) {
                             let target = $('nav.enquiries-feed .sub ul.' + stage),
                                 HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), this.enquiriesFeed[stage].enquiries.data);
