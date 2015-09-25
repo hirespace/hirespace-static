@@ -6,4 +6,8 @@ sudo npm install
 
 bower install
 
+tsd install
+tsd update --save --overwrite
+tsd rebundle
+
 gulp typescript-server concatVendor typescript sass
