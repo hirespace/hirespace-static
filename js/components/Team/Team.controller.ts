@@ -15,7 +15,7 @@ module hirespace {
         constructor() {
             console.log('Team Page');
 
-            this.signup = new SignUp('Lolz');
+            this.signup = new SignUp('Top venues to your inbox');
 
             hirespace.View.updateView(this, 'footer');
         }

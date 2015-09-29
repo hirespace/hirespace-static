@@ -87,3 +87,17 @@ export function team(req: express.Request, res: express.Response) {
         }
     });
 }
+
+export function jobs(req: express.Request, res: express.Response) {
+    res.locals = {
+        controller: 'JobsController',
+        pageTitle: 'Jobs',
+        bodyClass: 'page-jobs'
+    };
+
+    return res.render('page-jobs/layout', {
+        partials: {
+            footer: 'partials/footer'
+        }
+    });
+}
