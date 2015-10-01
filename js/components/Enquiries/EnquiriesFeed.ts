@@ -192,7 +192,9 @@ module hirespace {
                 _.forEach(this.enquiriesFeed, (stageData, stageName) => {
                     if (stageData.enquiries.data.length > 0) {
                         if (stageName !== enquiriesFeedStages[this.currentEnquiry.stage]) {
-                            this.enquiriesFeed[stageName].pagination.page = 0;
+                            if (!this.enquiriesFeed[stageName].open) {
+                                this.enquiriesFeed[stageName].pagination.page = 0;
+                            }
 
                             if (newData) {
                                 this.enquiriesFeed[stageName].open = false;

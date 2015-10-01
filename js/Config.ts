@@ -19,7 +19,6 @@ module hirespace {
         production: 'https://mongoapi.hirespace.com/',
         development: 'https://stagingmongoapi.hirespace.com/',
         test: 'https://stagingmongoapi.hirespace.com/'
-        
     };
 
     let enquirySendEmailApi: IApiUrls = {
