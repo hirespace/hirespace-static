@@ -79,24 +79,6 @@ Create a new directory in **js/components**, e.g. Test, in which we'll create a 
             hirespace.App.subscribe('TestController', TestController);
         }
 
-#### toggle-class
-
-The most powerful part of the application is the ```ToggleClass``` model. It enables you to toggle classes on any HTML
-element based on rules (or their combinations), the number of which is unlimited.
-
-For example, to toggle class active only when there is an object called ```bookingData``` attached to the current
-controller, do:
-
-        <elem hs-class="active: bookingData"></elem>
-        
-Should you wish to add an *OR assertion*, for example ```customerData.type == 'admin'```, you can do:
-
-        <elem hs-class="active: bookingData || customerData.role == 'admin'"></elem>
-        
-To add a *AND assertion*, you might do:
-
-        <elem hs-class="active: bookingData.venue.manager && bookingData.venue.name"></elem>
-
 #### hs-bind
 
 To bind data from controllers, we use the ```HsBind``` service.
@@ -130,6 +112,24 @@ In the controller:
 In the HTML:
 
         <elem hs-bind="BookingData.venueName"></elem>
+
+#### toggle-class
+
+The most powerful part of the application is the ```ToggleClass``` model. It enables you to toggle classes on any HTML
+element based on rules (or their combinations), the number of which is unlimited.
+
+For example, to toggle class active only when there is an object called ```bookingData``` attached to the current
+controller, do:
+
+        <elem hs-class="active: bookingData"></elem>
+        
+Should you wish to add an *OR assertion*, for example ```customerData.type == 'admin'```, you can do:
+
+        <elem hs-class="active: bookingData || customerData.role == 'admin'"></elem>
+        
+To add a *AND assertion*, you might do:
+
+        <elem hs-class="active: bookingData.venue.manager && bookingData.venue.name"></elem>
 
 #### toggle-elem
 
