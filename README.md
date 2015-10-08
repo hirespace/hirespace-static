@@ -99,7 +99,35 @@ To add a *AND assertion*, you might do:
 
 #### hs-bind
 
-To bind data from controllers, use the ```HsBind``` service.
+To bind data from controllers, we use the ```HsBind``` service.
+
+In the controller:
+
+        ...
+        export class TestController {
+            BookingData: BookingData;
+
+            constructor() {
+                console.log('Hello, World!');
+                
+                this.BookingData.venueName = 'Test Name';
+                
+                this.updateView();
+            }
+            
+            updateView() {
+                hirespace.View.updateView(this, 'body');
+            }
+        }
+        
+        class BookingData {
+            venueName: string;
+            
+            constructor() {}
+        }
+        ...
+        
+In the HTML:
 
         <elem hs-bind="BookingData.venueName"></elem>
 
