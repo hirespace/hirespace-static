@@ -1,5 +1,164 @@
 .page-jobs
 
+  .band
+    background-color: $color-grey-50
+    padding: $double-unit-layout 0
+    .col-md-4
+      text-align: center
+      button
+        font-weight: bold
+
+  .testimonial
+    margin-bottom: $double-unit-layout
+    +respond-to-size($screen-md)
+      margin-bottom: $base-unit-layout !important
+
+    .col-xs-12
+      +respond-to-size($screen-md)
+        padding: $base-unit-layout
+        &:first-child
+          border-bottom: 1px solid $color-grey-100
+
+    .col-md-4
+      padding: $double-unit-layout 0
+      text-align: center
+      strong
+        font-size: rem(30px)
+    p
+      color: $color-grey-400
+      padding-right: $double-unit-layout
+
+    .image
+      padding:
+        left: 0
+        right: 0
+      img
+        +border-radius(100%)
+        max-width: rem(50px)
+      display: inline-block
+      height: rem(50px)
+      float: left
+
+    .name
+      padding:
+        left: $half-unit-layout
+        top: 0.35rem
+      display: inline-block
+      strong, span
+        display: block
+      span
+        color: $color-grey-300
+      height: rem(50px)
+      float: left
+
+  .department
+    background-color: $color-grey-50
+    padding-bottom: $double-unit-layout
+
+    .heading
+      font-size: rem(30px)
+      text-align: center
+      padding:
+        top: $double-unit-layout
+        bottom: $base-unit-layout
+
+    .col-md-6
+      padding: 0
+      max-height: rem(257px)
+
+      .opening
+        padding: $double-unit-layout
+        text-align: center
+        background-color: white
+        border: 1px solid $color-grey-100
+        margin: $base-unit-layout
+        max-height: rem(205px)
+        height: rem(205px)
+
+        .title
+          font-size: rem(22px)
+
+        .description
+          color: $color-grey-400
+          margin: $base-unit-layout 0
+
+        .positions
+          color: $color-green-700
+
+      .open
+        padding: $base-unit-layout $double-unit-layout
+        background-color: white
+        border: 1px solid $color-green-700
+        margin: $base-unit-layout
+        clear: both
+        max-height: rem(205px)
+        height: rem(205px)
+        
+        hr
+          border-color: $color-grey-50
+          margin: 0
+
+        .job
+          margin: $base-unit-layout 0
+
+          .city
+            color: $color-grey-300
+
+          button
+            float: right
+            height: rem(30px)
+            padding: $half-unit-layout $base-unit-layout
+            line-height: 0px
+            margin-top: rem(-5px)
+
+.page-job
+  background-color: white
+
+  .band
+    background-color: $color-black
+
+    .row
+      text-align: center
+      padding: $base-unit-layout 0
+      span
+        color: $color-grey-300
+      strong
+        font-size: rem(30px)
+        color: white
+      span, strong
+        display: block
+
+  .content
+    .container
+      .row
+        margin: $base-unit-layout 10rem
+        +respond-to-size($screen-md)
+          margin: $base-unit-layout
+
+        strong
+          font-size: rem(24px)
+          margin-top: $base-unit-layout
+          display: block
+
+        p
+          color: $color-grey-400
+        button
+          padding: $three-quarters-unit-layout $double-unit-layout
+
+      .bullet
+        margin-bottom: $double-unit-layout
+
+      .apply
+        margin:
+          top: $double-unit-layout
+          bottom: $triple-unit-layout
+
+
+  .incentives
+    background-color: $color-grey-50
+
+
+.page-jobs, .page-job
   header
     background-color: $color-black
 
@@ -79,7 +238,6 @@
             top: $half-unit-layout
             bottom: $half-unit-layout
 
-
   .incentives
     .row
       margin-top: $half-unit-layout
@@ -96,117 +254,6 @@
           color: $color-black
         p
           color: $color-grey-400
-
-  .band
-    background-color: $color-grey-50
-    padding: $double-unit-layout 0
-    .col-md-4
-      text-align: center
-      button
-        font-weight: bold
-
-  .testimonial
-    margin-bottom: $double-unit-layout
-    +respond-to-size($screen-md)
-      margin-bottom: $base-unit-layout !important
-
-    .col-xs-12
-      +respond-to-size($screen-md)
-        padding: $base-unit-layout
-        &:first-child
-          border-bottom: 1px solid $color-grey-100
-
-    .col-md-4
-      padding: $double-unit-layout 0
-      text-align: center
-      strong
-        font-size: rem(30px)
-    p
-      color: $color-grey-400
-      padding-right: $double-unit-layout
-
-    .image
-      padding:
-        left: 0
-        right: 0
-      img
-        +border-radius(100%)
-        max-width: rem(50px)
-      display: inline-block
-      height: rem(50px)
-      float: left
-
-    .name
-      padding:
-        left: $half-unit-layout
-        top: 0.35rem
-      display: inline-block
-      strong, span
-        display: block
-      span
-        color: $color-grey-300
-      height: rem(50px)
-      float: left
-
-  .department
-    background-color: $color-grey-50
-    padding-bottom: $double-unit-layout
-
-    .heading
-      font-size: rem(30px)
-      text-align: center
-      padding:
-        top: $double-unit-layout
-        bottom: $base-unit-layout
-
-    .col-md-6
-      padding: 0
-      max-height: rem(257px)
-
-      .opening
-        padding: $double-unit-layout
-        text-align: center
-        background-color: white
-        border: 1px solid $color-grey-100
-        margin: $base-unit-layout
-
-        .title
-          font-size: rem(22px)
-
-        .description
-          color: $color-grey-400
-          margin: $base-unit-layout 0
-
-        .positions
-          color: $color-green-700
-
-      .open
-        padding: $base-unit-layout $double-unit-layout
-        background-color: white
-        border: 1px solid $color-green-700
-        margin: $base-unit-layout
-        clear: both
-
-        .job
-          border-bottom: 1px solid $color-grey-50
-          overflow: auto
-          padding: 1.19rem 0
-          clear: both
-
-          &:last-child
-            border-bottom: none
-
-          .city
-            color: $color-grey-300
-
-          button
-            float: right
-            height: rem(30px)
-            padding: $half-unit-layout $base-unit-layout
-            line-height: 0px
-            margin-top: rem(-5px)
-
-
 
 
 

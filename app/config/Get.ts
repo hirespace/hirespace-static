@@ -101,3 +101,17 @@ export function jobs(req: express.Request, res: express.Response) {
         }
     });
 }
+
+export function job(req: express.Request, res: express.Response) {
+    res.locals = {
+        controller: 'JobsController',
+        pageTitle: 'Job',
+        bodyClass: 'page-job'
+    };
+
+    return res.render('page-jobs/job', {
+        partials: {
+            footer: 'partials/footer'
+        }
+    });
+}

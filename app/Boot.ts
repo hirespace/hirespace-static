@@ -39,6 +39,7 @@ app.get('/legal', getRequest.legal);
 app.get('/press', getRequest.press);
 app.get('/team', getRequest.team);
 app.get('/jobs', getRequest.jobs);
+app.get('/jobs/job', getRequest.job);
 
 app.listen(6065, function () {
     console.log('Express server listening on port %d in %s mode', 6065, app.settings.env);
