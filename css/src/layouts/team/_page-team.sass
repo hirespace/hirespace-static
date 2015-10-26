@@ -1,0 +1,81 @@
+.page-team
+
+  header
+    background-color: $color-black
+
+    .photo
+      height: rem(450px)
+      width: 100%
+      margin: 0
+      padding: $base-unit-layout
+      background:
+        image: url('https://wallpaperscraft.com/image/london_big_ben_night_landscape_28416_1920x1200.jpg')
+        size: cover
+        position: center
+        repeat: no-repeat
+      .head
+        margin: 0
+        .logo
+          background:
+            image: url('https://hirespace.com/img/invertedH48.png')
+            repeat: no-repeat
+          height: rem(47px)
+          padding: 0
+        button
+          +border-radius(3px 3px 3px 3px)
+          border-color: white
+          color: white
+          background: transparent
+          height: $triple-unit-layout
+          line-height: $triple-unit-layout
+          float: right
+          padding:
+            top: 0
+            bottom: 0
+      .floating-spans
+        height: rem(250px)
+        width: 100%
+        display: table
+        margin: 0
+        overflow: hidden
+        p
+          display: table-cell
+          vertical-align: middle
+          text-align: center
+          color: white
+          font-size: rem(36px)
+    .nav
+      line-height: $quadruple-unit-layout
+      +respond-to-size($screen-md)
+        text-align: center
+      ul
+        display: inline
+        li
+          display: inline
+          color: $color-grey-300
+          height: $triple-unit-layout
+          line-height: $triple-unit-layout
+          padding:
+            left: $base-unit-layout
+            right: $base-unit-layout
+          &:hover
+            color: white
+            cursor: pointer
+          &.active
+            color: white
+            font-weight: bold
+          &:not(:first-child)
+            border-left: 1px solid $color-grey-700
+          &:first-child
+            padding-left: 0
+          +respond-to-size($screen-md)
+            display: block
+            border-left: 0 !important
+            &:first-child
+              padding-left: $base-unit-layout
+        +respond-to-size($screen-md)
+          display: block
+          margin:
+            top: $half-unit-layout
+            bottom: $half-unit-layout
+
