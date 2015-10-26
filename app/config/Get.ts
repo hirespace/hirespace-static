@@ -115,3 +115,17 @@ export function job(req: express.Request, res: express.Response) {
         }
     });
 }
+
+export function categroy(req: express.Request, res: express.Response) {
+    res.locals = {
+        controller: 'CategoryController',
+        pageTitle: 'Category',
+        bodyClass: 'page-category'
+    };
+
+    return res.render('page-category/layout', {
+        partials: {
+            footer: 'partials/footer'
+        }
+    });
+}
