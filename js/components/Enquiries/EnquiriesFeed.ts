@@ -142,7 +142,7 @@ module hirespace {
                 hirespace.View.updateView(this, 'nav.enquiries-feed');
 
                 if (hirespace.Debug.getEnvironment() !== 'test') {
-                    _.forEach(_.values(enquiriesFeedStages), stage => {
+                    _.forEach(_.values(enquiriesFeedStages), (stage: string) => {
                         if (this.enquiriesFeed[stage].enquiries.data.length > 0) {
                             let target = $('nav.enquiries-feed .sub ul.' + stage),
                                 HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), this.enquiriesFeed[stage].enquiries.data);
@@ -192,7 +192,9 @@ module hirespace {
                 _.forEach(this.enquiriesFeed, (stageData, stageName) => {
                     if (stageData.enquiries.data.length > 0) {
                         if (stageName !== enquiriesFeedStages[this.currentEnquiry.stage]) {
-                            this.enquiriesFeed[stageName].pagination.page = 0;
+                            if (!this.enquiriesFeed[stageName].open) {
+                                this.enquiriesFeed[stageName].pagination.page = 0;
+                            }
 
                             if (newData) {
                                 this.enquiriesFeed[stageName].open = false;
@@ -225,7 +227,7 @@ module hirespace {
                 hirespace.View.updateView(this, 'nav.enquiries-feed');
 
                 if (hirespace.Debug.getEnvironment() !== 'test') {
-                    _.forEach(_.values(enquiriesFeedStages), stage => {
+                    _.forEach(_.values(enquiriesFeedStages), (stage: string) => {
                         if (this.enquiriesFeed[stage].enquiries.data.length > 0) {
                             let target = $('nav.enquiries-feed .sub ul.' + stage),
                                 HsRepeat = new hirespace.HsRepeat(target.attr('hs-repeat'), this.enquiriesFeed[stage].enquiries.data);

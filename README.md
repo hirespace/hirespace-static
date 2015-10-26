@@ -60,6 +60,59 @@ and then create a pull request (from your **develop** branch).
 
 ### Using the Front-End application
 
+To bind a controller to a specific view, bind the name to the body's ```hs-ctr``` attribute:
+
+        <body hs-ctr="TestController"></body>
+        
+Create a new directory in **js/components**, e.g. Test, in which we'll create a new file called ```TestController.ts```:
+
+        module hirespace {
+            'use strict';
+        
+            export class TestController {
+                constructor() {
+                    console.log('Hello, World!');
+                }
+            }
+        
+            // The controller will only be bound if you do the below – explicitly subscribe it under the hirespace module
+            hirespace.App.subscribe('TestController', TestController);
+        }
+
+#### hs-bind
+
+To bind data from controllers, we use the ```HsBind``` service.
+
+In the controller:
+
+        ...
+        export class TestController {
+            BookingData: BookingData;
+
+            constructor() {
+                console.log('Hello, World!');
+                
+                this.BookingData.venueName = 'Test Name';
+                
+                this.updateView();
+            }
+            
+            updateView() {
+                hirespace.View.updateView(this, 'body');
+            }
+        }
+        
+        class BookingData {
+            venueName: string;
+            
+            constructor() {}
+        }
+        ...
+        
+In the HTML:
+
+        <elem hs-bind="BookingData.venueName"></elem>
+
 #### toggle-class
 
 The most powerful part of the application is the ```ToggleClass``` model. It enables you to toggle classes on any HTML

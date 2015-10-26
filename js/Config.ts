@@ -17,8 +17,8 @@ module hirespace {
 
     let apiUrls: IApiUrls = {
         production: 'https://mongoapi.hirespace.com/',
-        development: 'http://stagingmongoapi.hirespace.com/',
-        test: 'http://stagingmongoapi.hirespace.com/'
+        development: 'https://stagingmongoapi.hirespace.com/',
+        test: 'https://stagingmongoapi.hirespace.com/'
     };
 
     let enquirySendEmailApi: IApiUrls = {

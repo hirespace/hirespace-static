@@ -13,7 +13,7 @@ module hirespace {
             this.objectAlias[this.attrData.objectAlias] = resolveObject;
         }
 
-        updateView(elem: JQuery) {
+        updateView(elem: any) {
             // To target specific parent
             // @TODO refactor and abstract into magic vars
             let scopeId = Math.random().toString(36).substring(7);
@@ -27,7 +27,9 @@ module hirespace {
             _.forEach(this.objectAlias[this.attrData.objectAlias], (data, key) => {
                 elem.append(iterateeHTML);
 
-                let currentElem = $(_.last(elem.children()));
+                let children = elem.children();
+
+                let currentElem = $(_.last(children));
                 currentElem.attr('hs-repeat-index', key);
 
                 let resolveObject = {};

@@ -35,7 +35,7 @@ module hirespace {
             return assertionData.type == 'equality' ? (resolved == assertionData.value) : (!_.isUndefined(resolved));
         }
 
-        static resolveObject(path: string, target: Object, safe?: boolean): string {
+        static resolveObject(path: string, target: Object, safe?: boolean): any {
             let keys = path.split('.');
 
             return _.reduce(keys, (previous, current) => !safe ? previous[current] : (previous ? previous[current] : undefined),

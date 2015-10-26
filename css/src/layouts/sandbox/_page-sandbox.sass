@@ -1,0 +1,87 @@
+.page-sandbox
+  footer
+    background: $color-black
+    padding: 0
+
+    section
+      padding: $double-unit-layout 0
+
+      &:first-of-type
+        $form-height: rem(48px)
+
+        border-bottom: 1px solid $color-grey-800
+
+        .container
+          form, strong
+            height: $form-height
+          strong
+            @extend .text-left
+
+            display: block
+            line-height: $form-height
+            color: white
+            font:
+              size: rem(20px)
+              weight: 700
+
+        .container
+          $radius: 4px
+
+          input, button
+            +border-radius(0)
+
+            height: $form-height
+            margin: 0
+            padding: 0 $unit-layout
+            background: transparent
+            float: left
+            border: 1px solid $color-grey-500
+
+            +respond-to-size($screen-md)
+              width: 100%
+
+          input
+            color: white
+
+            +placeholder
+              color: $color-grey-500
+
+            &:first-of-type
+              +border-radius($radius 0 0 $radius)
+
+              +respond-to-size($screen-md)
+                +border-radius($radius)
+              
+            &:last-of-type
+              border-left: 0
+              border-right: 0
+
+            +respond-to-size($screen-md)
+              +border-radius($radius)
+
+              border: 1px solid $color-grey-500 !important
+              margin-bottom: $unit-layout
+
+          button
+            +border-radius(0 $radius $radius 0)
+
+            border-color: white
+            color: white
+            padding-left: $double-half-unit-layout
+            padding-right: $double-half-unit-layout
+
+            +respond-to-size($screen-md)
+              +border-radius($radius)
+
+    section
+      ul
+        list-style-type: none
+
+      li
+        text-align: left
+        color: $color-grey-500
+
+        strong
+          color: white
+          font:
+            weight: 700
