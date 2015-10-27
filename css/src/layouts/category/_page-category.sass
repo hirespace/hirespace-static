@@ -24,10 +24,10 @@
           padding: 0
           span
             position: absolute
-            right: rem(118px)
+            right: rem(121px)
             color: white
-            bottom: 0
-            font-size: rem(10px)
+            bottom: rem(-1px)
+            font-size: rem(11px)
         button
           +border-radius(3px 3px 3px 3px)
           height: $triple-unit-layout
@@ -68,6 +68,8 @@
     background: rgba($color-black, 0.75)
     margin-top: rem(-70px)
     .row
+      +respond-to-size($screen-md)
+        padding-left: $double-half-unit-layout
       padding: $double-half-unit-layout 0
       strong
         color: white
@@ -75,7 +77,8 @@
         margin: 0 $half-unit-layout
 
   .main
-    padding-bottom: $base-unit-layout
+    button
+      border: 1px solid $color-hirespace
     .container
       padding: 0
       .col-md-7
@@ -85,12 +88,31 @@
     background-color: $color-background
     .row
       margin: $base-unit-layout 0
+    .left, .right
+      .box
+        &:first-child
+          margin-top: 0
+    .left
+      +respond-to-size($screen-md)
+        padding-left: 15px !important
+    .right
+      +respond-to-size($screen-md)
+        padding-right: 15px !important
+
     .box
       background-color: white
       border: 1px solid $color-grey-100
       +border-radius(3px)
-      padding: $base-unit-layout
+      padding: $double-half-unit-layout
+      margin: $double-unit-layout 0
     .search
+      +respond-to-size($screen-md)
+        margin:
+          left: 15px
+          right: 15px
+      div
+        +respond-to-size($screen-md)
+          margin: $half-unit-layout 0
       button
         float: right
         width: 100%
@@ -99,7 +121,23 @@
         font-size: rem(15px)
         padding-top: 15px
         padding-bottom: 15px
-
+      .budget
+        span
+          background-color: $color-grey-75
+          color: $color-black
+          width: 14%
+          display: inline-block
+          float: left
+          height: rem(51px)
+          line-height: rem(51px)
+          text-align: center
+          +border-radius(3px 0 0 3px)
+          font-style: rem(17px)
+          border: 1px solid $color-grey-100
+          border-right: 0
+        input
+          width: 86%
+          +border-radius(0 3px 3px 0)
     .venue
       img
         width: 100%
@@ -127,16 +165,89 @@
         border-color: white
       .price
         height: rem(52px)
+        +respond-to-size($screen-md)
+          height: auto
+          text-align: center
         .col-md-5
           margin-top: rem(10px)
+          +respond-to-size($screen-md)
+            margin-bottom: $half-unit-layout
+            padding: 0
+        .col-md-7
+          +respond-to-size($screen-md)
+            padding: 0
         span
           color: $color-hirespace
           font-size: rem(22px)
         .green
           float: right
+          +respond-to-size($screen-md)
+            float: none
     hr
       margin: 1rem 0 1.5rem 0
       border-color: $color-grey-50
+    .map
+      height: rem(400px)
+      text-align: center
+      padding: 0
+      button
+        position: relative
+        bottom: rem(80px)
+    .about
+      .row
+        margin-bottom: 0
+        img
+          width: rem(60px)
+          +border-radius(50px)
+        button
+          float: right
+          position: relative
+          top: 5px
+        .col-md-9
+          position: relative
+          top: 10px
+        .col-md-3
+          +respond-to-size($screen-md)
+            margin-right: rem(20px)
+    .blog
+      span
+        color: $color-grey-300
+        font-size: rem(14px)
+      span, strong
+        display: block
+      strong
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+      button
+        width: 100%
+        margin-top: $half-unit-layout
+    .reviews
+      img
+        width: rem(60px)
+        +border-radius(50px)
+      p
+        font-style: italic
+        display: inline-block
+        margin-bottom: $half-unit-layout
+      strong, span
+        display: block
+      strong
+        color: $color-grey-400
+      span
+        color: $color-grey-300
+      .col-md-2
+        +respond-to-size($screen-md)
+          margin-right: rem(20px)
+
+  .bottom
+    background-color: white
+    padding: $double-unit-layout
+    .row
+      text-align: center
+      button
+        border: 1px solid $color-hirespace
+        font-size: rem(20px)
 
 
 
