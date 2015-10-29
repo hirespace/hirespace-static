@@ -17,6 +17,8 @@
         <script>try{Typekit.load();}catch(e){}</script>
 
         <script type="text/javascript" src="//api.filepicker.io/v2/filepicker.js"></script>
+
+        <script src="/assets/bower_components/html5shiv/dist/html5shiv.min.js" type="text/javascript"></script>
     </head>
 
     <body class="pre-load en {{ bodyClass }}" data-ctr="{{ controller }}">
@@ -33,6 +35,10 @@
 
         {{{ yield }}}
 
+        <script src="/assets/bower_components/REM-unit-polyfill/js/rem.min.js" type="text/javascript"></script>
+        <script src="/assets/bower_components/respond/dest/respond.min.js" type="text/javascript"></script>
+        <script src="/assets/bower_components/es5-shim/es5-shim.min.js" type="text/javascript"></script>
+        <script src="/assets/bower_components/placeholders/dist/placeholders.min.js" type="text/javascript"></script>
         <script src="/assets/js/dist/vendor.js" type="text/javascript"></script>
         <script src="/assets/js/dist/app.js" type="text/javascript"></script>
 
