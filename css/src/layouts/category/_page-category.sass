@@ -9,13 +9,17 @@
       width: 100%
       margin: 0
       padding: $base-unit-layout
-      background:
-        image: url('https://wallpaperscraft.com/image/london_big_ben_night_landscape_28416_1920x1200.jpg')
-        size: cover
-        position: center
-        repeat: no-repeat
+      position: relative
+      overflow: hidden
+      img
+        position: absolute
+        width: 100%
+        left: 0
+        top: -300px
       .head
         margin: 0
+        z-index: 1
+        position: relative
         .logo
           background:
             image: url('https://hirespace.com/img/invertedH48.png')
@@ -51,6 +55,8 @@
         display: table
         margin: 0
         overflow: hidden
+        z-index: 1
+        position: relative
         p
           display: table-cell
           vertical-align: middle
@@ -68,6 +74,8 @@
     background: $color-black
     background: rgba($color-black, 0.75)
     margin-top: rem(-70px)
+    z-index: 1
+    position: relative
     .row
       +respond-to-size($screen-md)
         padding-left: $double-half-unit-layout
@@ -171,6 +179,16 @@
         i
           margin-left: rem(13px)
           margin-right: rem(4px)
+      a
+        text-decoration: none
+        color: $color-black
+        &:hover, &:active
+          text-decoration: underline
+        h5
+          text-overflow: ellipsis
+          white-space: nowrap
+          overflow: hidden
+          margin: 1rem 0 .5rem
       p
         overflow: hidden
         height: rem(50px)
