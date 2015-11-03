@@ -26,12 +26,6 @@
             repeat: no-repeat
           height: rem(47px)
           padding: 0
-          span
-            position: absolute
-            right: rem(121px)
-            color: white
-            bottom: rem(-1px)
-            font-size: rem(11px)
         button
           +border-radius(3px 3px 3px 3px)
           height: $triple-unit-layout
@@ -129,6 +123,18 @@
         margin:
           left: 15px
           right: 15px
+      .twitter-typeahead
+        width: 100%
+        .tt-dropdown-menu
+          width: 100%
+          background-color: white
+          border: 1px solid $color-grey-100
+        .tt-dropdown-menu .tt-suggestion > p
+          padding: $half-unit-layout
+        .tt-dropdown-menu .tt-suggestion >p:hover, .tt-dropdown-menu .tt-suggestion >p:focus, .tt-dropdown-menu .tt-cursor > p
+          cursor: pointer
+          background: $color-hirespace
+          color: white
       div
         +respond-to-size($screen-md)
           margin: $half-unit-layout 0

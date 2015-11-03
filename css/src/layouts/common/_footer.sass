@@ -50,6 +50,12 @@
           +hover
             color: white
             border-color: white
+      .feedback
+        color: white
+        font-size: rem(15px)
+        position: absolute
+        width: 100%
+        padding-top: rem(5px)
     .splitter
       border-bottom: 1px solid $color-grey-500
       padding: 0
@@ -76,7 +82,12 @@
         +respond-to-size($screen-md)
           margin-bottom: $base-unit-layout
       li
-        color: $color-grey-300
+        a:link, a:visited
+          color: $color-grey-300
+          text-decoration: none
+        a:hover, a:active
+          text-decoration: underline
+          color: $color-grey-500
         +respond-to-size($screen-md)
           font-size: rem(16px)
 
