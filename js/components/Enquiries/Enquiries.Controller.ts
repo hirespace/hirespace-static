@@ -300,6 +300,8 @@ module hirespace {
         static parseBookingData(bookingData: IBookingData): IBookingData {
             bookingData.customer.firstName = _.first(bookingData.customer.name.split(' '));
             bookingData.word = _.isEmpty(bookingData.word) ? 'Enquiry' : bookingData.word;
+            bookingData.customer.phone = _.first(bookingData.customer.name.split(' '));
+            bookingData.customer.email = _.first(bookingData.customer.name.split(' '));
 
             let messageWords = bookingData.message ? bookingData.message.match(/(\w+)/g) : [];
             // @TODO
