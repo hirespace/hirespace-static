@@ -21,6 +21,8 @@ module hirespace {
         test: 'https://stagingmongoapi.hirespace.com/'
     };
 
+    // TODO - update this to a very very simple lambda...
+
     let enquirySendEmailApi: IApiUrls = {
         production: 'https://venues.hirespace.com/EnquiriesFeed/SendEmail',
         development: 'http://staging.venues.hirespace.com/EnquiriesFeed/SendEmail',

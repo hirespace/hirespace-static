@@ -43,6 +43,7 @@ module hirespace {
         mobile?: string | boolean;
         name: string;
         phone?: string | boolean;
+        fastTrackEmail: string;
     }
 
     interface IDate {
