@@ -64,13 +64,18 @@ module hirespace {
                         emailData: boolean | {} = false;
 
                     if ($(e.target).hasClass('send-email')) {
+
                         emailData = {
-                            toEmailAddress: this.bookingData.customer.fastTrackEmail,
-                            toName: this.bookingData.customer.name,
-                            subject: 'RE: ' + this.bookingData.word + ' at ' + this.bookingData.venue.name,
-                            message: $('#modalQuickReply textarea').val(),
+                            sendEmail: true,
+                            emailDirection: 'fromVenueToCustomer',
+                            sender: this.bookingData.venue.managerEmail,
+                            bodyText: $('#modalQuickReply textarea').val(),
+                            subject: `Re: Your ${this.bookingData.word} at ${this.bookingData.venue.name}`,
+                            bookingLineId: this.bookingData._id,
+                            bookingId:  this.bookingData.bookingId,
+                            venueId: this.bookingData.venue.venueId,
                             attachments: _.isUndefined(this.attachments) ? [] : this.attachments
-                        };
+                        }
 
                         this.sendEmailPromise(emailData).then(response => {
                             hirespace.Notification.generate('Your Message was successfully sent. The enquiry is moved to In Progress', 'in-progress');
@@ -241,7 +246,7 @@ module hirespace {
 
         sendEmailPromise(emailData: any): JQueryPromise<any> {
             return $.ajax({
-                contentType: "text/plain",
+                contentType: "application/json",
                 crossDomain: true,
                 data: JSON.stringify(emailData),
                 dataType: 'json',
