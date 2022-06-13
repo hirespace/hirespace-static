@@ -15,7 +15,7 @@ var autoprefixer = require('gulp-autoprefixer'),
 
 gulp.task('server', function () {
     nodemon({
-        script: 'app/Boot.js',
+        script: 'app/Boot.ts',
         ext: 'ts html',
         ignore: ['js/**/*', 'README'],
         env: {NODE_ENV: 'development'},

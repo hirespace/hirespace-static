@@ -43,6 +43,7 @@ module hirespace {
         mobile?: string | boolean;
         name: string;
         phone?: string | boolean;
+        fastTrackEmail: string;
     }
 
     interface IDate {
@@ -59,7 +60,9 @@ module hirespace {
 
     interface IVenue {
         manager: string;
+        managerEmail: string;
         name: string;
+        venueId?: number;
         // @TODO
         // is this mandatory?
         spaceName?: string;
@@ -73,7 +76,7 @@ module hirespace {
     }
 
     export interface IBookingData {
-        _id: string;
+        _id: string; // THis is the bookingline ID
         budget: number;
         customer: ICustomer;
         date: IDate;

@@ -21,10 +21,12 @@ module hirespace {
         test: 'https://stagingmongoapi.hirespace.com/'
     };
 
+    // TODO - update this to a very very simple lambda...
+
     let enquirySendEmailApi: IApiUrls = {
-        production: 'https://venues.hirespace.com/EnquiriesFeed/SendEmail',
-        development: 'http://staging.venues.hirespace.com/EnquiriesFeed/SendEmail',
-        test: 'http://staging.venues.hirespace.com/EnquiriesFeed/SendEmail'
+        production: 'https://fva9ig61gd.execute-api.eu-west-1.amazonaws.com/Prod/fast-track-reply',
+        development: 'https://2w4b1wu5fc.execute-api.eu-west-1.amazonaws.com/Prod/fast-track-reply',
+        test: 'https://2w4b1wu5fc.execute-api.eu-west-1.amazonaws.com/Prod/fast-track-reply'
     };
 
     let apiRoutes: IApiRoutes = {
